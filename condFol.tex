@@ -1,0 +1,1412 @@
+\documentclass{llncs}
+\usepackage{latexsym,graphicx,mypaper,url,amssymb}
+\usepackage[curve,frame,cmtip,line,rotate,matrix,v2]{xy}
+%\usepackage{hyperref} 
+
+%\newcommand{\note}[1]{\emph{#1}}
+\newcommand{\HGraphCat}{\ensuremath{\cat{HGraph_{\Sigma}}}}
+\newcommand{\Pos}{{\pnat^*}}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\pnat}{\nat_{>0}}
+\newcommand{\ldot}{\,.\,}
+%AC from Tobias....
+
+\newdir{|>}{*\txt{\ensuremath{\triangleright\,}}}
+\newdir{<|}{*\txt{\ensuremath{\,\triangleleft}}}
+\newdir{||--}{*\txt{\scalebox{1.3}{\dir^{|-}}}}
+\newdir{|-=}{*\txt{\scalebox{1.3}{\dir^{|-}\dir^{<}}}} 
+\newdir{|=-}{*\txt{{\scalebox{1.3}{\dir^{|-}\rotatebox{90}{\dir_{<}}}}}}
+\newdir{|-==}{*\txt{\scalebox{1.3}{\dir^{|-}\dir_{<}}}}
+\newdir{|==-}{*\txt{{\scalebox{1.3}{\dir^{|-}\rotatebox{90}{\dir^{<}}}}}}
+\newdir{|-='}{*\txt{\scalebox{1.3}{\dir^{|-}\dir_{<}}}}
+\newdir{|=-'}{*\txt{\scalebox{1.3}{\dir_{|-}\dir_{<}}}}
+\newcommand{\pbcxy}[2][]%
+{\save#1%!L(0.5)
+  *!/#2+1.4pc/#2:(1,-1)@^{||--}\restore}
+%% \save   : ok save something
+%% *       : the current position ...
+%% !/ v /       : shifted by vector v wher v = 
+%% #2#1pc  : dirction and 
+\newcommand{\pbcs}[1]%
+{\save*!/#1+1.4pc/#1:(-1,1)@^{||--}\restore}
+
+
+\newcommand{\poc}[2][]%
+{\save#1%!L(0.5)
+  *!/#2-1.4pc/#2:(-1,1)@^{||--}\restore}
+%{\save!L(0.5)#1*!/#2 1.4pc/#2:(-1,1)@^{||--}\restore}
+\newcommand{\gpbc}[2][]%
+{\save#1%!L(0.5)
+  *!/#2+1.4pc/#2:(1,-1)@^{|-=}\restore}
+\newcommand{\pbcg}[2][]%
+{\save#1%!L(0.5)
+  *!/#2+1.4pc/#2:(1,-1)@^{|=-}\restore}
+\newcommand{\lpbc}[2][]%
+{\save#1%!L(0.5)
+  *!/#2+1.4pc/#2:(1,-1)@^{|-==}\restore}
+\newcommand{\pbcl}[2][]%
+{\save#1%!L(0.5)
+  *!/#2+1.4pc/#2:(1,-1)@^{|==-}\restore}
+
+
+\newtheorem{observation}{Observation}{\itshape}{\rmfamily}
+\newtheorem{fact}{Fact}{\itshape}{\rmfamily}
+
+\usepackage{tikzit}
+\input{hypergraph.tikzdefs}
+\input{hypergraph.tikzstyles}
+
+\renewcommand{\abb}[3]{% {FIGNAME}{FACTOR}{CAPTION}
+    \begin{figure}
+    \centerline{
+      \includegraphics*[scale = #2]{figs/#1.pdf}
+    }
+    \caption{#3}
+    \label{fig:#1}
+    \end{figure}
+}
+
+\newcommand{\scirc}{\circ_{\!s}}
+
+\newcommand{\urlink}[1]{\url{#1}} %{\htmladdnormallink{\url{#1}}{#1}}
+\newcommand{\link}[2]{#1}  %{\htmladdnormallink{#1}{#2}}
+
+\sloppy
+\frenchspacing
+
+\title{On Nested Application Condition and First Order Logic}
+
+\author{Arend Rensink$^1$ \and Andrea Corradini$^2$ \and $\ldots$}
+
+\institute{
+University of Twente, NL,
+\email{arend.rensink@utwente.nl} \and
+University of Pisa, Italy,
+\email{andrea.corradini@unipi.it}}
+
+\newcommand{\lgts}{{lgts}}
+\newcommand{\graph}{{\mathcal Graph}}
+\newcommand{\dpo}{\mathbf{DPO}}
+\newcommand{\dpb}{\mathbf{DPB}}
+\newcommand{\mspan}{\mathbf{MSpan}}
+\newcommand{\sys}{\mathbf{Sys}}
+\newcommand{\rsys}{\mathbf{RSys}}
+\newcommand{\ssys}{\mathbf{SSys}}
+\newcommand{\srsys}{\mathbf{SRSys}}
+
+\newcommand{\transi}{\mbox{\it trs}}
+\newcommand{\trafoi}{\mbox{\it trf}}
+
+%\newcommand{\tsys}{\mathbf{TSys}}
+\newcommand{\inv}[1]{\ [#1\>\ } 
+\newcommand{\greco}{\mathbf{Com}}
+\newcommand{\gremod}{\mathbf{Mod}}
+\newcommand{\frob}{\mbox{frob}}
+
+\newcommand{\PhiTo}{/ \hspace{-123pt} \Longrightarrow}
+
+\makeatletter
+\def \rightarrowfill{\m@th\mathord{\smash-}\mkern-6mu%
+  \cleaders\hbox{$\mkern-2mu\mathord{\smash-}\mkern-2mu$}\hfill
+  \mkern-6mu\mathord\rightarrow}
+\makeatother
+\makeatletter
+\def \Rightarrowfill{\m@th\mathord{\smash-}\mkern-6mu%
+  \cleaders\hbox{$\mkern-2mu\mathord{\smash-}\mkern-2mu$}\hfill
+  \mkern-6mu\mathord\Rightarrow}
+\makeatother
+\makeatletter
+\def \mapstofill{\m@th\mathord{\smash-}\mkern-6mu%
+  \cleaders\hbox{$\mkern-2mu\mathord{\smash-}\mkern-2mu$}\hfill
+  \mkern-6mu\mathord\longmapsto}
+\makeatother
+
+\def \overunderstackrel#1#2#3{\mathrel{\mathop{#1}\limits^{#2}_{#3}}}
+\def \overstackrel#1#2{\mathrel{\mathop{#1}\limits^{#2}}}
+\def \understackrel#1#2{\mathrel{\mathop{#1}\limits_{#2}}}
+\def\dlarrow#1#2{\overunderstackrel{\rightarrowfill}{#1}{#2}}
+
+\def\ctrans#1#2{\overunderstackrel{\Longrightarrow}{#1}{#2}}
+
+\usepackage{graphicx} % provides "\rotatebox" and "\reflectbox" macros
+\newcommand\rotpi{\rotatebox[origin=c]{180}{$\pi$}}
+\newcommand\copi{\reflectbox{\rotpi}}
+
+\newcommand\Nabla{\rotatebox[origin=c]{180}{$\Delta$}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Only typesets second parameter if first is non-empty
+% \ifnonempty{text}{usage of text}
+\newcommand{\ifnonempty}[2]{\ifthenelse{\equal{#1}{}}{}{#2}}
+
+% Counter for margin or in-text comments
+\newcounter{comCounter}[section]
+
+% Author prefix
+% \by{Author} typesets \textbf{Author: }
+% \by{} is empty
+\newcommand{\by}[1]{\ifnonempty{#1}{\textbf{#1:}}}
+
+% Margin comment
+% \margincomment[Author]{text} puts "Author: text" in margin
+% \margincomment{text} just puts "text" in margin
+\newcommand{\margincomment}[2][]{%
+  \stepcounter{comCounter}%
+  $^{\thecomCounter}$
+  \marginpar{\scriptsize\by{#1}$^{\thecomCounter}$ #2}%
+}
+
+% Macro to make all comments invisible
+\newcommand{\commentsoff}{%
+  \renewcommand{\margincomment}[2][]{\relax}%
+  \let\textcomment\comment%
+  \let\endtextcomment\endcomment%
+}
+
+% Other comment-related macros
+\setlength{\marginparsep}{2.5mm}
+\setlength{\marginparwidth}{3.3cm}
+\newcommand{\comE}[1]{
+    \normalfont
+    \small{\thecomCounter})
+    #1				
+}
+
+\newcommand{\com}[1]{%
+    \stepcounter{comCounter}$^{\thecomCounter)}$
+    \marginpar[\flushleft \comE{#1}]{		
+        \flushleft
+        \comE{#1}
+    }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\newcommand\ctile[2]\mathrel{\mathop{\Rightarrow}^{\mathrm{#1}}_{\mathrm{#2}}}
+
+%\newcommand\ctile[2]
+%	{\overset#1
+%		{\underset{#2}
+%		\Longrightarrow}}
+
+
+%\underset{F}{\longleftarrow
+
+%\input{links}
+
+\begin{document}
+
+\pagestyle{plain}
+\maketitle
+
+\begin{abstract}
+Write me!!!
+\end{abstract}
+
+\section{The algebra of Nested Graph Conditions}
+
+Needed definitions:
+\begin{enumerate}
+  \item Monoidal signature $\Sigma = \bigcup\{_n\Sigma_m\}_{n,m \in \nat}$, arity $ar(\sigma) = n$ and coarity $coar(\sigma)=m$ iff $\sigma \in {_n\Sigma_m}$.
+  \item (Finite?) Edge-labeled hypergraphs: $G =\< V,E,l:E \to \Sigma, s,t:E \to V^*\>$ with: for all $e\in E$ it holds $ar(l(e)) = |s(e)|$ and $coar(l(e)) = |t(e)|.$
+  \item Category of hypergraphs and their morphisms $\HGraphCat$. 
+  \item Need a notation for the discrete graph (set) with $n$ nodes. For example: 
+  $\ul{n} = \{1,\ldots, n\}$
+  \item Discrete cospan (aka \emph{ranked hypergraph}, $n,m$-hypergraphs, $n,m$-ranked hypergraph ?): $\<l,G,r\>$, with $l:\ul{n} \to V_G$, $r:\ul{m} \to V_G$.
+  \item \emph{Positions}: finite strings of positive natural numbers ($\Pos$) (including the empty $\varepsilon$, if possible concatenation is juxtaposition, $w$, $iw$, $wj$ with $w \in \Pos, i,j \in \pnat$); \emph{closed set of positions}: $W \subseteq \Pos$ such that (1) it is finite, (2) it is prefix closed: $wi \in W \Rightarrow w \in W$, (3) it is downward closed (?)  $wi \in W, i > 1 \Rightarrow w(i-1) \in W$. 
+\end{enumerate}  
+
+\note{AC: We can define conditions first, and then ranked / typed ones}
+
+\begin{definition}[(nested) conditions]
+  \note{AC: Several definitions possible.}
+  \begin{enumerate}
+    \item
+    A \emph{(nested) condition} $C$ is a finite, non-empty, ordered\footnote{AC: we order the children of each node just to give them a name using a position, but intuitively they should form a set.} tree in the category of hypergraphs. 
+    Formally, $NC = \<W, c:W \to |\HGraphCat|, a:W\setminus\{\varepsilon\} \to Mor(\HGraphCat)\>$, where $W$ is a closed set of positions, and for each $wi \in W$, $a(wi): c(w) \to c(wi)$ is a morphism in  $\HGraphCat$. 
+
+    Typically, we denote hypergraph $c(w)$ as $C_w$. Therefore the root of $C$ is $C_{\varepsilon}$.
+    \item Recursive definiton using `conditions' and `predicates' as in the 2005 paper?
+    \item Coinductive definitions as in the paper with Barbara? 
+    \item An $n,m$-ranked condition $\<l,C,r\>$, is a condition $C$ equipped with morphisms $l,r$ making $\<l,C_{\varepsilon},r\>$  an $n,m$-ranked hypergraph .
+  \end{enumerate}
+\end{definition}
+
+In order to equip ranked graph conditions with Peircean Bicategorical structure, we define the needed algebraic operations on them, and prove that the relevant axioms hold, up to *** (semantical equivalence?).
+
+\begin{definition}[operations on conditions]
+
+  \begin{itemize}
+    \item The \emph{discharger} $!: 1 \to 0$ is the ranked condition 
+    $$\< id_{\ul{1}}, \< \{\varepsilon\}, \varepsilon\mapsto \ul{1}, \emptyset\>, ?_{\ul{1}}:
+   \ul{0} \to \ul{1}\>$$  
+   \item The \emph{co-discharger} $***: 0 \to 1$ is the ranked condition 
+   $$\< ?_{\ul{1}}:
+   \ul{0} \to \ul{1}, \< \{\varepsilon\}, \varepsilon\mapsto \ul{1}, \emptyset\>, id_{\ul{1}}\>$$
+
+%   \item  The \emph{duplicator} is component  $\Nabla_{RS} = \<RS [\rrel{id_{RS}} RS \lrel{ [id_{RS}, id_{RS}] }] RS + RS\>$;
+% %synchronises transformations between its left and two right interfaces; 
+% \item The \emph{co-duplicator} is component  $\Delta_{RS} = \<RS + RS [\rrel{ [id_{RS}, id_{RS}] } RS \lrel{id_{RS}}] RS\>$;
+% % synchronises transformations between its right and two left interfaces;
+% \item The \emph{discharger} is component  $!_{RS} = \<RS [\rrel{id_{RS}} RS \lrel{\emptyset}] S_\varnothing\>$;
+% % allows arbitrary transformations on its left interfaces;  
+% \item The \emph{co-discharger} is component $?_{RS} = \<S_\varnothing [ \rrel{\emptyset} RS \lrel{id_{RS}} ] RS\>$.
+% %allows arbitrary transformations on its right interface;  
+\end{itemize}
+\end{definition}
+
+\bibliographystyle{splncs03}
+\bibliography{references}
+
+\end{document}
+
+
+
+\section{Example}
+\label{sec:example}
+
+We model a simple architecture to motivate, illustrate and evaluate our concepts and results. The model consists of three components: a Client C, a Service S and a Database D.  The component diagram below 
+%in Fig.~\ref{fig:comp-diag} 
+gives a high-level view of the architecture. The components are connected via three interfaces. The Service Interface SI describes the operations provided by S and used by C. Conversely, the Client Interface CI is implemented by C and used by S. The idea is that C sends a requests through SI to be executed by S which, in turn, replies via the callback interface CI. While executing the request, S calls on D  to verify  and update the data. 
+
+\centerline{
+\includegraphics*[width = .4\textwidth]{figs/comp-diag.pdf}
+}
+
+%\abb{comp-diag}{0.25}{Component diagram}
+
+Components and interfaces are typed graph transformation systems with states related by morphisms. For our architecture. they are shown in Fig.~\ref{fig:TGGs}. For each system we  have the type graph in the left, followed by the rules, and the state graph
+made up of a single customer and its contract as a minimal test case.
+
+The morphisms mapping type, state graphs and rules between interfaces and components are indicated by vertical arrows on the left. They describe how internal type and state graphs are partially visible through the interfaces. Rules in the interfaces are subrules of projections of the rules in components to the interface types. If the projection results in a rule without effect, this rule can be dropped, e.g. the process rule is in S but not SI, unless we want to use it to synchronise actions between components, e.g. between S and D via DI.
+%
+Rules that are vertically aligned are related by morphisms. We use the integrated rule notation where left and right-hand sides are shown in the same graph, with deleted and created elements distinguished by colours blue and green and labelled $\{ delete \}$ and $\{ new \}$ respectively.
+\abb{TGGs}{0.35}{Typed graph transformation systems with runtime states for components and interfaces.}
+In the bottom we show the global system view Sys obtained by composing components over their shared interfaces.
+
+The model describes a claims process where C represents an insurance company's customer interface used to issue a request for payment. S is the service processing the request by checking the data D of the contract and, if successful, marking the customer as OK. Then a decision is made to either accept or reject the request, where acceptance requires a successful check and results in removing the link between customer and contract, indicating that after a payout the contract needs to be renewed. Either decision results in deleting the request's link to the customer to avoid making a decision repeatedly. 
+
+Apart from the rules modelling operations that can be invoked through an interface, we distinguish change event rules, such as \emph{new-req} and \emph{del-custlink}, representing change events whose purpose is to notify a component that is sharing part of its state with another one that this other component has changed the shared state. This is conceptually different from an operation call, although it can be implemented as one, and is essential for keeping states synchronised between components.
+ 
+%
+%
+%Here we allow hiding of rules and transformations by introducing an empty $\phi$ rule. Transformations with this rule are without effect and reflect steps in the implementation of a component that are hidden from the body.
+%
+%To support reflection of behaviour, system morphisms map sets of rules contravariantly. The inclusion of $\phi$ rules is then equivalent to allowing the mapping of rule names to be partial.  
+%
+%
+%
+%We define an operational semantics of components consisting of internal state transformations with interface projections as triggers and effects (a tile model of components) and investigate compositionality of such semantics based on tile bisimulation and the tile decomposition property. 
+%
+%The latter requires that a transformation in a composite component can be broken down as a composition (amalgamation) of transformations in its constituents. This is only true in general in the strict / stateless interface case.
+
+\section{Basic Notions}
+\label{sec:basic}
+
+%\subsection{Categories}
+Assume an adhesive base category $\cat C$ with a strict initial object $\emptyset$ and arbitrary pushouts, where pushouts are stable under pullbacks; for example, let $\cat C$ be $\cat{Graph}$, the category of directed multigraphs.
+%\footnote{The main technical definitions and results are collected in the Appendix.}
+% such that $\cat C$ is finitely complete and co-complete and where pushouts are stable under pullbacks. 
+Then, for any object $T$ of $\cat C$ the slice category $\cat C_T$ represents instances over $T$ and their morphisms. Formally, an object of  $\cat C_T$ is an
+arrow $g: G \to T$ in $\cat C$ where $T$ represents the type, $G$ an instance object with $g$ providing the typing. A morphism $h: g \to g'$ for $g': G' \to T$ is a morphism $f$ in $\cat C$ such that $g' \circ h = g$. 
+
+%With $\cat C =  \cat{Graph}_{MTG}$ this allows us to separate two levels of typing: At the meta level the types in $MTG$ represent language concepts. An object of $\cat{Graph}_{MTG}^\to$ is an arrow in $\cat{Graph}_{MTG}$, i.e., 
+The types in $T$ represent domain or application concepts that may vary between different systems. When we relate states or rules between systems we should be able to do so across different types. Given a morphism of types $f: T \to T'$, we can define an operations of \emph{retyping} by pullback of instances from target to source types. This defines \emph{retyping functors} $f^<: \cat C_{T'} \to \cat C_{T}$ for all $f: T \to T'$. From the local categories $\cat C_T$ and the retyping functors we can define a global category $\cat {TC}$ whose objects are morphisms $g: G \to T$. Morphisms are pairs $f = \<f_\tau, f_G\>: g \to g'$ with $f_\tau: T \to T'$ in $\cat C$ and $f_G: G \to f_\tau^<(G') \in \cat C_T$.  It can be shown that $\cat{TC}$ is equivalent to the arrow category $\cat{C}^{\to}$, and thus it inherits limits and colimits from $\cat{C}$, computed
+componentwise.\footnote{$\cat{TC}$ is obtained by applying the Grothendieck construction to the indexed category $\cat{C}^{op} \to \cat{Cat}$, mapping each object $T$ to category $\cat{C}_T$ and each arrow to the corresponding retyping functor.}  A morphism $\<f_\tau, f_G\>$ is \emph{strict} if $f_G$ is an iso. 
+%Category $\cat{TC}$ has all pushouts, built componentwise for the types and the instances.  
+For the pushout of two strict morphisms the injections are not strict in general: a sufficient condition, by adhesivity of $\cat C$, is that one of the type morphism is mono.
+
+
+%Hence morphisms of $\cat{TC}$ combine local relations at instance level with global relations between types using retyping. Such a structure of a global category like $\cat{TC}$ with retyping is also known as a \emph{fibration}.
+
+Rules and transformations in a system are represented by spans of monomorphisms $s = L \lrel l K \rrel r R$ in $\cat C_T$, i.e. they are defined over the local type $T$ of the system. Morphisms between spans are DPO diagrams, i.e., triples of morphisms $h = \<h_L, h_K, h_R\>: s \to s'$ with $h_L: L \to L', h_K: K \to K', h_R: R \to R'$ and such that the resulting squares are pushouts. This defines the local categories $\mspan_T$. A morphism in $\mspan_T$ represents a relation between rules where the target rule of the morphism creates and deletes the same structures as the source, but may have additional context. 
+
+To relate rules across different types we let $\mspan$ be the category that has as objects monic spans $s$ in $\cat C_T$ for some $T$ in $\cat C$ and as morphisms pairs $f = \<f_\tau, f_\pi\>: s \to s'$ with $f_\tau: T \to T'$ in $\cat C$ and $f_\pi: s \to f_\tau^<(s') \in \mspan_T$. Composition of such morphisms is well-defined: in fact the pullback functor preserves pushouts because they are stable under pullbacks in $\cat C$. This category has pullbacks and is finitely co-complete thanks to the properties of $\cat C$. In particular, the initial object is span $\<\emptyset \from \emptyset \to \emptyset\>$, called the \emph{empty rule}, typed over $\emptyset$. 
+
+Another interpretation of morphisms in $\mspan_T$ is as DPO transformations, with the source representing the rule applied and the target the state transformation. Sometimes we want to relate such transformations, and for this purpose we introduce  $\dpo_T$, the arrow category $\mspan^\to_T$, which has local $\mspan_T$ morphisms (i.e., DPO diagrams over $T$) $d: s_1 \to s_2$ as objects and pairs of such morphisms $\<f_{top}, f_{bot}\>: d \to d'$ as arrows where $f_{top}: s_1 \to s_1'$ and  $f_{bot}: s_2 \to s_2'$ such that the resulting square in $\mspan_T$ commutes. 
+
+We relate DPO diagrams across different types in a global category $\dpo$ that has as objects DPO diagrams $d$ in $\cat C_T$ for some $T$ in $\cat C$ and as morphisms pairs $f = \<f_\tau, f_{d}\>: d \to d'$ with $f_\tau: T \to T'$ in $\cat C$ and $f_{d}: d \to f_\tau^<(d') \in \dpo_T$. That means, objects in $\dpo$ represent DPO transformations in different systems, and morphisms are mappings between them allowed to extend types and rules. Composition, limits and colimits are defined component-wise in $\mspan$.
+
+%\subsection{Properties}
+
+
+%If $\cat C$ is adhesive, finitely co-complete, and pushouts in $\cat C$ are stable under pullbacks, the same properties hold in $\cat{TC}$, $\mspan$, and $\dpo$. 
+%%\footnote{As an example, in the Appendix we present the construction of pushouts in $\cat{TC}$.} 
+Categories  $\cat{TC}$, $\mspan$, and $\dpo$ are equipped with a functor to $\cat C$ mapping objects and morphisms to their type objects and  morphisms, respectively, which we denote by $\__\tau: \cat X \to \cat C$ for $\cat X \in \{\cat{TC}, \mspan, \dpo\}$. 
+
+%\marginpar{AC: delete next paragraph?} %
+%The categories introduced support a global view of instances, rules and transformations, useful to map, compare or compose them across systems over different types. However, in many situations we are interested in local relations only, between objects of the same type. Such localised scopes are represented by subcategories $\cat X_T$ for given type objects $T$ with objects and morphisms those in $\cat X$ typed over $T$. With $\cat X = \cat C^\to$ this works out as the slice category $\cat C_T$ for a given type $T$. The localised categories  $\cat X_T$ are called \emph{fibres} over $T$ and they are related by operations of \emph{retyping} by pullback of instances, rules and transformations from target to source types. This defines \emph{retyping functors} $f^<: \cat X_{T'} \to \cat X_{T}$ for all $f: T \to T'$. Such a structure of a global category $X$ with typing functor $\__\tau: \cat X \to \cat C$ and retyping is called a \emph{fibration}.
+
+%
+%
+%That means, we refer to the objects over a fixed type $T \in \cat C$ as fibres $\cat X_T$ and use co- and contravariant retyping functors $f^>: \cat X_T\to \cat X_{T'}$ and $f^<: \cat X_{T'} \to \cat X_{T}$ to translate between them. We will assume the fibrations to be given in the representation of Grothendiek fibrations, where objects of the total category $\cat X$ are pairs $\<X, T\>$ with $X_\tau = T$ and morphisms $f: \<X, T\> \to \<X', T'\>$ are local morphisms $f: X \to f_\tau^<(X')$ into the retyping of $X$ against type morphism $f_\tau: T \to T'$.
+%
+%Concretely, the covariant functor $f^>: \cat X_T\to \cat X_{T'}$ is defined by composition of the object's typing morphism with $f$ while the contravariant one $f^<: \cat X_{T'} \to \cat X_{T}$ is defined by a chosen pullback.
+ 
+\section{Transformation and Runtime Systems}
+\label{sec:RS}
+
+We want to use the empty rule to model steps at an interface due to unobservable steps in the body of a component, but also to model idle steps in the body itself. To this aim we introduce the rule name $\phi$ that maps to the empty rule. Apart from this feature, the following definition is standard.
+
+\begin{definition}[transformation systems]
+A \emph{transformation systems} is a triple $S = \<T, P, \pi\>$ where
+\begin{itemize}
+\item $T \in |\cat C|$ is a type object;
+\item $P$ is a set of rule names, including the special rule name $\phi$;
+\item $\pi: P  \to | \mspan_T |$ assigns a monic span over $T$ to each rule name, such that $\pi(\phi) =  \emptyset \from \emptyset \to \emptyset$.
+\end{itemize}
+Assuming a second system $S' = \<T', P', \pi'\>$, a \emph{morphism of transformation systems} is a triple $f = \<f_\tau, f_p, f_\pi\>: S \to S'$ of 
+\begin{itemize}
+\item a morphism of types $f_\tau: T \to T'$ 
+\item a mapping from target to source rule names $f_P: P' \to P$ 
+\item a $P'$-indexed family of $\mspan$ morphisms $f_\pi(p'): \pi(f_P(p')) \to \pi'(p')$
+%\item a $\cat C^\to$ morphism $f_O: O \to O'$
+\end{itemize}
+such that $f_\tau = (f_\pi(p'))_\tau$ for all $p' \in P'$. This defines the category $\sys$.
+\end{definition}
+
+Morphisms are defined to reflect behaviour. 
+%AC: commented
+%A natural notion of composition of transformation systems, corresponding to a product of the resulting labelled transition systems, is based on a coproduct of types and a product of rule names. With the contravariance above between the morphism of types and the mapping of rule names, such a parallel composition becomes a coproduct in $\sys$. 
+%
+%\emph{Partial morphisms (or just morphisms) of transformation systems} $f: S \to S'$ are defined as total morphisms $f: S^\phi \to S'$. This defines the category $\sys$ of transformation systems. 
+%
+%The addition of $\phi$ realises partial mappings of rule names by way of pointed sets. The category of pointed sets, i.e. algebras over a signature with a single constant, is equivalent to the category of sets and partial functions. Technically, because mappings of rule names go from the target to the source of system morphisms, we represent this extension via op-Kleisli morphisms for the functor $\_^\phi$ from systems and total morphisms to systems containing a distinguished rule $\phi$, which is left adjoint to the forgetful functor considering $\phi$ as a normal rule.
+%
+All rules $p' \in P'$ with $f_P(p') = \phi$ have to be identity spans after retyping. That means, once unobservable elements are removed, the projected rule is without effect. This ensures that the effects of transformations can be fully synchronised across components.
+
+To model a system at runtime, we include its current state.
+\begin{definition}[runtime systems]
+%A \emph{runtime system} $RS = \<T, P, \pi, G\>$ consists of  a transformation system $\<T, P, \pi\>$ and a state object $G$ in $\cat C_T$. 
+A \emph{runtime system} $RS = \<S, G\>$ consists of  a transformation system $S = \<T, P, \pi\>$ and a state object $G$ in $\cat C_T$. 
+%
+A morphism of runtime systems $f = \<f_S, f_G\>: RS \to RS'$ with $RS' = \<\<T', P', \pi'\>, G'\>$ is a morphism of transformation systems $f_S = \<f_\tau, f_p, f_\pi\>$
+augmented by a $\cat{TC}$ morphism $f_G=\<f_\tau,f'_G\>: G \to G'$. Morphism $f: RS \to RS'$  is \emph{strict} if so is $f_G$, i.e.\ if  
+$f'_G: G \to  f_\tau^<(G')$ is an isomorphism.
+%A morphism of runtime systems $f = \<f_\tau, f_p, f_\pi, f_G\>: RS \to RS'$ with $RS = \<T', P', \pi', G'\>$ is a morphism of transformation systems 
+%augmented by a $\cat{TC}$ morphism $f_G=\<f_\tau,f'_G\>: G \to G'$. Morphism $f: RS \to RS'$  is \emph{strict} if so is $f_G$, i.e.\ if  
+%$f'_G: G \to  f_\tau^<(G')$ is an isomorphism.
+This defines the category $\rsys$ of runtime systems.
+\end{definition}
+%
+Coming back to the example, in Fig.~\ref{fig:TGGs} we show seven runtime systems (three components, three interfaces and one global system), each with their type graph, rule names and associated rule spans (in integrated notation), and runtime state. The morphisms indicated in the left margin are all strict, representing inclusions of type graphs, state graphs, and sets of rule names, except for change event rules where \emph{request} in S and C both map to \emph{new-req} in CI, and \emph{accept} and \emph{reject} in S and C all map to \emph{del-custlink} in SI. Implicitly, component rules that do not have a corresponding rule in an interface map to the empty rule $\phi$, i.e., \emph{process} in S maps to $\phi$ in both SI and CI and \emph{request} in S maps to $\phi$ in DI. This is allowed because, after dropping from these rules all elements not visible through the interface types, the remaining rules are without effect. 
+
+Given a transformation system $S$ with type $T$, a transformation via $p$ in $S$, denoted $G \Rrel {p,m}_S H$, is a DPO diagram seen as an $\mspan_T$ morphism $t = \<t_L, t_K, t_R\>: \pi(p) \to s$ that relates the rule span $\pi(p)= L \from K \to R$ and the bottom span $s = (G \from D \to H)$, with match $t_L = m$. We also write $p/t:  G \To_S H$ or just $\To_S$ for the set of transformations.  
+
+A  transformation sequence $s = G_0 \Rrel{p_1, m_1} \dots  \Rrel{p_n, m_n} G_n$ in $S$ is a sequence of  transformations.\footnote{We may drop the reference to the system if this is clear from context.} 
+We write $\To^*_S$ for the set of transformation sequences in $S$. 
+
+Transformations in $S'$ are reflected by $\sys$ morphisms. That means, if $p'/t'$ is a transformation in $S'$ then $f^<(p'/t') = f_P(p')/f_\tau^<(t') \circ f_\pi(p')$ is a transformation in $S$ because $f_\tau^<$ preserves DPO diagrams and DPOs compose vertically (as $\cat{MSpan}$ morphisms). This yields a function $f^<: (\To_{S'}) \to (\To_{S})$ extending to sequences as $f^<: (\To_{S'})^* \to (\To_{S})^*$.
+
+Transformation sequences in a runtime system $RS = \<S,G\>$ are sequences in $S$ that start from state $G$. The projection of sequences against morphisms extends to runtime systems as $f^<: (\To_{RS'})^* \to (\To_{RS})^*$, provided that  $f: RS \to RS'$ is strict. 
+Strict morphisms are preserved by transformations, that is, if $f = \<f_S,f_G\>: \<S,G\> \to \<S',G'\>$ is strict,  $p' / t': G' \To H'$ in $S'$ and $f^<(p'/t') : G \To H$ in $S$, then $\<f_S,id_H\>: \<S,H\> \to \<S',H'\>$ is strict, as $H = f_{\tau}^<(H')$.
+
+%In this case, strict morphisms relate the successive states of the corresponding transformation sequences, i.e.,  Therefore strict morphisms are preserved by transformations.
+
+%Adaptation morphisms are strict morphisms that do not only reflect transformations but also preserve the applicability of rules. They are useful for matching provided with required interfaces when composing services. A $\ssys$ morphisms $f: S \to S'$ is an adaptation morphism such that for each rule $p \in P$ and state $X'$ of $S'$, applicability of $p$ at match $m: L_p \to f_\tau^<(X')$ implies that there exists a rule $p' \in P'$ with $f_P(p') = p$ and a match $m': L_p' \to X'$ such that $p'$ is applicable at $m'$. This condition can be ensured syntactically, e.g, by substitution morphisms~\cite{HCE}. Adaptation morphisms of runtime systems $f: RS \to RS'$ are defined analogously as $\srsys$ morphisms that preserve applicability, but requiring this only for states $X'$ reachable from the current state of $RS'$. That means, an adaptation morphism between runtime systems may not be an adaptation morphism between the underlying transformation systems. 
+
+$\sys$ is finitely co-complete because it has an initial object
+% the system with the empty type graph and the single empty rule named $\phi$ (formally,  
+ $S_\varnothing = \<\emptyset, \{\phi\}, \pi\>$, where  $\pi(\phi) = \emptyset \from \emptyset \to \emptyset$, and pushouts are built component-wise as pushouts on types, pullbacks on sets of rule names, and using amalgamation (pushouts in $\mspan$) on rule spans.
+
+\begin{definition}[pushouts of systems]
+Given a span of transformation systems $S_1 \lrel{f_1} S_0 \rrel{f_2} S_2$ in $\sys$ with $S_i = \<T_i, P_i, \pi_i\>$, their pushout $S_1 \rrel{f_2^*} S \lrel{f_1^*} S_2$ with  $S = \<T, P, \pi\>$, is defined as follows. 
+\begin{itemize}
+\item $T_1 \rrel{{f_2}_\tau^*} T \lrel{{f_1}_\tau^*} T_2$ is a pushout of $T_1 \lrel{{f_1}_\tau} T_0 \rrel{{f_2}_\tau} T_2$ in $\cat C$
+\item $P_1 \lrel{{f_2}_P^*} P \rrel{{f_1}_P^*} P_2$ is a pullback of $P_1 \rrel{{f_1}_P} P_0 \lrel{{f_2}_P} P_2$ in $\cat {Set}^\bullet$
+\item for $p \in P$ with ${f_2}_P^*(p) = p_1$, ${f_1}_P^*(p) = p_2$, and ${f_1}_P(p_1) = p_0 = {f_2}_P(p_2)$, let ${f_2}^*_\pi(p), {f_1}^*_\pi(p)$ and $\pi(p)$ be defined by the pushout $\pi_1(p_1) \rrel{{f_2}^*_\pi(p)} \pi(p) \lrel{{f_1}^*_\pi(p)} \pi_2(p_2)$
+of $\pi_1(p_1) \lrel{{f_1}_\pi(p_1)} \pi_0(p_0) \rrel{{f_2}_\pi(p_2)} \pi_2(p_2)$ in $\mspan$.
+\end{itemize}
+For a similar span in $\rsys$ with local state graphs $G_1 \lrel{{f_1}_G} G_0 \rrel{{f_2}_G} G_2$, the pushout in $\sys$ of the underlying transformation systems is lifted to $\rsys$ by the pushout $G_1 \rrel{{f_2}_G^*} G \lrel{{f_1}_G^*} G_2$ over the span of state graphs. 
+\end{definition}
+
+$\cat {Set}^\bullet$ is the category of \emph{pointed sets}, i.e., sets with a distinguished element  that is preserved by mappings.  In our case these are the sets of rule names with the distinguished name $\phi$ bound to the empty rule.
+%
+It is easy to see that pushouts injections thus constructed are indeed $\sys$ or $\rsys$ morphisms because their components are pushouts in $\cat C, \cat{Set}^\bullet$ and $\mspan$.
+%
+%stability of pushouts under pullbacks ensures that retyping of DPO diagrams over $T'$ yield DPO diagrams over $T'$. 
+The universal property follows directly from the component-wise construction. 
+
+Applying this to our example in Fig.~\ref{fig:TGGs}, the pushout of S and D via DI results in a union of their type and state graphs and an amalgamation of rules over shared interface rules in DI. This leads to a disjoint parallel composition of rules where this interface rule is empty.
+
+A coproduct of two systems $S_1$ and $S_2$ is a pushout over the empty system $S_\varnothing$, which is initial in $\sys$.
+By contravariance of mapping types and rule names, this results in a coproduct of types and a product of rule names, such that each pair of rule names in the product is assigned a coproduct of the associated rules.
+
+%$f = \<f_\tau, f_p, f_\pi\>: S \to S'$
+%
+%\begin{remark}
+%Transformations and transformation sequences form fibrations over $\sys$. This means, as we saw above, that transformations are reflected by $\sys$ morphisms and that these mappings are functorial. In particular, transformations form a fibration $S: \cat{Trf} \to \sys$. Here, $\cat{Trf}$ is the Grothendiek category for the indexed category  $(\To_{\_}): \sys \to \cat{Cat}^{op}$
+%%$\mbox{\it trs}: \sys \to \cat{Cat}^{op}$ 
+%that maps each system $S$ to the local category of transformations in $S$ whose morphisms $h: p/t \to p/t'$ are $\dpo$ morphisms relating the bottom spans of transformations using the same rule. 
+%For morphisms $f: S \to S'$ in $\sys$, reindexing functors $(\To_{f}): (\To_{S'}) \to (\To_{S^\phi})$ are given by the projection $f^<$ of transformations. That means, we have a global category of transformations over arbitrary systems.
+%\end{remark}
+%\marginpar{We can drop this, maybe use some of it in a proof \dots}
+
+%denoted $G \trs{}_\gg {p, m} H$ form a fibration $GG: \trs \to \gg$ that is, they translate against $\gg$ morphisms. Formally the Grothendiek fibration of the indexed category of transitions over GGs with contravariat reindexing. 
+%	* Transitions $t = p/dpb$
+%	* Step morphism $h: t \to t’$ 
+%* This restricts to a fibration $GG: \trf \to \gg^{DPO}$ on transformations $G \Rrel_\gg {p, m} H$.
+%* $\trs$ is cocomplete, as is the $\trf^{DPB}$  
+
+We can compose and decompose transformations over pushouts of systems if the morphisms relating them are strict.  
+%AC: commented as backup 
+%\begin{theorem}[compositionality of transformations]
+%\label{thm:comp}
+%\label{thm:cmp-TS+RS}
+%Assume 
+%\begin{itemize}
+%\item a pushout $S_1 \rrel{f_2^*} S \lrel{f_1^*} S_2$ of runtime systems $S_1 \lrel{f_1} S_0 \rrel{f_2} S_2$
+%\item a triple of transformations $p_i/t_i$ in $S_i$ whose DPO diagrams $t_i$ are related by $\dpo$ morphisms $t_1 \lrel{{f_1}_\pi(p_1)} t_0 \rrel{{f_2}_\pi(p_2)} t_2$ and where ${f_1}_P(p_1) = p_0 = {f_2}_P(p_2)$.
+%\end{itemize}
+%Then, the transformations can be composed by a pushout in $\dpo$ to yield a transformation $p/t$ in $S$ with ${f_1^*}_P(p) = p_2$ and ${f_2^*}_P(p) = p_1$. 
+%%If $f_1$ and $f_2$ are strict, so are $f_2^*$ and $f_1^*$ and in this case, if the $t_i$ are  DPOs, so is $t$. 
+%
+%Vice versa, a transformation $p/t$ in $S$ decomposes into a pushout of transformations over $S_1 \lrel{f_1} S_0 \rrel{f_2} S_2$ as $p_1/t_1 = {f_2^*}^<(p/t)$ in $S_1$, $p_2/t_2 = {f_1^*}^<(p/t)$ in $S_2$  and ${f_1}^<(p_1/t_1) = p_0/t_0 = {f_2}^<(p_2/t_2)$ in $S_0$.
+%\end{theorem}
+
+\begin{theorem}[compositionality of transformations]
+\label{thm:comp}
+\label{thm:cmp-TS+RS}
+Assume 
+%\begin{itemize}
+%\item a pushout $S_1 \rrel{f_2^*} S \lrel{f_1^*} S_2$ of runtime systems $S_1 \lrel{f_1} S_0 \rrel{f_2} S_2$, where all morphisms are strict and 
+%\item a triple of transformations $p_i/t_i$ in $S_i$ whose DPO diagrams $t_i$ are related by $\dpo$ morphisms $t_1 \lrel{{f_1}_\pi(p_1)} t_0 \rrel{{f_2}_\pi(p_2)} t_2$ and where ${f_1}_P(p_1) = p_0 = {f_2}_P(p_2)$.
+%\end{itemize}
+\begin{itemize}
+\item a pushout $RS_1 \rrel{f_2^*} RS \lrel{f_1^*} RS_2$ of runtime systems $RS_1 \lrel{f_1} RS_0 \rrel{f_2} RS_2$, where all morphisms are strict,  $RS_i = \<S_i, G_i\>$ for $i \in \{0,1,2\}$ and $RS = \<S, G\>$; 
+\item a triple of transformations $p_i/t_i: G_i \To H_i$ in $S_i$, whose DPO diagrams $t_i$ are related by $\dpo$ morphisms $t_1 \lrel{{f_1}_\pi(p_1)} t_0 \rrel{{f_2}_\pi(p_2)} t_2$ and where ${f_1}_P(p_1) = p_0 = {f_2}_P(p_2)$.
+\end{itemize}
+Then, the transformations can be composed by a pushout in $\dpo$ to yield a transformation $p/t: G \To H$ in $RS$ with ${f_1^*}_P(p) = p_2$ and ${f_2^*}_P(p) = p_1$. 
+%[Furthermore there are strict morphisms $RS'_1 \rrel{{f'_2}^*} RS' \lrel{{f'_1}^*} RS'_2$ and $RS'_1 \lrel{f'_1} RS'_0 \rrel{f'_2} RS'_2$ of runtime systems which form pushout, where $RS'_i = \<S_i, H_i\>$ for $i \in \{0,1,2\}$ and $RS' = \<S, H\>$; ] \marginpar{AC: this statement is not necessary: it follows immediately by the fact that strict morphisms are preserved by transformations}
+%If $f_1$ and $f_2$ are strict, so are $f_2^*$ and $f_1^*$ and in this case, if the $t_i$ are  DPOs, so is $t$. 
+
+Vice versa, a transformation $p/t: G \To H$ in $\<S,G\>$ decomposes into a pushout of transformations over $RS_1 \lrel{f_1} RS_0 \rrel{Rf_2} S_2$ as $p_1/t_1 = {f_2^*}^<(p/t)$ in $RS_1$, $p_2/t_2 = {f_1^*}^<(p/t)$ in $RS_2$  and ${f_1}^<(p_1/t_1) = p_0/t_0 = {f_2}^<(p_2/t_2)$ in $RS_0$.
+\end{theorem}
+
+
+\begin{proof}[sketch]
+Both directions require that pushouts are stable under pullbacks, which is true in $\cat{C}$ by assumption.
+\end{proof}
+
+%Compositionality of transformations extend to runtime systems. 
+
+%\begin{corollary}[compositionality in runtime systems]
+%\label{cor:comp}
+%Assume a pushout $RS_1 \rrel{f_2^*} RS \lrel{f_1^*} RS_2$ of runtime systems $RS_1 \lrel{f_1} RS_0 \rrel{f_2} RS_2$.  
+%such that their state graphs are related by projections $G_1 \cong {{f_2}_\tau^*}^<(G)$, $G_2 \cong {{f_1}_\tau^*}^<(G)$ and ${{f_1}_\tau}^<(G_1) \cong G_0 \cong {{f_2}_\tau}^<(G_2)$. 
+%Then, transformations $p_i/t_i$ in $RS_i$ and $p/t$ in $RS$ related as in Thm.~\ref{thm:comp} compose and decompose analogously. 
+%\end{corollary}
+
+% (the tile decomposition property for components). 
+
+Applying a sequence of \emph{accept, process, accept} to the state graph in S, the result is a graph that looks like the right-hand side (preserved black and new green parts) of \emph{accept}. In D the first step is an application of the empty rule $\phi$, the second step has no effect on the graph but extends the match of \emph{process} in S to check for a contract linked to the customer, and the third step deletes that link and adds the accept node and its edge, leaving a graph that looks like the right-hand side \emph{accept} in D.
+
+Since the state graph of S  in Fig.~\ref{fig:TGGs} is a subgraph of that of D, when the pushout of runtime systems S and D via DI merges their state graphs, the resulting graph is isomorphic to that of D. The result above ensures that we can either transform this graph in the pushout system of S and D over DI, or do so in S and D with shared transformations in DI and then merge the resulting graphs, i.e. synchronised local transformations exist if and only if there is a global transformation, and they have the same effect. 
+
+Thm.~\ref{thm:comp} ensures the compositionality of the operational semantics of components in Sect.~\ref{sec:opSem}, where transformations compose along composition of components and transformations in a composite component can be decomposed into synchronised transformations in its constituents.
+
+
+
+
+%??? We need the empty rule $\phi$ in $S_i^\phi$ to account for the decomposition of steps $p/t$ where $p$ is only in the image of one of ${f_1^*}_P$ or ${f_2^*}_P$, in which case the step is decomposed into a regular transition or transformation in one system and a $\phi$ transition in the other. ???
+
+%% https://q.uiver.app/?q=WzAsMTIsWzEsMCwiXFxwaV8wKHBfMCkiXSxbMCwxLCJcXHBpXzEocF8xKSJdLFsyLDEsIlxccGlfMihwXzIpIl0sWzEsMiwiXFxwaShwKSJdLFs1LDAsInRfMCJdLFs0LDEsInRfMSJdLFs2LDEsInRfMiJdLFs1LDIsInQiXSxbMSw0LCJ0XzAiXSxbMCw1LCJ0XzEiXSxbMiw1LCJ0XzIiXSxbMSw2LCJ0Il0sWzEsMywiZ19cXHBpXioocF8xKSIsMl0sWzIsMywiZl9cXHBpXioocF8yKSJdLFswLDEsImZfXFxwaShwXzApIiwyXSxbMCwyLCJnX1xccGkocF8wKSJdLFs1LDQsImZfXFx0YXVePCIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNiw0LCJnX1xcdGF1XjwiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzcsNSwiKGdfXFx0YXVeKilePCIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbNyw2LCIoZl9cXHRhdV4qKV48IiwyLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFs4LDksImZfdCIsMl0sWzgsMTAsImdfdCJdLFs5LDExLCJnX3ReKiIsMl0sWzEwLDExLCJmX3ReKiJdXQ==
+%\[\begin{tikzcd}
+%	& {\pi_0(p_0)} &&&& {t_0} \\
+%	{\pi_1(p_1)} && {\pi_2(p_2)} && {t_1} && {t_2} \\
+%	& {\pi(p)} &&&& t \\
+%	\\
+%	& {t_0} \\
+%	{t_1} && {t_2} \\
+%	& t
+%	\arrow["{g_\pi^*(p_1)}"', from=2-1, to=3-2]
+%	\arrow["{f_\pi^*(p_2)}", from=2-3, to=3-2]
+%	\arrow["{f_\pi(p_0)}"', from=1-2, to=2-1]
+%	\arrow["{g_\pi(p_0)}", from=1-2, to=2-3]
+%	\arrow["{f_\tau^<}", maps to, from=2-5, to=1-6]
+%	\arrow["{g_\tau^<}"', maps to, from=2-7, to=1-6]
+%	\arrow["{(g_\tau^*)^<}", maps to, from=3-6, to=2-5]
+%	\arrow["{(f_\tau^*)^<}"', maps to, from=3-6, to=2-7]
+%	\arrow["{f_t}"', from=5-2, to=6-1]
+%	\arrow["{g_t}", from=5-2, to=6-3]
+%	\arrow["{g_t^*}"', from=6-1, to=7-2]
+%	\arrow["{f_t^*}", from=6-3, to=7-2]
+%\end{tikzcd}\]
+%
+
+\section{Components} 
+\label{sec:com}
+
+%Modules are cospans  with interfaces in $\sys$. 
+
+% i.e., modules with states. Later we will define categories of modules and components as arrows, interfaces as objects, and composition defined by pushout.
+
+Components are abstract cospans in $\rsys$. Thus a component has  a \emph{body}, the system in the middle, and the \emph{left} and \emph{right interfaces}, each equipped with a morphism to the body. Components with matching left-right interfaces can be composed using pushouts in  $\rsys$, and pairs of components can be composed in parallel using coproducts. The resulting structure is a symmetric monoidal category $\greco$ having the same objects of $\rsys$ and components as arrows (from the left to the right interface). This category is shown to be also a Frobenius algebra, implying that one can define arbitrary topologies of components.
+
+Here we focus on the static interconnections of components, while in Sect.~\ref{sec:opSem} we discuss their operational semantics based on transformations. We anticipate that the rich structure of the category of components cannot be fully exploited for the operational semantics, because only \emph{strict} morphisms reflect transformations. We introduce \emph{strict} components, where morphism to the body are
+strict, and discuss conditions ensuring that strictness is preserved by composition.    
+
+Cospans $c = (A \rrel a C \lrel b B)$ and  $c' = (A \rrel {a'} C' \lrel {b'} B)$ are isomorphic if there is an isomorphism $i: C \to C'$ commuting the resulting triangles. We denote by  $A [\rrel a C \lrel b] B$ the isomorphism class of $c$, called an \emph{abstract cospan}.
+
+\begin{definition}[components]
+\label{def:components}
+%A module is an abstract cospan in $\sys$ $m = \<Li [\rrel{li} Bd \lrel{ri}] Ri\>$. 
+A component is an abstract cospan $c = \<Li [\rrel{li} Bd \lrel{ri}] Ri\>$ in $\rsys$. Morphisms $li: Li \to Bd$ and  $ri: Ri \to Bd$ map the left and right interfaces to the body. Component $c$ is \emph{strict} if both $li$ and $ri$ are strict.
+%\end{definition}
+
+%\begin{definition}[category of components]
+The category $\greco$ of components has runtime systems as objects and components as arrows.%\footnote{One could make this a countable set if needed, by assuming a standard representation based on some skeleton category for $\cat C$ and limiting to finite sets of rules.} % (from the left interface to the right interface). 
+%
+The composition of components $c_2 \circ c_1$, for $c_i = \<Li_i [\rrel{li_i} Bd_i \lrel{ri_i}] Ri_i\>$  and $i = 1,2$, is defined if $Li_2 = Ri_1$. Then
+\[c_2 \circ c_1 = \<Li_1 [\rrel{li} Bd \lrel{ri}] Ri_2\>: Li_1 \to Ri_2\]
+is the isomorphism class of the cospan obtained by a pushout $Bd_1 \rrel{li_2^*} Bd \lrel{ri_1^*} Bd_2$ of $ri_1$ and $li_2$ with $li = li_2^* \circ li_1$ and $ri = ri_1^* \circ ri_2$.  
+%
+%
+If $c_1$ and $c_2$ are both strict, then they are \emph{compatible} if the pushout injections $li^*_2$ and $ri^*_1$ are strict. 
+In this case also $c_2 \circ c_1$ is strict because strict morphisms compose.  If $c_1$ and $c_2$ are strict and compatible we will denote their \emph{strict} composition also by  $c_2 \scirc c_1$.
+
+%
+For a runtime system RS in $|\rsys|$ its identity component is given by $id_{RS} = \<RS [\rrel{id_{RS}} RS \lrel{id_{RS}}] RS\>$, and it is strict.
+% this defines the category $\greco$ of components. 
+\end{definition}
+
+Composition over shared interfaces allows to connect strict components by synchronising their transformations.
+In $\greco$ our example's components are represented as arrows $C: CI \to SI$, $S: SI \to CI + DI$ and $D: DI \to S_\varnothing$, their composition realised by the composition in $\greco$, e.g., $S \circ C: CI \to CI + DI$ is the composition of C and D over SI. In order to link interface CI from the right of S to the left of C (as required for its use as a callback interface) we need the additional structure of parallel composition and component connectors. 
+
+%%%***AC  moved to section on Operational Semantics
+%Since components are based on runtime systems, they have an internal state. When that state changes through an internal transformation, we get a new component that shares types and rules with the previous one. These transformation are only partly hidden because interfaces project parts of the internal states and transformations. Such projections, when observed over interfaces shared between components, allow us to synchronise their internal transformations.  
+%
+%%\subsubsection{Synchronisation Semantics} 
+%
+%An interface transformation $a$ in $Li$ or $b$ in $Ri$ is an \emph{observation} of a transformation $s$ in the body  $Bd$ if $a = li^<(s)$ or $b = ri^<(s)$, respectively. 
+%%
+%If we let the old and new components be $c$ and $c'$ respectively, %and write  $B$ for the set of effects $rq^<(t)$, 
+%a component transformation is a 5-tuple 
+%\[s: c \ctrans{a}{b} c'\]
+%where $s: G_{Bd} \To_c G_{Bd'}$ is the internal transformation and $a = li^<(s)$ and $b = ri^<(s)$ are its left and right observations. 
+
+
+%\begin{definition}[category of components]
+%The category $\greco$ of components has runtime systems as objects and components as arrows (from the left interface to the right interface).
+%
+%The composition of components $c_2 \circ c_1$ for $c_i = \<Li_i [\rrel{li_i} Bd_i \lrel{ri_i}] Ri_i\>i$  for $i = 1,2$ is defined if $Li_2 = Ri_1$. Then
+%\[c_2 \circ c_1 = \<Li_1 [\rrel{li} Bd \lrel{ri}] Ri_2\>: Li_1 \to Ri_2\]
+%is the isomorphism class of the cospan obtained by a pushout $Bd_1 \rrel{li_2^*} Bd \lrel{ri_1^*} Bd_2$ of $ri_1$ and $li_2$ with $li = li_2^* \circ li_1$ and $ri = ri_1^* \circ ri_2$.  
+%%
+%For a runtime system RS in $|\rsys|$ its identity is given by $id_{RS} = \<RS [\rrel{id_{RS}} RS \lrel{id_{RS}}] RS\>$.
+%% this defines the category $\greco$ of components. 
+%\end{definition}
+
+%An analogous operation of composition $m_2 \circ m_1$ is defined for modules by dropping the runtime state or, equivalently, replacing the category of runtime systems $\rsys$ by that of transformation systems $\sys$. 
+
+
+%The set of rule names of a coproduct of systems $S_1 + S_2$ is a product $P_1 \times P_2$. Therefore, a transformation $a = p/t$ in $S_1 + S_2$ is an application of a rule pair $p = \<p_1, p_2\> \in P_1 \times P_2$ with $p_i \in P_i$. The rule span $\pi(\<p_1, p_2\> ) = \pi_1(p_1) + \pi_2(p_2)$  is a coproduct in $\mspan$ and the DPO diagram $t = t_1 + t_2$ a coproduct in $\dpo$. Hence, $a$ represents the disjoint parallel occurrence of transformations $a_i = p_i/t_i$ in $S_i$ for $i = 1,2$, which we write using juxtaposiiton as $a_1 a_2$. 
+
+%Dropping component and interface states, we obtain the category of modules $\mod$.
+
+\begin{definition}[parallel composition in $\greco$]
+\label{def:grecoSSMC}
+%Let $+: \rsys \times \rsys \to \rsys$ be the coproduct functor on $\rsys$.
+The \emph{parallel composition} $c_1+ c_2$ of components $c_i = \<Li_i [\rrel{li_i} Bd_i \lrel{ri_i}] Ri_i\>$ for $i = 1,2$ is defined as the isomorphism class of the cospans obtained by a coproduct of the interface and body systems in $\rsys$
+\[c_1+ c_2  = \<Li_1 + Li_2 [\rrel{li_1 + li_2} Bd_1 + Bd_2 \lrel{ri_1 + ri_2}] Ri_1 + Ri_2\>.\]
+This defines a monoidal functor $+: \greco \times \greco \to \greco$.
+%
+Furthermore, for each $RS$, $RS'$, let  $\sigma_{RS, RS'}: \<RS + RS' [\rrel{ [inr_{RS}, inl_{RS'}] } RS' + RS  \lrel{id_{RS'+RS}}] RS' + RS\>$ be their \emph{symmetry} component.  
+\end{definition}
+
+The parallel composition of two strict components can be shown to be strict, and so are the symmetries. 
+We can represent a component $c$, the composition $c_2\circ c_1$ and the parallel composition $c_1+ c_2$ in an intuitive graphical way as: 
+
+\centerline{
+\includegraphics*[width = .7\textwidth]{figs/compSSMC.pdf}
+}
+
+\noindent
+Identity and symmetry components are seen as \emph{connectors} passing actions from one interface to the other. Other such connectors can be defined, for every systems $RS$ and $RS'$, by exploiting suitable morphisms in $\rsys$. 
+
+%There is additional structure in category $\greco$, 
+%
+%% By exploiting the structure of $\rsys$, and in particua
+%We introduce some  operations on components and several \emph{connectors}, which are components built from suitable morphisms in $\rsys$ which will be key ingredients for the definition of Frobenius algebra presented below.
+
+\begin{itemize}
+%\item For a runtime system RS in $|\rsys|$ its \emph{identity} is given by the component $id_{RS} = \<RS [\rrel{id_{RS}} RS \lrel{id_{RS}}] RS\>$
+%\item The composition of components $c_2 \circ c_1$ for $c_i = \<Li_i [\rrel{li_i} Bd_i \lrel{ri_i}] Ri_i\>i$  for $i = 1,2$ is defined if $Li_2 = Ri_1$. Then
+%\[c_2 \circ c_1 = \<Li_1 [\rrel{li} Bd \lrel{ri}] Ri_2\>: Li_1 \to Ri_2\]
+%is the isomorphism class of the cospan obtained by a pushout $Bd_1 \rrel{li_2^*} Bd \lrel{ri_1^*} Bd_2$ of $ri_1$ and $li_2$ with $li = li_2^* \circ li_1$ and $ri = ri_1^* \circ ri_2$.  
+%
+%\item 
+%The \emph{parallel composition} $c_1+ c_2$ of components $c_i = \<Li_i [\rrel{li_i} Bd_i \lrel{ri_i}] Ri_i\>$ for $i = 1,2$ is defined as the isomorphism class of the cospans obtained by a coproduct of the interface and body systems in $\rsys$
+%\[c_1+ c_2  = \<Li_1 + Li_2 [\rrel{li_1 + li_2} Bd_1 + Bd_2 \lrel{ri_1 + ri_2}] Ri_1 + Ri_2\>.\]
+%
+%%\item $id_{RS} = \<RS \rrel{id_{RS}} RS \lrel{id_{RS}} RS\>: RS \to RS$ synchronises transformations between its left and right interfaces;
+%\item A \emph{symmetry} is a component $\sigma_{RS, RS'}: \<RS + RS' \rrel{ [inr_{RS}, inl_{RS'}] } RS' + RS  \lrel{id_{RS'+RS}} RS' + RS\>: RS + RS' \to RS' + RS$;
+%cross the wires between $RS+ RS'$ and $RS' + RS$;
+\item  The \emph{duplicator} is component  $\Nabla_{RS} = \<RS [\rrel{id_{RS}} RS \lrel{ [id_{RS}, id_{RS}] }] RS + RS\>$;
+%synchronises transformations between its left and two right interfaces; 
+\item The \emph{co-duplicator} is component  $\Delta_{RS} = \<RS + RS [\rrel{ [id_{RS}, id_{RS}] } RS \lrel{id_{RS}}] RS\>$;
+% synchronises transformations between its right and two left interfaces;
+\item The \emph{discharger} is component  $!_{RS} = \<RS [\rrel{id_{RS}} RS \lrel{\emptyset}] S_\varnothing\>$;
+% allows arbitrary transformations on its left interfaces;  
+\item The \emph{co-discharger} is component $?_{RS} = \<S_\varnothing [ \rrel{\emptyset} RS \lrel{id_{RS}} ] RS\>$.
+%allows arbitrary transformations on its right interface;  
+\end{itemize}
+
+\noindent
+Graphically, we show such connector components, which are all strict, as:
+
+\centerline{
+\includegraphics*[width = 0.7\textwidth]{figs/compConnectors.pdf}
+}
+
+\begin{theorem}[$\greco$ as Frobenius algebra]
+\label{thm:greco-frop}
+Category $\greco$ with the monoidal functor $+$ and the family $\sigma$ of symmetries of Def.~\ref{def:grecoSSMC} is a symmetric monoidal category. 
+Furthermore, equipped with the families of connector components $\Nabla$, $\Delta$, $!$ and $?$ as defined above $\greco$ is a Frobenius algebra. 
+\end{theorem}
+
+\begin{proof}
+ The category of abstract cospans built from a category with coproducts inherits a monoidal structure, induced by coproducts, which satisfies the laws for Frobenius algebras: see e.g.~\cite[Section~2.2]{DBLP:journals/corr/abs-2012-01847}. 
+\end{proof}
+
+
+%An analogous operations of parallel  composition $m_1 + m_2$ is defined for modules by dropping the runtime state or, equivalently, replacing the category of runtime systems $\rsys$ by that of transformation systems $\sys$. 
+
+%AC: moved to section on operational semantics
+%Component transformations can be composed and decomposed along both composition and parallel composition of components.
+%
+%\begin{theorem}[composition and decomposition of transformations]
+%\label{thm:comp2}
+%Assume  $c_i = \<Li_i [\rrel{li_i} Bd_i \lrel{ri_i}] Ri_i\>$ for $i = 1,2$. %and let $c_1+ c_2$ be their parallel composition. 
+%Then, 
+% \[s_1: c_1 \ctrans{a_1}{b_1} c_1' \mbox{ and } s_2: c_2 \ctrans{a_2}{b_2} c_2' \mbox{\quad if and only if \quad} s_1+s_2: c_1+c_2 \ctrans{a_1 a_2}{b_1 b_2} c_1'+c_2'.\]
+%%
+%% if and only if there is a transformation
+%%\[s_1+s_2: c_1+c_2 \ctrans{a_1 a_2}{b_1 b_2} c_1'+c_2'.\]
+%%
+%For $c_1, c_2$ as above such that $Li_2 = Ri_1$, 
+% \[s_1: c_1 \ctrans{u}{v} c_1' \mbox{ and }
+%s_2: c_2 \ctrans{v}{w} c_2' \mbox{\quad if and only if \quad} 
+%s_2 \circ s_1: c_2 \circ c_1 \ctrans{u}{w} c_2' \circ c_1'.\]
+% %
+%%if and only if there is a transformation
+%%\[s_2 \circ s_1: c_2 \circ c_1 \ctrans{u}{w} c_2' \circ c_1'.\]
+%\end{theorem}
+%
+%\begin{proof}
+%The parallel composition $c_1 + c_2$ is based on a component-wise coproduct of the body and interface runtime systems of  $c_1$ and $c_2$. Viewing the coproduct as a pushout over the initial system $S_\varnothing$, we can use Corollary~\ref{cor:comp} to derive $s_1 + s_2$ as composition of $s_1$ and $s_2$, and  $s_1, s_2$ as decomposition of $s_1 + s_2$. The condition on state graphs holds trivially since projections to $S_\varnothing$ yield the empty graph.
+%
+%This means that rule and DPO diagram of $s_1 + s_2$ are coproducts of rules and DPO diagrams of $s_1$ and $s_2$, respectively. Since $a_1, a_2, b_1, b_2$ are defined by projections via pullbacks which, in an extensive category, preserve coproducts, the same relation holds for the rules and transformations of interfaces. Hence  $a_1, a_2$ and  $b_1, b_2$ composes into $a_1 a_2$ and $b_1 b_2$ respectively, and vice versa.
+%
+%For the functional composition we can apply Corollary~\ref{cor:comp} directly: The body of $c_2 \circ c_2$ is a pushout of those of $c_1$ and $c_2$ over the shared interface, and interface states and transformations are projections of those in the bodies, so $s_2 \circ s_1$ is the composition of $s_1$ and $s_2$ and vice versa.
+%\end{proof}
+%The notation $s_2 \circ s_1$ is justified because component transformations form a double category in which interface systems in $|\rsys|$ are the objects, components are the horizontal arrows, interface transformations are vertical arrows and $s_2 \circ s_1$ is the horizontal composition of cells with shared transformations at their common interface. Since this double category is also (symmetric) monoidal, it represents a tile model, supporting the following result on the bisimulation relation in the labelled transition system defined by component transformations.
+%
+%An equivalence relation $\equiv$ on a monoidal category is \emph{functorial} if, for suitable arrows $f, f', g, g'$: $f \equiv f'$ and $g \equiv g'$ implies $g \circ f \equiv g' \circ f'$ and $f  +  g \equiv f'  +  g'$ whenever these expressions are defined. 
+%
+%With bisimilarity $\equiv$ of components defined by $f \equiv g$ iff for all $a, b$ 
+%\[f \ctrans{a}{b} h \mbox{ iff } g \ctrans{a}{b} k \mbox{, and } h \equiv k, \]
+%we have the following theorem.  
+%
+%\begin{theorem}[functoriality]
+%\label{cor:bisimulation}
+%Bisimulation $\equiv$ on $\greco$  is functorial. 
+%\end{theorem}
+%
+%\begin{proof}
+%Assume $f \equiv f', g \equiv g'$. 
+%If $g \circ f \ctrans{a}{b} k \circ h$ then 
+%$f \ctrans{a}{c} h$ and $g \ctrans{c}{b} k$ by Thm.~\ref{thm:comp2} (decomposition). 
+%This implies $f' \ctrans{a}{c} h'$ and $g' \ctrans{c}{b} k'$ since$f \equiv f'$ and $g \equiv g'$, and then 
+%$g' \circ f' \ctrans{a}{b} k' \circ h'$ by Thm.~\ref{thm:comp2} (composition). 
+%Reversing the roles of $f, g$ and $f', g'$ we can show the inverse implication. Then, by coinduction, $h \circ k \equiv h' \circ k'$ implies $g \circ f \equiv g' \circ f'$.
+%The proof for $+$ is analogous. 
+%\end{proof}
+%
+%%Components $Com =\<(Prs, Bd, Rqs\>$
+%%	* $Bd \in \gg$, up to isomorphism
+%%	* $Prs, Rqs \in \gg(\_,Bd)*$ ordered sets of $\gg$ morphisms into $Bd$. We write $pr_i: Pr_i \to Bd$ for provided and $rq_j: Rq_i \to Bd$  for required interfaces. 
+%%	
+
+\section{Architectural Models}
+\label{sec:alg}
+
+
+Due to Thm.~\ref{thm:greco-frop} we can depict networks of components as \emph{string diagrams}~\cite{DBLP:journals/corr/abs-2012-01847}, a graphical syntax for structures whose basic elements take multiple inputs and outputs.
+% This can be contrasted with term syntax, which is best suited for algebraic structures,
+%whose basic operations take many inputs to a single output. In recent years, structures that mix
+%algebraic (i.e. many-to-1 operations) and coalgebraic (i.e. 1-to-many) operations have increasingly
+%found applications in a variety of fields, such as concurrency theory, control theory, quantum
+%physics, biology, computational linguistics, and even cognition and consciousness.
+The axioms of Frobenius algebras are sound and complete for string diagrams, in the 
+sense that the diagrams representing two terms of the algebra can be topologically deformed 
+into each other without cutting or joining wires if and only if the two terms are provably equal by the 
+axioms. 
+
+
+Thanks to the axioms of symmetric monoidal categories (which we omit for brevity) the axioms of Frobenius algebras 
+%involving $\Nabla$, $\Delta$, $!$ and $?$ 
+can be depicted as follows. 
+\begin{itemize}
+\item for each object, $\Delta$ and $?$ form a commutative monoid, i.e., they satisfy associativity, commutativity, and $?$ is the unit: 
+\begin{equation*}
+\scalebox{0.8}{\tikzfig{monoid-laws}} 
+\end{equation*}
+\item for each object, $\Nabla$ and $!$ form a cocommutative comonoid, i.e., they satisfy associativity, commutativity, and $!$ is the counit: 
+\begin{equation*}
+\scalebox{0.8}{\tikzfig{comonoid-laws}}
+\end{equation*}
+\item the monoid and comonoid structures satisfy the Frobenius and special laws:
+\begin{equation*}
+\scalebox{0.8}{\tikzfig{frobenius-law} \qquad
+\tikzfig{special-law}}
+\end{equation*}
+\end{itemize}
+
+
+%Under different names, Frobenius algebras have been often used as a counterpart to the combinatorial representation of  graphical formalisms. 
+%What is relevant here is that they characterise the underlying structure of cospan categories.
+
+% AC: commented. The graphical presentation is better for us
+%Briefly, borrowing from~\cite{DBLP:journals/corr/abs-2012-01847}
+%they are self-dual monoidal categories where each object has a comonoid structure that is subject to suitable axioms. More precisely, they satisfy the axioms of symmetric monoidal categories
+% 
+%\[
+%  \begin{array}{rcl}
+%    (s ; t) ; u \equiv s ; (t ; u) & &
+%    id_n ; s \equiv s \equiv s; id_m\\
+%    %
+%    (s  +  t)  +  u \equiv s  +  (t $•$ u) $•$& &
+%    id_0  + \ s \equiv s  \equiv s  +  id_0 \\
+%    %
+%  \end{array}
+%\]
+%\vspace{-.5cm}
+%\[
+%  \begin{array}{c}
+%    (s ; u)  +  (t ; v) \equiv (s  +  t) ; (u  +  v)\\
+%    id_m  +  id_n \equiv id_{m + } \\
+%    (\sigma_{m,n}  +  id_o) ; (id_n  + \ \sigma_{m,o}) \equiv \sigma_{m,n +  o} \\
+%    \sigma_{m,n};\sigma_{n,m}\equiv id_{m +  n} \\
+%    (s +  id_m) ; \sigma_{n,m} \equiv \sigma_{o,m} ; (id_m  + \ s) % s : n -> o
+%  \end{array}
+%\]
+%%
+%Moreover, each object has a comonoid structure, namely arrows $\nabla_m: m \rightarrow m  +  m$ and $!_m: m \rightarrow 0$ satisfying the axioms
+%%
+%\[
+%  \begin{array}{rcl}
+%    \nabla_m ; \sigma_{m, m} \equiv \nabla_m & &
+%    \nabla_m ; (!_m  +  id_m)  \equiv id_m\\
+%    %
+%    \nabla_0  \equiv !_0   \equiv id_0 & &
+%    \nabla_m ; (\nabla_m  +  id_m) \equiv \nabla_m ; (id_m  +  \nabla_m)
+%  \end{array}
+%\]
+%%
+%Being the category self-dual, each object has also a monoid structure i.e. arrows 
+%$\Delta_m: m  +  m \rightarrow m$ and $?_m: 0 \rightarrow m$
+%satisfying the dual axioms as well as
+%
+%\[
+%  \begin{array}{rcl}
+%    \nabla_m ; \Delta_m \equiv id_m & &
+%    \Delta_m ; \nabla_m \equiv (\nabla_m  +  id_m) ; (id_m  +  \Delta_m)
+%  \end{array}
+%\]
+
+
+
+%\subsection{Components as Frobenius PROP}
+
+%The category of components  $\greco$ is a coloured Frobenius PROP (or DGS category) with colours given by the class of all runtime systems as component interfaces. (One could make this a countable set if needed, by assuming a standard representation based on some skeleton category for $\cat C$ and limiting to finite sets of rules.)
+%%
+%That means, for each runtime system $RS$ we have the following special components representing architectural connectors. 
+%\begin{itemize}
+%\item $id_{RS} = \<RS \rrel{id_{RS}} RS \lrel{id_{RS}} RS\>: RS \to RS$ synchronises transformations between its left and right interfaces;
+%\item $\sigma_{RS, RS'}: \<RS + RS' \rrel{ [inr_{RS}, inl_{RS'}] } RS' + RS  \lrel{id_{RS'+RS}} RS' + RS\>: RS + RS' \to RS' + RS$ cross the wires between $RS+ RS'$ and $RS' + RS$;
+%\item $!_{RS} = \<RS \rrel{id_{RS}} RS \lrel{\emptyset} S_\varnothing\>: RS \to S_\varnothing$ allows arbitrary transformations on its left interfaces;  
+%\item $\Delta_{RS} = \<RS + RS \rrel{ [id_{RS}, id_{RS}] } RS \lrel{id_{RS}} RS\>: RS + RS \to RS$ synchronises transformations between its right and two left interfaces;
+%\item $?_{RS} = \<S_\varnothing \rrel{\emptyset} RS \lrel{id_{RS}} RS\>: S_\varnothing \to RS$ allows arbitrary transformations on its right interface;  
+%\item  $\Nabla_{RS} = \<RS \rrel{id_{RS}} RS \lrel{ [id_{RS}, id_{RS}] } RS + RS\>: RS \to RS + RS$ synchronises transformations between its left and two right interfaces; 
+%\end{itemize}
+%%An \emph{adapter} is a component $C = \<Pr [\rrel{pr} Rq \lrel{id}] Rq\>$ where $pr: Pr \to Rq$ is an adaptation morphism.
+%
+%% Likewise there are special modules $id_S$, $?_S$ and $\Nabla_S$, and $!_S$ and $\Delta_S$, leading to a Frobenius PROP $\gremod$ of modules.
+%
+%\begin{theorem}[$\greco$ as FROP]
+%\label{thm:greco-frop}
+%The category $\greco$ of components with its families of connectors as defined above and coproduct as tensor forms a Frobenius PROP. 
+%\end{theorem}
+%
+%\begin{proof}
+% A category of abstract cospans can be built from a category with coproducts: it inherits a monoidal product, induced by coproducts, which satisfies the  laws for Frobenius algebras: see e.g.~\cite[Section~2.2]{BG+2022}.
+%\end{proof}
+
+%category $\greco$ satisfies a set of axioms that are known to be sound and complete for a graphical representation of the interconnection of entities with well defined attachment points. 
+
+Since $\greco$ satisfies the axioms of Frobenius algebras, we can specify a complex component in $\greco$ by connecting the interfaces of its basic components. Any such drawings representing the same connections between interfaces are equivalent, such as two the string diagrams on the left below, both representing the component diagram of Sect.~\ref{sec:example} with basic components C, S, and D. 
+
+\includegraphics*[width = 0.9\textwidth]{figs/string-diagrams.pdf}
+%\abb{string-diagrams}{0.4}{Equivalent string diagrams, and sequential decomposition of the left  diagram.}
+ 
+On the right we show how the left string diagram arises as sequential composition  $?_{CI}\,;\, \Nabla_{CI}\,;\, id_{CI}  +  C \,;\, id_{CI}  +  S \,;\,  \Delta_{CI}  +  id_{DI} \,;\, !_{CI}  +  D$ of expressions in the algebra of components and connectors, with vertical dashed lines in the figure representing ``;''. 
+%\marginpar{$S_\varnothing$ should be $RS_\varnothing$, but not introduced...}
+%
+Based on the interpretation of basic components and connectors in $\greco$, the constituent expressions represent the following cospans.
+\begin{enumerate}
+\item $?_{CI} = \<S_\varnothing [\rrel{\emptyset}  CI \lrel{id_{CI}}] CI\>$;
+\item  $\Nabla_{CI} =  \<CI [\rrel{id_{CI}} CI \lrel{[id_{CI}, id_{CI}]} ] CI + CI\>$;
+\item $id_{CI}  +  C = \<CI + CI [\rrel{id_{CI} + ci_C} CI + C \lrel{id_{CI} + si_C} ] CI + SI\>$;
+\item $id_{CI}  +  S = \<CI+SI [\rrel{id_{CI} + si_S} CI+S \lrel{id_{CI} + [ci_S, di_S]} ] CI+CI+DI\>$;
+\item $\Delta_{CI}  +  id_{DI} = \<CI+CI+DI [\rrel{[id_{CI}, id_{CI}] + id_{DI}} CI+DI \lrel{id_{CI}+id_{DI}} ] CI+DI\>$;
+\item  $!_{CI}  +  D = \< CI+DI [\rrel{id_{CI}+di_D} CI+D \lrel{[\emptyset,  \emptyset]} ]S_\varnothing \>$. 
+\end{enumerate}
+Thus string diagrams serve as a bridge between the network-level description of an architecture in a component diagram and its ``implementation'' in graph rewriting components. The result of composing cospans 1-6 is the global system Sys in Fig.~\ref{fig:TGGs} with global rules emerging as amalgamation of component over interfaces rules and global state as pushout of component over interface states.
+
+%\subsection{Architectural Models}
+
+String diagrams providing a syntax for component networks are generated freely from an \emph{architectural signature} of basic components and interfaces, just as term syntax for algebras is generated freely from an algebraic signature.
+
+\begin{definition}[architectural signature]
+An \emph{architectural signature} $AS = \<I, C, dom, cod\>$ consists of sets of interface names $I$ and component names $C$ with functions $dom, cod: C \to I^*$ assigning each component name their sequences of names of left and right interfaces. 
+\end{definition}
+
+The free Frobenius algebra $\frob(AS)$ over $AS$ is a category that has sequences $I^*$ as objects.  Morphisms are directed hypergraphs with sorted interface nodes, called \emph{network graphs}. They play the role of terms in algebraic signatures.
+% and can be used to formulate equations.
+%
+%\begin{definition}[architectural specification]
+%An architecture specification over a signature $AS$ is a set of equations $E \subseteq mor(\frob(AS)) \times mor(\frob(AS))$ such that for $g = h \in E$ both network graphs are of the same type, i.e., $g, h: Li \to Ri$  for some $Li, Ri \in |\frob(AS)|$.
+%\end{definition} %
+%
+Named components are represented by hyberedges distinguishing attachments of left and right interfaces. An architectural model assigns interpretations to interface  and component names.
+
+\begin{definition}[interpretation, model]
+An \emph{interpretation} for a signature $AS$ is a hypergraph morphism $f = \<f_I, f_C\>: AS \to \greco$, i.e. a pair of mappings compatible with the domains and codomains of component names in $AS$ and components in $\greco$. That means, each $c: Li_1 \dots Li_n \to Ri_1 \dots Ri_m$ in $AS$ is mapped to an arrow $f_C(c): f_I(Li_1) + \cdots + f_I(Li_n) \to f_I(Ri_1) + \cdots + f_I(Ri_m)$.   
+
+The \emph{architectural model} for interpretation $f$ is given by the functor $F: \frob(AS) \to \greco$ that freely extends the given interpretation, i.e., such that $F \circ \eta_{AS} = f$ for the embedding $\eta_{AS}: AS \to \frob(AS)$.
+%
+%$F$ satisfies a specification $E$ over $AS$ if for all $g = h \in E$, $F(g) = F(h)$. 
+\end{definition}
+
+Thm.~\ref{thm:greco-frop} ensures that $F$ is well defined, i.e., for  $g, h: S \to T$ in $\frob(AS)$, $g = h$ implies $F(g) = F(h)$,  because $\greco$ satisfies the Frobenius algebra axioms.
+
+Category $\frob(AS)$ and model functor $F$ represent the space of all component networks over a given collection of basic components with their interpretations. Since $\frob(AS)$ is free over $AS$, the extension $F$ is unique and can be represented finitely  by the hypergraph morphism $f: AS \to \greco$. If we consider the states of components only, this is similar to distributed graphs where a network graph forms the shape of a diagram in a category of local graphs, except that in our case graphs with interfaces are (part of) the arrows rather than the objects of the categories involved. 
+%
+However, in addition to states, we distribute entire runtime systems with interfaces along a network graph given by a morphism $g$ in $\frob(AS)$. For a model $F$, a \emph{configuration} consists of $g$ and its interpretation $F(g)$ mapping the components named in $g$ to their implementation in $\greco$.
+
+In our example, interface names are $I = \{si, ci, di\}$ and component names are $C = \{c, s, d\}$ with $dom$ and $cod$ given by $c: c i\to si, s: si \to ci\,di$ and $d: di \to \epsilon$ (the empty sequence). Interpretation $f$ is defined by replacing lower with upper case characters, e.g., $f(s: si \to ci\,di) = S: SI \to CI + DI$.
+
+
+%In addition, these axioms describe the equality of components completely.
+%\begin{theorem}[completeness of FROP axioms for components]
+%\label{thm:completenss}
+%For arrows $g, h: S \to T$ in $\frob(AS)$, $F(g) = F(h)$ implies $g = h$.
+%\end{theorem}
+%
+%\begin{proof}
+%Is this covered by a similar general result on cospans as above? Otherwise this seems non-trivial to prove and not really necessary, so we could drop for now.
+%\end{proof}
+
+%That means, for each runtime system $RS$ we have special components for 
+%\begin{itemize}
+%\item identities $id_{RS}: RS \to RS$ passing invocations from provided to required interfaces
+%\item $?_{RS}: \emptyset \to RS$ able to create arbitrary invocations on $RS$ 
+%\item  $\Nabla_{RS}: RS \to RS + RS$ duplicating invocations observed on its left interface  
+%\item $!_{RS}: RS \to \emptyset$ dropping invocations and 
+%\item $\Delta_{RS}: RS + RS \to RS$ synchronising incoming invocations
+%\end{itemize}
+%%An \emph{adapter} is a component $C = \<Pr [\rrel{pr} Rq \lrel{id}] Rq\>$ where $pr: Pr \to Rq$ is an adaptation morphism.
+
+
+\section{Structural Operational Semantics}
+\label{sec:opSem}
+
+We exploit the compositionality of runtime system transformations for defining a structural operational semantics that derives the behaviour of complex components from that of basic ones and Frobenius algebra connectors. Since only morphims that are strict reflect transformations between runtime systems, we will focus on strict components only.   
+% using SOS rules for functional and parallel composition. 
+
+
+%Transformations of basic components provide the generators for a structural operational semantics 
+When presenting an architecture model, a basic component with $n$ left interfaces and $m$ right interfaces is shown as a diagram in $\rsys$ of shape $D = \<Li_i \rrel {li_i} Bd \lrel{ri_j} Ri_j\>$ with $1 \leq i \leq n$ and  $1 \leq j \leq m$. In $\greco$ this basic component is an abstract  cospan constructed by the coproducts of their left and right interfaces as
+\[cospan(D) = \<Li_1 + \cdots + Li_n \rrel{li} Bd \lrel{ri} Ri_1 + \cdots + Ri_m\>\]
+where $li = [li_1, \dots, li_n]$ and $ri = [ri_1, \dots, ri_m]$ are the co-pairings of the interface morphisms, induced by the universality of the respective coproducts. It is sufficient to require that all the interface morphisms are strict: the strictness of the co-pairing morphisms can be shown easily. 
+
+Since strict components
+%, that is arrows of the category $\greco$, 
+are based on strict $\rsys$ morphisms, they have an internal state in the body projected to corresponding states of the interfaces. 
+Let $c = \<Li [\rrel{li} Bd \lrel{ri}] Ri\>$ be a strict component. 
+When the state changes through an internal transformation $s: G_{Bd} \To_c G_{Bd'}$ of the body, 
+$s$ is only partly hidden because it is reflected by the strict morphisms $li$ and $ri$ to interface 
+transformation $a= li^<(s)$  in $Li$ and $b = ri^<(s)$ in $Ri$, that we call \emph{(left and right)  
+observations}. This defines a strict component transformation that we denote as  
+\[s: c \ctrans{a}{b} c'\]
+where $c'$ is the resulting component that shares types and rules with $c$, and may only 
+differ for the states. Note that this notation only makes sense if $c$ is strict, thus its use establishes an assumption or a proof obligation, depending on the context. The strictness of $c'$ follows by that of $c$ and because strict morphisms are preserved by transformations. 
+
+ 
+
+
+%%(recall that morphisms in $\rsys$ reflect transformations). 
+%Such projections, when observed over interfaces shared between components, allow us to synchronise their internal transformations.  
+%
+%
+%Since strict components
+%%, that is arrows of the category $\greco$, 
+%are based on runtime systems, they have an internal state. Let $c = \<Li [\rrel{li} Bd \lrel{ri}] Ri\>$ be a generic component. When that state changes through an internal transformation of the body, we get a new component that shares types and rules with the previous one. These transformations are only partly hidden because interfaces project parts of the internal states and transformations, reflected by the strict morphism from the interface to the body.
+%%(recall that morphisms in $\rsys$ reflect transformations). 
+%Such projections, when observed over interfaces shared between components, allow us to synchronise their internal transformations.  
+%
+%%\subsubsection{Synchronisation Semantics} 
+%
+%An interface transformation $a$ in $Li$ or $b$ in $Ri$ is an \emph{observation} of a transformation $s$ in the body  $Bd$ if $a = li^<(s)$ or $b = ri^<(s)$, respectively. 
+%%
+%With old and new components $c$ and $c'$, respectively, %and write  $B$ for the set of effects $rq^<(t)$, 
+%a component transformation is a 5-tuple 
+%\[s: c \ctrans{a}{b} c'\]
+%where $s: G_{Bd} \To_c G_{Bd'}$ is the internal transformation and $a = li^<(s)$ and $b = ri^<(s)$ are its left and right observations. Strictness of $c'$ follows by that of $c$ and because transformations preserve strict morphisms. 
+
+If strict components $c_i = \<Li_i [\rrel{li_i} Bd_i \lrel{ri_i}] Ri_i\>$  for $i = 1,2$ are connected through $Li_2 = Ri_1$, internal transformations of $c_1$ and $c_2$ need to synchronize by projecting the same observation to the shared interface, that is if 
+\[c_1 \ctrans{a_1}{b_1} c_1' \quad \mbox{and}\quad c_2 \ctrans{a_2}{b_2} c'_2\]
+then we must have $b_1 = a_2$. If $c_1$ and $c_2$ are compatible (and thus $c_2 \circ c_1$ is strict, see Def.~\ref{def:components}) then also $c'_1$ and $c'_2$ can be shown to be compatible, and this results in a composed transformation of $c_2 \scirc c_1$,  projecting to interfaces $Li_1$ and $Ri_2$ the same observation projected by the transformations of $c_1$ and $c_2$, respectively. 
+
+%The composition of components $c_2 \circ c_1$ for $c_i = \<Li_i [\rrel{li_i} Bd_i \lrel{ri_i}] Ri_i\>$  for $i = 1,2$ is defined if $Li_2 = Ri_1$. Then
+%\[c_2 \circ c_1 = \<Li_1 [\rrel{li} Bd \lrel{ri}] Ri_2\>: Li_1 \to Ri_2\]
+%is the isomorphism class of the cospan obtained by a pushout $Bd_1 \rrel{li_2^*} Bd \lrel{ri_1^*} Bd_2$ of $ri_1$ and $li_2$ with $li = li_2^* \circ li_1$ and $ri = ri_1^* \circ ri_2$.  
+%
+
+
+%\[c_1+ c_2  = \<Li_1 + Li_2 [\rrel{li_1 + li_2} Bd_1 + Bd_2 \lrel{ri_1 + ri_2}] Ri_1 + Ri_2\>.\]
+%**********************
+For the parallel composition of strict components, which is strict,  recall that the set of rule names of a coproduct of systems $S_1 + S_2$ is a product $P_1 \times P_2$. Therefore, a transformation $a = p/t$ in $S_1 + S_2$ is an application of a rule pair $p = \<p_1, p_2\> \in P_1 \times P_2$ with $p_i \in P_i$. The rule span $\pi(\<p_1, p_2\> ) = \pi_1(p_1) + \pi_2(p_2)$  is a coproduct in $\mspan$ and the DPO diagram $t = t_1 + t_2$ a coproduct in $\dpo$. Hence, $a$ represents the disjoint parallel occurrence of transformations $a_i = p_i/t_i$ in $S_i$ for $i = 1,2$, which we write using juxtaposition as $a_1\, a_2$. 
+
+Summarizing, for strict and parallel composition we have the  rules
+\[
+\frac{c_1 \ctrans{a}{b} c_1' \  ,\   c_2 \ctrans{b}{c} c_2'\ ,\  c_1 \mbox{ and } c_2 \mbox{ compatible}} {c_2 \scirc c_1 \ctrans{a}{c} c_2' \scirc c_1'} \quad \quad
+\frac{c_1 \ctrans{a}{b} c_1' \ ,\  c_2 \ctrans{c}{d} c_2'} {c_1 + c_2 \ctrans{a\, c}{b\, d} c_1' + c_2'} \quad .
+\]
+
+
+For all connector components, we can easily infer from the definitions that their transformations are triggered by a transformation in the left or right interface.  
+For  interface transformations $a: RS \To RS',  a_i: RS_i \To RS'_i$, we have the following connector component transformations:
+\begin{itemize}
+\item $id_{RS} \ctrans{a}{a} id_{RS'}$  synchronises transformations between the two interfaces;
+\item	$\sigma_{RS_1, RS_2} \ctrans{a_1 a_2}{a_2 a_1} \sigma_{RS_2', RS_1'}$
+crosses the wires between $RS_1+ RS_2$ and $RS_2 + RS_1$;
+\item $\Nabla_{RS} \ctrans{a}{a a} \Nabla_{RS'}$  synchronises transformations of its left and two right interfaces; 
+ \item $\Delta_{RS} \ctrans{a a}{a} \Delta_{RS'}$ synchronises transformations of its right and two left interfaces;
+\item	$!_{RS} \ctrans{a}{\emptyset} !_{RS'}$ allows arbitrary transformations on its left interface;  
+\item $?_{RS} \ctrans{\emptyset}{a} ?_{RS'}$  allows arbitrary transformations on its right interface.
+\end{itemize}
+
+
+%\[
+%	id_S \ctrans{a}{a} id_{S'} \quad 
+%	\sigma_{S_1, S_2} \ctrans{a_1 a_2}{a_2 a_1} \sigma_{S_2', S_1'} \quad 
+%	\Delta_S \ctrans{a a}{a} \Delta_{S'} \quad 
+%	S_i \ctrans{a}{\emptyset} !_{S'} \quad 
+%	\Nabla_S \ctrans{a}{a a} \Nabla_{S'} \quad 
+%	?_S \ctrans{\emptyset}{a} {S'} \ .
+
+Component transformations can be composed and decomposed along both strict and parallel composition of components.
+
+\begin{theorem}[composition and decomposition of transformations]
+\label{thm:comp2}
+Assume strict components $c_i = \<Li_i [\rrel{li_i} Bd_i \lrel{ri_i}] Ri_i\>$ for $i = 1,2$. %and let $c_1+ c_2$ be their parallel composition. 
+Then, 
+ \[s_1: c_1 \ctrans{a_1}{b_1} c_1' \mbox{ and } s_2: c_2 \ctrans{a_2}{b_2} c_2' \mbox{\quad if and only if \quad} s: c_1+c_2 \ctrans{a_1\, a_2}{b_1\, b_2} c_1'+c_2'.\]
+%
+% if and only if there is a transformation
+%\[s_1+s_2: c_1+c_2 \ctrans{a_1 a_2}{b_1 b_2} c_1'+c_2'.\]
+%
+For $c_1, c_2$ as above such that $Li_2 = Ri_1$ and  $c_1, c_2$ compatible, 
+ \[s_1: c_1 \ctrans{u}{v} c_1' \mbox{ and }
+s_2: c_2 \ctrans{v}{w} c_2' \mbox{\quad if and only if \quad} 
+s: c_2 \scirc c_1 \ctrans{u}{w} c_2' \scirc c_1'.\]
+ %
+%if and only if there is a transformation
+%\[s_2 \circ s_1: c_2 \circ c_1 \ctrans{u}{w} c_2' \circ c_1'.\]
+\end{theorem}
+
+\begin{proof}
+The parallel composition $c_1 + c_2$ is based on a component-wise coproduct of the body and interface runtime systems of  $c_1$ and $c_2$. Viewing the coproduct as a pushout over the initial system $S_\varnothing$, we can use Thm.~\ref{thm:comp} to derive $s$ as composition of $s_1$ and $s_2$, and  $s_1, s_2$ as decomposition of $s$. 
+%The condition on state graphs holds trivially since projections to $S_\varnothing$ yield the empty graph.
+
+This means that rule and DPO diagram of $s$ are coproducts of rules and DPO diagrams of $s_1$ and $s_2$, respectively. Since $a_1, a_2, b_1, b_2$ are defined by projections via pullbacks which, in an adhesive category with strict initial object, preserve coproducts, the same relation holds for the rules and transformations of interfaces. Hence  $a_1, a_2$ and  $b_1, b_2$ composes into $a_1\, a_2$ and $b_1\, b_2$ respectively, and vice versa.
+%
+For strict composition we can apply Thm.~\ref{thm:comp} directly: The body of $c_2 \scirc c_2$ is a pushout of those of $c_1$ and $c_2$ over the shared interface, and interface states and transformations are projections of those in the bodies, so $s$ is the composition of $s_1$ and $s_2$ and vice versa. 
+\end{proof}
+
+
+
+
+% AC ***** for full version
+%The notation $s_2 \circ s_1$ is justified because component transformations form a double category in which interface systems in $|\rsys|$ are the objects, components are the horizontal arrows, interface transformations are vertical arrows and $s_2 \circ s_1$ is the horizontal composition of cells with shared transformations at their common interface. Since this double category is also (symmetric) monoidal, it represents a tile model, supporting the following result on the bisimulation relation in the labelled transition system defined by component transformations.
+
+%An equivalence relation $\equiv$ on a monoidal category is a \emph{congruence} if, for suitable arrows $f, f', g, g'$: $f \equiv f'$ and $g \equiv g'$ implies $g \circ f \equiv g' \circ f'$ and $f  +  g \equiv f'  +  g'$ whenever these expressions are defined. 
+
+With \emph{bisimilarity} $\equiv$ of strict components as the largest relation satisfying $f \equiv g$ iff for all $a, b$ 
+%\[f \ctrans{a}{b} h \mbox{ iff } g \ctrans{a}{b} k \mbox{, and } h \equiv k, \]
+$f \ctrans{a}{b} h \mbox{ iff } g \ctrans{a}{b} k \mbox{ and } h \equiv k$, 
+we have the following result.  
+
+\begin{theorem}[bisimilarity as congruence]
+\label{cor:bisimulation}
+Bisimilarity $\equiv$ on strict components is a congruence for parallel composition $+$ and strict composition $\scirc$. 
+\end{theorem}
+
+%A \emph{bisimulation} $\cong$ is a relation on components such that $f \cong g$ iff for all $a, b$ 
+%\[f \ctrans{a}{b} h \mbox{ iff } g \ctrans{a}{b} k \mbox{, and } h \cong k, \]
+%we have the following theorem.  Bisimulation relations are closed under union, and this allows to define \emph{bisimilarity} as the largest bisimulation on components.
+%
+%\begin{theorem}[Bisimilarity is a congruence]
+%\label{cor:bisimulation}
+%Bisimilarity $\equiv$ on $\greco$  is a congruence. 
+%\end{theorem}
+
+\begin{proof}
+Assume $f \equiv f', g \equiv g'$. 
+If $g \scirc f \ctrans{a}{b} k \scirc h$ then 
+$f \ctrans{a}{c} h$ and $g \ctrans{c}{b} k$ by Thm.~\ref{thm:comp2} (decomposition). 
+This implies $f' \ctrans{a}{c} h'$ and $g' \ctrans{c}{b} k'$ since $f \equiv f'$ and $g \equiv g'$, and then 
+$g' \scirc f' \ctrans{a}{b} k' \scirc h'$ by Thm.~\ref{thm:comp2} (composition). 
+Reversing the roles of $f, g$ and $f', g'$ we can show the inverse implication. Then, by coinduction, $h \scirc k \equiv h' \scirc k'$ implies $g \scirc f \equiv g' \scirc f'$.
+The proof for $+$ is analogous. 
+\end{proof}
+
+Concretely this means that, if a component works in a given context, e.g. C in the context of S and D as defined in our example architecture, and we replace that context by a behaviourally equivalent one, e.g., adding a second instance of D for redundancy, the resulting system will have an equivalent overall behaviour.  
+ 
+\section{Conclusion and Related Work}
+ 
+We introduced a component model for graph rewriting systems that allows to represent a global system as a network of components with interfaces representing shared views of internal states and transformations, and such that their composition reconstructs the global system. 
+ 
+Formally and conceptually our model represents the convergence of three main ingredients: Distributed graph transformations~\cite{DBLP:journals/acs/Taentzer99} formalise synchronised transformations of distributed graphs. Various notions of morphisms between graph transformation systems, discussed in~\cite{engels2005flexible} with their semantic properties, 
+%\cite{CEL+96,Rib96,GPS00,HCEL96,HEET99a} 
+support the modularisation of types and rules. Algebraic representations of (network) graphs as arrows in a symmetric monoidal category and their visualisation by string diagrams~\cite{DBLP:journals/corr/abs-2012-01847} provide a syntax for component architectures.  
+ 
+Early steps towards modularity of formal specifications have been made in algebraic specifications~\cite{EM90} where the body of a module is related by morphisms with its import and export interfaces defining, respectively, required and provided services. In graph rewriting, work on modularity was inspired by algebraic specifications, programming and software engineering concepts~\cite{EM90}, resulting in a number of proposals surveyed in~\cite{HEET99b}. 
+% ~\cite{KK96,SW98,gGPS98} (see also the survey~\cite{HEET99b}). 
+ 
+Modules of typed graph transformation systems~\cite{gGPS98} follow the structure of algebraic specification modules while \cite{engels2005flexible} combines modularity and service-oriented concepts. None of the above include a notion of  state, i.e. they structure the specification but not the runtime of a system. We consider this the main difference between modules and components. Conversely, distributed graph transformations capture the distribution of graphs, rules and transformations in a category of diagrams over graphs~\cite{DBLP:journals/acs/Taentzer99} but without modularity at  specification level. 
+ 
+We provide for the first time a component model integrating these two features. In this more general setting we achieve compositionality like in distributed graph transformations, relating global and synchronised local transformations, and describe the network architecture using Frobenius algebras to provide a constructive ``compilation'' assembling complex components from basic constituents.
+
+In the future we would like to make explicit the invocation-based intuition of components, using a type system and refined operational semantics to distinguish provided and required interfaces and caller/callee roles in the synchronised applications of rules. We will exploit and extend the Frobenius structure to (1) support architectural equations defining, e.g., derived components as expressions over basic ones or behavioural equalities between configurations; (2) allow architectural reconfiguration as string diagram rewriting; and (3) consider a bigraph-like network level with hierarchical components.
+
+Our notion of bisimilarity over doubly-labelled transformations as a congruence is analogous to functoriality of tile bisimilarity, and we can indeed phrase our operational semantics as an instance of the tile model. In~\cite{soton261844} tile bisimilarity is extended to remain compositional under dynamic reconfiguration.  
+
+ 
+
+
+
+
+
+
+\newcommand{\bibdir}{bibsRH}
+
+\bibliographystyle{splncs03}
+%\bibliography{references,LITVS,greco}
+\bibliography{references}
+
+\end{document}
+\appendix
+
+Possible definitions / results to include:
+
+\begin{enumerate}
+\item Retyping functor: say that there is a choice of pullbacks
+\item Adhesive category
+\item strict initial object
+\item $\cat{TC}$ has pushouts
+\item $\cat{TC}$ has strict initial object 
+\item strict morphisms compose
+\item PO injections of strict morphisms are strict if the PO of types is Van Kampen. Therefore are strict if one of the morphism between types are injective.
+\item given a PO of strict morphisms, the mediating arrow induced by strict morphisms is strict 
+\item $\cat{TC}$ has pullbacks
+\item Pullback projections of strict morphisms are strict
+\item Copairing of strict morphisms is strict
+\item strictness of a morphism preserved by synchronized transformations of source and target systems
+\item compatibility of strict components along common interface preserved by synchronized transformations 
+ 
+\end{enumerate}
+\section{On pushouts in the category \textbf{TC} and on strictness}
+\label{sec:appendixPO}
+
+
+Given objects $g_1:G_i \to T_i$ for $i \in \{0,1,2\}$ in $\cat{TC}$ and morphisms  $\<t_1,f_1\>: g_0 \to g_1$ and $\<t_2,f_2\>: g_0 \to g_2$,   
+the following diagram in $\cat{C}$ shows how their pushout
+% object $k: K \to T$ 
+can be constructed in category $\cat{TC}$. The double arrows are the morphisms of $\cat{C}$ we start with. 
+
+\[\xymatrix@C=2pc@R=2pc{
+G_0 \ar@{=>}[rr]^{f_1} \ar@{=>}[dr]^{g_0} \ar@{=>}[dd]^{f_2} \ar@/^5ex/[rrrr]^{\widehat{f}_1}  \ar@/_5ex/[dddd]_{\widehat{f}_2}& & t_1^<(G_1) \poc{dr} \ar[rr] \ar[dl] & & G_1 \ar@{=>}[dl]^{g_1} \ar[dd]^{f^*_2} \ar@/^5ex/[dddd]^{\widehat{f}^*_2}\\
+& T_0 \ar@{=>}[rr]^{t_1} \ar@{=>}[dd]^{t_2} & & T_1 \ar[dd]^{t_2^*}\\
+t_2^<(G_2) \poc{dr} \ar[ru] \ar[dd] & & & & t_2^{*<}(K) \poc{dl}\ar[dd] \ar[ul] \\
+& T_2 \ar[rr]^{t^*_1} & & T \poc{lu}\\
+G_2 \ar@{=>}[ur]^{g_2} \ar[rr]^{f^*_1} \ar@/_5ex/[rrrr]^{\widehat{f}^*_1}& & t_1^{*<}(K) \poc{ur} \ar[rr] \ar[ul] & & K \ar@{->}[ul]^k \\
+}
+\]
+
+The type object $T$ is obtained as the pushout of $t_1: T_0 \to T_1$ and $t_2: T_0 \to T_2$. 
+%Since, for $i \in \{1,2\}$, morphism $\<t_i,f_i\>: g_0 \to g_i$
+%is made by definition of  morphisms $t_i: T_0 \to T_i$ and $f_i: G_0 \to t_i^<{G_i}$, 
+For $i \in \{1,2\}$ we obtain $\widehat{f}_i: G_0 \to G_i$ as the composition 
+of $f_i$ with the projection of the retyping of $G_i$.  Then $K$ is the pushout object of $\widehat{f}_1: G_0 \to G_1$ and $\widehat{f}_2: G_0 \to G_2$, and the the typing morphism $k:K \to T$ is uniquely determined by the universal property. 
+The morphisms $\<t^*_1,f^*_1\>: g_2 \to k$ and $\<t^*_2,f^*_2\>: g_1 \to k$ are obtained by retyping $K$ along $t^*_1$ and $t^*_2$, respectively, and obtaining $f^*_1$ and $f^*_2$ as the unique mediating morphisms.  
+
+To check that the diagram commutes in $\cat{TC}$  observe that the composition of morphisms  $\<t_1,f_1\>: g_0 \to g_1$  
+and $\<t^*_2,f^*_2\>: g_1 \to k$ is 
+$\<t^*_2 \circ t_1, t_1^<(f^*_2) \circ f_1\>: g_0 \to k$, 
+while the composition of  $\<t_2,f_2\>: g_0 \to g_2$  and $\<t^*_1,f^*_1\>: g_2 \to k$ is 
+$\<t^*_1 \circ t_2, t_2^<(f^*_1) \circ f_2\>: g_0 \to k$. Clearly, $t^*_2 \circ t_1 = t^*_1 \circ t_2$, 
+because the internal square of the diagram is a pushout.  This also means that morphisms $t_1^<(f^*_2) \circ f_1 : G_0 \to 
+(t^*_2 \circ t_1)^< (K)$ and $t_2^<(f^*_1) \circ f_2: G_0 \to (t^*_1 \circ t_2)^< (K)$ have the same target, 
+and are easily shown to be the same arrow, because both are determined uniquely as mediating morphisms from $g$ and 
+$\widehat{f}^*_2 \circ \widehat{f}_1 = \widehat{f}^*_1  \circ \widehat{f}_2$. 
+Proving that the cocone built in this way enjoys the universal property is straightforward, as both $T$ and $K$ are obtained as pushouts in $\cat{C}$.
+
+\end{document}
+ 
+\section{Structural Operational Semantics [drop me!]}
+
+We exploit the compositionality of component transformations for defining a structural operational semantics that derives the behaviour of complex components from that of basic ones and FROP connectors using SOS rules for functional and parallel composition. 
+
+%Transformations of basic components provide the generators for a structural operational semantics 
+When presenting an architecture model, a basic component with $n$ left interfaces and $m$ right interfaces is shown as a diagram in $\rsys$ of shape $D = \<Li_i \rrel {li_i} Bd \lrel{ri_j} Ri_j\>$ with $1 \leq i \leq n$ and  $1 \leq j \leq m$. In $\greco$ this basic component is an abstract  cospan constructed by the coproducts of their left and right interfaces as
+\[cospan(D) = \<Li_1 + \cdots + Li_n \rrel{li} Bd \lrel{ri} Ri_1 + \cdots + Ri_m\>\]
+where $li = [li_1, \dots, li_n]$ and $ri = [ri_1, \dots, ri_m]$ are the co-pairings of the interface morphisms, induced by the universality of the respective coproducts.
+
+For each basic component $c$ in $AS$, its transformations define transitions
+\[ c \dlarrow{a}{b} c' \quad \mbox{ iff } \quad s: c \ctrans{a}{b} c' \quad . \] %We think of this as simultaneously defining a state transformation relation from $C$ to $C'$ and an synchronisation relation between $a$ and $b$ via $s$. 
+%
+For all interface transformations $a: S \To S',  a_i: S_i \To S'_i$, connector transitions 
+\[
+	id_S \dlarrow{a}{a} id_{S'} \quad 
+	\sigma_{S_1, S_2} \dlarrow{a_1 a_2}{a_2 a_1} \sigma_{S_2', S_1'} \quad 
+	\Delta_S \dlarrow{a a}{a} \Delta_{S'} \quad 
+	S_i \dlarrow{a}{\emptyset} !_{S'} \quad 
+	\Nabla_S \dlarrow{a}{a a} \Nabla_{S'} \quad 
+	?_S \dlarrow{\emptyset}{a} {S'} \ .
+\]
+For functional and parallel composition we have the  rules
+\[
+\frac{g_1 \dlarrow{a}{b} g_1' \  ,\   g_2 \dlarrow{b}{c} g_2'} {g_2 \circ g_1 \dlarrow{a}{c} g_2' \circ g_1'} \quad \quad
+\frac{g_1 \dlarrow{a}{b} g_1' \ ,\  g_2 \dlarrow{c}{d} g_2'} {g_1 + g_2 \dlarrow{a c}{b d} g_1' + g_2'} \quad .
+\]
+
+\begin{theorem}[SOS]
+\label{thm:completenss}
+For all components $g: S \to T$ and $g': S' \to T'$ in $\greco$ and interface transformations $a: S \To S'$ and $b: T \To T'$  
+\[g \dlarrow{a}{b} g' \mbox{ if and only if } s: g \ctrans{a}{b} g' \quad .\]
+\end{theorem}
+
+\begin{proof}
+By structural induction over $g$. In the base case, basic component transitions are directly derived by transformations, and we can verify by inspection of their definitions in $\greco$ that connectors behave as specified by their transitions. E.g., $\Nabla_{RS} = \<RS \rrel{id_{RS}} RS \lrel{ [id_{RS}, id_{RS}] } RS + RS\>: RS \to RS + RS$ has all transformations $a = p/t$ of $RS$ in its body,  mapped identically to its left interface and duplicated on its right interface where $p$ maps to $\<p, p\>$ and $t$ to $t+t$.
+
+For the inductive step, we observe that the rules for functional and parallel composition match directly the two parts of Thm.~\ref{thm:comp2}.
+\end{proof}
+
+The relation between architectural equations and SOS is an open question. If $F$ satisfies a specification $E$ over $AS$, does it hold that for each $g = h \in E$, $g$ and $h$ are bisimilar? Can a specification axiomatise bisimilarity? (There are no real results on equational specifications yet and they may not be needed in the example, so we consider them future work.)
+
+
+%%%%%%%%%%%% SYNTACTIC VERSION %%%%%%%
+
+%We exploit the compositionality of component transformations by defining a structural operational semantics at the level of the network graph syntax.  For the transition labels, we extend the architectural signature $AS = \<I, C, dom, cod\>$ to a architectural transition signature $ATS = \<I, C, dom, cod\, A, pre, post\>$ where $A$ is a set of actions to which $pre, post: A \to I$ assign their source and target interface names. Similarly we extend interpretation $f$ by a mapping $f_A$ of actions to interface transformations, such that $x: i \to j$ maps to $f_A(x): f_I(i) \To f_I(j)$. 
+%
+%Then, we define a transition system whose states are the arrows of $\frob(AS)$, with sequences of actions as labels, and where  the doubly-labelled transition relation $\_ \dlarrow{\_}{\_} \_$ is generated from the transformations of basic components and FROP connectors using functional and parallel composition. 
+%
+%%Transformations of basic components provide the generators for a structural operational semantics 
+%When presenting an architecture model, a basic component with $n$ left interfaces and $m$ right interfaces is shown as a diagram in $\rsys$ of shape $D = \<Li_i \rrel {li_i} Bd \lrel{ri_j} Ri_j\>$ with $1 \leq i \leq n$ and  $1 \leq j \leq m$. In $\greco$ this basic component is an abstract  cospan constructed by the coproducts of their left and right interfaces as
+%\[cospan(D) = \<Li_1 + \cdots + Li_n \rrel{li} Bd \lrel{ri} Ri_1 + \cdots + Ri_m\>\]
+%where $li = [li_1, \dots, li_n]$ and $ri = [ri_1, \dots, ri_m]$ are the co-pairings of the interface morphisms, induced by the universality of the respective coproducts.
+%
+%For each basic component $c$ in $AS$, its transformations define transitions
+%\[ c \dlarrow{x}{y} c' \quad \mbox{ iff } \quad s: f_C(c) \ctrans{f_A(x)}{f_A(y)} f_C(c') \quad . \] %We think of this as simultaneously defining a state transformation relation from $C$ to $C'$ and an synchronisation relation between $a$ and $b$ via $s$. 
+%%
+%For actions $x: i \to i',  x_1: i_1 \to i'_1, x_2: i_2 \to i'_2,$ the connector transitions are
+%\[
+%	id_i \dlarrow{x}{x} id_{i'} \quad 
+%	\sigma_{i_1, i_2} \dlarrow{x_1 x_2}{x_2 x_1} \sigma_{i_2', i_1'} \quad 
+%	\Delta_i \dlarrow{x x}{x} \Delta_{i'} \quad 
+%	!_i \dlarrow{x}{\emptyset} !_{i'} \quad 
+%	\Nabla_i \dlarrow{x}{x x} \Nabla_{i'} \quad 
+%	?_i \dlarrow{\emptyset}{x} ?_{i'} \ .
+%\]
+%For composition and tensor we have the  rules
+%\[
+%\frac{g_1 \dlarrow{x}{y} g_1' \  ,\   g_2 \dlarrow{y}{z} g_2'} {g_2 \circ g_1 \dlarrow{x}{z} g_2 \circ g_1'} \quad \quad
+%\frac{g_1 \dlarrow{x}{y} g_1' \ ,\  g_2 \dlarrow{u}{v} g_2'} {g_1 + g_2 \dlarrow{x u}{y v} g_1' + g_2'} \quad .
+%\]
+%
+%\begin{theorem}[SOS]
+%\label{thm:completenss}
+%Given an architectural transition signature $ATS$ with interpretation $f$, for any $g$ in $\frob(AS)$ 
+%\[g \dlarrow{x}{y} g' \mbox{ if and only if } F(g) \ctrans{f_A(x)}{f_A(y)} F(g') \quad .\]
+%\end{theorem}
+%
+%\begin{proof}
+%By structural induction over $g$. In the base case, basic component transitions are directly derived by transformations, and we can verify by inspection of their definitions in $\greco$ that connectors behave as specified by their transitions. E.g., $\Nabla_{RS} = \<RS \rrel{id_{RS}} RS \lrel{ [id_{RS}, id_{RS}] } RS + RS\>: RS \to RS + RS$ has all transformations $a = p/t$ of $RS$ in its body,  mapped identically to its left interface and duplicated on its right interface where $p$ maps to $\<p, p\>$ and $t$ to $t+t$.
+%
+%For the inductive step, we observe that the rules for functional and parallel composition match directly the two parts of Thm.~\ref{thm:comp2}.
+%\end{proof}
+%
+%The relation between architectural equations and SOS is an open question. If $F$ satisfies a specification $E$ over $AS$, does it hold that for each $g = h \in E$, $g$ and $h$ are bisimilar? Can a specification axiomatise bisimilarity? (There are no real results on equational specifications yet and they may not be needed in the example, so we consider them future work.)
+
+%%%%%%%%%%%%
+
+\section{Component Systems}
+
+From component diagrams to string diagrams: from component diagram shown earlier, derive string diagram.
+
+Informal discussion of invocation-based semantics: discuss directed transformation and SO semantics, show constraint ensuring that components are directed.
+
+Applying results to example: What is the ATS?  We assume the transformations (state space) of basic interfaces and basic components. to be given by: $LTS(i0)$ for each basic interface $i0$ in its initial state labelled by transformations, and $LTS(c0)$ for basic component $c0$ in its initial state, labelled by pairs of transformations.
+
+ Then we can define.
+ \begin{itemize}
+\item Interface names: SI, CI, DI + interface state id in LTS(i0)
+\item Component names: Client, Service, Data + component state id in LTS(c0)
+\item Actions: assume global name space for graphs in each interface, e.g. $\N$; introduce rule names with parameters such that mach is uniquely determined; then actions are rule names with actual parameters 
+\end{itemize}
+
+\subsection{Invocation Semantics} 
+
+We consider a variant of the operational semantics.  Specialising the semantics based on symmetric synchronisation via shared interfaces, a more restricted version is formalises the intuition of synchronous operation calls, where a transformation in one component invokes another leading to their synchronised execution. This interpretation leads to additional constraints which we capture in a refined set of operational rules and a type system distinguishing provided and required interfaces.
+
+In a basic component, a transformation $a$  in the left interface $Li$ represents an \emph{invocation}. This \emph{triggers} a transformation $s$ in the body  $Bd$ if $a = li^<(s)$, i.e., with $a = lp/lt$ and $s = bp/bt$, the match $lt_L$ for rule $lp$ in the current state of the interface can be extended to a match for $bp$ in the current body state. Otherwise, the invocation \emph{fails}. 
+
+That means, the body has to choose $bp$ among the rules mapping to $lp$ by $li_P$ such that the match for $lp$ can be extended to $bp$. The body also chooses a representative DPO diagram among those mapped to the DPO diagram $lt$ by $li_\tau^<$, including a representative of the new body state.
+
+In turn, transformation $ri^<(s)$ is the \emph{effect} of transformation $s$,  representing an invocations of a required operation. This supports the invocation of more than one operation through the  parallel composition of interfaces.
+
+If we let the old and new components be $C$ and $C'$ respectively, %and write  $B$ for the set of effects $rq^<(t)$, 
+we can express a component transformation by a 5-tuple 
+\[s: C \ctrans{a}{rq^<(s)} C' .\]
+We think of this as simultaneously defining a state transformation relation from $C$ to $C'$ and an invocation relation from $a$ via $s$ to $rq^<(s)$. 
+
+\section{Further topics}
+
+\subsection{Tile model}
+
+Categorically, component transformations 
+\[s: C \ctrans{a}{b} C'\] 
+are tiles (cells of a monoidal double category) where
+\begin{itemize}
+\item  vertical source and target (top and bottom arrows) are the given component $C$ and its derivative $C'$. In the static version (without architecture change) they share the same type graph and rules but differ in their states. 
+
+The given cospan of states $O_{Li} [\to O \from] O_{Ri}$ is transformed into to derived one $O_{Li'} [\to O' \from] O_{Ri'}$ by application of the body transformation and projection to the two interfaces. 
+\[li_\tau^<(O) [ \to O \from ] ri_\tau^<(O) \mbox{ and } li_\tau^<(O') [ \to O' \from ] ri_\tau^<(O')\]
+\item  vertical arrows are 
+\begin{itemize}
+\item the left interface transformation $a: O_{Li} \To_{Li^\phi} O_{Li'}$ as horizontal source
+\item the right interface transformation $b: O_{Ri} \To_{Ri^\phi} O'_{Ri}$ as horizontal target
+\end{itemize}
+\item  the tile is labelled by (the iso class of) the body transformation $s: O \To_{Bd} O'$.
+\end{itemize}
+
+We can compose tiles spatially (horizontal composition) in parallel (tensor) and sequentially (vertical composition), so they form a strict monoidal double category $\greco^*$ over the category of components as horizontal arrows. 
+
+We can show that tile bisimulation (defined as bisimulation in the tile transition system) is a congruence with respect to the horizontal structure. The main ingredient here is the tile decomposition property,\footnote{See (Corradini, Heckel, Montanari: Tile Transition Systems as Structured Coalgebras) and references therin.}
+which follows from the fact that states and transformations can be decomposed along pushouts of systems.
+In the general case of stateful interfaces the tile decomposition property requires an invariant to hold to ensure the component is transparent, i.e., for every match of any rule in the provided interface there must be a compatible match in the body of the component. This could be violated, for example, if the precondition of the provided rule is underspecified compared to the corresponding body rule.
+
+
+\subsection{Network graphs, frameworks and configurations}
+An architectural signature $AS$ consists of sets of interface names $IN$ and component names $CN$ with $prov, req: CN \to IN^*$ assigning each component name two sequences of names for provided and required interfaces. 
+
+The free 
+%FROP (Frobenius PROP) 
+Frobenius algebra $\frob(AS)$ over $AS$ is a category that has sequences $IN^*$ as objects.  Morphisms are directed hypergraphs with sorted interface nodes, called \emph{network graphs}. Basic components are represented by hyberedges distinguishing attachments of provided and required interfaces.
+
+A \emph{architectural framework} is given by a functor $F$ from $\frob(AS)$ for a given signature $AS$ to $\greco_\cat C$. This represents the space of all configurations one can build with a given collection of basic components. Since $\frob(AS)$ is free, we can represent a framework by a hypergraph morphisms $f: AS \to \greco_\cat C$.
+
+Within a given framework $F$, a \emph{configuration} is represented by an arrow $g$ in $\frob(AS)$ (a network graph) and its interpretation $F(g)$ mapping to the components named in the graph.
+
+\subsection{Reconfiguration}
+
+A network graph rewrite rule is a 2-cell over $\frob(AS)$. If we let $ARS$ be a rewrite system consisting of a signature $AS$ and a set rules (basic 2-cells) in $\frob(AS)$, the free FROP 2-category over $ARS$ represents equivalences classes of network graph rewrite sequences.
+
+For a given architectural framework $F$, a network graph rewrite induce an architectural reconfiguration over actual components in $\greco_\C$. Hence, an \emph{architecture rewrite rule} is a network rewrite rule in the context of $F$. Such a rule, with its interpretation of component names by actual components, can match the state of components and their interfaces. However, while a component transformation, which is double cell, can affect changes to interfaces, a 2-cell-based architecture rewrite rule, can not.
+
+To overcome this limitation we consider the free FROP double category over a set of basic double cells on $\frob(AS)$ instead and its induced interpretation in $\greco_\C^*$ as the appropriate model for reconfiguration. That requires to add a hupergraph of labels $L$ over $IN$ as generators for vertical arrows to the architectural signatures, which are mapped to the vertical arrows in $\greco_\cat C^*$.
+
+2-cels over $\frob(AS)$ can represent equations over architectures, restricting our choice of interpretations $F$.
+
+Network rewrites do not necessarily satisfy the tile decomposition property because it does not hold for rules with complex left-hand sides. However, if we consider basic rules only, such as adding, replacing or removing an elementary component, they satisfy the basic source property and therefore the tile decomposition property.\footnote{Corradini, Heckel, Montanari: Tile Transition Systems as Structured Coalgebras}
+
+Complex network rules $l \to r$ such that $F(l), F(r)$ are bisimilar lead to rewrites $C \To C'$ where $C, C'$ are bisimilar. That means, they have the same observable behaviour, so can be seen as refactoring steps.
+
+The distinction here is that bisimilarity of components refers to the components' interaction through its interfaces, and compositionality means that a network of local components behaves exactly like the global component obtained by parallel and functional composition. 
+ 
+Instead, bisimilarity of networks refers to the possible network level rewrites they can undergo, which are compositional if rules have basic source. Architecture rules that are not basic source at the network level, but replace configurations by equivalent configurations at component level preserve the externally visible behaviour of the system.
+
+Dynamic binding of services can be realised as proof search in the tile logic. If we consider a system where apart from the local computational rules for components we have limited reconfiguration rules. For example, just allowing to create adapter components between open required interfaces and provided interfaces for existing components, all closed computations (without open required interfaces, i.e., the horizontal source of the tile is the identity on the initial object) represent processes where the the binding (creation of adapters) happened by the time the bound component was required. This can be extended by rules that bring components into the configuration so that a-priory binding is not possible, so binding has to interleave with computation. 
+
+%What about
+%- triangular tiles
+%- borowed context
+%- complex rules as macros for basic ones
+% dynamic binding of services 
+
+ 
+\subsection{Framework evolution}
+
+A morphism between signatures $f: AS \to AS'$ representing the addition or renaming of components and interfaces induces a functor from $\frob(AS)$ to $\frob(AS')$ translating configurations over $AS$ into such over $AS'$. With this we can define rules over frameworks, representing framework evolution.
+
+\section{Open Questions}
+
+\subsection{Stateful interfaces}
+
+While most of the earlier definitions support both the stateless and the stateful case, the tile decomposition property only works in general in the stateless case where interface states and rules are always projections of body states and rules. There are interesting applications where interfaces should have their own state, e.g., if they represent endpoints for individual sessions that hold the state just of one particular client interaction but not all of them.
+
+it could be that using architectural rewriting one can replicate a new interface for any new client to serve, in which case we could still be formally stateless because interfaces to different clients would use different types. This may be the preferred solution, but alternatively some interface invariant could be assumed and verified that ensures each interfaces carries the right data to guarantee transparency, i.e., that an interface transformation leads to a body transformation. 
+
+\subsection{Bi-graphs} 
+Hierarchical graphs (bi-graphs) combine the graph structure with a hierarchy, so there are interfaces for both \emph{functional composition} along required and provided interfaces and \emph{hierarchical substitution} of components for component variables. It has been shown that bi-graphs can be modelled by a gs-monoidal structure\footnote{Roberto Bruni, Ugo Montanari, Gordon Plotkin, Daniele Terreni: On Hierarchical Graphs: Reconciling Bigraphs, Gs-monoidal Theories and Gs-graphs} but this uses nodes as undirected channels in the network graph structure so I don't think this allows the required-provided distinction. 
+
+My instinct is that we should have both the dgs monoidal (frop) structure for functional composition and the gs-monoidial just for the hierarchy and component substitution, like different colours in the PROP structure, with different sets of operators and potentially satisfying different axioms. There may be a general ways of combining different PROPs that produce an orthogonal combination of hierarchy and network structure, but one could also think of limiting the network structure through the hierarchy, e.g. many hierarchical graph models have only local links.
+
+\subsection{Kleisli interfaces}
+The current model seems suitable for asynchronous communication between components, where from the client's point of view request and response are different operations represent by separate rule applications. The response could use a callback interface resulting in a cyclic invocation dependency relation or the effect of the request could just be observable in the interface.
+
+In order to model synchronous invocations, the client's view is a single invocation implement by the server component by a complex computation. That means, the provided interface maps an interface rule to a alternative \emph{set} of \emph{transformation sequences} in the body, each implementing  a different outcome of the invocation. If we think of transformation sequences as obtained by a left adjoint between a category of computations and systems, this is a Kleisli morphism. 
+
+I'm fairly certain that Kleisli morphisms are stable under pushouts, although I haven't found a reference to this effect. This would mean that component composition could be as in the basic case and compositionality might work as well.
+
+\section{Applications and Examples}
+
+\subsection{Service-oriented Systems and other Distributed Architectures}
+
+See discussion above. Services are interfaces to components. The relation between client and service is represented by an adapter. Dynamic binding of services is proof search in a suitable tile logic.  
+
+One could also look at P2P or publish subscribe architectures. 
+
+\subsection{Triple Graph Grammars and Graph-based Applications}
+
+The body of component represents a TGG with source and target grammars as projections to provided interfaces. The required interface can represent an event mechanism where subscribers are notified of certain changes. 
+
+There are may applications today based on knowledge graphs, either RDF graphs or using the labelled property graph model of a graph database, These applications have to be built according to the same principles as simpler software, so they need structure, encapsulation and compositionality to be correct and maintainable. 
+
+For example there is a discussion right now of global graph models (called canonical data models) vs more local P2P approaches based on smaller models, called bounded contexts which combine domain models and services, but it is not clear what are the relations, consistency conditions and composition operators for such models.
+
+\subsection{Markov Decision Processes and Games}
+
+There are notions of GTS in the literature based on groupings of alternative rules to generate Markov decision processes.\footnote{Christian Krause, Holger Giese: Probabilistic Graph Transformation Systems  \url{https://www.researchgate.net/publication/256639322_Probabilistic_Graph_Transformation_Systems}} The idea is that the environment invokes an operation represented by a group of rules, and then the system choses (randomly in this case) which rule to apply. This makes the choice syntactic, which is necessary to see a category of branching computations as a special GTS. In our case, this is achieved by the fact that the mapping of rule names from body to interface may not be injective.
+
+In an MDP the probabilistic or stochastic view is internal whereas the interface is a non-deterministic choice between different operations offered by the system. This suggests some compositionality is possible, which I would like to explore. For example, the problem of controller synthesis for an MDP would come down, in our formulation, to finding for the MDP component $S$ a controller component $C$ such that the composite $S \circ M$ optimises a given reward function.  
+
+More generally, one can see interfaces as games and components s strategies following the model of concurrent games by WInskel, who represents them in a similar categorical fashion at the semantic (event structure) level. The relation between graph grammars and event structures is well known and formulated in terms of a category of grammars not unlike our category of runtime systems, so there could even be a formal link there.
+
+%
+%%\newcommand{\bibdir}{D:/Reiko/MyPapers/BibTex}
+%\newcommand{\bibdir}{C:/BibTex}
+%
+%\bibliographystyle{plain}
+%%\bibliography{abbrev,bibTex}
+%\bibliography{\bibdir/abbrev,bibTex,\bibdir/Reiko/articles,\bibdir/Reiko/edition,\bibdir/Reiko/informal,\bibdir/Reiko/inprocs,\bibdir/Reiko/techreps,\bibdir/Reiko/tutorials,\bibdir/ag-engels,\bibdir/global}
+
+
+\end{document}
+
