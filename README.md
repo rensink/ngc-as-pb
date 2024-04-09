@@ -4,7 +4,7 @@ This is an attempt to show if, or how, Nested Graph Conditions can be seen as a 
 
 ## Collaborators
 
-- Andrea Corradini (try)
+- Andrea Corradini (try-again)
 - Arend Rensink
 
 With thanks for input from Filippo Bonchi
