@@ -1,0 +1,38 @@
+\begin{tikzpicture}[>=latex,on grid]
+  \node (AC) {$A_C$};
+  \node (IiC) [below=2 of AC] {$I_i^C$};
+  \node (I1C) [below left=1 and 1.5 of AC] {$I_1^C$};
+  \node [below=.4 of I1C] {$\vdots$};
+  \node (InC) [below right=1 and 1.5 of AC] {$I_n^C$};
+  \node [below=.4 of InC] {$\vdots$};
+  \node (AiC) [below=1.5 of IiC] {$A_{C_i}$};
+  \node (Ci) [triangle,below=.15 of AiC.center] {$C_i$};
+
+  \path (I1C) edge[draw=none,sloped] node {$\cdots$} (IiC)
+        (I1C) edge[right hook->] (AC)
+        (InC) edge[draw=none,sloped] node {$\cdots$} (IiC)
+        (InC) edge[right hook->] (AC)
+        (IiC) edge[right hook->] node[right] {$u_i^C$} (AC)
+        (IiC) edge[->] node[right] {$d_i^C$} (AiC);
+
+  \node (AD) [right=5 of AC] {$A_D$};
+  \node (IjD) [below=2 of AD] {$I_j^D$};
+  \node (I1D) [below left=1 and 1.5 of AD] {$I_1^D$};
+  \node [below=.4 of I1D] {$\vdots$};
+  \node (ImD) [below right=1 and 1.5 of AD] {$I_m^D$};
+  \node [below=.4 of ImD] {$\vdots$};
+  \node (AjD) [below=1.5 of IjD] {$A_{D_j}$};
+  \node (Dj) [triangle,below=.15 of AjD.center] {$D_j$};
+
+  \path (I1D) edge[draw=none,sloped] node {$\cdots$} (IjD)
+        (I1D) edge[right hook->] (AD)
+        (ImD) edge[draw=none,sloped] node {$\cdots$} (IjD)
+        (ImD) edge[right hook->] (AD)
+        (IjD) edge[right hook->] node[right] {$u_j^D$} (AD)
+        (IjD) edge[->] node[right] {$d_j^D$} (AjD);
+
+  \path (AC) edge[->] node[above] {$t$} (AD)
+        (IjD) edge[->] node[above] {$k_i$} (IiC)
+        (AjD) edge[->] node[above] {$t_{m_i}$} (AiC)
+        (Dj) edge[->] node[above] {$m_i$} (Ci);
+\end{tikzpicture}

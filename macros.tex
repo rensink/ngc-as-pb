@@ -1,16 +1,137 @@
 \usepackage{enumitem}
-
 \newcommand{\tupof}[1]{\langle{#1}\rangle}
 \newcommand{\setof}[1]{\{{#1}\}}
+\newcommand{\st}{.\;}
 
 \newcommand{\func}{\rightarrow}
+\newcommand{\cnuf}{\lefttarrow}
 \newcommand{\ifunc}{\hookrightarrow}
+\newcommand{\cnufi}{\hookleftarrow}
 
 \newcommand{\sat}{\models}
 \newcommand{\nsat}{\not\models}
 
 \newcommand{\degr}[1]{|{#1}|}
 
-\newcommand{\dlabel}[1]{\label{def:#1}}
-\newcommand{\dref}[1]{\ref{def:#1}}
+% Auxiliary labelling macros
+% For definitions
+\newcommand{\dprf}{def}
+\newcommand{\dlabel}[1]{\label{\dprf:#1}}
+\newcommand{\dref}[1]{\ref{\dprf:#1}}
 \newcommand{\dcite}[1]{Def.~\dref{#1}}
+
+% For figures
+\newcommand{\fprf}{fig}
+\newcommand{\flabel}[1]{\label{\fprf:#1}}
+\newcommand{\fref}[1]{\ref{\fprf:#1}}
+\newcommand{\fcite}[1]{Fig.~\fref{#1}}
+
+% For propositions
+\newcommand{\pprf}{prop}
+\newcommand{\plabel}[1]{\label{\pprf:#1}}
+\newcommand{\pref}[1]{\ref{\pprf:#1}}
+\newcommand{\pcite}[1]{Fig.~\pref{#1}}
+
+% For sections
+\newcommand{\sprf}{sec}
+\newcommand{\slabel}[1]{\label{\sprf:#1}}
+\newcommand{\sref}[1]{\ref{\sprf:#1}}
+\newcommand{\scite}[1]{Fig.~\sref{#1}}
+
+% For examples
+\newcommand{\exprf}{ex}
+\newcommand{\exlabel}[1]{\label{\exprf:#1}}
+\newcommand{\exref}[1]{\ref{\exprf:#1}}
+\newcommand{\excite}[1]{Ex.~\exref{#1}}
+
+%% Tikz definitions
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows}
+
+\tikzset{>=latex}
+\tikzset{triangle/.style=
+  {isosceles triangle,
+   draw,
+   shape border rotate=90,
+   isosceles triangle stretches=true,
+   anchor=top corner,
+   minimum width=15mm,
+   minimum height=15mm}}
+\tikzset{graph/.style={
+   inner sep=1pt,
+   line width=3pt,
+   draw=white,
+   double=black}}
+
+\newcommand{\mygraph}[1]{%
+\begin{tikzpicture}[on grid,scale=.5,inner sep=2pt]
+\begin{scope}[node distance=8mm]
+#1
+\end{scope}
+\end{tikzpicture}}
+
+% Discrete one-node graph
+% #1: node
+\newcommand{\onenode}[1]{\mygraph{
+\node (1) {$#1$};
+}}
+
+% Discrete two-node graph
+% #1: node
+\newcommand{\twonode}[2]{\mygraph{
+\node (1) {$#1$};
+\node (2) [right=.5 of 1] {$#2$};
+}}
+
+% One-edge graph
+% #1: source node
+% #2: edge label
+% #3: target node
+\newcommand{\oneedge}[3]{\mygraph{
+\node (1) {$#1$};
+\node (2) [right=of 1] {$#3$};
+\path (1) edge[->] node[above] {$#2$} (2);
+}}
+
+% Serial two-edge graph
+% #1: first node
+% #2: first edge label
+% #3: middle node
+% #4: second edge label
+% #5: third node
+\newcommand{\twoedge}[5]{\mygraph{
+\node (1) {$#1$};
+\node (2) [right=of 1] {$#3$};
+\node (3) [right=of 2] {$#5$};
+\path (1) edge[->] node[above] {$#2$} (2)
+      (2) edge[->] node[above] {$#4$} (3);
+}}
+
+% Span graph
+% #1: first node
+% #2: first edge label
+% #3: joint target node
+% #4: second edge label
+% #5: third node
+\newcommand{\spangraph}[5]{\mygraph{
+\node (1) {$#1$};
+\node (2) [right=of 1] {$#3$};
+\node (3) [right=of 2] {$#5$};
+\path (1) edge[<-] node[above] {$#2$} (2)
+      (2) edge[->] node[above] {$#4$} (3);
+}}
+
+% Cospan graph
+% #1: first node
+% #2: first edge label
+% #3: joint target node
+% #4: second edge label
+% #5: third node
+\newcommand{\cospangraph}[5]{\mygraph{
+\node (1) {$#1$};
+\node (2) [right=of 1] {$#3$};
+\node (3) [right=of 2] {$#5$};
+\path (1) edge[->] node[above] {$#2$} (2)
+      (2) edge[<-] node[above] {$#4$} (3);
+}}

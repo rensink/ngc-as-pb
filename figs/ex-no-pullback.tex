@@ -1,0 +1,22 @@
+\begin{tikzpicture}[node distance=.8]
+  \node (phi) {$\phi\equiv \exists ys\ a(x,y)$};
+  \node[graph,below=.3 of phi] (10) {\onenode{x}};
+  \node[graph,below=of 10] (10I) {\onenode{x}};
+  \node[graph,below=of 10I] (11) {\oneedge{x}{a}{y}}; 
+
+  \path (10I) edge[left hook->] (10)
+        (10I) edge[->] (11);
+  
+  \node (psi) [right=3 of phi] {$\psi\equiv \exists z,y\st a(z,y)$};
+  \node[graph,below=.3 of psi] (20) {\onenode{x}};
+  \node[graph,below=of 20] (20I) {\onenode{\phantom{x}}};
+  \node[graph,below=of 20I] (21) {\oneedge{z}{a}{y}}; 
+
+  \path (20I) edge[left hook->] (20)
+        (20I) edge[->] (21);
+
+  \path (10) edge[->] (20)
+        (20I) edge[->] (10I)
+        (21) edge[->] (11);
+\end{tikzpicture}
+

@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+  \node (A) {$A$};
+  \node (Ii) [below=.7 of A] {$I_i$};
+  \node (Ai) [below=.7 of Ii] {$A_i$};
+  \node (Ci) [triangle,below=.15 of Ai.center] {$C_i$};
+  \node (G) [right=2 of A] {$G$};
+
+  \path (A) edge[->] node[above] {$g$} (G)
+        (Ii) edge[left hook->] node[left] {$u_i$} (A)
+        (Ii) edge[->] node[left] {$d_i$} (Ai)
+        (Ai) edge[->] node[pos=0.3,below right] (h) {$h$} (G)
+        (h) edge[draw=none] node[sloped,allow upside down] {$\nsat$} (Ci);
+\end{tikzpicture}

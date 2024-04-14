@@ -1,8 +1,15 @@
 \begin{definition}[nested condition]\dlabel{nested condition}
-  A \emph{nested condition} $C$ is a pair $\tupof{A,\setof{(f_i,C_i)}_{1\leq i\leq n}}$ where $A$ is an object called the \emph{root}, $n\geq 0$ is the \emph{degree} of $C$, and for all $1\leq i\leq n$, $C_i$ is a nested condition and $f_i\colon A\func A_i$ is an arrow to the root $A_i$ of $C_i$.
+  A \emph{nested condition} $C$ is a pair $\tupof{A,\setof{(f_i,C_i)}_{1\leq i\leq n}}$ where $A$ is an object called the \emph{root} of $C$, $n\geq 0$ is the \emph{degree} of $C$, and for all $1\leq i\leq n$, $C_i$ is a nested condition and $f_i\colon A\func A_i$ is an arrow to the root $A_i$ of $C_i$.
 \end{definition}
 %
-\emph{Terminology and notation:} Given a condition $C$, we will use $A_C$ to denote its root and $f^C_i,C_i$ to denote its constituent morphisms and subconditions --- or just $f_i$ if the identity of $C$ is clear from the context. The degree of $C$ is denoted $\degr C$. We also say that $(f,C')$ is a \emph{branch} of $C$ and write $(f,C')\in C$ to mean that $f=f_i$ and $C'=C_i$ for one of the $i\in I$.
+\emph{Terminology and notation:} Given a condition $C$, we will use $A_C$ to denote its root and $f^C_i,C_i$ to denote its constituent morphisms and subconditions --- or just $f_i$ if the identity of $C$ is clear from the context. The degree of $C$ is denoted $\degr C$. We also say that $(f,C')$ is a \emph{branch} of $C$ and write $(f,C')\in C$ to mean that $f=f_i$ and $C'=C_i$ for one of the $i\in I$. Pictorially, $C$ can be visualised as in \fcite{nested condition}.
+%
+\begin{figure}
+  \centering
+  \input{figs/nested-condition}
+  \caption{Pictorial representation of a nested condition}
+  \flabel{nested condition}
+\end{figure}
 
 \medskip\noindent A nested condition expresses a property of arrows from its root to an arbitrary object. This is operationalised through the notion of \emph{satisfaction}.
 
@@ -13,12 +20,34 @@
   \item $h\nsat C'$.
   \end{itemize}
 \end{definition}
+%
+\emph{Terminology and notation.} We call $(f,C')\in C$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat C$. Pictorially, $g\sat C$ with responsible branch $(f_i,C_i)$ and witness $h$ can be visualised as in \fcite{nested satisfaction}.
+%
+\begin{figure}
+  \centering
+  \input{figs/nested-satisfaction}
+  \caption{Pictorial representation $g\sat C$}
+  \flabel{nested satisfaction}
+\end{figure}
+%
+We now present one of the main ideas of this paper based on the observation that there is a lot of duplication in a nested condition: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} constraints. This is captured by the following definition:
 
 \begin{definition}[decomposed condition]\dlabel{decomposed condition}
-  A \emph{decomposed condition} $C$ is a pair $\tupof{A,\setof{(u_i,d_i,C_i)}_{1\leq i\leq n}}$ where $A$ is an object called the \emph{root}, $n\geq 0$ is the \emph{degree} of $C$, and for all $1\leq i\leq n$, $C_i$ is a decomposed condition and $f_i\colon I\ifunc A$ and $u_i\colon I_i\func A_i$ form a span of arrows from a common interface $I_i$ to $A$, respectively the root $A_i$ of $C_i$.
+  A \emph{decomposed condition} $C$ is a pair $\tupof{A,\setof{(u_i,d_i,C_i)}_{1\leq i\leq n}}$ where $A$ is an object called the \emph{root} of $C$, $n\geq 0$ is the \emph{degree} of $C$, and for all $1\leq i\leq n$, $C_i$ is a decomposed condition and $u_i\colon I\ifunc A$ and $d_i\colon I_i\func A_i$ form a span of arrows from a common interface $I_i$ to $A$, respectively the root $A_i$ of $C_i$.
 \end{definition}
 %
-\emph{Terminology and notation:} As before, we use $A_C$ to denote the root of a decomposed condition, and $u^C_i,d^C_i,C_i$ for the elements of a branch $(u_i,d_i,C_i)$, leaving out $C$ if this does not cause confusion. The degree of $C$ is denoted $\degr C$. $u_i$ stands for the \emph{up-arrow} (which is always mono) and $d_i$ for the \emph{down-arrow} of the interface $I_i$.
+\emph{Terminology and notation:} As before, we use $A_C$ to denote the root of a decomposed condition, and $u^C_i,d^C_i,C_i$ for the elements of a branch $(u_i,d_i,C_i)$, omitting $C$ if this does not cause confusion. The degree of $C$ is denoted $\degr C$. $u_i$ stands for the \emph{up-arrow} (which is always mono) and $d_i$ for the \emph{down-arrow} of the interface $I_i$. Pictorially, $C$ can be visualised as in \fcite{decomposed condition}.
+%
+\begin{figure}
+  \centering
+  \input{figs/decomposed-condition}
+  \caption{Pictorial representation of a decomposed condition}
+  \flabel{decomposed condition}
+\end{figure}
+%
+As we will see later, the morphisms $f_i$ of a nested condition can be reconstructed by taking the pushout over the spans $A_c\cnufi I_i\func A_{C_i}$.
+
+\medskip\noindent\emph{Note to self: I like to try and find another term for ``decomposed condition''. Maybe ``split condition''?}
 
 \medskip\noindent Decomposed conditions come with a modified notation of satisfaction.
 
@@ -30,6 +59,16 @@
   \end{enumerate}
 \end{definition}
 %
+
+\emph{Terminology and notation.} Like before, we call $(u,d,C')\in C$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat C$. Pictorially, $g\sat C$ with responsible branch $(u_i,d_i,C_i)$ and witness $h$ can be visualised as in \fcite{decomposed satisfaction}.
+%
+\begin{figure}
+  \centering
+  \input{figs/decomposed-satisfaction}
+  \caption{Pictorial representation of $g\sat C$ for a decomposed condition $C$}
+  \flabel{decomposed satisfaction}
+\end{figure}
+
 Decomposed conditions have a notion of morphism.
 
 \begin{definition}[decomposed condition morphism]\dlabel{decomposed morphism}
@@ -42,19 +81,35 @@ Decomposed conditions have a notion of morphism.
   \end{enumerate}
 \end{definition}
 %
-\emph{Notation and terminology:} If $C,D$ are decomposed conditions, we write $m:C\func D$ to denote that $m$ is a morphism from $C$ to $D$. We also write $t_m$ and $m_i$ for the components of $t$.
+\emph{Notation and terminology:} If $C,D$ are decomposed conditions, we write $m:C\func D$ to denote that $m$ is a morphism from $C$ to $D$. We also write $t_m$ and $m_i$ for the components of $t$. Pictorially, $m$ can be visualised as in \fcite{decomposed morphism}.
+%
+\begin{figure}
+  \centering
+  \input{figs/decomposed-morphism}
+  \caption{Pictorial representation of a decomposed condition morphism $m:C\func D$}
+  \flabel{decomposed morphism}
+\end{figure}
 
 \medskip\noindent
-\emph{Note to self: I find it surprising that there are no conditions on $k_i$ except for the confluence equations. For instance, $k_i,d_j^D$ is \emph{not} necessarily a pullback of $t_{m_i},d_i^C$ (example`\ref{no pullback} below); in fact, $k_i$ is \emph{not even} uniquely determined by the two confluence equations (example~\ref{not unique} below); in other words, there may be multiple morphisms from $C$ to $D$ that only differ in their $k$ components. I am however not sure if $k$ itself should be part of the morphism, or we should merely require its existence.}
+\emph{Note to self: I find it surprising that there are no conditions on $k_i$ except for the confluence equations. For instance, $k_i,d_j^D$ is \emph{not} necessarily a pullback of $t_{m_i},d_i^C$ (\excite{no pullback} below); in fact, $k_i$ is \emph{not even} uniquely determined by the two confluence equations (\excite{k not unique} below); in other words, there may be multiple morphisms from $C$ to $D$ that only differ in their $k$ components. I am however not sure if $k$ itself should be part of the morphism, or we should merely require its existence.}
 
 %
 \medskip\noindent An important property of decomposed condition morphisms is that they \emph{preserve satisfaction}, in the following sense:
 %
-\begin{proposition}
+\begin{proposition}\plabel{morphism preserves satisfaction}
 If $C,D$ are decomposed conditions with morphism $m:C\func D$, then $t_m;g\sat C$ implies $g\sat D$.
 \end{proposition}
 %
-\emph{Proof.} By induction. Assume that $(u_i^C,d_i^C,C_i)$ is the branch of $C$ and $h^C\colon A_{C'}$ the morphism responsible for satisfaction; hence $u_i^C;t_m;g=d_i^C;h^C$ and $h^C\nsat C_i$. Moreover, let $(u_j^D,d_j^D,D_j)$ be the branch of $D$ with arrow $k_i\colon I_j^D\func I_i^C$ and morphism $m_i:D_j\func C_i$ as stipulated in \dcite{decomposed morphism}. Then $h^D=t_{m_i};h^C$ is easily shown to satisfy the conditions for $h$ in \dcite{decomposed satisfaction} to be a witness for $g\sat D_j$:
+\emph{Proof.} By induction. Assume that $(u_i^C,d_i^C,C_i)$ is the branch of $C$ (hence the induction hypothesis is that the proposition holds for $C_i$) and $h^C\colon A_{C_i}\func G$ the morphism responsible for satisfaction; hence $u_i^C;t_m;g=d_i^C;h^C$ and $h^C\nsat C_i$. Moreover, let $(u_j^D,d_j^D,D_j)$ be the branch of $D$ with arrow $k_i\colon I_j^D\func I_i^C$ and morphism $m_i:D_j\func C_i$ as stipulated in \dcite{decomposed morphism}. This is visualised in \fcite{morphism preserves satisfaction}.
+%
+\begin{figure}
+  \centering
+  \input{figs/morphism-preserves-satisfaction}
+  \caption{$t_m;g\sat C$ with a morphism $m:C\rightarrow D$}
+  \flabel{morphism preserves satisfaction}
+\end{figure}
+
+Now $h^D=t_{m_i};h^C$ can be shown to satisfy the conditions for $h$ in \dcite{decomposed satisfaction} to be a witness for $g\sat D_j$:
 \begin{enumerate}
 \item $u_j^D;g = k_i;u_i^C;t_m;g= k_i;d_i^C;h^C = d_j^D;t_{m_i};h^C=d_j^D;h^D$.
 \item Suppose that $h^D\sat D_j$, meaning $t_{m_i};h^C\sat D_j$; then by the induction hypothesis and the fact that $m_i$ is a morphism, it follows that $h^C\sat C_i$, which is in contradiction with the initial assumption of this proof. Hence $h^D\nsat D_j$.
@@ -65,28 +120,68 @@ If $C,D$ are decomposed conditions with morphism $m:C\func D$, then $t_m;g\sat C
 Examples of entailment that we are able to show on the basis of the existence of a morphism are:
 %
 \begin{enumerate}
-\item\label{no pullback} $\phi\equiv \exists y. a(x,y)$ entails $\psi\equiv \exists z,y. a(z,y)$. Note the discrepancy of the free variables. The decomposed condition for $\psi$ must have $x$ in its root for a morphism to exist; however, the interface ``loses'' that $x$.
+\item\exlabel{no pullback} $\phi\equiv \exists y\st a(x,y)$ entails $\psi\equiv \exists z,y\st a(z,y)$. Note the discrepancy of the free variables. The decomposed condition for $\psi$ must have $x$ in its root for a morphism to exist; however, the interface ``loses'' that $x$. See \fcite{no pullback} for a visualiation.
+
+  \begin{figure}
+    \centering
+    \input{figs/ex-no-pullback}
+    \caption{Illustration of \excite{no pullback}}
+      \flabel{no pullback}
+  \end{figure}
   
-\item $\psi\equiv \exists x,y. a(x,y) \wedge \neg (\exists z.b(y,z) \vee x=y)$ and $\psi\equiv \exists y.\neg \exists x,z.c(x,y)\wedge b(y,z)$. (Maybe we can have $y$ free so the root of the tree is more interesting.)
+\item\exlabel{non-trivial} $\psi\equiv \exists x\st a(x,y) \wedge \neg (\exists z\st b(y,z) \vee x=y)$ and $\psi\equiv \neg \exists x,z\st c(x,y)\wedge b(y,z)$. See \fcite{non-trivial} for a visualiation.
   
-\item\label{k not unique} $\phi\equiv y\wedge \neg\exists z.b(x,z)\wedge b(y,z)$ and $\psi\equiv x=y\wedge a(x,y)\wedge \neg exists b(y,z)$. The mediating arrow $k$ on the second (negated) level is not unique in this case; i.e., there exists more than one morphism from $C_\phi$ to $C_\psi$. This is essentially because in $\psi$ we know $x=y$, and hence this gets merged into a single variable that can be mapped to either $x$ or $y$ in $\phi$.
+  \begin{figure}
+    \centering
+    \input{figs/ex-non-trivial}
+    \caption{Illustration of \excite{non-trivial}}
+      \flabel{non-trivial}
+  \end{figure}
+
+\item\exlabel{k not unique} $\phi\equiv y\wedge \neg\exists z\st b(x,z)\wedge b(y,z)$ and $\psi\equiv x=y\wedge a(x,y)\wedge \neg \exists z\st b(y,z)$. The mediating arrow $k$ on the second (negated) level is not unique in this case; i.e., there exists more than one morphism from $C_\phi$ to $C_\psi$. This is essentially because in $\psi$ we know $x=y$, and hence this gets merged into a single variable that can be mapped to either $x$ or $y$ in $\phi$. See \fcite{k not unique} for a visualiation.
   
-\item $\phi\equiv y\wedge \neg\exists z.b(x,z)$ and $\psi\equiv x=y\wedge a(x,y)\wedge \neg exists b(y,z)$. This is a slight variation on \ref{k not unique} where, in this case, the mediating arrow $k$ \emph{is} unique: it must map the merged variable of $\psi$ to $x$ in $\phi$, because otherwise $b(x,z)$ (in $\psi$) has no image in $\phi$.
+  \begin{figure}
+    \centering
+    \input{figs/ex-k-not-unique}
+    \caption{Illustration of \excite{k not unique}}
+    \flabel{k not unique}
+  \end{figure}
+  
+\item\exlabel{k unique} $\phi\equiv y\wedge \neg\exists z\st b(x,z)$ and $\psi\equiv x=y\wedge a(x,y)\wedge \neg \exists z\st b(y,z)$. This is a slight variation on \excite{k not unique} where, in this case, the mediating arrow $k$ \emph{is} unique: it must map the merged variable of $\psi$ to $x$ in $\phi$, because otherwise $b(x,z)$ (in $\psi$) has no image in $\phi$. See \fcite{k unique} for a visualiation.
+  
+  \begin{figure}
+    \centering
+    \input{figs/ex-k-unique}
+    \caption{Illustration of \excite{k unique}}
+    \flabel{k unique}
+  \end{figure}
 \end{enumerate}
 %
 An example of an interesting non-entailment for which a morphism fails to exist (as it should) is
 %
 \begin{enumerate}[resume]
-\item $\phi=\exists x.\neg\exists y.a(x,y)$ and $\psi=\neg\exists z,y. a(z,y)$.
+\item\exlabel{non-entailment} $\phi=\exists x\st \neg\exists y\st a(x,y)$ and $\psi=\neg\exists z,y\st  a(z,y)$. See \fcite{non-entailment} for a visualiation.
+  
+  \begin{figure}
+    \centering
+%    \input{figs/ex-non-entailment}
+    \caption{Illustration of \excite{non-entailment}}
+    \flabel{non-entailment}
+  \end{figure}
 \end{enumerate}
 %
 An example of an entailment for which we do not have a morphism is
 %
 \begin{enumerate}[resume]
-\item $\phi\equiv x\wedge \nexists y.\neg a(x,y)$ and $\psi\equiv a(x,x)$. (Actually, this is a dressed-up version of $\phi$ versus $\neg\neg\phi$.)
+\item\exlabel{no-morphism} $\phi\equiv x\wedge \nexists y\st \neg a(x,y)$ and $\psi\equiv a(x,x)$. (Actually, this is a dressed-up version of $\phi$ versus $\neg\neg\phi$.) See \fcite{no-morphism} for a visualiation.
+  
+  \begin{figure}
+    \centering
+%    \input{figs/ex-no-morphism}
+    \caption{Illustration of \excite{no-morphism}}
+    \flabel{no-morphism}
+  \end{figure}
 \end{enumerate}
-
-
 
 \subsection{Decomposing nested conditions}
 
