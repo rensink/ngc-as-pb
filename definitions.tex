@@ -33,7 +33,7 @@
 We now present one of the main ideas of this paper based on the observation that there is a lot of duplication in a nested condition: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} constraints. This is captured by the following definition:
 
 \begin{definition}[decomposed condition]\dlabel{decomposed condition}
-  A \emph{decomposed condition} $C$ is a pair $\tupof{A,\setof{(u_i,d_i,C_i)}_{1\leq i\leq n}}$ where $A$ is an object called the \emph{root} of $C$, $n\geq 0$ is the \emph{degree} of $C$, and for all $1\leq i\leq n$, $C_i$ is a decomposed condition and $u_i\colon I\ifunc A$ and $d_i\colon I_i\func A_i$ form a span of arrows from a common interface $I_i$ to $A$, respectively the root $A_i$ of $C_i$.
+  A \emph{decomposed condition} $C$ is a pair $\tupof{A,\setof{(u_i,d_i,C_i)}_{1\leq i\leq n}}$ where $A$ is an object called the \emph{root} of $C$, $n\geq 0$ is the \emph{degree} of $C$, and for all $1\leq i\leq n$, $C_i$ is a decomposed condition and $u_i\colon I_i\ifunc A$ and $d_i\colon I_i\func A_i$ form a span of arrows from an interface $I_i$ to $A$, respectively the root $A_i$ of $C_i$.
 \end{definition}
 %
 \emph{Terminology and notation:} As before, we use $A_C$ to denote the root of a decomposed condition, and $u^C_i,d^C_i,C_i$ for the elements of a branch $(u_i,d_i,C_i)$, omitting $C$ if this does not cause confusion. The degree of $C$ is denoted $\degr C$. $u_i$ stands for the \emph{up-arrow} (which is always mono) and $d_i$ for the \emph{down-arrow} of the interface $I_i$. Pictorially, $C$ can be visualised as in \fcite{decomposed condition}.
@@ -45,7 +45,7 @@ We now present one of the main ideas of this paper based on the observation that
   \flabel{decomposed condition}
 \end{figure}
 %
-As we will see later, the morphisms $f_i$ of a nested condition can be reconstructed by taking the pushout over the spans $A_c\cnufi I_i\func A_{C_i}$.
+As we will see later, the morphisms $f_i$ of a nested condition can be reconstructed by taking the pushout over the spans $A_C\cnufi I_i\func A_{C_i}$.
 
 \medskip\noindent\emph{Note to self: I like to try and find another term for ``decomposed condition''. Maybe ``split condition''?}
 
