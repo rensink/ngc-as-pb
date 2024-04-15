@@ -305,3 +305,5 @@ whiteboard pictures/.DS_Store
 /*.sty~
 LOCAL_APPDATA_FONTCONFIG_CACHE
 /*.tex~
+/figs/*.tex~
+/.DS_Store
