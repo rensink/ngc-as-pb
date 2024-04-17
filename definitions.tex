@@ -1,5 +1,5 @@
-\section{Definitions}
-
+\section{Background: nested conditions and satisfaction}
+ 
 \begin{definition}[nested condition]\dlabel{nested condition}
   A \emph{nested condition} $C$ is a pair $\tupof{A,\setof{(f_i,C_i)}_{1\leq i\leq n}}$ where $A$ is an object called the \emph{root} of $C$, $n\geq 0$ is the \emph{degree} of $C$, and for all $1\leq i\leq n$, $C_i$ is a nested condition and $f_i\colon A\func A_i$ is an arrow to the root $A_i$ of $C_i$.
 \end{definition}
@@ -31,7 +31,9 @@
   \caption{Pictorial representation $g\sat C$}
   \flabel{nested satisfaction}
 \end{figure}
-%
+
+\section{Decomposed conditions}
+
 We now present one of the main ideas of this paper based on the observation that there is a lot of duplication in a nested condition: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} constraints. This is captured by the following definition:
 
 \begin{definition}[decomposed condition]\dlabel{decomposed condition}
@@ -97,7 +99,7 @@ Decomposed conditions have a notion of morphism.
 
 \medskip\noindent An important property of decomposed condition morphisms is that they \emph{preserve satisfaction}, in the following sense:
 %
-\begin{proposition}\plabel{morphism preserves satisfaction}
+\begin{proposition}[morphisms preserve satisfaction]\plabel{morphism preserves satisfaction}
 If $C,D$ are decomposed conditions with morphism $m:C\func D$, then $t_m;g\sat C$ implies $g\sat D$.
 \end{proposition}
 %
@@ -193,7 +195,22 @@ An example of an entailment for which we do not have a morphism is
   \end{figure}
 \end{enumerate}
 
+
+\subsection{Interface enrichment: A satisfaction invariant trasformation}
+
+\begin{itemize}
+  \item Remind to introduce ``condition branch''
+  \item Shift of decomposed conditions along an arrow
+  \item Prop(?): shift does not change satisfaction?
+  \item Notation: given condition branch $C$ and interface $u = k;v$, we build $C_{\triangleleft k, v}$
+  \item The construction
+  \item Proposition: the contructions does not change satisfaction.
+  \item Trasnforming a decomposed condition into an equivalent morphism-based one: apply the ``maximal'' enrichment top-bottom everywhere.
+\end{itemize}  
+
+
 \subsection{Decomposing nested conditions}
 
-\subsection{Recomposing nested conditions}
+
+
 
