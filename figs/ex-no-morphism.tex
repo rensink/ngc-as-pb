@@ -1,0 +1,31 @@
+\begin{tikzpicture}[node distance=.8]
+  \node (phi) {$\phi\equiv \neg a(x,x)$};
+  \node[graph,below=.3 of phi] (10) {\onenode{x}};
+  \node[graph,below=of 10] (10I) {\onenode{x}};
+  \node[graph,below=of 10I] (11) {\onenode{x\vphantom y}};
+  \node[graph,below=of 11] (11I) {\onenode{x\vphantom y}};
+  \node[graph,below=of 11I] (12) {\oneloop{x\vphantom y}{a}}; 
+
+  \path (10I) edge[left hook->] (10)
+        (10I) edge[->] (11)
+        (11I) edge[left hook->] (11)
+        (11I) edge[->] (12);
+  
+  \node (psi) [right=1 of phi] {$\psi\equiv \exists y\st \neg a(x,y)$};
+  \node[graph,below=.3 of psi] (20) {\onenode{x}};
+  \node[graph,below=of 20] (20I) {\onenode{x}};
+  \node[graph,below=of 20I] (21) {\twonode{x}{y}}; 
+  \node[graph,below=of 21] (21I) {\twonode{x}{y}};
+  \node[graph,below=of 21I] (22) {\oneedge{x}{a}{y}}; 
+
+  \path (20I) edge[left hook->] (20)
+        (20I) edge[->] (21)
+        (21I) edge[left hook->] (21)
+        (21I) edge[->] (22);
+
+  \path (10) edge[->] (20)
+        (20I) edge[->] (10I)
+        (21) edge[->] (11)
+        (11I) edge[dotted,->] (21I)
+        (12) edge[dotted,->] (22);
+\end{tikzpicture}

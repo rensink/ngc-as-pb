@@ -1,7 +1,12 @@
+%% Additional packages
 \usepackage{enumitem}
+\usepackage{mathdots}
+
+%% Some math definitions
 \newcommand{\tupof}[1]{\langle{#1}\rangle}
 \newcommand{\setof}[1]{\{{#1}\}}
 \newcommand{\st}{.\;}
+\newcommand{\id}{\mathit{id}}
 
 \newcommand{\func}{\rightarrow}
 \newcommand{\cnuf}{\lefttarrow}
@@ -12,6 +17,19 @@
 \newcommand{\nsat}{\not\models}
 
 \newcommand{\degr}[1]{|{#1}|}
+
+% Letters and variables
+\newcommand{\MB}[1]{\mathbf{MB}\if\relax\detokenize{#1}\relax\else(#1)\fi}
+\newcommand{\MC}[1]{\mathbf{MC}\if\relax\detokenize{#1}\relax\else(#1)\fi}
+
+\newcommand{\SB}[1]{\mathbf{SB}\if\relax\detokenize{#1}\relax\else(#1)\fi}
+\newcommand{\SC}[1]{\mathbf{SC}\if\relax\detokenize{#1}\relax\else(#1)\fi}
+
+\newcommand{\bC}{\mathbf{C}}
+
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+
 
 % Auxiliary labelling macros
 % For definitions
@@ -47,7 +65,7 @@
 %% Tikz definitions
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{positioning}
-\usetikzlibrary{arrows}
+\usetikzlibrary{arrows.meta}
 
 \tikzset{>=latex}
 \tikzset{triangle/.style=

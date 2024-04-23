@@ -1,0 +1,9 @@
+\begin{tikzpicture}
+  \node (top) {$R_C$};
+  \node (C1) [triangle,below left=of top] {$c_1$};
+  \node [below=of top] {$\cdots$};
+  \node (Cn) [triangle,below right=of top] {$c_n$};
+
+  \path (C1.north) edge[<-] node[above left] {$r_1$} (top)
+        (Cn.north) edge[<-] node[above right] {$r_n$} (top);
+\end{tikzpicture}

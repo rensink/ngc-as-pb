@@ -1,0 +1,25 @@
+\begin{tikzpicture}[>=latex,on grid]
+  \node (Rc) {$R_C$};
+  \node (Sc1) [below left=.8 and .8 of Rc] {};
+  \node (Sci) [below=1.5 of Rc] {$S_p$};
+  \node (Scn) [below right=.8 and .8 of Rc] {};
+  \node (ci) [triangle,below=.15 of Sci.center] {$c_p$};
+
+  \path (Sc1) edge[draw=none,sloped] node {$\cdots$} (Rc)
+        (Scn) edge[draw=none,sloped] node {$\cdots$} (Rc)
+        (Rc) edge[->] node[right] {$r_p$} (Sci);
+
+  \node (Rd) [right=5 of Rc] {$R_d$};
+  \node (Sd1) [below left=.8 and .8 of Rd] {};
+  \node (Sdj) [below=1.5 of Rd] {$S_q$};
+  \node (Sdn) [below right=.8 and .8 of Rd] {};
+  \node (dj) [triangle,below=.15 of Sdj.center] {$d_q$};
+
+  \path (Sd1) edge[draw=none,sloped] node {$\cdots$} (Rd)
+        (Sdn) edge[draw=none,sloped] node {$\cdots$} (Rd)
+        (Rd) edge[->] node[right] {$r_q$} (Sdj);
+
+  \path (Rc) edge[->] node[above] {$t$} (Rd)
+        (Sdj) edge[->] node[above] {$t_{m_p}$} (Sci)
+        (dj) edge[->] node[above] {$m_p$} (ci);
+\end{tikzpicture}

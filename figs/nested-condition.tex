@@ -1,9 +1,0 @@
-\begin{tikzpicture}
-  \node (top) {$A_C$};
-  \node (C1) [triangle,below left=of top] {$C_1$};
-  \node [below=of top] {$\cdots$};
-  \node (Cn) [triangle,below right=of top] {$C_n$};
-
-  \path (C1.north) edge[->] node[above left] {$f_1$} (top)
-        (Cn.north) edge[->] node[above right] {$f_n$} (top);
-\end{tikzpicture}

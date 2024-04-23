@@ -1,0 +1,127 @@
+\section{Span-based conditions}
+
+We now present one the main idea of this paper based on the observation that there is a lot of duplication in a nested condition: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} structure. This is achieved by replacing the branch morphisms $r_b$ by \emph{spans}.
+
+
+\begin{definition}[span-based condition]\dlabel{sb-condition}
+  Given a root object $R$:
+  \begin{itemize}
+  \item A \emph{span-based condition} over $R$ is a pair $(R,\cB)$ where $\cB\subseteq \SB R$ is a finite set of span-based branches over $R$.
+  \item A \emph{morphism-based branch} over $R$ is a pair $(u,d,c)$ where $u:I\func R,d:I\func S$ is a span (with interface $I$) and $c\in \SC S$ is a span-based condition over $S$.
+  \end{itemize}
+\end{definition}
+%
+
+\begin{definition}[span-based condition]\dlabel{sb-condition}
+  A \emph{span-based condition} $c$ is a pair $(R,\setof{(u_i,d_i,C_i)}_{1\leq i\leq n})$ where $A$ is an object called the \emph{root} of $C$, $n\geq 0$ is the \emph{degree} of $C$, and for all $1\leq i\leq n$, $C_i$ is a span-based condition and $u_i\colon I_i\ifunc A$ and $d_i\colon I_i\func A_i$ form a span of arrows from an interface $I_i$ to $A$, respectively the root $A_i$ of $C_i$.
+\end{definition}
+%
+\emph{Terminology and notation:} As before, we use $A_C$ to denote the root of a span-based condition, and $u^C_i,d^C_i,C_i$ for the elements of a branch $(u_i,d_i,C_i)$, omitting $C$ if this does not cause confusion. The degree of $C$ is denoted $\degr C$. $u_i$ stands for the \emph{up-arrow} (which is always mono) and $d_i$ for the \emph{down-arrow} of the interface $I_i$. Pictorially, $C$ can be visualised as in \fcite{sb-condition}.
+%
+\begin{figure}
+  \centering
+  \input{figs/sb-condition}
+  \caption{Pictorial representation of a span-based condition}
+  \flabel{sb-condition}
+\end{figure}
+%
+As we will see later, the morphisms $f_i$ of a nested condition can be reconstructed by taking the pushout over the spans $A_C\cnufi I_i\func A_{C_i}$.
+
+\medskip\noindent Span-based conditions come with a modified notation of satisfaction.
+
+\begin{definition}[satisfaction of span-based conditions]\dlabel{sb-satisfaction}
+  Let $C$ be a span-based condition and $g:A_C\func G$ an arrow from $C$'s root to an object $G$. We say that \emph{$g$ satisfies $C$}, denoted $g\sat C$, if there is a branch $(u,d,C')\in C$ and an arrow $h:A_{C'}\func G$ such that
+  \begin{enumerate}
+  \item $u;g=d;h$
+  \item $h\nsat C'$.
+  \end{enumerate}
+\end{definition}
+%
+
+\emph{Terminology and notation.} Like before, we call $(u,d,C')\in C$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat C$. Pictorially, $g\sat C$ with responsible branch $(u_i,d_i,C_i)$ and witness $h$ can be visualised as in \fcite{sb-satisfaction}.
+%
+\begin{figure}
+  \centering
+  \input{figs/sb-satisfaction}
+  \caption{Pictorial representation of $g\sat C$ for a span-based condition $C$}
+  \flabel{sb-satisfaction}
+\end{figure}
+
+\medskip\noindent
+Span-based conditions have a notion of morphism.
+
+\begin{definition}[span-based condition morphism]\dlabel{sb-morphism}
+  Given two span-based conditions $C,D$, a morphism $m$ from $C$ to $D$ is a pair $\tupof{t:A_C\func A_D,\setof{(k_{ic},m_{ic})}_{1\leq ic\leq \degr C}}$ such that for all $1\leq ic\leq \degr C$, there is a $1\leq id\leq \degr D$ with
+  \begin{enumerate}
+  \item $k_{ic}$ an arrow from $I_{id}^D$ to $I_{ic}^C$;
+  \item $m_{ic}$ a (span-based condition) morphism from $D_{id}$ to $C_{ic}$;
+  \item $k_{ic};u_{ic}^C;t_m=u_{id}^D$.
+  \item $k_{ic}i;d_{ic}^C=d_{id}^D;t_{m_{ic}}$.
+  \end{enumerate}
+\end{definition}
+%
+\emph{Notation and terminology:} If $C,D$ are span-based conditions, we write $m:C\func D$ to denote that $m$ is a morphism from $C$ to $D$. We also write $t_m$ and $m_i$ for the components of $t$. Pictorially, $m$ can be visualised as in \fcite{sb-morphism}.
+%
+\begin{figure}
+  \centering
+  \input{figs/sb-morphism}
+  \caption{Pictorial representation of a span-based condition morphism $m:C\func D$}
+  \flabel{sb-morphism}
+\end{figure}
+
+\medskip\noindent
+\emph{Note to self: I find it surprising that there are no conditions on $k_i$ except for the confluence equations. For instance, $k_i,d_j^D$ is \emph{not} necessarily a pullback of $t_{m_i},d_i^C$ (\excite{no pullback} below); in fact, $k_i$ is \emph{not even} uniquely determined by the two confluence equations (\excite{k not unique} below); in other words, there may be multiple morphisms from $C$ to $D$ that only differ in their $k$ components. I am however not sure if $k$ itself should be part of the morphism, or we should merely require its existence.}
+
+\medskip\noindent Span-based condition morphisms have the expected properties: identities and composition exist and form a monoid.
+
+\begin{definition}[span-based condition identity morphism]
+\end{definition}
+
+\begin{definition}[span-based condition morphism composition]
+  If $m_1:C_1\func C_2$ and $m_2:C_2\func C_3$ are morphisms with $m_i=\tupof{t_i,\setof{(k_{i,j},m_{i,j})}_{1\leq j\leq \degr{C_i}}}$ for $i=1,2$, then their composition $m_1;m_2$ is defined by $\tupof{t_1;t_2,\setof{(k'_j,m'_j)}_{1\leq j\leq \degr{C_1}}}$ with for all $1\leq j\leq \degr{C_1}$:
+  \begin{itemize}
+  \item $k'_j=k_{2,x_j};k_{1,j}$
+  \item $m'_j=m_{2,x_j};m_{1,j}$
+  \end{itemize}
+  where $1\leq x_j\leq \degr{C_2}$ is such that $(k_{2,x_j},m_{2,x_j})$ is the element from $m_2$ 
+\end{definition}
+
+\begin{proposition}
+\end{proposition}
+
+\medskip\noindent An important property of span-based condition morphisms is that they \emph{preserve satisfaction}, in the following sense:
+%
+\begin{proposition}[morphisms preserve satisfaction]\plabel{morphism preserves satisfaction}
+If $C,D$ are span-based conditions with morphism $m:C\func D$, then $t_m;g\sat C$ implies $g\sat D$.
+\end{proposition}
+%
+\emph{Proof.} By induction. Assume that $(u_i^C,d_i^C,C_i)$ is the branch of $C$ (hence the induction hypothesis is that the proposition holds for $C_i$) and $h^C\colon A_{C_i}\func G$ the morphism responsible for satisfaction; hence $u_i^C;t_m;g=d_i^C;h^C$ and $h^C\nsat C_i$. Moreover, let $(u_j^D,d_j^D,D_j)$ be the branch of $D$ with arrow $k_i\colon I_j^D\func I_i^C$ and morphism $m_i:D_j\func C_i$ as stipulated in \dcite{sb-morphism}. This is visualised in \fcite{morphism preserves satisfaction}.
+%
+\begin{figure}
+  \centering
+  \input{figs/morphism-preserves-satisfaction}
+  \caption{$t_m;g\sat C$ with a morphism $m:C\rightarrow D$}
+  \flabel{morphism preserves satisfaction}
+\end{figure}
+
+Now $h^D=t_{m_i};h^C$ can be shown to satisfy the conditions for $h$ in \dcite{sb-satisfaction} to be a witness for $g\sat D_j$:
+\begin{enumerate}
+\item $u_j^D;g = k_i;u_i^C;t_m;g= k_i;d_i^C;h^C = d_j^D;t_{m_i};h^C=d_j^D;h^D$.
+\item Suppose that $h^D\sat D_j$, meaning $t_{m_i};h^C\sat D_j$; then by the induction hypothesis and the fact that $m_i$ is a morphism, it follows that $h^C\sat C_i$, which is in contradiction with the initial assumption of this proof. Hence $h^D\nsat D_j$.
+\end{enumerate}
+%
+\subsection{Interface enrichment: A satisfaction invariant trasformation}
+
+\begin{itemize}
+  \item Remind to introduce ``condition branch''
+  \item Shift of span-based conditions along an arrow
+  \item Prop(?): shift does not change satisfaction?
+  \item Notation: given condition branch $C$ and interface $u = k;v$, we build $C_{\triangleleft k, v}$
+  \item The construction
+  \item Proposition: the contructions does not change satisfaction.
+  \item Trasnforming a span-based condition into an equivalent arrow-based one: apply the ``maximal'' enrichment top-bottom everywhere.
+\end{itemize}  
+
+
+\subsection{Decomposing nested conditions}
+
