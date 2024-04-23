@@ -11,12 +11,12 @@
         (11I) edge[left hook->] (11)
         (11I) edge[->] (12);
   
-  \node (psi) [right=1 of phi] {$\psi\equiv y\wedge \neg\exists z\st b(x,z)\wedge b(y,z)$};
+  \node (psi) [right=1 of phi] {$\psi\equiv \neg\exists z\st b(x,z)\wedge b(y,z)$};
   \node[graph,below=.3 of psi] (20) {\twonode{x}{y}};
   \node[graph,below=of 20] (20I) {\twonode{x}{y}};
   \node[graph,below=of 20I] (21) {\twonode{x}{y}}; 
   \node[graph,below=of 21] (21I) {\twonode{x}{y}};
-  \node[graph,below=of 21I] (22) {\cospangraph{x}{a}{z}{b}{y}}; 
+  \node[graph,below=of 21I] (22) {\cospangraph{x}{b}{z}{b}{y}}; 
 
   \path (20I) edge[left hook->] (20)
         (20I) edge[->] (21)
