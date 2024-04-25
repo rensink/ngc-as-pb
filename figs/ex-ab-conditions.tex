@@ -1,0 +1,24 @@
+\begin{tikzpicture}[node distance=.8]
+  \node (phi) {$\phi$};
+  \node[graph,below=.3 of phi] (10) {\onenode{}};
+  \node[graph,below=of 10] (11) {\oneedge{x}{b}{y}}; 
+  \node[graph,below left=.8 and 0 of 11] (111) {\oneedgeloop{x}{b}{y}{a}};
+  \node[graph,below right=.8 and 0 of 11] (112) {\twoedge{x}{b}{y}{c}{z}};
+  
+  \path (10) edge[->] (11)
+        (11) edge[->] (111)
+        (11) edge[->] (112);
+  
+  \node (psi) [right=6 of phi] {$\psi$};
+  \node[graph,below=.3 of psi] (20) {\onenode{x}};
+  \node[graph,below left=.8 and .5 of 20] (21) {\oneloop{x}{a}}; 
+  \node[graph,below right=.8 and .5 of 20] (22) {\oneedge{x}{b}{y}}; 
+  \node[graph,below=of 22] (221) {\onetwoedge{x}{b}{y}{c}{v}{c}{z}}; 
+  \node[graph,below=of 221] (2211) {\twoedge{x}{b}{y}{c}{\bullet}}; 
+
+  \path (20) edge[->] (21)
+        (20) edge[->] (22)
+		(22) edge[->] (221)
+		(221) edge[->] (2211);
+\end{tikzpicture}
+
