@@ -1,15 +1,13 @@
 \begin{tikzpicture}
-  \node (R) {$R$};
+  \node (R) {$R_c$};
   \node (R1) [below left=.3 and .2 of R.center] {$\cdots$};
-  \node (Ri) [below=1.2 of R] {$S_i$};
+  \node (Ri) [below=1.2 of R] {$R_{c_p}$};
   \node (Rn) [below right=.3 and .2 of R.center] {$\cdots$};
-  \node (Ci) [triangle,below=.15 of Ri.center] {$c_i$};
+  \node (Ci) [triangle,below=.15 of Ri.center] {$c_p$};
   \node (G) [right=2 of R] {$G$};
 
   \path (R) edge[->] node[above] {$g$} (G)
-        (R) edge[->] node[left] {$r_i$} (Ri)
-        (R) edge[->] node[left] {$r_i$} (Ri)
-        (R) edge[->] node[left] {$r_i$} (Ri)
+        (R) edge[->] node[left] {$r_p$} (Ri)
         (Ri) edge[->] node[pos=0.3,below right] (h) {$h$} (G)
         (h) edge[draw=none] node[sloped,allow upside down] {$\nsat$} (Ci);
 \end{tikzpicture}
