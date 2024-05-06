@@ -53,17 +53,17 @@ Span-based conditions have a notion of morphism.
   \end{enumerate}
 \end{definition}
 %
-\emph{Notation and terminology:} If $b,c$ are span-based conditions, we write $m:b\func c$ to denote that $m$ is a morphism from $b$ to $c$. We also write $t_m$ and $m_p$ (with $p\in\cB_c$) for the components of $m$. Pictorially, $m$ can be visualised as in \fcite{sb-morphism}.
+\emph{Notation and terminology:} If $b,c$ are span-based conditions, we write $m:b\func c$ to denote that $m$ is a morphism from $b$ to $c$. We also write $t_m$ and $m_p$ (with $p\in\cB_b$) for the components of $m$. Pictorially, $m$ can be visualised as in \fcite{sb-morphism}.
 %
 \begin{figure}
   \centering
   \input{figs/sb-morphism}
-  \caption{Pictorial representation of a span-based condition morphism $m:C\func D$}
+  \caption{Pictorial representation of a span-based condition morphism $m:b\func d$}
   \flabel{sb-morphism}
 \end{figure}
 
 \medskip\noindent
-\emph{Note to self: I find it surprising that there are no conditions on $k_i$ except for the confluence equations. For instance, $k_i,d_j^D$ is \emph{not} necessarily a pullback of $t_{m_i},d_i^C$ (\excite{no pullback} below); in fact, $k_i$ is \emph{not even} uniquely determined by the two confluence equations (\excite{k not unique} below); in other words, there may be multiple morphisms from $C$ to $D$ that only differ in their $k$ components. I am however not sure if $k$ itself should be part of the morphism, or we should merely require its existence.}
+\emph{Note to self: I find it surprising that there are no conditions on $k_p$ except for the confluence equations. For instance, $k_p,d_q$ is \emph{not} necessarily a pullback of $t_{m_p},d_p$ (\excite{no pullback} below); in fact, $k_p$ is \emph{not even} uniquely determined by the two confluence equations (\excite{k not unique} below). This is one of the reasons why the $k$ are not part of the morphism, but merely required to exist; otherwise there can be multiple morphisms between the same conditions that only differ in their $k$-components.}
 
 \medskip\noindent Span-based condition morphisms have the expected properties: identities and composition exist and form a monoid.
 
