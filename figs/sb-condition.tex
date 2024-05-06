@@ -1,13 +1,13 @@
 \begin{tikzpicture}[>=latex]
-  \node (top) {$A_C$};
-  \node (I1) [below left=.7 of top] {$I_1$};
-  \node (C1) [triangle,below=.7 of I1] {$C_1$};
-  \node [below=.7 of top] {$\cdots$};
-  \node (In) [below right=.7 of top] {$I_n$};
-  \node (Cn) [triangle,below=.7 of In] {$C_n$};
+  \node (Rc) {$R_c$};
+  \node (I1) [below left=.7 of Rc] {$I_1$};
+  \node (c1) [triangle,below=.7 of I1] {$c_1$};
+  \node [below=.7 of Rc] {$\cdots$};
+  \node (In) [below right=.7 of Rc] {$I_n$};
+  \node (cn) [triangle,below=.7 of In] {$c_n$};
 
-  \path (I1) edge[right hook->] node[above left] {$u_1$} (top)
-        (I1) edge[->] node[right] {$d_1$} (C1)
-        (In) edge[left hook->] node[above right] {$u_n$} (top)
-        (In) edge[->] node[right] {$d_n$} (Cn);
+  \path (I1) edge[->] node[above left] {$u_1$} (Rc)
+        (I1) edge[->] node[right] {$d_1$} (c1)
+        (In) edge[->] node[above right] {$u_n$} (Rc)
+        (In) edge[->] node[right] {$d_n$} (cn);
 \end{tikzpicture}

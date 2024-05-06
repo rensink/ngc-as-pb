@@ -4,13 +4,13 @@ In this section we recall the standard notion of nested condition, using notatio
 
 The definitions below use \emph{objects} and \emph{arrows} as building blocks. These can for now be thought of as the objects and arrows of any category $\bC$; however, our examples and intuitions will all be based on $\graph$.
 
-For a given root object $R$, the set of \emph{arrow-based branches} over $R$ is denoted $\MB{R}$, and the set of \emph{arrow-based conditions} over $R$ is denoted $\MC R$. They are inductively defined as follows:
+For a given root object $R$, the set of \emph{arrow-based branches} over $R$ is denoted $\AB{R}$, and the set of \emph{arrow-based conditions} over in $R$ is denoted $\AC R$. They are inductively defined as follows:
 
 \begin{definition}[arrow-based condition]\dlabel{mb condition}
   Given a root object $R$:
   \begin{itemize}
-  \item An \emph{arrow-based condition} over $R$ is a pair $(R,\cB)$ where $\cB\subseteq \MB R$ is a finite set of arrow-based branches over $R$.
-  \item An \emph{arrow-based branch} over $R$ is a pair $(r,c)$ where $r: R\func S$ is an arrow and $c\in \MC S$ is a arrow-based condition over $S$.
+  \item An \emph{arrow-based condition} over $R$ is a pair $(R,\cB)$ where $\cB\subseteq \AB R$ is a finite set of arrow-based branches over $R$.
+  \item An \emph{arrow-based branch} over $R$ is a pair $(r,c)$ where $r: R\func S$ is an arrow and $c\in \AC S$ is a arrow-based condition over $S$.
   \end{itemize}
 \end{definition}
 %
@@ -43,19 +43,19 @@ Note that in most cases we have used variable names to represent nodes, to make 
 A condition expresses a property of arrows from its root to an arbitrary object. This is operationalised through the notion of \emph{satisfaction}.
 
 \begin{definition}[satisfaction of arrow-based conditions]\dlabel{ab-satisfaction}
-  Let $c$ be an ab-condition and $g:R_c\func G$ an arrow from $c$'s root to some object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $b\in \cB_c$ and an arrow $h:S_b\func G$ such that
+  Let $c$ be an ab-condition and $g:R_c\func G$ an arrow from $c$'s root to some object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p\in \cB_c$ and an arrow $h:R_{c_p}\func G$ such that
   \begin{itemize}
-  \item $g=r_b;h$
-  \item $h\nsat c_b$.
+  \item $g=r_p;h$
+  \item $h\nsat c_p$.
   \end{itemize}
 \end{definition}
 %
-\emph{Terminology and notation.} If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $b$ the \emph{responsible branch} and $h$ the \emph{witness} for $g\sat C$. Pictorially, $g\sat c$ with responsible branch $(r_i,c_i)$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
+\emph{Terminology and notation.} If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p$ the \emph{responsible branch} and $h$ the \emph{witness} for $g\sat C$. Pictorially, $g\sat c$ with responsible branch $p$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
 %
 \begin{figure}
   \centering
   \input{figs/ab-satisfaction}
-  \caption{Pictorial representation of $g\sat c$, with responsible branch $(r_i,c_i)$ and witness $h$}
+  \caption{Pictorial representation of $g\sat c$, with responsible branch $p$ and witness $h$}
   \flabel{ab-satisfaction}
 \end{figure}
 
@@ -67,9 +67,9 @@ For the ab-conditions in \excite{ab-conditions}, the following morphisms can be 
 \node (2) [right=of 1] {$\bullet$};
 \path (1) edge[bend left=20,->] node[above] {$\scriptstyle{b}$} (2)
       (2) edge[bend left=20,->] node[below] {$\scriptstyle{b}$} (1)
-	  %(2) edge[loop right,->] node[right] {$\scriptstyle{a}$} (2)
-   (1) edge[loop left,->] node[left] {$\scriptstyle{a}$} (1);
-	  }$ and let $g$ be the only arrow from the empty graph to $G_1$. This is a model of $\phi$: the witness $h$ (for the top level) maps $x$ to the left-hand node and $y$ to the right-hand node. $h$ does not satisfy the subcondition because it cannot be extended with either the loop specified by the left branch or the outgoing $c$-edge specified by the right branch.
+	  (1) edge[loop left,->] node[left] {$\scriptstyle{a}$} (1);
+	  }$
+and let $g$ be the only arrow from the empty graph to $G_1$. This is a model of $\phi$: the witness $h$ (for the top level) maps $x$ to the left-hand node and $y$ to the right-hand node. $h$ does not satisfy the subcondition because it cannot be extended with either the loop specified by the left branch or the outgoing $c$-edge specified by the right branch.
 	  
 \item Let $G_2=\mygraph{
 \node (1) {$\bullet$};
@@ -77,12 +77,12 @@ For the ab-conditions in \excite{ab-conditions}, the following morphisms can be 
 \node (3) [right=of 2] {$\bullet$};
 \path (1) edge[bend left=20,->] node[above] {$\scriptstyle{b}$} (2)
       (2) edge[bend left=20,->] node[below] {$\scriptstyle{b}$} (1)
-	 % (2) edge[loop above,->] node[right=.1] {$\scriptstyle{a}$} (2)
-   (1) edge[loop left,->] node[left] {$\scriptstyle{a}$} (1)
+	  (1) edge[loop left,->] node[left] {$\scriptstyle{a}$} (1)
       (2) edge[->] node[above] {$\scriptstyle{c}$} (3);
-	  }$ and let $g$ be the only arrow from the empty graph to $G_2$. This is \emph{not} a model of $\phi$: there are two candidate witnesses, but both satisfy one of the branches of the subcondition.
+	  }$
+and let $g$ be the only arrow from the empty graph to $G_2$. This is \emph{not} a model of $\phi$: there are two candidate witnesses, but both satisfy one of the branches of the subcondition.
 
-\item Let $G_1$ be as above and consider the arrow $g$ from the one-node discrete graph that maps that node to $G_1$'s right-hand node. This is a model of $\psi$, with the obvious witness.
+\item Let $G_1$ be as above and consider the arrow $g$ from the one-node discrete graph that maps that node to $G_1$'s left-hand node. This is a model of $\psi$, with the obvious witness.
 
 
 \end{itemize}

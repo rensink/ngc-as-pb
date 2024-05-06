@@ -1,26 +1,28 @@
 \begin{tikzpicture}[>=latex,on grid]
-  \node (Rb) {$R_b$};
-  \node (I1) [below left=.3 and .2 of Rb.center] {$\cdots$};
-  \node (Ip) [below=2 of Rb] {$I_p$};
-  \node (In) [below right=.3 and .2 of Rb.center] {$\cdots$};
+  \node (G) {$G$};
+  
+  \node (Rb) [below left=1.5 and 2 of G] {$R_b$};
+  \node (Ip) [below=1.5 of Rb] {$I_p$};
   \node (Rp) [below=1.5 of Ip] {$R_{c_p}$};
   \node (cp) [triangle,below=.15 of Rp.center] {$c_p$};
 
   \path (Ip) edge[->] node[right] {$u_p$} (Rb)
         (Ip) edge[->] node[right] {$d_p$} (Rp);
 
-  \node (Rc) [right=5 of Rb] {$R_c$};
-  \node (J1) [below left=.3 and .2 of Rc.center] {$\cdots$};
-  \node (Iq) [below=2 of Rc] {$I_q$};
-  \node (J1) [below right=.3 and .2 of Rc.center] {$\cdots$};
+  \node (Rc) [below right=1.5 and 2 of G] {$R_c$};
+  \node (Iq) [below=1.5 of Rc] {$I_q$};
   \node (Rq) [below=1.5 of Iq] {$R_{c_q}$};
   \node (cq) [triangle,below=.15 of Rq.center] {$c_q$};
 
-  \path (Iq) edge[->] node[right] {$u_q$} (Rc)
-        (Iq) edge[->] node[right] {$d_q$} (Rq);
+  \path (Iq) edge[->] node[left] {$u_q$} (Rc)
+        (Iq) edge[->] node[left] {$d_q$} (Rq);
 
   \path (Rb) edge[->] node[above] {$t_m$} (Rc)
         (Iq) edge[->] node[above] {$k_p$} (Ip)
         (Rq) edge[->] node[above] {$t_{m_p}$} (Rp)
         (cq) edge[->] node[above] {$m_p$} (cp);
+
+  \path (Rc) edge[->] node[above right] {$g$} (G)
+        (Rp) edge[->,bend left=75] node[near start,left] {$h^b$} (G) 
+        (Rq) edge[->,bend right=75,color=gray] node[near start,right] {$h^c$} (G);  
 \end{tikzpicture}
