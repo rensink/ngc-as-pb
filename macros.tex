@@ -48,13 +48,13 @@
 \newcommand{\pprf}{prop}
 \newcommand{\plabel}[1]{\label{\pprf:#1}}
 \newcommand{\pref}[1]{\ref{\pprf:#1}}
-\newcommand{\pcite}[1]{Fig.~\pref{#1}}
+\newcommand{\pcite}[1]{Prop.~\pref{#1}}
 
 % For sections
 \newcommand{\sprf}{sec}
 \newcommand{\slabel}[1]{\label{\sprf:#1}}
 \newcommand{\sref}[1]{\ref{\sprf:#1}}
-\newcommand{\scite}[1]{Fig.~\sref{#1}}
+\newcommand{\scite}[1]{Sec.~\sref{#1}}
 
 % For examples
 \newcommand{\exprf}{ex}
@@ -146,7 +146,7 @@
       (2) edge[->] node[above] {$\scriptstyle{#4}$} (3);
 }}
 
-% One edge vollowed by s split into two edges
+% One edge ollowed by s split into two edges
 % #1: first node
 % #2: first edge label
 % #3: middle node
@@ -191,3 +191,7 @@
 \path (1) edge[->] node[above] {$\scriptstyle{#2}$} (2)
       (2) edge[<-] node[above] {$\scriptstyle{#4}$} (3);
 }}
+
+% some more
+% renew because \cat define in mypaper.tex referenced by preample.sty 
+\renewcommand{\cat}[1]{\textbf{#1}}

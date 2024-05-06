@@ -4,7 +4,7 @@ Needed definitions:
 \begin{enumerate}
   \item Monoidal signature $\Sigma = \bigcup\{_n\Sigma_m\}_{n,m \in \nat}$, arity $ar(\sigma) = n$ and coarity $coar(\sigma)=m$ iff $\sigma \in {_n\Sigma_m}$.
   \item (Finite?) Edge-labeled hypergraphs: $G =\< V,E,l:E \to \Sigma, s,t:E \to V^*\>$ with: for all $e\in E$ it holds $ar(l(e)) = |s(e)|$ and $coar(l(e)) = |t(e)|.$
-  \item Category of hypergraphs and their morphisms $\HGraphCat$. 
+  \item Category of hypergraphs and their morphisms $HGraphCat$. 
   \item Need a notation for the discrete graph (set) with $n$ nodes. For example: 
   $\ul{n} = \{1,\ldots, n\}$
   \item Discrete cospan (aka \emph{ranked hypergraph}, $n,m$-hypergraphs, $n,m$-ranked hypergraph ?): $\<l,G,r\>$, with $l:\ul{n} \to V_G$, $r:\ul{m} \to V_G$.
@@ -18,7 +18,7 @@ Needed definitions:
   \begin{enumerate}
     \item
     A \emph{(nested) condition} $C$ is a finite, non-empty, ordered\footnote{AC: we order the children of each node just to give them a name using a position, but intuitively they should form a set.} tree in the category of hypergraphs. 
-    Formally, $NC = \<W, c:W \to |\HGraphCat|, a:W\setminus\{\varepsilon\} \to Mor(\HGraphCat)\>$, where $W$ is a closed set of positions, and for each $wi \in W$, $a(wi): c(w) \to c(wi)$ is a morphism in  $\HGraphCat$. 
+    Formally, $NC = \<W, c:W \to |HGraphCat|, a:W\setminus\{\varepsilon\} \to Mor(HGraphCat)\>$, where $W$ is a closed set of positions, and for each $wi \in W$, $a(wi): c(w) \to c(wi)$ is a morphism in  $HGraphCat$. 
 
     Typically, we denote hypergraph $c(w)$ as $C_w$. Therefore the root of $C$ is $C_{\varepsilon}$.
     \item Recursive definiton using `conditions' and `predicates' as in the 2005 paper?

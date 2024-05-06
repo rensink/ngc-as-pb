@@ -1,0 +1,32 @@
+\begin{tikzpicture}[>=latex,on grid]
+  \node (Rc) {$R_c$};
+  \node (Sc1) [below left=1.5 and 1 of Rc] {$R_{c_1}$};
+  \node (Sci) [below=1 of Rc] {$\cdots$};
+  \node (Scn) [below right=1.5 and 1 of Rc] {$R_{c_n}$};
+  \node (c1) [triangle,below=.2 of Sc1.center] {$c_1$};
+  \node (cn) [triangle,below=.2 of Scn.center] {$c_n$};
+
+  \path (Rc) edge[->] node[above left] {$r^c_1$} (Sc1)
+        (Rc) edge[->] node[above right] {$r^c_n$} (Scn);
+
+  \node (Rd) [right=7 of Rc] {$R_d$};
+  \node (Sd1) [below left=1 and 1.5 of Rd] {$\cdots$};
+  \node (Sd2) [below left=1.5 and 1 of Rd] {$S_{d_i}$};
+  \node (Sd3) [below=1 of Rd] {$\cdots$};
+  \node (Sd4) [below right=1.5 and 1 of Rd] {$S_{d_j}$};
+  \node (Sd5) [below right=1 and 1.5 of Rd] {$\cdots$};
+  \node (d2) [triangle,below=.2 of Sd2.center] {$d_i$};
+  \node (d4) [triangle,below=.2 of Sd4.center] {$d_j$};
+
+  \path (Rd) edge[->] node[above left] {$r^d_i$} (Sd2)
+        (Rd) edge[->] node[above right] {$r^d_j$} (Sd4);
+
+  \path (Rc) edge[->] node[above] {$t$} (Rd)
+        (Rd) edge[->,bend left=20,dashed] node[below] {$s_n$} (Rc)
+        (Rd) edge[->,bend left=10,dashed] node[above] {$s_1$} node[below] {$\cdots$} (Rc)
+        %(Rd) edge[bend left=15,line width=0] node {$???$} (Rc)
+        (Sd2) edge[->,bend left=20] node[above,very near start] {$t_{m_1}$} (Sc1)
+        (d2) edge[->,bend left=20] node[below] {$m_1$} (c1)
+        (Sd4) edge[->,bend left=20] node[above,very near start] {$t_{m_n}$} (Scn)
+        (d4) edge[->,bend left=20] node[below] {$m_n$} (cn);
+\end{tikzpicture}
