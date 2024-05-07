@@ -1,25 +1,22 @@
 \section{Arrow-based conditions}
- 
+\slabel{ab-conditions}
+
 In this section we recall the standard notion of nested condition, using notations that will make the connection with the variation proposed in this paper as straightforward as possible. Here and in the remainder of the paper, we will mostly omit the term ``nested'' and just refer to \emph{conditions}; however, to distinguish them from our variation, we will refer to the standard notion of nested conditions as \emph{arrow-based}.
 
 The definitions below use \emph{objects} and \emph{arrows} as building blocks. These can for now be thought of as the objects and arrows of any category $\bC$; however, our examples and intuitions will all be based on $\graph$.
 
-For a given root object $R$, the set of \emph{arrow-based branches} over $R$ is denoted $\AB{R}$, and the set of \emph{arrow-based conditions} over in $R$ is denoted $\AC R$. They are inductively defined as follows:
+Arrow-based conditions are inductively defined as follows:
 
-\begin{definition}[arrow-based condition]\dlabel{mb condition}
-  Given a root object $R$:
+\begin{definition}[arrow-based condition]\dlabel{ab-condition}
+  For any object $R$ of $\bC$, $\AC R$ (the set of \emph{arrow-based conditions} over $R$) and $\AB R$ (the set of \emph{arrow-based branches} over $R$) are the smallest sets such that
   \begin{itemize}
-  \item An \emph{arrow-based condition} over $R$ is a pair $(R,\cB)$ where $\cB\subseteq \AB R$ is a finite set of arrow-based branches over $R$.
-  \item An \emph{arrow-based branch} over $R$ is a pair $(r,c)$ where $r: R\func S$ is an arrow and $c\in \AC S$ is a arrow-based condition over $S$.
+  \item $c\in \AC R$ if $c=(R,\cP)$ where $\cP\subseteq \AB R$ is a finite set;
+  \item $p\in \AB R$ if $p=(r,c)$ where $r: R\func S$ is an arrow of $\bC$ and $c\in \AC S$.
   \end{itemize}
 \end{definition}
-%
 
-Note that the base cases of the induction are conditions of the form $(R,\emptyset)$, whith no branches. We will only consider \emph{finite} conditions, where the subcondition relation is well-founded.%\note{OK?} 
-
-
-
-\emph{Terminology and notation:} We use $c,d$ to range over conditions and $p,q$ to range over branches. We use $R_c,\cB_c$ to refer to the root and branches of a condition $c$, and $R_p,r_p,S_p,c_p$ to refer to the root, arrow, subcondition root and subcondition of a branch $p$. We will also occasionally enumerate the elements of $\cB_c$ and directly write $c=(R_c, \setof{(r_i, c_i)}_{1\leq i\leq |c|})$, with $|c|$ standing for the \emph{width} of condition $c$, defined as $|c|=|\cB_c|$. Finally, for compactness we will often abbreviate ``arrow-based'' to ``ab", as in ``ab-conditions".
+\medskip\noindent
+\emph{Terminology and notation:} \fcite{ab-condition} provides a visualisation of an ab-condition. We use $b,c$ to range over conditions and $p,q$ to range over branches. We use $R_c,\cB_c$ to refer to the root and branches of a condition $c$, and $r_p,c_p$ to refer to the arrow and subcondition of a branch $p$. We will also occasionally enumerate the elements of $\cB_c$ and write $c=(R_c, \setof{p^c_i}_{1\leq i\leq |c|})$ or just $c=(R_c, \setof{p^c_i}_i)$ with $p^c_i=(r^c_i,c_i)$, where $|c|$ stands for the \emph{width} of condition $c$, defined as $|c|=|\cB_c|$. Finally, for compactness we will often abbreviate ``arrow-based'' to ``ab", as in ``ab-conditions".
 %
 \begin{figure}
   \centering
@@ -28,10 +25,12 @@ Note that the base cases of the induction are conditions of the form $(R,\emptys
   \flabel{ab-condition}
 \end{figure}
 
+Note that, as a consequence of the inductive nature of \dcite{ab-condition}, every ab-condition has a finite \emph{depth} $\depth(c)$, defined as $0$ if $\cP_c=\emptyset$ and $1+\max_{p\in \cP_c} \depth(c_p)$ otherwise.
+
 \begin{example}\exlabel{ab-conditions}
 The following figure depicts two arrow-based conditions. The first expresses a property $\phi$ over arrows from the empty graph, the second a property $\psi$ over arrows from the discrete one-node graph (meaning essentially that we already know the image of that node). In FOL, the properties can be expressed as follows:
 \begin{itemize}
-\item $\phi\equiv \exists x,y\st b(x,y) \wedge \neg a(y,y)\wedge \neg \exists z\st c(y,z)$
+\item $\phi\equiv \exists x,y\st b(x,y) \wedge \neg a(x,x)\wedge \neg \exists z\st c(y,z)$
 \item $\psi\equiv a(x,x)\vee \exists y\st b(x,y) \wedge \forall v,z\st c(y,v)\wedge c(y,z) \rightarrow v=z$
 \end{itemize}
 Note that in most cases we have used variable names to represent nodes, to make the connection to the corresponding FOL properties more immediately understandable. The morphisms are in all cases implied by the graph structure and variable names.
@@ -88,92 +87,49 @@ and let $g$ be the only arrow from the empty graph to $G_2$. This is \emph{not} 
 \end{itemize}
 \end{example}
 
-\subsection{Morphisms of nested conditions}
-\medskip\noindent The notion of \emph{morphism} of nested conditions has not received much attention in the literature. Given the fact that an ab-condition is essentially a diagram in the category $\bC$, it is natural to think that a morphism from $c$ to $d$ should essentially be a morphism between their diagrams, involving arrows from objects of $c$ to objects of $d$ such that all subdiagrams commute. However, since the semantics of conditions is really captured by the notion of satisfaction, we want satisfaction to be preserved by morphisms, in some precise sense. For that to be the case, we need a more refined notion of morphism that plays well with the second clause of \dcite{ab-satisfaction}, in which there is a negation: the witness $h$ should \emph{not} satisfy the subcondition $c_b$. 
-This intuition explains why in the morphisms we are going to introduce, at each level conditions are related by arrows going in the opposite direction of the arrows relating the corresponding subconditions.  
-
-Recall that, in any category, given an arrow $r: A \to B$ a \emph{section} for $r$ is an arrow $s: B \to A$ such that $s;r = id_B$. In this case $r$ is called a retraction (for $s$), and it is easily shown that $r$ is epi.
+\medskip\noindent The notion of \emph{morphism} of nested conditions has not received much attention in the literature. Given the fact that an ab-condition is essentially a diagram in the category $\bC$, it is natural to think that a morphism from $c$ to $d$ should essentially be morphism between their diagrams, involving arrows from objects of $c$ to objects of $d$ such that all subdiagrams commute. However, since the semantics of conditions is really captured by the notion of satisfaction, we want satisfaction to be preserved by morphisms, in some precise sense. For that to be the case, we need a more refined notion of morphism that plays well with the second clause of \dcite{ab-satisfaction}, in which there is a negation: the witness $h$ should \emph{not} satisfy the subcondition $c_b$.
 
 \begin{definition}[arrow-based condition morphism]\dlabel{ab-morphism}
-  Given two ab-conditions $c$ and $d$, an \emph{ab-condition morphism} $m: c \to d$
-  % from $c$ to $d$ 
-  is a pair $(t,\setof{m_p}_{p\in \cB_c})$ such that   
+  Given two ab-conditions $c,d$, an ab-condition morphism $m$ from $c$ to $d$ is a pair $(t,\setof{m_p}_{p\in \cB_c})$ such that $t:R_c\func R_d$ is an arrow and for all branches $p\in \cB_c$, $m:c_q\func c_p$ is an ab-condition morphism from (the subcondition of) a branch $q\in \cB_d$ satisfying
   \begin{itemize}
-    \item $t:R_c\func R_d$ is an arrow, and 
-  \item  for all branches $p\in \cB_c$, $m_p:c_q\func c_p$ is an ab-condition morphism from the subcondition $c_q$ of a branch $q\in \cB_d$ and there is a section for $t$, $s:R_d\func R_c$ such that $s; r_p = r_q;t_{m_p}$.
+  \item $t;r_q;t_{m_p}=r_p$.
   \end{itemize}
 \end{definition}
 %
-Hence, a morphism consists of a \emph{top} arrow $t$ from the root of the source condition to that of the target condition, and for each branch $p$ of the source condition a \emph{backward} morphism $m_p$ from the subcondition of some branch $q$ of the target condition to the subcondition of $p$, such that there is a section of $t$ making the square composed with the top arrow of $m_p$ commute. 
-
-We sometimes call $q$ the \emph{source branch} of $m_p$, and we take this to be fixed by $m_p$ (and hence part of the identity of $m$). Pictorially, $m$ can be visualised as in \fcite{ab-morphism-section}. We use $m:c\func d$ to denote that $m$ is an ab-condition morphism from $c$ to $d$, and $t_m$ to denote its top arrow (both of which notations were already used in the definition above). Note that if $c$ has at least one branch in $\cB_c$, then $t_m$ is a retraction, as it must have at least one section.  The dashed arrows $s_1, \ldots, s_n$ are the required sections for $t$, one for each $p\in \cB_c$: such sections don't need to be distinct.  
-
+Hence, a morphism consists of a \emph{top} arrow $t$ from the root of the source condition to that of the target condition, and for each branch $p$ of the source condition a \emph{backward} morphism $m_p$ from the subcondition of some branch $q$ of the target condition to the subcondition of $p$. We sometimes call $q$ the \emph{source branch} of $m_p$, and we take this to be fixed by $m_p$ (and hence part of the identity of $m$. Pictorially, $m$ can be visualised as in \fcite{ab-morphism}. We use $m:c\func d$ to denote that $m$ is an ab-condition morpism from $c$ to $d$, and $t_m$ to denote its top arrow (both of which notations were already used in the definition above). Pictorially, a morphism can be visualised as in \fcite{ab-morphism}.
 %
 \begin{figure}
   \centering
-  \input{figs/ab-morphism-section}
+  \input{figs/ab-morphism}
   \caption{Pictorial representation of an arrow-based condition morphism $m:c\func d$}
-  \flabel{ab-morphism-section}
+  \flabel{ab-morphism}
 \end{figure}
 
-\medskip\noindent Morphisms have the expected properties: identities and composition exists and the categorical laws are satisfied, thus arrow-based conditions and their morphisms form a category.
+\medskip\noindent Morphisms have the expected properties: identities and composition exist and form a monoid.
 %
+\begin{definition}[arrow-based condition identity]\dlabel{ab-identity}
+  Given an ab-condition $c=(R,\cB)$, the identity $\id_c:c\func c$ is defined as $(\id_R,\setof{\id_{m_b}}_{b\in \cB})$.
+\end{definition}
 
-\begin{proposition}[category \cat{AB-Cond}]
-  The category $\cat{AB-Cond}$ having arrow-based conditions (\dcite{mb condition}) as objects and arrow-based condition morphisms (\dcite{ab-morphism}) as arrows is well-defined.
-\end{proposition}
-
-\begin{proof}
-  Given an ab-condition $c=(R,\cB)$, the identity morphism $\id_c:c\func c$ is defined as $(\id_R,\setof{\id_{c_b}}_{b\in \cB})$: the required commutativity trivially holds since $\id_R$ is a section for itself.
-  
+\begin{definition}[arrow-based condition morphism composition]\dlabel{ab-composition}
 Given two ab-condition morphisms $m:c\func d$ and $n:d\func e$, their composition is defined as $m;n=(t_m;t_n,\setof{n_{q_p};m_p}_{p\in \cB_c})$ where for each $p\in \cB_c$, $q_p\in \cB_d$ is the source branch of $m_p$.
-The well-definedness of $m;n$ can be proved in a standard way, also considering that if $s_m$ is a section for $t_m$ and $s_n$ is a section for $t_n$, then $s_n;s_m$ is a section for $t_m;t_n$.
+\end{definition}
 
-The identity laws and associativity of composition can be proved in a standard way. \qed
-\end{proof}
-
+\begin{proposition}
+  Composition of arrow-based condition morphisms satisfies $\id_c;m=m=m;\id_d$ for $m:c\func d$ and $m_1;(m_2;m_3)=(m_1;m_2);m_3$ for $m_i:c_i\func c_{i+1}$ ($i=1,2,3$).
+\end{proposition}
+%
 With this notion of morphism, we have the desired preservation of satisfaction, in the following sense.
 
-\begin{proposition}[ab-condition morphisms preserve satisfaction]
-  \plabel{ab-preserve-satisfaction}
-Let $c = (R_c, \cB_c)$ and $d = (R_d, \cB_d)$  be arrow-based conditions. If $m:c\func d$ is an ab-condition morphism, then $t_m;g\sat c$ implies $g \sat d$ for all arrows $g:R_d\func G$.
+\begin{proposition}
+Let $c,d$ be arrow-based conditions. If $m:c\func d$ is an ab-condition morphism, then $t_m;g\sat c$ implies $g \sat d$ for all arrows $g:R_d\func G$.
 \end{proposition}
 %
-\emph{Proof.} By induction. Assume that for all $p'\in \cB_c$, the property holds for $m_{p'}:d_{q'} \to c_{p'}$, where $q' = (r_{q'}, d_{q'}) \in \cB_d$. Let $p$ be the responsible branch and $h: R_{c_{p}} \to G$ the witness for $t_m;g\sat c$. 
-Hence we have $(\dagger)\, t_m; g=r_{p};h$ and $h \nsat p$.  Now let $q \in \cB_d$ be the source branch of $m_{p}$, and $s_p$ be the section for $t_m$ such that $(\star)\, s_p;r_p = r_q; t_{m_p}$. 
-We show that $q$ itself is a responsible branch and $(\ddagger)\, h'=t_{m_p};h$ a witness for $g\sat q$, namely that 
+\emph{Proof.} By induction. Assume that for all $p\in \cB_c$, the property holds for $m_p$. Let $p$ be the responsible branch and $h$ the witness for $g\sat c$; hence $g=r_p;h$ and $h\nsat c_p$. Now let $q$ be the source branch of $m_p$. We will show that $q$ is a responsible branch and $h'=t_{m_p};h$ a witness for $t_m;g\sat q$.
 \begin{itemize}
-\item $g = r_q;h'$: In fact, $r_q;h' =\!(\ddagger)\ r_q;t_{m_p};h =\!(\star)\ s_p;r_p; h  =\!(\dagger)\ s_p;t_m;g = g$. 
-\item $h' \nsat q$: In fact, since there is a condition morphism $m_{p}: c_q \to c_p$, if $h'= t_{m_p};h \sat q$ by induction hypothesis we can infer that $h \sat p$, contradicting the hypothesis. \qed
+\item $r_q;h'=r_q;t_{m_p};h=t_m;r_p;h=t_m;g$
+\item If $h'\sat c_q$, then $t_{m_p};h\sat c_q$, hence by the induction hypothesis $h\sat c_p$, contradicting the assumptions about $p$ and $h$. It follows that $h'\nsat c_q$.\hfill$\Box$
 \end{itemize}
 %
 It is noteworthy that the arrows that satisfy $c$ and $d$ are not the \emph{same} ones --- in general they cannot be, as $c$ and $d$, having different roots, actually express properties of different domains (the arrows from $R_c$ and $R_d$, respectively). However, the morphism $m$ establishes $t_m:R_c\func R_d$, and the proposition then states that for any arrow from $R_c$ \emph{that factors through $t_m$}, satisfaction of $c$ (by that arrow) implies satisfaction of $d$ by ``the remainder after $t_m$''.
 
-
-\subsubsection{Epi-based morphisms of nested conditions}
-
-The definition of ab-condition morphisms of \dcite{ab-morphism} is strongly motivated by results presented later in the paper, but is by no mean the only possible one. Still assuming that at each level arrows relating the roots of the conditions should flip direction, a possibly simpler definition of condition morphism is the following.  
-
-\begin{definition}[simple arrow-based condition morphism]\dlabel{simple-morphism}
-  Given two ab-conditions $c,d$, a \emph{simple ab-condition morphism} $m$ from $c$ to $d$ is a pair $(t,\setof{m_p}_{p\in \cB_c})$ such that $t:R_c\func R_d$ is an arrow and for all branches $p\in \cB_c$, $m:c_q\func c_p$ is a simple ab-condition morphism from (the subcondition of) a branch $q\in \cB_d$ satisfying $(\star)\, t;r_q;t_{m_p}=r_p$. 
-  A simple morphism is called \emph{epi-based} if all the arrows composing it (relating the roots of (sub)conditions) are epi. 
-\end{definition}
-%
-Ab-conditions and simple condition morphism form a category denoted \cat{AB$^\to$-Cond}, and while by \cat{AB$^\twoheadrightarrow$-Cond} we denote the category having the same objects but only epi-based morphisms.  (and epi-based ones) inclide
-In general, simple morphisms do not preserve satisfaction, as shown in the example \ref{non-surjective-mapping}. However, epi-based morphisms do preserve satisfaction. 
-
-
-\begin{proposition}
-  Let $c,d$ be arrow-based conditions. If $m:c\func d$ is an epi-based ab-condition morphism, then $t_m;g\sat c$ implies $g \sat d$ for all arrows $g:R_d\func G$.
-  \end{proposition}
-  %
-  \emph{Proof.} By induction. Assume that for all $p\in \cB_c$, the property holds for $m_p$. Let $p$ be the responsible branch and $h$ the witness for $t_m;g\sat c$; hence $(\dagger)\, t_m;g=r_p;h$ and $h\nsat c_p$. Now let $q$ be the source branch of $m_p$. We show that $q$ is a responsible branch and $(\ddagger)\, h'=t_{m_p};h$ a witness for $t_m;g\sat q$. In fact, 
-  \begin{itemize}
-  \item $g = r_q;h'$: for, $t_m;r_q;h' =\!(\ddagger)\, t_m;r_q;t_{m_p};h =\!(\star)\, r_p; h =\!(\dagger)\, t_m;g$, from which  $g = r_q;h'$ follows because $t_m$ is epi. 
-  \item $h'\nsat c_q$: as in the proof of \pcite{ab-preserve-satisfaction}.\qed
-  \end{itemize}
-  %
-
-  Interestingly, even if both ab-condition morphisms (\dcite{ab-morphism}) and epi-based ones preserve satisfaction, they are incomparable as shown by examples \ref{epi-based morphism, no retraction} and \ref{retraction based morphism, not epi}: if two conditions are related by one kind of morphisms they are not neessarily related by the other kind. 
-
-  Comparing the two definitions, note that retractions are epi in any category, but not viceversa: for example, in \cat{Graph} there are epis which don't have a section. Therefore asking for the existence of a section is a stronger condition than being an epi: however, existence of a section is not required when the source condition has no branchings. Instead the commutativity requirement in \dcite{simple-morphism} is stronger. In fact, if there is a section $s_q: R_d \to R_c$ for $t$, then  $t;r_q;t_{m_p}=r_p$ implies $s_q; r_p = r_q ; t_{m_p}$. 
