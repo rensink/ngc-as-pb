@@ -11,15 +11,15 @@
 
   \node (Rd) [right=7 of Rc] {$R_d$};
   \node (Sd1) [below left=1 and 1.5 of Rd] {$\cdots$};
-  \node (Sd2) [below left=1.5 and 1 of Rd] {$S_{d_i}$};
+  \node (Sd2) [below left=1.5 and 1 of Rd] {$R_{d_x}$};
   \node (Sd3) [below=1 of Rd] {$\cdots$};
-  \node (Sd4) [below right=1.5 and 1 of Rd] {$S_{d_j}$};
+  \node (Sd4) [below right=1.5 and 1 of Rd] {$R_{d_y}$};
   \node (Sd5) [below right=1 and 1.5 of Rd] {$\cdots$};
-  \node (d2) [triangle,below=.2 of Sd2.center] {$d_i$};
-  \node (d4) [triangle,below=.2 of Sd4.center] {$d_j$};
+  \node (d2) [triangle,below=.2 of Sd2.center] {$d_x$};
+  \node (d4) [triangle,below=.2 of Sd4.center] {$d_y$};
 
-  \path (Rd) edge[->] node[above left] {$r^d_i$} (Sd2)
-        (Rd) edge[->] node[above right] {$r^d_j$} (Sd4);
+  \path (Rd) edge[->] node[above left] {$r^d_x$} (Sd2)
+        (Rd) edge[->] node[above right] {$r^d_y$} (Sd4);
 
   \path (Rc) edge[->] node[above] {$t$} (Rd)
         (Rd) edge[->,bend left=20,dashed] node[below] {$s_n$} (Rc)

@@ -96,11 +96,18 @@ Recall that, in any category, given an arrow $r: A \to B$ a \emph{section} for $
 \begin{definition}[arrow-based condition morphism]\dlabel{ab-morphism}
   Given two ab-conditions $c$ and $d$, an \emph{ab-condition morphism} $m: c \to d$
   % from $c$ to $d$ 
-  is a pair $(t,\setof{m_p}_{p\in \cB_c})$ such that   
+  is a pair $(t,\setof{(q_p,m_p)}_{p\in \cB_c})$ such that   
   \begin{itemize}
-    \item $t:R_c\func R_d$ is an arrow, and 
-  \item  for all branches $p\in \cB_c$, $m_p:c_q\func c_p$ is an ab-condition morphism from the subcondition $c_q$ of a branch $q\in \cB_d$ and there is a section for $t$, $s:R_d\func R_c$ such that $s; r_p = r_q;t_{m_p}$.
+    \item $t:R_c\func R_d$ is an arrow, and  
+  \item  for all branches $p\in \cB_c$, 
+  \begin{itemize}
+    \item $q_p$ is a branch of $d$, i.e.~ $q_p \in \cB_d$,
+    \item $m_p:c_{q_p}\func c_p$ is an ab-condition morphism,
   \end{itemize}
+    
+    and there is a section $s:R_d\func R_c$ for $t$ such that $s; r_p = r_q;t_{m_p}$.
+  
+\end{itemize}
 \end{definition}
 %
 Hence, a morphism consists of a \emph{top} arrow $t$ from the root of the source condition to that of the target condition, and for each branch $p$ of the source condition a \emph{backward} morphism $m_p$ from the subcondition of some branch $q$ of the target condition to the subcondition of $p$, such that there is a section of $t$ making the square composed with the top arrow of $m_p$ commute. 
@@ -111,7 +118,10 @@ We sometimes call $q$ the \emph{source branch} of $m_p$, and we take this to be 
 \begin{figure}
   \centering
   \input{figs/ab-morphism-section}
-  \caption{Pictorial representation of an arrow-based condition morphism $m:c\func d$}
+  \caption{Pictorial representation of an arrow-based condition morphism $m:c\func d$. Here $c=(R_c, \setof{(r^c_i,c_i)}_{1\leq i\leq |c|})$, $d=(R_d, \setof{(r^d_i,d_i)}_{1\leq i\leq |d|})$, and     
+  $m = (t,\setof{(q_i,m_i)}_{1\leq i \leq |c|})$, where $q_1 = (r^d_x,d_x), \ldots,q_n = (r^d_y,d_y)$. For each $1 \leq i \leq |c|$, $s_i$ is the section of $t$ required by the definition.}
+  %  is the $i$-th branch of $d$, and $q_n$ is the $j$-th. 
+  %  $p^d_i = q_{p^c_1}$ and $p^d_j = q_{p^c_n}$ }
   \flabel{ab-morphism-section}
 \end{figure}
 
@@ -119,9 +129,9 @@ We sometimes call $q$ the \emph{source branch} of $m_p$, and we take this to be 
 %
 
 \begin{proposition}[category \cat{AB-Cond}]
-  The category $\cat{AB-Cond}$ having arrow-based conditions (\dcite{mb condition}) as objects and arrow-based condition morphisms (\dcite{ab-morphism}) as arrows is well-defined.
+  The category $\cat{AB-Cond}$ having arrow-based conditions (\dcite{ab-condition}) as objects and arrow-based condition morphisms (\dcite{ab-morphism}) as arrows is well-defined.
 \end{proposition}
-
+ 
 \begin{proof}
   Given an ab-condition $c=(R,\cB)$, the identity morphism $\id_c:c\func c$ is defined as $(\id_R,\setof{\id_{c_b}}_{b\in \cB})$: the required commutativity trivially holds since $\id_R$ is a section for itself.
   
