@@ -1,15 +1,19 @@
-\begin{tikzpicture}
+\begin{tikzpicture}[on grid]
   \node (Rc) {$R_c$};
-  \node (I1) [below left=.3 and .2 of Rc.center] {$\cdots$};
-  \node (Ip) [below=of Rc] {$I_p$};
-  \node (In) [below right=.3 and .2 of Rc.center] {$\cdots$};
-  \node (Rp) [below=.7 of Ip] {$R_{c_p}$};
+  \node (I1) [below left=of R] {};
+  \node [below left=.8 and .4 of R] {$\cdots$};
+  \node (Ip) [below=1.8 of Rc] {$I_p$};
+  \node [below right=.8 and .4 of R] {$\cdots$};
+  \node (In) [below right=of R] {};
+  \node (Rp) [below=1.2 of Ip] {$R_{c_p}$};
   \node (cp) [triangle,below=.15 of Rp.center] {$c_p$};
   \node (G) [right=2 of Rc] {$G$};
 
-  \path (Rc) edge[->] node[above] {$g$} (G)
-        (Ip) edge[->] node[left] {$u_p$} (Rc)
+  \path (Rc) edge [<-] (I1)
+        (Rc) edge [<-] (In)
+		(Rc) edge[->] node[above] {$g$} (G)
+        (Ip) edge[->] node[left,near start] {$u_p$} (Rc)
         (Ip) edge[->] node[left] {$d_p$} (Rp)
-        (Rp) edge[->] node[pos=0.3,below right] (h) {$h$} (G)
+        (Rp) edge[->,bend right] node[pos=0.2,below right] (h) {$h$} (G)
         (h) edge[draw=none] node[sloped,allow upside down] {$\nsat$} (cp);
 \end{tikzpicture}

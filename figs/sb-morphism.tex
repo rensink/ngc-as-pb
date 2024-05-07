@@ -1,26 +1,39 @@
 \begin{tikzpicture}[>=latex,on grid]
   \node (Rb) {$R_b$};
-  \node (I1) [below left=.3 and .2 of Rb.center] {$\cdots$};
-  \node (Ip) [below=2 of Rb] {$I_p$};
-  \node (In) [below right=.3 and .2 of Rb.center] {$\cdots$};
-  \node (Rp) [below=1.5 of Ip] {$R_{c_p}$};
-  \node (cp) [triangle,below=.15 of Rp.center] {$c_p$};
+  \node (I1) [below left=1.5 and 1 of Rb] {$I^b_1$};
+  \node (R1) [below=1.5 of I1] {$R_{b_1}$};
+  \node (b1) [triangle,below=.12 of R1.center] {$b_1$};
+  \node [below=1 of Rb] {$\cdots$};
+  \node (In) [below right=1.5 and 1 of Rb] {$I^b_n$};
+  \node (Rn) [below=1.5 of In] {$R_{b_n}$};
+  \node (bn) [triangle,below=.12 of Rn.center] {$b_n$};
 
-  \path (Ip) edge[->] node[right] {$u_p$} (Rb)
-        (Ip) edge[->] node[right] {$d_p$} (Rp);
+  \path (I1) edge[->] node[left] {$u^b_1$} (Rb)
+        (I1) edge[->] node[left] {$d^b_1$} (R1)
+		(In) edge[->] node[right] {$u^b_n$} (Rb)
+        (In) edge[->] node[right,near end] {$d^b_n$} (Rn);
 
-  \node (Rc) [right=5 of Rb] {$R_c$};
-  \node (J1) [below left=.3 and .2 of Rc.center] {$\cdots$};
-  \node (Iq) [below=2 of Rc] {$I_q$};
-  \node (J1) [below right=.3 and .2 of Rc.center] {$\cdots$};
-  \node (Rq) [below=1.5 of Iq] {$R_{c_q}$};
-  \node (cq) [triangle,below=.15 of Rq.center] {$c_q$};
+  \node (Rc) [right=7 of Rb] {$R_c$};
+  \node [below left=1 and 1.5 of Rc] {$\cdots$};
+  \node (Ji) [below left=1.5 and 1 of Rc] {$I^c_i$};
+  \node (Ri) [below=1.5 of Ji] {$R_{c_i}$};
+  \node (ci) [triangle,below=.12 of Ri.center] {$c_i$};
+  \node [below=1 of Rc] {$\cdots$};
+  \node (Jj) [below right=1.5 and 1 of Rc] {$I^c_j$};
+  \node (Rj) [below=1.5 of Jj] {$R_{c_j}$};
+  \node (cj) [triangle,below=.12 of Rj.center] {$c_j$};
+  \node [below right=1 and 1.5 of Rc] {$\cdots$};
 
-  \path (Iq) edge[->] node[right] {$u_q$} (Rc)
-        (Iq) edge[->] node[right] {$d_q$} (Rq);
+  \path (Ji) edge[->] node[left] {$u^c_i$} (Rc)
+        (Ji) edge[->] node[left,near end] {$d^c_i$} (Ri)
+		(Jj) edge[->] node[right] {$u^c_j$} (Rc)
+        (Jj) edge[->] node[right] {$d^c_j$} (Rj);
 
   \path (Rb) edge[->] node[above] {$t_m$} (Rc)
-        (Iq) edge[->] node[above] {$k_p$} (Ip)
-        (Rq) edge[->] node[above] {$t_{m_p}$} (Rp)
-        (cq) edge[->] node[above] {$m_p$} (cp);
+        (Ji) edge[dashed,->,bend left=20] node[above,very near start] {$k_1$} (I1)
+        (Ri) edge[->,bend left=20] node[above,very near start] {$t_{m_1}$} (R1)
+        (ci) edge[->,bend left=20] node[below,very near start] {$m_1$} (b1)
+        (Jj) edge[dashed,->,bend left=20] node[below,very near start] {$k_n$} (In)
+        (Rj) edge[->,bend left=20] node[below,very near start] {$t_{m_n}$} (Rn)
+        (cj) edge[->,bend left=20] node[below,very near start] {$m_n$} (bn);
 \end{tikzpicture}

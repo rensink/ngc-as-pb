@@ -10,13 +10,13 @@ Arrow-based conditions are inductively defined as follows:
 \begin{definition}[arrow-based condition]\dlabel{ab-condition}
   For any object $R$ of $\bC$, $\AC R$ (the set of \emph{arrow-based conditions} over $R$) and $\AB R$ (the set of \emph{arrow-based branches} over $R$) are the smallest sets such that
   \begin{itemize}
-  \item $c\in \AC R$ if $c=(R,\cP)$ where $\cP\subseteq \AB R$ is a finite set;
+  \item $c\in \AC R$ if $c=(R,\cB)$ where $\cB\subseteq \AB R$ is a finite set;
   \item $p\in \AB R$ if $p=(r,c)$ where $r: R\func S$ is an arrow of $\bC$ and $c\in \AC S$.
   \end{itemize}
 \end{definition}
 
 \medskip\noindent
-\emph{Terminology and notation:} \fcite{ab-condition} provides a visualisation of an ab-condition. We use $b,c$ to range over conditions and $p,q$ to range over branches. We use $R_c,\cB_c$ to refer to the root and branches of a condition $c$, and $r_p,c_p$ to refer to the arrow and subcondition of a branch $p$. We will also occasionally enumerate the elements of $\cB_c$ and write $c=(R_c, \setof{p^c_i}_{1\leq i\leq |c|})$ or just $c=(R_c, \setof{p^c_i}_i)$ with $p^c_i=(r^c_i,c_i)$, where $|c|$ stands for the \emph{width} of condition $c$, defined as $|c|=|\cB_c|$. Finally, for compactness we will often abbreviate ``arrow-based'' to ``ab", as in ``ab-conditions".
+\emph{Terminology and notation:} \fcite{ab-condition} provides a visualisation of an arrow-based condition. We use $b,c$ to range over conditions and $p,q$ to range over branches. We use $R_c,\cB_c$ to refer to the root and branches of a condition $c$, and $r_p,c_p$ to refer to the arrow and subcondition of a branch $p$. We will also occasionally enumerate the elements of $\cB_c$ and write $c=(R_c, \setof{p^c_i}_{1\leq i\leq |c|})$ or just $c=(R_c, \setof{p^c_i}_i)$ with $p^c_i=(r^c_i,c_i)$, where $|c|$ stands for the \emph{width} of condition $c$, defined as $|c|=|\cB_c|$. Finally, for compactness we will often abbreviate ``arrow-based'' to ``ab", as in ``ab-conditions".
 %
 \begin{figure}
   \centering
@@ -25,7 +25,12 @@ Arrow-based conditions are inductively defined as follows:
   \flabel{ab-condition}
 \end{figure}
 
-Note that, as a consequence of the inductive nature of \dcite{ab-condition}, every ab-condition has a finite \emph{depth} $\depth(c)$, defined as $0$ if $\cP_c=\emptyset$ and $1+\max_{p\in \cP_c} \depth(c_p)$ otherwise.
+Note that, as a consequence of the inductive nature of \dcite{ab-condition}, every ab-condition has a finite \emph{depth}, defined as
+\[ \depth(c) = \begin{cases}
+0 & \text{if } \cB_c=\emptyset \\
+1+\max_{p\in \cB_c}  \depth(c_p) & \text{otherwise.}
+\end{cases}
+\]
 
 \begin{example}\exlabel{ab-conditions}
 The following figure depicts two arrow-based conditions. The first expresses a property $\phi$ over arrows from the empty graph, the second a property $\psi$ over arrows from the discrete one-node graph (meaning essentially that we already know the image of that node). In FOL, the properties can be expressed as follows:

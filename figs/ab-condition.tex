@@ -1,9 +1,9 @@
 \begin{tikzpicture}
-  \node (top) {$R_C$};
-  \node (C1) [triangle,below left=of top] {$c_1$};
-  \node [below=of top] {$\cdots$};
-  \node (Cn) [triangle,below right=of top] {$c_n$};
+  \node (Rc) {$R_c$};
+  \node (c1) [triangle,below left=1.5 and .5 of Rc] {$c_1$};
+  \node [below=.7 of Rc] {$\cdots$};
+  \node (cn) [triangle,below right=1.5 and .5 of Rc] {$c_n$};
 
-  \path (C1.north) edge[<-] node[above left] {$r_1$} (top)
-        (Cn.north) edge[<-] node[above right] {$r_n$} (top);
+  \path (c1.north) edge[<-] node[above left] {$r^c_1$} (Rc)
+        (cn.north) edge[<-] node[above right] {$r^c_n$} (Rc);
 \end{tikzpicture}
