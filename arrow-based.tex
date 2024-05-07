@@ -1,25 +1,22 @@
 \section{Arrow-based conditions}
- 
+\slabel{ab-conditions}
+
 In this section we recall the standard notion of nested condition, using notations that will make the connection with the variation proposed in this paper as straightforward as possible. Here and in the remainder of the paper, we will mostly omit the term ``nested'' and just refer to \emph{conditions}; however, to distinguish them from our variation, we will refer to the standard notion of nested conditions as \emph{arrow-based}.
 
 The definitions below use \emph{objects} and \emph{arrows} as building blocks. These can for now be thought of as the objects and arrows of any category $\bC$; however, our examples and intuitions will all be based on $\graph$.
 
-For a given root object $R$, the set of \emph{arrow-based branches} over $R$ is denoted $\AB{R}$, and the set of \emph{arrow-based conditions} over in $R$ is denoted $\AC R$. They are inductively defined as follows:
+Arrow-based conditions are inductively defined as follows:
 
-\begin{definition}[arrow-based condition]\dlabel{mb condition}
-  Given a root object $R$:
+\begin{definition}[arrow-based condition]\dlabel{ab-condition}
+  For any object $R$ of $\bC$, $\AC R$ (the set of \emph{arrow-based conditions} over $R$) and $\AB R$ (the set of \emph{arrow-based branches} over $R$) are the smallest sets such that
   \begin{itemize}
-  \item An \emph{arrow-based condition} over $R$ is a pair $(R,\cB)$ where $\cB\subseteq \AB R$ is a finite set of arrow-based branches over $R$.
-  \item An \emph{arrow-based branch} over $R$ is a pair $(r,c)$ where $r: R\func S$ is an arrow and $c\in \AC S$ is a arrow-based condition over $S$.
+  \item $c\in \AC R$ if $c=(R,\cB)$ where $\cB\subseteq \AB R$ is a finite set;
+  \item $p\in \AB R$ if $p=(r,c)$ where $r: R\func S$ is an arrow of $\bC$ and $c\in \AC S$.
   \end{itemize}
 \end{definition}
-%
 
-Note that the base cases of the induction are conditions of the form $(R,\emptyset)$, whith no branches. We will only consider \emph{finite} conditions, where the subcondition relation is well-founded.%\note{OK?} 
-
-
-
-\emph{Terminology and notation:} We use $c,d$ to range over conditions and $p,q$ to range over branches. We use $R_c,\cB_c$ to refer to the root and branches of a condition $c$, and $R_p,r_p,S_p,c_p$ to refer to the root, arrow, subcondition root and subcondition of a branch $p$. We will also occasionally enumerate the elements of $\cB_c$ and directly write $c=(R_c, \setof{(r_i, c_i)}_{1\leq i\leq |c|})$, with $|c|$ standing for the \emph{width} of condition $c$, defined as $|c|=|\cB_c|$. Finally, for compactness we will often abbreviate ``arrow-based'' to ``ab", as in ``ab-conditions".
+\medskip\noindent
+\emph{Terminology and notation:} \fcite{ab-condition} provides a visualisation of an ab-condition. We use $b,c$ to range over conditions and $p,q$ to range over branches. We use $R_c,\cB_c$ to refer to the root and branches of a condition $c$, and $r_p,c_p$ to refer to the arrow and subcondition of a branch $p$. We will also occasionally enumerate the elements of $\cB_c$ and write $c=(R_c, \setof{p^c_i}_{1\leq i\leq |c|})$ or just $c=(R_c, \setof{p^c_i}_i)$ with $p^c_i=(r^c_i,c_i)$, where $|c|$ stands for the \emph{width} of condition $c$, defined as $|c|=|\cB_c|$. Finally, for compactness we will often abbreviate ``arrow-based'' to ``ab", as in ``ab-conditions".
 %
 \begin{figure}
   \centering
@@ -27,6 +24,8 @@ Note that the base cases of the induction are conditions of the form $(R,\emptys
   \caption{Pictorial representation of a arrow-based condition}
   \flabel{ab-condition}
 \end{figure}
+
+Note that, as a consequence of the inductive nature of \dcite{ab-condition}, every ab-condition has a finite \emph{depth} $\depth(c)$, defined as $0$ if $\cB_c=\emptyset$ and $1+\max_{p\in \cB_c} \depth(c_p)$ otherwise.
 
 \begin{example}\exlabel{ab-conditions}
 The following figure depicts two arrow-based conditions. The first expresses a property $\phi$ over arrows from the empty graph, the second a property $\psi$ over arrows from the discrete one-node graph (meaning essentially that we already know the image of that node). In FOL, the properties can be expressed as follows:
