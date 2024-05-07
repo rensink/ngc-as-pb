@@ -7,7 +7,6 @@
 \newcommand{\setof}[1]{\{{#1}\}}
 \newcommand{\st}{.\;}
 \newcommand{\id}{\mathit{id}}
-\newcommand{\depth}{\mathit{dp}}
 
 \newcommand{\func}{\rightarrow}
 \newcommand{\cnuf}{\leftarrow}
@@ -20,19 +19,17 @@
 \newcommand{\degr}[1]{|{#1}|}
 
 % Letters and variables
-\newcommand{\AB}[1]{\mathsf{AB}\if\relax\detokenize{#1}\relax\else(#1)\fi}
-\newcommand{\AC}[1]{\mathsf{AC}\if\relax\detokenize{#1}\relax\else(#1)\fi}
+\newcommand{\AB}[1]{\mathbf{AB}\if\relax\detokenize{#1}\relax\else(#1)\fi}
+\newcommand{\AC}[1]{\mathbf{AC}\if\relax\detokenize{#1}\relax\else(#1)\fi}
 
-\newcommand{\SB}[1]{\mathsf{SB}\if\relax\detokenize{#1}\relax\else(#1)\fi}
-\newcommand{\SC}[1]{\mathsf{SC}\if\relax\detokenize{#1}\relax\else(#1)\fi}
+\newcommand{\SB}[1]{\mathbf{SB}\if\relax\detokenize{#1}\relax\else(#1)\fi}
+\newcommand{\SC}[1]{\mathbf{SC}\if\relax\detokenize{#1}\relax\else(#1)\fi}
 
 \newcommand{\bC}{\mathbf{C}}
 
 \newcommand{\cB}{\mathcal{B}}
 \newcommand{\cC}{\mathcal{C}}
 \newcommand{\cF}{\mathcal{F}}
-\newcommand{\cP}{\mathcal{P}}
-\newcommand{\cQ}{\mathcal{Q}}
 
 \newcommand{\ABC}{\textbf{AB-Cond}}
 \newcommand{\SBC}{\textbf{SB-Cond}}
@@ -54,13 +51,13 @@
 \newcommand{\pprf}{prop}
 \newcommand{\plabel}[1]{\label{\pprf:#1}}
 \newcommand{\pref}[1]{\ref{\pprf:#1}}
-\newcommand{\pcite}[1]{Fig.~\pref{#1}}
+\newcommand{\pcite}[1]{Prop.~\pref{#1}}
 
 % For sections
 \newcommand{\sprf}{sec}
 \newcommand{\slabel}[1]{\label{\sprf:#1}}
 \newcommand{\sref}[1]{\ref{\sprf:#1}}
-\newcommand{\scite}[1]{Fig.~\sref{#1}}
+\newcommand{\scite}[1]{Sec.~\sref{#1}}
 
 % For examples
 \newcommand{\exprf}{ex}
@@ -152,7 +149,7 @@
       (2) edge[->] node[above] {$\scriptstyle{#4}$} (3);
 }}
 
-% One edge vollowed by s split into two edges
+% One edge ollowed by s split into two edges
 % #1: first node
 % #2: first edge label
 % #3: middle node
@@ -197,3 +194,7 @@
 \path (1) edge[->] node[above] {$\scriptstyle{#2}$} (2)
       (2) edge[<-] node[above] {$\scriptstyle{#4}$} (3);
 }}
+
+% some more
+% renew because \cat define in mypaper.tex referenced by preample.sty 
+\renewcommand{\cat}[1]{\textbf{#1}}
