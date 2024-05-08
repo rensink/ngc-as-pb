@@ -1,43 +1,44 @@
 \section{Span-based conditions}
 
-We now present one the main idea of this paper based on the observation that there is a lot of duplication in a nested condition: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} structure. This is achieved by replacing the branch arrows $r_b$ by \emph{spans}.
+We now present one the main idea of this paper based on the observation that there is a lot of duplication in a nested condition: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} structure (and how it is connected). This is achieved by replacing the branch arrows $r^c_i$ of a condition $c$ by \emph{spans}.
 
+Span-based conditions are inductively defined as follows:
 
 \begin{definition}[span-based condition]\dlabel{sb-condition}
-  Given a root object $R$:
+  For any object $R$ of $\bC$, $\AC R$ (the set of \emph{arrow-based conditions} over $R$) and $\AB R$ (the set of \emph{arrow-based branches} over $R$) are the smallest sets such that
   \begin{itemize}
-  \item A \emph{span-based condition} over $R$ is a pair $(R,\cB)$ where $\cB\subseteq \SB R$ is a finite set of span-based branches over $R$.
-  \item A \emph{span-based branch} over $R$ is a pair $(u,d,c)$ where $u:I\func R,d:I\func S$ is a span (with interface $I$) and $c\in \SC S$ is a span-based condition over $S$.
+  \item $c\in \SC R$ if $c=(R,\bar p)$ where $\bar p\in \SB R^*$ is a finite sequence;
+  \item $p\in \SB R$ if $p=(u,d,c)$ where $u: I\to R, d:I\func S$ form a span of arrows of $\bC$ and $c\in \SC S$.
   \end{itemize}
 \end{definition}
 %
-\emph{Terminology and notation:} As before, we use $R_c$ to denote the root of a span-based condition $c$, and $\cB_c$ to denote its set of branches. We also use $u_p,d_p,c_p$ to denote the elements of a branch $p$ (where $u_p$ stands for the \emph{up-arrow} and $d_p$ for the \emph{down-arrow} of $p$). Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
+\emph{Terminology and notation:} In a branch $p=(u,d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emph{down-arrow}. As before, we use $|c|=|\bar p|$ to denote the width of a span-based condition $c$, $R^c$ to denote its root, and $\bar p^c$ its branches (which are in practice always treated as an indexed set $\setof{p_i}_i$; the ordering is never used). We also use $p^c_i=(u^c_i,d^c_i,c_i)$ to denote the $i$'th branch of $c$ and its constituent elements (hence $\bar p^c=p^c_1\cdots p^c_{|c|}$). Finally, we use $I^c_i$ for the interface of branch $p^c_i$ and $R^c_i$ ($=R^{c_i}$) for the root of its subcondition (hence $u^c_i:I^c_i\func R^c$ and $d^c_i:I^c_i\rightarrow R^c_i$). In all these cases, we may omit the superscript $c$ if it is clear from the context. Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
 %
 \begin{figure}
   \centering
   \input{figs/sb-condition}
-  \caption{Pictorial representation of a span-based condition $c$}
+  \caption{Pictorial representation of a span-based condition $c=(R,\bar p)$, with $\vec p=p_1\cdots p_n$ and $p_i=(u_i,d_i,c_i)$ for all $1\leq i\leq n$}
   \flabel{sb-condition}
 \end{figure}
 %
-As we will see later, the arrows $r_p$ of an arrow-based condition can be reconstructed by taking the pushout over the spans $R_c\cnuf I_p\func R_{c_p}$.
+As we will see later, the arrows $r^c_i$ of an arrow-based condition can be reconstructed by taking the pushout over the spans $R^c\cnuf I^c_i\func R^c_i$.
 
 \medskip\noindent Span-based conditions come with a modified notation of satisfaction.
 
 \begin{definition}[satisfaction of span-based conditions]\dlabel{sb-satisfaction}
-  Let $c$ be a span-based condition and $g:R_c\func G$ an arrow from $c$'s root to an object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p\in \cB_c$ and an arrow $h:R_{c_b}\func G$ such that
+  Let $c$ be a span-based condition and $g:R\func G$ an arrow from $c$'s root to an object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i$ and an arrow $h:R_i\func G$ such that
   \begin{enumerate}
-  \item $u_p;g=d_p;h$
-  \item $h\nsat c_p$.
+  \item $u_i;g=d_i;h$
+  \item $h\nsat c_i$.
   \end{enumerate}
 \end{definition}
 %
-\emph{Terminology and notation.} Like before, we call $p\in\cB_c$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p$ and witness $h$ can be visualised as in \fcite{sb-satisfaction}.
+\emph{Terminology and notation.} Like before, we call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p_i$ and witness $h$ can be visualised as in \fcite{sb-satisfaction}.
 %
 \begin{figure}
   \centering
   \input{figs/sb-satisfaction}
-  \caption{Pictorial representation of $g\sat c$ for a span-based condition $c$, with responsible branch $p$ and witness $h$}
+  \caption{Pictorial representation of $g\sat c$ for a span-based condition $c$, with responsible branch $p_i=(u_i,d_i,c_i)$ and witness $h$}
   \flabel{sb-satisfaction}
 \end{figure}
 
@@ -45,62 +46,68 @@ As we will see later, the arrows $r_p$ of an arrow-based condition can be recons
 Span-based conditions have a notion of morphism.
 
 \begin{definition}[span-based condition morphism]\dlabel{sb-morphism}
-  Given two span-based conditions $b,c$, a morphism $m$ from $b$ to $c$ is a pair $(t:R_b\func R_c,\setof{m_p}_{p\in \cB_b})$ such that for all $p\in \cB_b$, there is a $q\in \cB_c$ and an arrow $k_p:I_q\rightarrow I_p$ with
-  \begin{enumerate}
-  \item $m_p$ a (span-based condition) morphism from $c_q$ to $c_p$;
-  \item $k_p;u_p;t_m=u_q$.
-  \item $k_p;d_p=d_q;t_{m_p}$.
-  \end{enumerate}
+  Given two sb-conditions $b,c$, an \emph{sb-morphism} $m:b\to c$ is a pair $(t,\setof{j_i,m_i}_{1\leq i\leq|b|})$ such that
+  \begin{itemize}
+  \item $t:R^b\func R^c$ is an arrow in $\bC$;  
+  \item for all $1\leq i\leq |b|$:
+    \begin{itemize}
+    \item $1\leq j_i\leq |c|$ (and hence $p_{j_i}$ is a branch of $c$);
+    \item $m_i:c_{j_i}\func b_i$ is an sb-condition morphism with top-level arrow $t_i$,
+    \end{itemize}
+    and there is an arrow $k_i:I^c_{j_i}\to I^b_i$ such that
+    \begin{enumerate}
+    \item $k_i;u^b_i;t=u^c_{j_i}$;
+    \item $k_i;d^b_i=d^c_{j_i};t_i$.
+    \end{enumerate}
+  \end{itemize}
 \end{definition}
 %
-\emph{Notation and terminology:} If $b,c$ are span-based conditions, we write $m:b\func c$ to denote that $m$ is a morphism from $b$ to $c$. We also write $t_m$ and $m_p$ (with $p\in\cB_b$) for the components of $m$. Pictorially, $m$ can be visualised as in \fcite{sb-morphism}.
+\emph{Notation and terminology:} $t$ is called the top-level arrow of $m$. We write $t^m$ and (for all $\leq i\leq |b|$) $j^m_i$ and $m_i$ for the components of $m$, and $t^m_i$ for the top-level arrow of $m_i$. Pictorially, $m$ can be visualised as in \fcite{sb-morphism}.
 %
 \begin{figure}
   \centering
   \input{figs/sb-morphism}
-  \caption{Pictorial representation of a span-based condition morphism $m:b\func d$}
+  \caption{Pictorial representation of a span-based condition morphism $m:b\func c$ (with $n=|b|$ and $m=(t,\setof{j_i,m_i}_{1\leq i\leq n})$)}
   \flabel{sb-morphism}
 \end{figure}
 
 \medskip\noindent
 \emph{Note to self: I find it surprising that there are no conditions on $k_p$ except for the confluence equations. For instance, $k_p,d_q$ is \emph{not} necessarily a pullback of $t_{m_p},d_p$ (\excite{no pullback} below); in fact, $k_p$ is \emph{not even} uniquely determined by the two confluence equations (\excite{k not unique} below). This is one of the reasons why the $k$ are not part of the morphism, but merely required to exist; otherwise there can be multiple morphisms between the same conditions that only differ in their $k$-components.}
 
-\medskip\noindent Span-based condition morphisms have the expected properties: identities and composition exist and form a monoid.
+\medskip\noindent Again, span-based condition morphisms have the expected properties: identities and composition exist and the categorical laws are satisfied, thus span-based conditions and their morphisms form a category.
 
-\begin{definition}[span-based condition identity morphism]
-\end{definition}
-
-\begin{definition}[span-based condition morphism composition]
-  If $m_1:C_1\func C_2$ and $m_2:C_2\func C_3$ are morphisms with $m_i=\tupof{t_i,\setof{(k_{i,j},m_{i,j})}_{1\leq j\leq \degr{C_i}}}$ for $i=1,2$, then their composition $m_1;m_2$ is defined by $\tupof{t_1;t_2,\setof{(k'_j,m'_j)}_{1\leq j\leq \degr{C_1}}}$ with for all $1\leq j\leq \degr{C_1}$:
-  \begin{itemize}
-  \item $k'_j=k_{2,x_j};k_{1,j}$
-  \item $m'_j=m_{2,x_j};m_{1,j}$
-  \end{itemize}
-  where $1\leq x_j\leq \degr{C_2}$ is such that $(k_{2,x_j},m_{2,x_j})$ is the element from $m_2$ 
-\end{definition}
-
-\begin{proposition}
+\begin{proposition}[category \cat{SB-Cond}]
+  The category $\cat{SB-Cond}$ having span-based conditions (\dcite{sb-condition}) as objects and span-based condition morphisms (\dcite{sb-morphism}) as arrows is well-defined.
 \end{proposition}
+ 
+\begin{proof}
+  Given an sb-condition $c=(R,\vec p)$, the identity morphism $\id_c:c\func c$ is defined as $(\id_R,\setof{(i,\id_{c_i})}_{1\leq i\leq|c|})$: the required commutativity properties trivially hold by choosing $k_i=\id_{I_i}$.
+  
+Given two ab-condition morphisms $m= (t^m,\setof{(j^m_i,m_i)}_{1\leq i\leq |b|}):b\func c$ and $n = (t^n,\setof{(j^n_i,n_i)}_{1\leq i\leq |c|}):c\func e$, their composition is defined as $m;n=(t^m;t^n,\setof{(j^n_{j^m_i},n_{j^m_i};m_i)}_{1\leq i\leq |b|})$.
+The well-definedness of $m;n$ can be proved in a standard way, choosing as intermediate morphisms $k_i=k^n_{j^m_i};k^m_i$ for all $1\leq i\leq |b|$.
 
-\medskip\noindent An important property of span-based condition morphisms is that they \emph{preserve satisfaction}, in the following sense:
+The identity laws and associativity of composition can be proved in a standard way. \qed
+\end{proof}
 %
-\begin{proposition}[morphisms preserve satisfaction]\plabel{sp-morphism preserves satisfaction}
-If $b,c$ are span-based conditions with morphism $m:b\func c$, then $t_m;g\sat b$ implies $g\sat c$.
+With this notion of morphism, we have the desired preservation of satisfaction, in the following sense:
+%
+\begin{proposition}[morphisms preserve satisfaction]\plabel{sb-morphisms preserve satisfaction}
+Let $b$ and $c$ be span-based conditions. If $m:b\func c$ is an sb-condition morphism, then $t^m;g\sat b$ implies $g\sat c$ for all arrows $g:R^c\to G$.
 \end{proposition}
 %
-\emph{Proof.} By induction. Assume that $p$ is the responsible branch of $C$ (hence the induction hypothesis implies that the proposition holds for $c_p$) and $h^b\colon R_{c_p}\func G$ the witness for $t_m;g\sat b$; hence $u_p;t_m;g=d_p;h^b$ and $h^b\nsat c_p$. Moreover, let $q$ be the branch of $c$ with arrow $k_p\colon I_q\func I_p$ and morphism $m_p:c_q\func c_p$ as stipulated in \dcite{sb-morphism}. This is visualised in \fcite{sb-morphism preserves satisfaction}.
+\emph{Proof.} By induction. Assume that $p_i$ is the responsible branch of $b$ and $h^b\colon R_{c_p}\func G$ the witness for $t_m;g\sat b$; hence the induction hypothesis implies that the proposition holds for $c_i$, and moreover, $u^b_i;t;g=d^b_i;h^b$ and $h^b\nsat b_i$. Moreover, let $j=j_i$ and let $k\colon I^c_j\func I^b_i$ be as required in \dcite{sb-morphism}. This is visualised in \fcite{sb-morphism preserves satisfaction}.
 %
 \begin{figure}
   \centering
   \input{figs/sb-morphism-preserves-satisfaction}
-  \caption{$t_m;g\sat b$ with a morphism $m:b\rightarrow c$ implies $g\sat c$}
+  \caption{Given a morphism $m:b\rightarrow c$, $t;g\sat b$ implies $g\sat c$}
   \flabel{sb-morphism preserves satisfaction}
 \end{figure}
 
-Now $h^c=t_{m_p};h^b$ can be shown to satisfy the conditions for $h$ in \dcite{sb-satisfaction} to be a witness for $g\sat c$:
+Now $h^c=t_i;h^b$ can be shown to satisfy the conditions for $h$ in \dcite{sb-satisfaction} to be a witness for $g\sat c$, with responsible branch $p^c_j$:
 \begin{enumerate}
-\item $u_q;g = k_p;u_p;t_m;g= k_p;d_p;h^b = d_q;t_{m_p};h^b=d_q;h^c$.
-\item Suppose that $h^c\sat c_q$, meaning $t_{m_p};h^b\sat c_q$; then by the induction hypothesis and the fact that $m_p$ is a morphism from $c_q$ to $c_p$, it follows that $h^b\sat c_p$, which is in contradiction with the initial assumption of this proof. Hence $h^c\nsat c_q$.
+\item $u^c_j;g = k_i;u^c_i;t;g= k_i;d^b_i;h^b = d^c_j;t_i;h^b=d^c_j;h^c$.
+\item Suppose that $h^c\sat c_j$, meaning $t_i;h^b\sat c_j$; then by the induction hypothesis and the fact that $m_i$ is a morphism from $c_j$ to $b_i$, it follows that $h^b\sat b_i$, which is in contradiction with the initial assumption of this proof. Hence $h^c\nsat c_j$.
 \end{enumerate}
 
 \subsection{From arrow-based to span-based conditions}

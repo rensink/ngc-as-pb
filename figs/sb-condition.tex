@@ -1,13 +1,15 @@
-\begin{tikzpicture}[>=latex]
-  \node (Rc) {$R_c$};
-  \node (I1) [below left=.7 of Rc] {$I_1$};
-  \node (c1) [triangle,below=.7 of I1] {$c_1$};
-  \node [below=.7 of Rc] {$\cdots$};
-  \node (In) [below right=.7 of Rc] {$I_n$};
-  \node (cn) [triangle,below=.7 of In] {$c_n$};
+\begin{tikzpicture}[on grid]
+  \node (R) {$R$};
+  \node (I1) [below left=of R] {$I_1$};
+  \node (R1) [below=1.2 of I1] {$R_1$};
+  \node (c1) [triangle,below=.15 of R1.center] {$c_1$};
+  \node [below=.8 of Rc] {$\cdots$};
+  \node (In) [below right=of R] {$I_n$};
+  \node (Rn) [below=1.2 of In] {$R_n$};
+  \node (cn) [triangle,below=.15 of Rn.center] {$c_n$};
 
-  \path (I1) edge[->] node[above left] {$u_1$} (Rc)
-        (I1) edge[->] node[right] {$d_1$} (c1)
-        (In) edge[->] node[above right] {$u_n$} (Rc)
-        (In) edge[->] node[right] {$d_n$} (cn);
+  \path (I1) edge[->] node[above left] {$u_1$} (R)
+        (I1) edge[->] node[left] {$d_1$} (R1)
+        (In) edge[->] node[above right] {$u_n$} (R)
+        (In) edge[->] node[right] {$d_n$} (Rn);
 \end{tikzpicture}

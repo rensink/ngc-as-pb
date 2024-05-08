@@ -87,8 +87,10 @@ and let $g$ be the only arrow from the empty graph to $G_2$. This is \emph{not} 
 \end{itemize}
 \end{example}
 
-\subsection{Morphisms of nested conditions}
-\medskip\noindent The notion of \emph{morphism} of nested conditions has not received much attention in the literature. Given the fact that an ab-condition is essentially a diagram in the category $\bC$, it is natural to think that a morphism from $c$ to $d$ should essentially be a morphism between their diagrams, involving arrows from objects of $c$ to objects of $d$ such that all subdiagrams commute. However, since the semantics of conditions is really captured by the notion of satisfaction, we want satisfaction to be preserved by morphisms, in some precise sense. For that to be the case, we need a more refined notion of morphism that plays well with the second clause of \dcite{ab-satisfaction}, in which there is a negation: the witness $h$ should \emph{not} satisfy the subcondition $c_b$. 
+\subsection{Morphisms of arrow-based conditions}
+
+The notion of \emph{morphism} of nested conditions has not received much attention in the literature. Given the fact that an ab-condition is essentially a diagram in the category $\bC$, it is natural to think that a morphism from $b$ to $c$ should essentially be a morphism between their diagrams, involving arrows from objects of $b$ to objects of $c$ such that all subdiagrams commute. However, since the semantics of conditions is really captured by the notion of satisfaction, we want satisfaction to be preserved by morphisms, in some precise sense. For that to be the case, we need a more refined notion of morphism that plays well with the second clause of \dcite{ab-satisfaction}, in which there is a negation: the witness $h$ should \emph{not} satisfy the subcondition $c_b$. 
+
 This intuition explains why in the morphisms we are going to introduce, at each level conditions are related by arrows going in the opposite direction of the arrows relating the corresponding subconditions.  
 
 Recall that, in any category, given an arrow $r: A \to B$ a \emph{section} for $r$ is an arrow $s: B \to A$ such that $s;r = id_B$. In this case $r$ is called a retraction (for $s$), and it is easily shown that $r$ is epi.
@@ -123,7 +125,7 @@ We call $q_p$ the \emph{source branch} of $m_p$. Pictorially, $m$ can be visuali
   \flabel{ab-morphism-section}
 \end{figure}
 
-\medskip\noindent Morphisms have the expected properties: identities and composition exists and the categorical laws are satisfied, thus arrow-based conditions and their morphisms form a category.
+\medskip\noindent Morphisms have the expected properties: identities and composition exist and the categorical laws are satisfied, thus arrow-based conditions and their morphisms form a category.
 %
 
 \begin{proposition}[category \cat{AB-Cond}]
@@ -138,7 +140,7 @@ The well-definedness of $m;n$ can be proved in a standard way, also considering 
 
 The identity laws and associativity of composition can be proved in a standard way. \qed
 \end{proof}
-
+%
 With this notion of morphism, we have the desired preservation of satisfaction, in the following sense.
 
 \begin{proposition}[ab-condition morphisms preserve satisfaction]

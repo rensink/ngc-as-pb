@@ -1,28 +1,40 @@
-\begin{tikzpicture}[>=latex,on grid]
+\begin{tikzpicture}[on grid]
   \node (G) {$G$};
   
-  \node (Rb) [below left=1.5 and 2 of G] {$R_b$};
-  \node (Ip) [below=1.5 of Rb] {$I_p$};
-  \node (Rp) [below=1.5 of Ip] {$R_{c_p}$};
-  \node (cp) [triangle,below=.15 of Rp.center] {$c_p$};
+  \node (Rb) [below left=1.5 and 2 of G] {$R^b$};
+  \node (Ib1) [below left=of Rb] {};
+  \node [below left=.8 and .4 of Rb] {$\cdots$};
+  \node (Ibi) [below=1.8 of Rb] {$I^b_i$};
+  \node [below right=.8 and .4 of Rb] {$\cdots$};
+  \node (Ibn) [below right=of Rb] {};
+  \node (Ri) [below=1.5 of Ibi] {$R^b_i$};
+  \node (bi) [triangle,below=.15 of Ri.center] {$b_i$};
 
-  \path (Ip) edge[->] node[right] {$u_p$} (Rb)
-        (Ip) edge[->] node[right] {$d_p$} (Rp);
+  \path (Ib1) edge[->] (Rb)
+		(Ibn) edge[->] (Rb) 
+		(Ibi) edge[->] node[right,near start] {$u^b_i$} (Rb)
+        (Ibi) edge[->] node[right] {$d^b_i$} (Ri);
 
-  \node (Rc) [below right=1.5 and 2 of G] {$R_c$};
-  \node (Iq) [below=1.5 of Rc] {$I_q$};
-  \node (Rq) [below=1.5 of Iq] {$R_{c_q}$};
-  \node (cq) [triangle,below=.15 of Rq.center] {$c_q$};
+  \node (Rc) [below right=1.5 and 2 of G] {$R^c$};
+  \node (Ic1) [below left=of Rc] {};
+  \node [below left=.8 and .4 of Rc] {$\cdots$};
+  \node (Icj) [below=1.8 of Rc] {$I^c_j$};
+  \node [below right=.8 and .4 of Rc] {$\cdots$};
+  \node (Icn) [below right=of Rc] {};
+  \node (Rj) [below=1.5 of Icj] {$R^c_j$};
+  \node (cj) [triangle,below=.15 of Rj.center] {$c_j$};
 
-  \path (Iq) edge[->] node[left] {$u_q$} (Rc)
-        (Iq) edge[->] node[left] {$d_q$} (Rq);
+  \path (Ic1) edge[->] (Rc)
+		(Icn) edge[->] (Rc) 
+		(Icj) edge[->] node[left,near start] {$u^c_j$} (Rc)
+        (Icj) edge[->] node[left] {$d^c_j$} (Rj);
 
-  \path (Rb) edge[->] node[above] {$t_m$} (Rc)
-        (Iq) edge[->] node[above] {$k_p$} (Ip)
-        (Rq) edge[->] node[above] {$t_{m_p}$} (Rp)
-        (cq) edge[->] node[above] {$m_p$} (cp);
+  \path (Rb) edge[->] node[above] {$t$} (Rc)
+        (Icj) edge[->] node[above] {$k_i$} (Ibi)
+        (Rj) edge[->] node[above] {$t_i$} (Ri)
+        (cj) edge[->] node[above] {$m_i$} (bi);
 
   \path (Rc) edge[->] node[above right] {$g$} (G)
-        (Rp) edge[->,bend left=75] node[near start,left] {$h^b$} (G) 
-        (Rq) edge[->,bend right=75,color=gray] node[near start,right] {$h^c$} (G);  
+        (Ri) edge[->,bend left=75,min distance=3cm] node[near start,left] {$h^b$} (G) 
+        (Rj) edge[->,bend right=75,min distance=3cm,color=gray] node[near start,right] {$h^c$} (G);  
 \end{tikzpicture}
