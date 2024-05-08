@@ -85,6 +85,18 @@
    line width=3pt,
    draw=white,
    double=black}}
+\tikzset{over/.style={
+   line width=.8pt,
+   double distance=0.4pt,
+   double=black,
+   draw=white,
+   arrows={|-|},
+   >/.tip={Latex[color=black,scale=.5]}
+}}
+\tikzset{|/.tip={Bar[black,width=.4pt,line width=2pt]}}
+\tikzset{cross/.style={
+   preaction={draw=white,line width=2pt}
+}}
 
 \newcommand{\mygraph}[1]{%
 \begin{tikzpicture}[on grid,scale=.5,inner sep=2pt,baseline=(current bounding box.center)]

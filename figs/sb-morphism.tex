@@ -30,10 +30,10 @@
         (Jj) edge[->] node[right] {$d^c_j$} (Rj);
 
   \path (Rb) edge[->] node[above] {$t_m$} (Rc)
-        (Ji) edge[dashed,->,bend left=20] node[above,very near start] {$k_1$} (I1)
-        (Ri) edge[->,bend left=20] node[above,very near start] {$t_{m_1}$} (R1)
-        (ci) edge[->,bend left=20] node[below,very near start] {$m_1$} (b1)
-        (Jj) edge[dashed,->,bend left=20] node[below,very near start] {$k_n$} (In)
-        (Rj) edge[->,bend left=20] node[below,very near start] {$t_{m_n}$} (Rn)
-        (cj) edge[->,bend left=20] node[below,very near start] {$m_n$} (bn);
+        (Ji) edge[over,|->,dashed,bend left=20] node[above,very near start] {$k_1$} (I1)
+        (Ri) edge[over,|->,bend left=20] node[above,very near start] {$t_{m_1}$} (R1)
+        (ci) edge[over,|->,bend left=20] node[below,very near start] {$m_1$} (b1)
+        (Jj) edge[over,|->,dashed,bend left=20] node[below,very near start] {$k_n$} (In)
+        (Rj) edge[over,|->,bend left=20] node[below,very near start] {$t_{m_n}$} (Rn)
+        (cj) edge[over,|->,bend left=20] node[below,very near start] {$m_n$} (bn);
 \end{tikzpicture}
