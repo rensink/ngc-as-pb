@@ -1,32 +1,32 @@
 \begin{tikzpicture}[>=latex,on grid]
-  \node (Rc) {$R_c$};
-  \node (Sc1) [below left=1.5 and 1 of Rc] {$R_{c_1}$};
-  \node (Sci) [below=1 of Rc] {$\cdots$};
-  \node (Scn) [below right=1.5 and 1 of Rc] {$R_{c_n}$};
-  \node (c1) [triangle,below=.2 of Sc1.center] {$c_1$};
-  \node (cn) [triangle,below=.2 of Scn.center] {$c_n$};
+  \node (Rb) {$R_b$};
+  \node (Sb1) [below left=1.5 and 1 of Rb] {$R_{b_1}$};
+  \node (Sbi) [below=1 of Rb] {$\cdots$};
+  \node (Sbn) [below right=1.5 and 1 of Rb] {$R_{b_n}$};
+  \node (b1) [triangle,below=.2 of Sb1.center] {$b_1$};
+  \node (bn) [triangle,below=.2 of Sbn.center] {$b_n$};
 
-  \path (Rc) edge[->] node[above left] {$r^c_1$} (Sc1)
-        (Rc) edge[->] node[above right] {$r^c_n$} (Scn);
+  \path (Rb) edge[->] node[above left] {$r^b_1$} (Sb1)
+        (Rb) edge[->] node[above right] {$r^b_n$} (Sbn);
 
-  \node (Rd) [right=7 of Rc] {$R_d$};
-  \node (Sd1) [below left=1 and 1.5 of Rd] {$\cdots$};
-  \node (Sd2) [below left=1.5 and 1 of Rd] {$R_{d_x}$};
-  \node (Sd3) [below=1 of Rd] {$\cdots$};
-  \node (Sd4) [below right=1.5 and 1 of Rd] {$R_{d_y}$};
-  \node (Sd5) [below right=1 and 1.5 of Rd] {$\cdots$};
-  \node (d2) [triangle,below=.2 of Sd2.center] {$d_x$};
-  \node (d4) [triangle,below=.2 of Sd4.center] {$d_y$};
+  \node (Rc) [right=7 of Rb] {$R_c$};
+  \node (Sc1) [below left=1 and 1.5 of Rc] {$\cdots$};
+  \node (Sc2) [below left=1.5 and 1 of Rc] {$R_{c_x}$};
+  \node (Sc3) [below=1 of Rc] {$\cdots$};
+  \node (Sc4) [below right=1.5 and 1 of Rc] {$R_{c_y}$};
+  \node (Sc5) [below right=1 and 1.5 of Rc] {$\cdots$};
+  \node (c2) [triangle,below=.2 of Sc2.center] {$c_x$};
+  \node (c4) [triangle,below=.2 of Sc4.center] {$c_y$};
 
-  \path (Rd) edge[->] node[above left] {$r^d_x$} (Sd2)
-        (Rd) edge[->] node[above right] {$r^d_y$} (Sd4);
+  \path (Rc) edge[->] node[above left] {$r^c_x$} (Sc2)
+        (Rc) edge[->] node[above right] {$r^c_y$} (Sc4);
 
-  \path (Rc) edge[->] node[above] {$t$} (Rd)
-        (Rd) edge[->,bend left=20,dashed] node[below] {$s_n$} (Rc)
-        (Rd) edge[->,bend left=10,dashed] node[above] {$s_1$} node[below] {$\cdots$} (Rc)
-        %(Rd) edge[bend left=15,line width=0] node {$???$} (Rc)
-        (Sd2) edge[->,bend left=20] node[above,very near start] {$t_{m_1}$} (Sc1)
-        (d2) edge[->,bend left=20] node[below] {$m_1$} (c1)
-        (Sd4) edge[->,bend left=20] node[above,very near start] {$t_{m_n}$} (Scn)
-        (d4) edge[->,bend left=20] node[below] {$m_n$} (cn);
+  \path (Rb) edge[->] node[above] {$t$} (Rc)
+        (Rc) edge[->,bend left=20,dashed] node[below] {$s_n$} (Rb)
+        (Rc) edge[->,bend left=10,dashed] node[above] {$s_1$} node[below] {$\cdots$} (Rb)
+        %(Rc) edge[bend left=15,line width=0] node {$???$} (Rb)
+        (Sc2) edge[->,bend left=20] node[above,very near start] {$t_{m_1}$} (Sb1)
+        (c2) edge[->,bend left=20] node[below] {$m_1$} (b1)
+        (Sc4) edge[->,bend left=20] node[above,very near start] {$t_{m_n}$} (Sbn)
+        (c4) edge[->,bend left=20] node[below] {$m_n$} (bn);
 \end{tikzpicture}
