@@ -15,19 +15,19 @@
 
   \node (Rc) [right=7 of Rb] {$R^c$};
   \node [below left=1 and 1.5 of Rc] {$\cdots$};
-  \node (Ji) [below left=1.5 and 1 of Rc] {$I^c_{j_1}$};
-  \node (Ri) [below=1.5 of Ji] {$R^c_{j_1}$};
-  \node (ci) [triangle,below=.2 of Ri.center] {$c_{j_1}$};
+  \node (Ji) [below left=1.5 and 1 of Rc] {$I^c_{o(1)}$};
+  \node (Ri) [below=1.5 of Ji] {$R^c_{o(1)}$};
+  \node (ci) [triangle,below=.2 of Ri.center] {$c_{o(1)}$};
   \node [below=1 of Rc] {$\cdots$};
-  \node (Jj) [below right=1.5 and 1 of Rc] {$I^c_{j_n}$};
-  \node (Rj) [below=1.5 of Jj] {$R^c_{j_n}$};
-  \node (cj) [triangle,below=.2 of Rj.center] {$c_{j_n}$};
+  \node (Jj) [below right=1.5 and 1 of Rc] {$I^c_{o(w)}$};
+  \node (Rj) [below=1.5 of Jj] {$R^c_{o(w)}$};
+  \node (cj) [triangle,below=.2 of Rj.center] {$c_{o(w)}$};
   \node [below right=1 and 1.5 of Rc] {$\cdots$};
 
-  \path (Ji) edge[->] node[left] {$u^c_{j_1}$} (Rc)
-        (Ji) edge[->] node[left,near end] {$d^c_{j_1}$} (Ri)
-		(Jj) edge[->] node[right] {$u^c_{j_n}$} (Rc)
-        (Jj) edge[->] node[right] {$d^c_{j_n}$} (Rj);
+  \path (Ji) edge[->] node[left] {$u^c_{o(1)}$} (Rc)
+        (Ji) edge[->] node[left,near end] {$d^c_{o(1)}$} (Ri)
+		(Jj) edge[->] node[right] {$u^c_{o(w)}$} (Rc)
+        (Jj) edge[->] node[right] {$d^c_{o(w)}$} (Rj);
 
   \path (Rb) edge[->] node[above] {$t$} (Rc)
         (Ji) edge[over,|->,dashed,bend left=20] node[above,very near start] {$k_1$} (I1)

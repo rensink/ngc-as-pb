@@ -1,6 +1,7 @@
 %% Additional packages
-\usepackage{enumitem}
+\usepackage[inline]{enumitem}
 \usepackage{mathdots}
+\usepackage{comment}
 
 %% Some math definitions
 \newcommand{\tupof}[1]{\langle{#1}\rangle}
@@ -32,8 +33,8 @@
 \newcommand{\cC}{\mathcal{C}}
 \newcommand{\cF}{\mathcal{F}}
 
-\newcommand{\ABC}{\textbf{AB-Cond}}
-\newcommand{\SBC}{\textbf{SB-Cond}}
+\newcommand{\ABC}{\cat{AB-Cond}}
+\newcommand{\SBC}{\cat{SB-Cond}}
 
 % Auxiliary labelling macros
 % For definitions
@@ -211,5 +212,5 @@
 % some more
 % renew because \cat define in mypaper.tex referenced by preample.sty 
 \renewcommand{\cat}[1]{\textbf{#1}}
-\newcommand{\shift}[2]{(#1\uparrow #2)}
-\newcommand{\bshift}[2]{(#1\downarrow #2)}
+\newcommand{\shift}[2]{(#1{\uparrow} #2)}
+\newcommand{\bshift}[2]{(#1{\downarrow} #2)}

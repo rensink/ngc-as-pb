@@ -15,19 +15,19 @@
 \end{itemize}  
 
 The category of span-based conditions and their morphisms provides a framework 
-where one could define several constructions on conditions, tipically described using categorical construction. Some of such constructions are presented in this section, and for each of them we explore whether it preserves and/or reflects satisfaction. All along the section, ``condition'' means by default ``span-based condition''. 
+where one could define several constructions on conditions, typically described using categorical construction. Some of such constructions are presented in this section, and for each of them we explore whether it preserves and/or reflects satisfaction. All along the section, ``condition'' means by default ``span-based condition'', and similar for morphisms. 
 
-For conditions $b$ and $c$, let us write $b \leq_t c$ if there exists a morphism $m: b \to c$ such that $t: R_b \to R_c$  is the top arrow\todo{AC: define?} of $m$. Thus by \pcite{sp-morphism preserves satisfaction} we have
+For conditions $b$ and $c$, let us write $b \leq_t c$ if there exists a morphism $m: b \to c$ with top arrow $t$. Thus by \pcite{sb-morphism preserves satisfaction} we have
 \begin{equation}
     \label{eq:morphPresSat}
     b \leq_t c \quad \mbox{  implies  }\quad  t;g \sat b \implies g \sat c
-\end{equation} 
+\end{equation}
 
 \begin{definition}[shifting a condition along an arrow]
-    Let $c = (A,\cB)$ be a condition over $A$ and $f: A \to B$ be an arrow. Then $\shift{c}{f}$, the \emph{shift of $c$ along $f$} is the condition over $B$ defined as:
+    Let $c = (A,p_1\cdots p_w)$ be a condition over $A$ and $f: A \to B$ be an arrow. Then $\shift{c}{f}$, the \emph{shift of $c$ along $f$} is the condition over $B$ defined as:
     \begin{itemize}
-        \item $\shift{c}{f} = (B, \cB')$
-        \item $\cB' = \{(u;f,d,c) \mid (u,d,c) \in \cB\}$.
+        \item $\shift{c}{f} = (B, p'_1\cdots p'_w)$
+        \item $p'_i = \{(u_i;f,d_i,c_i) \mid 1\leq i\leq w\}$.
      \end{itemize}
 \end{definition}
 We will show later that shifting preserves and reflects satisfaction, in the following sense: 
@@ -39,10 +39,10 @@ We will show later that shifting preserves and reflects satisfaction, in the fol
 Note that shifting a condition only affects the upper leg of the top level spans, which are composed with $f$. A condition can also be shifted backwards along an arrow having its root as target. In this case the interfaces of the branches are affected, by not their subconditions.  
 
 \begin{definition}[back-shifting a condition along an arrow]
-    Let $c = (B,\cB)$ be a condition over $B$ and $f: A \to B$ be an arrow. Then $\bshift{c}{f}$, the \emph{back-shift of $c$ along $f$} is the condition over $A$ defined as:
+    Let $c = (B,p_1\cdots p_w)$ be a condition over $B$ and $f: A \to B$ be an arrow. Then $\bshift{c}{f}$, the \emph{back-shift of $c$ along $f$} is the condition over $A$ defined as:
     \begin{itemize}
-        \item $\bshift{c}{f} = (A, \cB')$
-        \item $\cB' = \{(u',f';d,c) \mid (u,d,c) \in \cB \mbox{ and } (u',f') \mbox{ is a pullback of } (f,u)\}$.
+        \item $\bshift{c}{f} = (A, p'_1\cdots p'_w)$
+        \item $p'_i = \{(u'_i,f'_i;d_i,c_i) \mid 1\leq i\leq w \mbox{ and } (u'_i,f'_i) \mbox{ is a pullback of } (f,u_i)\}$.
      \end{itemize}
 \end{definition}
 
@@ -56,14 +56,14 @@ Back-shifting a condition preserves satisfaction, but in general does not reflec
 \end{proposition} 
 \emph{Proof sketch.} Note that back-shifting preserves the conditions of the branches of $c$. Then the witness for $g \sat c$ is also a witness for $f;g \sat \bshift{c}{f}$. The resulting diagram is easily shown to commute because a pullback commutes.
 
-In general the converse implication does not hold.\todo{AC: example where $A = \varnothing$. Then $\bshift{c}{f}$ quantifies existentially all free variables of $c$} However, it does if all the components $f'$ in the pullbacks are epi:
+In general the converse implication does not hold.\todo{AC: example where $A = \varnothing$. Then $\bshift{c}{f}$ quantifies existentially all free variables of $c$} However, it does if all the components $f'_i$ in the pullbacks are epi:
 \begin{equation}
     \label{eq:bshiftPresSat}
-    \mbox{if $f'$ is epi for each $(u',f';d,c)\in \cB_{\bshift{c}{f}}$ then }
+    \mbox{if $f'_i$ is epi for each $(u'_i,f'_i;d_i,c_i)$ in $\bshift{c}{f}$ then }
     \quad f;g \sat \bshift{c}{f}
      \quad \implies g \sat c
 \end{equation}
-In categories like \cat{Set}, \cat{Graph} and presheaf toposes in general, where pullbacks are constructed pointwise, it is sufficient that $f$ is epi to ensure that satisfaction.
+In categories like \cat{Set}, \cat{Graph} and presheaf toposes in general, where pullbacks are constructed pointwise, it is sufficient that $f$ is epi to ensure this property.
 
 Shift and back-shift are not inverse each other in general, but a weaker relation holds.
 
