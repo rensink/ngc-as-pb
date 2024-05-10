@@ -17,8 +17,30 @@
 
 \newcommand{\sat}{\models}
 \newcommand{\nsat}{\not\models}
+\newcommand{\entails}{\models}
+\newcommand{\nentails}{\not\models}
 
 \newcommand{\degr}[1]{|{#1}|}
+\newcommand{\ccdots}{{\cdotp\mkern-2mu\cdotp\mkern-2mu\cdotp\mkern1mu}}
+
+% some more
+% renew because \cat define in mypaper.tex referenced by preample.sty 
+\renewcommand{\cat}[1]{\textbf{#1}}
+%\newcommand{\shift}[2]{(#1{\uparrow} #2)}
+%\newcommand{\bshift}[2]{(#1{\downarrow} #2)}
+
+\newcommand{\Rshift}{\mathbin{\nearrow_{\!\!\!\mathsf r}}}
+\newcommand{\Rbshift}{\mathbin{\swarrow_{\!\!\!\mathsf r}}}
+\newcommand{\Ishift}{\mathbin{\nearrow_{\!\!\mathsf i}}}
+\newcommand{\Ibshift}{\mathbin{\swarrow_{\!\!\mathsf i}}}
+
+\newcommand{\shift}[2]{#1\Rshift #2}
+\newcommand{\bshift}[2]{#1\Rbshift #2}
+
+\newcommand{\pb}{\mathord{\downarrow}}
+\newcommand{\po}{\mathord{\uparrow}}
+
+\newcommand{\spanof}[2]{\bigl[\atop{#1}{#2}\bigr]}
 
 % Letters and variables
 \newcommand{\AB}[1]{\mathsf{AB}\if\relax\detokenize{#1}\relax\else(#1)\fi}
@@ -55,6 +77,12 @@
 \newcommand{\pref}[1]{\ref{\pprf:#1}}
 \newcommand{\pcite}[1]{Prop.~\pref{#1}}
 
+% For lemmas
+\newcommand{\lprf}{lem}
+\newcommand{\llabel}[1]{\label{\lprf:#1}}
+\newcommand{\lref}[1]{\ref{\lprf:#1}}
+\newcommand{\lcite}[1]{Lemma~\lref{#1}}
+
 % For sections
 \newcommand{\sprf}{sec}
 \newcommand{\slabel}[1]{\label{\sprf:#1}}
@@ -66,6 +94,11 @@
 \newcommand{\exlabel}[1]{\label{\exprf:#1}}
 \newcommand{\exref}[1]{\ref{\exprf:#1}}
 \newcommand{\excite}[1]{Ex.~\exref{#1}}
+
+% For equations
+\newcommand{\eqprf}{eq}
+\newcommand{\eqlabel}[1]{\label{\eqprf:#1}}
+\newcommand{\eqcite}[1]{\eqref{\eqprf:#1}}
 
 %% Tikz definitions
 \usetikzlibrary{shapes.geometric}
@@ -208,9 +241,3 @@
 \path (1) edge[->] node[above] {$\scriptstyle{#2}$} (2)
       (2) edge[<-] node[above] {$\scriptstyle{#4}$} (3);
 }}
-
-% some more
-% renew because \cat define in mypaper.tex referenced by preample.sty 
-\renewcommand{\cat}[1]{\textbf{#1}}
-\newcommand{\shift}[2]{(#1{\uparrow} #2)}
-\newcommand{\bshift}[2]{(#1{\downarrow} #2)}

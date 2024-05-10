@@ -16,7 +16,8 @@ Arrow-based conditions are inductively defined as follows:
 \end{definition}
 
 \medskip\noindent
-\emph{Terminology and notation:} \fcite{ab-condition} provides a visualisation of an ab-condition. We use $b,c$ to range over conditions and $p,q$ to range over branches. We use $R_c,\cB_c$ to refer to the root and branches of a condition $c$, and $r_p,c_p$ to refer to the arrow and subcondition of a branch $p$. We will also occasionally enumerate the elements of $\cB_c$ and write $c=(R_c, \setof{p^c_i}_{1\leq i\leq |c|})$ or just $c=(R_c, \setof{p^c_i}_i)$ with $p^c_i=(r^c_i,c_i)$, where $|c|$ stands for the \emph{width} of condition $c$, defined as $|c|=|\cB_c|$. Finally, for compactness we will often abbreviate ``arrow-based'' to ``ab", as in ``ab-conditions".
+%\emph{Terminology and notation:}
+\fcite{ab-condition} provides a visualisation of an ab-condition. We use $b,c$ to range over conditions and $p,q$ to range over branches. We use $R_c,\cB_c$ to refer to the root and branches of a condition $c$, and $r_p,c_p$ to refer to the arrow and subcondition of a branch $p$. We will also occasionally enumerate the elements of $\cB_c$ and write $c=(R_c, \setof{p^c_i}_{1\leq i\leq |c|})$ or just $c=(R_c, \setof{p^c_i}_i)$ with $p^c_i=(r^c_i,c_i)$, where $|c|$ stands for the \emph{width} of condition $c$, defined as $|c|=|\cB_c|$. Finally, for compactness we will often abbreviate ``arrow-based'' to ``ab", as in ``ab-conditions".
 %
 \begin{figure}
   \centering
@@ -49,7 +50,8 @@ A condition expresses a property of arrows from its root to an arbitrary object.
   \end{itemize}
 \end{definition}
 %
-\emph{Terminology and notation.} If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p$ the \emph{responsible branch} and $h$ the \emph{witness} for $g\sat C$. Pictorially, $g\sat c$ with responsible branch $p$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
+%\emph{Terminology and notation.}
+If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p$ the \emph{responsible branch} and $h$ the \emph{witness} for $g\sat C$. Pictorially, $g\sat c$ with responsible branch $p$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
 %
 \begin{figure}
   \centering
@@ -58,6 +60,13 @@ A condition expresses a property of arrows from its root to an arbitrary object.
   \flabel{ab-satisfaction}
 \end{figure}
 
+Based on the notion of satisfaction, we also define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalent} $b\equiv c$ over conditions:
+%
+\begin{align*}
+b \entails c & \text{if for all arrows $g$: } g\sat b \text{ implies } c\sat g \\
+b \equiv c & \text{if for all arrows $g$: } g\sat b \text{ if and only if } c\sat g \\
+\end{align*}
+%
 \begin{example}\exlabel{ab-satisfaction}
 For the ab-conditions in \excite{ab-conditions}, the following morphisms can be considered as models:
 \begin{itemize}

@@ -7,17 +7,18 @@ Span-based conditions are inductively defined as follows:
 \begin{definition}[span-based condition]\dlabel{sb-condition}
   For any object $R$ of $\bC$, $\AC R$ (the set of \emph{arrow-based conditions} over $R$) and $\AB R$ (the set of \emph{arrow-based branches} over $R$) are the smallest sets such that
   \begin{itemize}
-  \item $c\in \SC R$ if $c=(R,p_1\cdots p_w)$ where $p_i\in \SB R$ for all $1\leq i\leq w$;
+  \item $c\in \SC R$ if $c=(R,p_1\ccdots p_w)$ is a pair with $p_i\in \SB R$ for all $1\leq i\leq w$;
   \item $p\in \SB R$ if $p=(u,d,c)$ where $u: I\to R, d:I\func S$ form a span of arrows of $\bC$ and $c\in \SC S$.
   \end{itemize}
 \end{definition}
 %
-\emph{Terminology and notation:} In a branch $p=(u,d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emph{down-arrow}. As before, we use $|c|=w$ to denote the width of a span-based condition $c$, $R^c$ to denote its root, and $p^c_i=(u^c_i,d^c_i,c_i)$ its $i$th branch. Finally, we use $I^c_i$ for the interface of branch $p^c_i$ and $R^c_i$ ($=R^{c_i}$) for the root of its subcondition (hence $u^c_i:I^c_i\func R^c$ and $d^c_i:I^c_i\rightarrow R^c_i$). In all these cases, we may omit the superscript $c$ if it is clear from the context. Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
+%\emph{Terminology and notation:}
+In a branch $p=(u,d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emph{down-arrow}. As before, we use $|c|=w$ to denote the width of a span-based condition $c$, $R^c$ to denote its root, and $p^c_i=(u^c_i,d^c_i,c_i)$ its $i$th branch. Finally, we use $I^c_i$ for the interface of branch $p^c_i$ and $R^c_i$ ($=R^{c_i}$) for the root of its subcondition (hence $u^c_i:I^c_i\func R^c$ and $d^c_i:I^c_i\rightarrow R^c_i$). In all these cases, we may omit the superscript $c$ if it is clear from the context. Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
 %
 \begin{figure}
   \centering
   \input{figs/sb-condition}
-  \caption{Pictorial representation of a span-based condition $c=(R,p_1\cdots p_w)$, with $p_i=(u_i,d_i,c_i)$ for all $1\leq i\leq w$}
+  \caption{Pictorial representation of a span-based condition $c=(R,p_1\ccdots p_w)$, with $p_i=(u_i,d_i,c_i)$ for all $1\leq i\leq w$}
   \flabel{sb-condition}
 \end{figure}
 %
@@ -33,7 +34,8 @@ As we will see later, the arrows $r^c_i$ of an arrow-based condition can be reco
   \end{enumerate}
 \end{definition}
 %
-\emph{Terminology and notation.} Like before, we call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p_i$ and witness $h$ can be visualised as in \fcite{sb-satisfaction}.
+%\emph{Terminology and notation.} 
+Like before, we call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p_i$ and witness $h$ can be visualised as in \fcite{sb-satisfaction}.
 %
 \begin{figure}
   \centering
@@ -44,28 +46,9 @@ As we will see later, the arrows $r^c_i$ of an arrow-based condition can be reco
 
 \medskip\noindent
 Span-based conditions have a notion of morphism.
-
-\begin{comment}
-\begin{definition}[span-based condition morphism]\dlabel{sb-morphism}
-  Given two sb-conditions $b,c$, an \emph{sb-morphism} $m:b\to c$ is a pair $(t,\setof{j_i,m_i}_{1\leq i\leq|b|})$ such that
-  \begin{itemize}
-  \item $t:R^b\func R^c$ is an arrow in $\bC$;  
-  \item for all $1\leq i\leq |b|$:
-    \begin{itemize}
-    \item $1\leq j_i\leq |c|$ (and hence $p_{j_i}$ is a branch of $c$);
-    \item $m_i:c_{j_i}\func b_i$ is an sb-condition morphism with top-level arrow $t_i$,
-    \end{itemize}
-    and there is an arrow $k_i:I^c_{j_i}\to I^b_i$ such that
-    \begin{enumerate}
-    \item $k_i;u^b_i;t=u^c_{j_i}$;
-    \item $k_i;d^b_i=d^c_{j_i};t_i$.
-    \end{enumerate}
-  \end{itemize}
-\end{definition}
-\end{comment}
 %
 \begin{definition}[span-based condition morphism]\dlabel{sb-morphism}
-  Given two sb-conditions $b,c$, an \emph{sb-morphism} $m:b\to c$ is a triple $(t,o,m_1\cdots m_{|b|})$ such that
+  Given two sb-conditions $b,c$, an \emph{sb-morphism} $m:b\to c$ is a triple $(t,o,m_1\ccdots m_{|b|})$ such that
   \begin{itemize}
   \item $t:R^b\func R^c$ is an arrow in $\bC$, called the \emph{top-level arrow} of $m$;
   \item $o:[1,|b|]\to [1,|c|]$ is a function from $b$'s branches to $c$'s branches;
@@ -83,12 +66,13 @@ Span-based conditions have a notion of morphism.
   $m$ is called \emph{complete} if $o$ is surjective and for all $i$, the commuting square of clause~\ref{down-commutes} is a pushout and $m_i$ is complete.
 \end{definition}
 %
-\emph{Notation and terminology:} We write $t^m$ and $o^m$ for the components of $m$, and (for all $1\leq i\leq |b|$) $t^m_i$ ($=t_{m_i}$) for the top-level arrow of $m_i$ --- often omitting the superscript $m$ if it is clear from the context. Pictorially, $m$ can be visualised as in \fcite{sb-morphism}.
+%\emph{Notation and terminology:}
+We write $t^m$ and $o^m$ for the components of $m$, and (for all $1\leq i\leq |b|$) $t^m_i$ ($=t_{m_i}$) for the top-level arrow of $m_i$ --- often omitting the superscript $m$ if it is clear from the context. Pictorially, $m$ can be visualised as in \fcite{sb-morphism}.
 %
 \begin{figure}
   \centering
   \input{figs/sb-morphism}
-  \caption{Pictorial representation of a span-based condition morphism $m:b\func c$ (with $w=|b|$ and $m=(t,o,m_1\cdots m_w)$)}
+  \caption{Pictorial representation of a span-based condition morphism $m:b\func c$ (with $w=|b|$ and $m=(t,o,m_1\ccdots m_w)$)}
   \flabel{sb-morphism}
 \end{figure}
 %
@@ -102,17 +86,17 @@ Span-based conditions have a notion of morphism.
 \end{proposition}
  
 \begin{proof}
-  Given an sb-condition $c=(R,p_1\cdots p_w)$, the identity morphism $\id_c:c\func c$ is inductively defined as $(\id_R,\id_w,\id_{c_1}\cdots \id_{c_w})$: the required commutativity properties trivially hold by choosing $k_i=\id_{I_i}$. By construction, $\id_c$ is complete.
+  Given an sb-condition $c=(R,p_1\ccdots p_w)$, the identity morphism $\id_c:c\func c$ is inductively defined as $(\id_R,\id_w,\id_{c_1}\ccdots \id_{c_w})$: the required commutativity properties trivially hold by choosing $k_i=\id_{I_i}$. By construction, $\id_c$ is complete.
   
-Given two ab-condition morphisms $m:b\func c$ and $n:c\func e$, their composition is defined as $m;n=(t^m;t^n,o^m;o^n,(n_{o^m(1)};m_1)\cdots (n_{o^m(|b|)};m_{|b|}))$.
-The well-definedness of $m;n$ can be proved in a standard way, choosing as intermediate morphisms $k_i=k^n_{o(i)};k^m_i$ for all $1\leq i\leq |b|$. If $m$ and $n$ are complete, so is $m;n$ (due to the fact that $o^m;o^n$ is surjective if both $o^m$ and $o^n$ are, and that pushouts compose).
+Given two ab-condition morphisms $m:b\func c$ and $n:c\func e$, their composition is defined as $m;n=(t^m;t^n,o^m;o^n,(n_{o^m(1)};m_1)\ccdots (n_{o^m(w)};m_{w}))$ (where $w=|b|$).
+The well-definedness of $m;n$ can be proved in a standard way, choosing as intermediate morphisms $k_i=k^n_{o(i)};k^m_i$ for all $1\leq i\leq w$. If $m$ and $n$ are complete, so is $m;n$ (due to the fact that $o^m;o^n$ is surjective if both $o^m$ and $o^n$ are, and that pushouts compose).
 
 The identity laws and associativity of composition can be proved in a standard way. \qed
 \end{proof}
 %
-With this notion of morphism, we have the desired preservation of satisfaction, in the following sense:
+With this notion of morphism, we not only have the desired preservation of satisfaction, but also reflection of satisfaction in case of completeness, in the following sense:
 %
-\begin{proposition}[morphisms preserve satisfaction]\plabel{sb-morphisms preserve satisfaction}
+\begin{proposition}[morphisms preserve satisfaction]\plabel{sb-morphism preserves satisfaction}
 Let $b$ and $c$ be span-based conditions. If $m:b\func c$ is an sb-condition morphism, then $t;g\sat b$ implies $g\sat c$ for all arrows $g:R^c\to G$. Moreover, if $m$ is complete then also the converse is true: $g\sat c$ implies for $t;g\sat b$ all arrows $g:R^c\to G$.
 \end{proposition}
 %
@@ -122,7 +106,7 @@ By induction. Assume that $p_i$ is the responsible branch of $b$ and $h^b\colon 
 \begin{figure}
   \centering
   \input{figs/sb-morphism-preserves-satisfaction}
-  \caption{Pictorial representation of \pref{sb-morphisms preserve satisfaction}: if $m:b\rightarrow c$ is an sb-morphism, then $t;g\sat b$ implies $g\sat c$}
+  \caption{Pictorial representation of \pref{sb-morphism preserves satisfaction}: if $m:b\rightarrow c$ is an sb-morphism, then $t;g\sat b$ implies $g\sat c$}
   \flabel{sb-morphism preserves satisfaction}
 \end{figure}
 
@@ -143,7 +127,7 @@ Span-based conditions are richer than arrow-based conditions. In this subsection
 
 First, we inductively define the ``natural'' span-based conditon $\hat c$ for an arbitrary arrow-based condition $c$. Let $R\in\bC$.
 \begin{itemize}
-\item For an arbitrary $c=(R,p_1\cdots p_w)\in \AC R$, let $\hat c=(R,\hat p_1\cdots \hat p_w)$; 
+\item For an arbitrary $c=(R,p_1\ccdots p_w)\in \AC R$, let $\hat c=(R,\hat p_1\ccdots \hat p_w)$; 
 \item For an arbitrary $p=(r,c)\in \AB R$, let $\hat p=(\id_R,r,\hat c)$.
 \end{itemize}
 %
@@ -152,7 +136,7 @@ It follows (by induction) that $\hat c\in \SC R$ for all $c\in \AC R$ and $\hat 
 The structure of morphisms remains essentially identical. Let $b,c\in \ABC$.
 %
 \begin{itemize}
-\item For arbitrary $m:b\func c$ with $m=(t,o,m_1\cdots m_w)$, let $\hat m=(t,o,\hat m_1\cdots \hat m_w)$.
+\item For arbitrary $m:b\func c$ with $m=(t,o,m_1\ccdots m_w)$, let $\hat m=(t,o,\hat m_1\ccdots \hat m_w)$.
 \end{itemize}
 %
 \begin{proposition}
