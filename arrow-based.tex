@@ -127,6 +127,7 @@ Pictorially, $m$ can be visualised as in \fcite{ab-morphism}. We use $m:b\func c
   \input{figs/ab-morphism}
   \caption{Pictorial representation of an arrow-based condition morphism $m:b\func c$, with $b=(R^b,p^b_1\ccdots p^b_w)$ and $m = (t,o,m_1\ccdots m_w)$. For each $1 \leq i \leq w$, $s_i$ is the section of $t$ required by the definition.}
   \flabel{ab-morphism}
+  \flabel{ab-morphism}
 \end{figure}
 
 \medskip\noindent Morphisms have the expected properties: identities and composition exist and the categorical laws are satisfied, thus arrow-based conditions and their morphisms form a category.
@@ -156,7 +157,7 @@ Hence we have $(\dagger)\, t^m; g=a_i;h$ and $h \nsat c_i$.  Now let $q \in \cB_
 We show that $p^c_{o(i)}$ itself is a responsible branch and $(\ddagger)\, h'=t_i;h$ a witness for $g\sat c$, namely that 
 \begin{itemize}
 \item $g = a^c_{o(i)};h'$: In fact, $a^c_{o(i)};h' =\!(\ddagger)\ a^c_{o(i)};t_i;h =\!(\star)\ s_i;r^b_i; h  =\!(\dagger)\ s_i;t^m;g = g$. 
-\item $h' \nsat c_{o(i)}$: In fact, since there is an ab-condition morphism $m_i: c_{(o(i)} \to b_i$, if $h'= t_i;h \sat c_{o(i)}$ then by the induction hypothesis we can infer that $h \sat b_i$, contradicting the hypothesis. \qed
+\item $h' \nsat c_{o(i)}$: In fact, since there is an ab-condition morphism $m_i: c_{o(i)} \to b_i$, if $h'= t_i;h \sat c_{o(i)}$ then by the induction hypothesis we can infer that $h \sat b_i$, contradicting the hypothesis. \qed
 \end{itemize}
 
 It is noteworthy that the arrows that satisfy $b$ and $c$ are not the \emph{same} ones --- in general they cannot be, as $b$ and $c$, having different roots, actually express properties of different domains (the arrows from $R^b$ and $R^c$, respectively). However, the morphism $m$ establishes $t^m:R^b\func R^c$, and the proposition then states that for any arrow from $R^b$ \emph{that factors through $t^m$}, satisfaction of $b$ (by that arrow) implies satisfaction of $c$ by ``the remainder after $t^m$''.
@@ -167,7 +168,7 @@ It is noteworthy that the arrows that satisfy $b$ and $c$ are not the \emph{same
 The definition of ab-condition morphisms of \dcite{ab-morphism} is strongly motivated by results presented later in the paper, but is by no means the only possible one. Still assuming that at each level arrows relating the roots of the conditions should flip direction, a possibly simpler definition of condition morphism is the following.  
 
 \begin{definition}[simple arrow-based condition morphism]\dlabel{simple-morphism}
-  Given two ab-conditions $b,c$, a \emph{simple ab-condition morphism} $m$ from $b$ to $c$ is a pair $(t,o,m_1\ccdots m_{|b|})$ such that $t:R^b\func R^c$ is an arrow and for all $1\leq i\leq |b|$, $m_i:c_{{o(i)}}\func b_i$ is a simple ab-condition morphism from the subcondition of branch $p^c_{o(i)}$ satisfying $(\star)\, t;a^c_{o)i)};t_i=r_i$. 
+  Given two ab-conditions $b,c$, a \emph{simple ab-condition morphism} $m$ from $b$ to $c$ is a pair $(t,o,m_1\ccdots m_{|b|})$ such that $t:R^b\func R^c$ is an arrow and for all $1\leq i\leq |b|$, $m_i:c_{{o(i)}}\func b_i$ is a simple ab-condition morphism from the subcondition of branch $p^c_{o(i)}$ satisfying $(\star)\, t;a^c_{o(i)};t_i=r_i$. 
   A simple morphism is called \emph{epi-based} if all the arrows composing it (relating the roots of (sub)conditions) are epi. 
 \end{definition}
 %

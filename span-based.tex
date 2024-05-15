@@ -8,12 +8,12 @@ Span-based conditions are inductively defined as follows:
   For any object $R$ of $\bC$, $\SC R$ (the set of \emph{span-based conditions} over $R$) and $\SB R$ (the set of \emph{span-based branches} over $R$) are the smallest sets such that
   \begin{itemize}
   \item $c\in \SC R$ if $c=(R,p_1\ccdots p_w)$ is a pair with $p_i\in \SB R$ for all $1\leq i\leq w$;
-  \item $p\in \SB R$ if $p=(u,d,c)$ where $u: I\to R, d:I\func S$ form a span of arrows of $\bC$ and $c\in \SC S$.
+  \item $p\in \SB R$ if $p=(u,d,c)$ where $u: I\to R, d:I\func P$ form a span of arrows of $\bC$ and $c\in \SC P$.
   \end{itemize}
 \end{definition}
 %
 %\emph{Terminology and notation:}
-In a branch $p=(u,d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emph{down-arrow}. As before, we use $|c|=w$ to denote the width of a span-based condition $c$, $R^c$ to denote its root, and $p^c_i=(u^c_i,d^c_i,c_i)$ its $i$-th branch. Finally, we use $I^c_i$ for the interface of branch $p^c_i$ and $P^c_i$ ($=R^{c_i}$) for the root of its subcondition (hence $u^c_i:I^c_i\func R^c$ and $d^c_i:I^c_i\rightarrow R^c_i$). In all these cases, we may omit the superscript $c$ if it is clear from the context. Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
+In a branch $p=(u,d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emph{down-arrow}. As before, we use $|c|=w$ to denote the width of a span-based condition $c$, $R^c$ to denote its root, and $p^c_i=(u^c_i,d^c_i,c_i)$ its $i$-th branch. Finally, we use $I^c_i$ for the interface of branch $p^c_i$ and $P^c_i$ ($=R^{c_i}$) for its pattern (hence $u^c_i:I^c_i\func R^c$ and $d^c_i:I^c_i\rightarrow P^c_i$). In all these cases, we may omit the superscript $c$ if it is clear from the context. Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
 %
 \begin{figure}
   \centering
@@ -22,7 +22,7 @@ In a branch $p=(u,d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emp
   \flabel{sb-condition}
 \end{figure}
 %
-As we will see later, the arrows $r^c_i$ of an arrow-based condition can be reconstructed by taking the pushout over the spans $R^c\cnuf I^c_i\func R^c_i$.
+As we will see later, the arrows $r^c_i$ of an arrow-based condition can be reconstructed by taking the pushout over the spans $R^c\cnuf I^c_i\func P^c_i$.
 
 \medskip\noindent Span-based conditions come with a modified notation of satisfaction.
 
@@ -118,7 +118,7 @@ Now $h^c=t_i;h^b$ can be shown to satisfy the conditions for $h$ in \dcite{sb-sa
 %
 Now assume that $m$ is complete and $g\sat c$, with responsible branch $p^c_j$ and witness $h^c$. The essential observation is that we can find a responsible branch $p^b_i$ and witness $h^c$ showing $t;g\sat b$.
 
-In fact, since $o$ is surjective, take $i$ such that $j=o(i)$; this determines $p^b_i$. Now observe that $k_i;u^b_i;t;g=u^c_j;g=d^c_j;h^c$ and hence (since the lower square of \fcite{sb-morphism preserves satisfaction} is a pushout) there is a unique $h^b:R^b_i\to G$ with $d^b_i;h^b=u^b_i;t;g$ and $t_i;h^b=h^c$. Together with the induction hypothesis and the fact that $m^i$ is complete, these are precisely the properties needed for $h^b$ to be a witness of $t;g\sat b$.\qed
+In fact, since $o$ is surjective, take $i$ such that $j=o(i)$; this determines $p^b_i$. Now observe that $k_i;u^b_i;t;g=u^c_j;g=d^c_j;h^c$ and hence (since the lower square of \fcite{sb-morphism preserves satisfaction} is a pushout) there is a unique $h^b:P^b_i\to G$ with $d^b_i;h^b=u^b_i;t;g$ and $t_i;h^b=h^c$. Together with the induction hypothesis and the fact that $m^i$ is complete, these are precisely the properties needed for $h^b$ to be a witness of $t;g\sat b$.\qed
 \end{proof}
 
 \subsection{From arrow-based to span-based conditions}
