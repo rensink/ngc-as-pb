@@ -1,9 +1,11 @@
-\begin{tikzpicture}
-  \node (Rc) {$R_c$};
-  \node (c1) [triangle,below left=1.5 and .5 of Rc] {$c_1$};
+\begin{tikzpicture}[on grid]
+  \node (Rc) {$R^c$};
+  \node (P1) [below left=of Rc] {$P^c_1$};
+  \node (c1) [triangle,below=.15 of P1.center] {$c_1$};
   \node [below=.7 of Rc] {$\cdots$};
-  \node (cn) [triangle,below right=1.5 and .5 of Rc] {$c_n$};
+  \node (Pn) [below right=of Rc] {$P^c_n$};
+  \node (cn) [triangle,below=.15 of Pn.center] {$c_n$};
 
-  \path (c1.north) edge[<-] node[above left] {$r^c_1$} (Rc)
-        (cn.north) edge[<-] node[above right] {$r^c_n$} (Rc);
+  \path (P1) edge[<-] node[above left] {$r^c_1$} (Rc)
+        (Pn) edge[<-] node[above right] {$r^c_n$} (Rc);
 \end{tikzpicture}

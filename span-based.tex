@@ -5,7 +5,7 @@ We now present one the main idea of this paper based on the observation that the
 Span-based conditions are inductively defined as follows:
 
 \begin{definition}[span-based condition]\dlabel{sb-condition}
-  For any object $R$ of $\bC$, $\AC R$ (the set of \emph{arrow-based conditions} over $R$) and $\AB R$ (the set of \emph{arrow-based branches} over $R$) are the smallest sets such that
+  For any object $R$ of $\bC$, $\SC R$ (the set of \emph{span-based conditions} over $R$) and $\SB R$ (the set of \emph{span-based branches} over $R$) are the smallest sets such that
   \begin{itemize}
   \item $c\in \SC R$ if $c=(R,p_1\ccdots p_w)$ is a pair with $p_i\in \SB R$ for all $1\leq i\leq w$;
   \item $p\in \SB R$ if $p=(u,d,c)$ where $u: I\to R, d:I\func S$ form a span of arrows of $\bC$ and $c\in \SC S$.
@@ -13,7 +13,7 @@ Span-based conditions are inductively defined as follows:
 \end{definition}
 %
 %\emph{Terminology and notation:}
-In a branch $p=(u,d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emph{down-arrow}. As before, we use $|c|=w$ to denote the width of a span-based condition $c$, $R^c$ to denote its root, and $p^c_i=(u^c_i,d^c_i,c_i)$ its $i$th branch. Finally, we use $I^c_i$ for the interface of branch $p^c_i$ and $R^c_i$ ($=R^{c_i}$) for the root of its subcondition (hence $u^c_i:I^c_i\func R^c$ and $d^c_i:I^c_i\rightarrow R^c_i$). In all these cases, we may omit the superscript $c$ if it is clear from the context. Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
+In a branch $p=(u,d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emph{down-arrow}. As before, we use $|c|=w$ to denote the width of a span-based condition $c$, $R^c$ to denote its root, and $p^c_i=(u^c_i,d^c_i,c_i)$ its $i$-th branch. Finally, we use $I^c_i$ for the interface of branch $p^c_i$ and $P^c_i$ ($=R^{c_i}$) for the root of its subcondition (hence $u^c_i:I^c_i\func R^c$ and $d^c_i:I^c_i\rightarrow R^c_i$). In all these cases, we may omit the superscript $c$ if it is clear from the context. Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
 %
 \begin{figure}
   \centering

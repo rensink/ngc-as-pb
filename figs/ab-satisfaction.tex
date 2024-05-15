@@ -1,17 +1,17 @@
 \begin{tikzpicture}[on grid]
   \node (R) {$R_c$};
-  \node (R1) [below left=of R] {};
+  \node (P1) [below left=of R] {};
   \node [below left=.8 and .4 of R] {$\cdots$};
-  \node (Ri) [below=1.8 of R] {$R_{c_p}$};
+  \node (Pi) [below=1.8 of R] {$P^i$};
   \node [below right=.8 and .4 of R] {$\cdots$};
-  \node (Rn) [below right=of R] {};
-  \node (cp) [triangle,below=.15 of Ri.center] {$c_p$};
+  \node (Pn) [below right=of R] {};
+  \node (ci) [triangle,below=.15 of Pi.center] {$c_i$};
   \node (G) [right=2 of R] {$G$};
 
-  \path (R) edge [->] (R1)
-        (R) edge [->] (Rn)
+  \path (R) edge [->] (P1)
+        (R) edge [->] (Pn)
 		(R) edge[->] node[above] {$g$} (G)
-        (R) edge[->] node[left,near end] {$r_p$} (Ri)
-        (Ri) edge[->,bend right] node[pos=0.2,below right] (h) {$h$} (G)
-        (h) edge[draw=none] node[sloped,allow upside down] {$\nsat$} (cp);
+        (R) edge[->] node[left,near end] {$r_p$} (Pi)
+        (Pi) edge[->,bend right] node[pos=0.2,below right] (h) {$h$} (G)
+        (h) edge[draw=none] node[sloped,allow upside down] {$\nsat$} (ci);
 \end{tikzpicture}

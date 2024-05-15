@@ -117,7 +117,7 @@ Rather than changing the root of a condition, we can change one of its (first-le
 
 In this case we start with the back-shift, since for interfaces that is the easier direction.
 
-\begin{definition}[back-shifting a branch interface along an arrow]
+\begin{definition}[interface back-shift]
     Let $p=(u,d,c)$ be a branch over $R$ and $f: J \to I$ an arrow. Then $p\Ibshift f$, the \emph{interface backshift of $p$ along $f$}, is defined as:
      \[ p \Ibshift f = (f;u,f;d,c) \enspace. \]
     Now let $c=(R,p_1\ccdots p_w)$ be a condition and for all $1\leq i\leq w$ let $f_i:J_i\to I_i$ be an arrow. Then $c\Ibshift (f_1\ccdots f_w)$, the \emph{interface backshift of $c$}, is defined as:
@@ -143,17 +143,19 @@ where $e_i$ for all $1\leq i\leq w$ is the unique arrow such that $e_i;((u_i;f)\
 %
 Since all $e_i$ are epi (they are retractions by $e_i;(f\pb (u_i;f))=\id$), \eqcite{Ibshift-reflects} implies $c\Ibshift  (e_1\ccdots e_w)\entails c$, proving \eqcite{Rshift-Rbshift}.
 
-\begin{definition}[shifting a branch interface along an arrow]
-    Let $p=(u,d,c)$ be a branch over $R$ and $f: I\to J$ an arrow. Then $c\Ishift f$, the \emph{interface shift of $p$ along $f$}, is the branch over $S$ (the pushout opbject of the span $(u,f)$) defined as:
+\begin{definition}[interface forward shift]
+    Let $p=(u,d,c)$ be a branch over $R$ and $f: I\to J$ an arrow. Then $c\Ishift f$, the (forward) \emph{interface shift of $p$ along $f$}, is the branch over $S$ (the pushout opbject of the span $(u,f)$) defined as:
      \[ p \Ishift f = (u\po f,d\po f,c\Rshift (f\po d)) \enspace. \]
+    Now let $c=(R,p_1\ccdots p_w)$ be a condition and for all $1\leq i\leq w$ let $f_i:I_i\to J_i$ be an arrow. Then $c\Ishift (f_1\ccdots f_w)$, the (forward) \emph{interface shift of $c$}, is defined as:
+	\[ c \Ishift (e_1\ccdots e_w) = (R,(p_1\Ishift f_1)\cdots (p_w\Ishift f_w)) \enspace. \]
 \end{definition}
 %
-\fcite{Ishift} provides a visualisation of the interface shift and back-shift for a single branch.
+\fcite{Ishift} provides a visualisation of the interface back- and forward shift for a single branch.
 
 \begin{figure}
 \centering
 \input{figs/Ishift}
-\caption{Pictorial representation of interface shift and backshift for a branch $(u,d,c)$, with arrows $f:I\to J$ and $g:K\to I$, respectively}
+\caption{Pictorial representation of interface back- and forward shift for a branch $(u,d,c)$, along arrows $f:J\to I$ and $g:I\to K$}
 \flabel{Ishift}
 \end{figure}
 %
