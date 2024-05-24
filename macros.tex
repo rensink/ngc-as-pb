@@ -2,6 +2,7 @@
 \usepackage[inline]{enumitem}
 \usepackage{mathdots}
 \usepackage{comment}
+\usepackage{subcaption}
 
 %% Some math definitions
 \newcommand{\tupof}[1]{\langle{#1}\rangle}
@@ -9,6 +10,7 @@
 \newcommand{\st}{.\;}
 \newcommand{\id}{\mathit{id}}
 \newcommand{\depth}{\mathit{dp}}
+\newcommand{\fv}{\mathit{fv}}
 
 \newcommand{\func}{\rightarrow}
 \newcommand{\cnuf}{\leftarrow}
@@ -57,6 +59,16 @@
 
 \newcommand{\ABC}{\cat{AB-Cond}}
 \newcommand{\SBC}{\cat{SB-Cond}}
+
+% Graph labels = binary relations
+% Graph label font
+\newcommand{\gl}[1]{\mathsf{#1}}
+
+\newcommand{\la}{\gl{a}}
+\newcommand{\lb}{\gl{b}}
+\newcommand{\lc}{\gl{c}}
+\newcommand{\ld}{\gl{d}}
+
 
 % Auxiliary labelling macros
 % For definitions
@@ -133,6 +145,7 @@
 }}
 
 \newcommand{\mygraph}[1]{%
+\renewcommand{\gl}[1]{\ensuremath{\scriptstyle{\mathsf{##1}}}}%
 \begin{tikzpicture}[on grid,scale=.5,inner sep=2pt,baseline=(current bounding box.center)]
 \begin{scope}[node distance=8mm]
 #1
@@ -157,7 +170,19 @@
 % #2: loop label
 \newcommand{\oneloop}[2]{\mygraph{
 \node (1) {$#1$};
-\path (1) edge [->,loop right] node {$\scriptstyle{#2}$} ();
+\path (1) edge [->,loop right] node {\gl{#2}} ();
+}}
+
+% two-node graph with loop
+% #1: first node
+% #2: right-pointing edge
+% #1: second node
+% #2: left-pointing edge
+\newcommand{\twoloop}[4]{\mygraph{
+\node (1) {$#1$};
+\node (2) [right=of 1] {$#3$};
+\path (1) edge [->,bend left] node[near start,above] {\gl{#2}} (2)
+      (2) edge [->,bend left] node[near start,below] {\gl{#4}} (1);
 }}
 
 % One-edge graph
@@ -167,7 +192,7 @@
 \newcommand{\oneedge}[3]{\mygraph{
 \node (1) {$#1$};
 \node (2) [right=of 1] {$#3$};
-\path (1) edge[->] node[above] {$\scriptstyle{#2}$} (2);
+\path (1) edge[->] node[above] {\gl{#2}} (2);
 }}
 
 % Edge + loop graph
@@ -178,8 +203,8 @@
 \newcommand{\oneedgeloop}[4]{\mygraph{
 \node (1) {$#1$};
 \node (2) [right=of 1] {$#3$};
-\path (1) edge[->] node[above] {$\scriptstyle{#2}$} (2)
-      (2) edge [->,loop right] node {$\scriptstyle{#4}$} ();
+\path (1) edge[->] node[above] {\gl{#2}} (2)
+      (2) edge [->,loop right] node {\gl{#4}} ();
 }}
 
 % Serial two-edge graph
@@ -192,11 +217,11 @@
 \node (1) {$#1$};
 \node (2) [right=of 1] {$#3$};
 \node (3) [right=of 2] {$#5$};
-\path (1) edge[->] node[above] {$\scriptstyle{#2}$} (2)
-      (2) edge[->] node[above] {$\scriptstyle{#4}$} (3);
+\path (1) edge[->] node[above] {\gl{#2}} (2)
+      (2) edge[->] node[above] {\gl{#4}} (3);
 }}
 
-% One edge ollowed by s split into two edges
+% One edge followed by a split into two edges
 % #1: first node
 % #2: first edge label
 % #3: middle node
@@ -209,9 +234,9 @@
 \node (2) [right=of 1] {$#3$};
 \node (3) [above right=.3 and 1 of 2] {$#5$};
 \node (4) [below right=.3 and 1 of 2] {$#7$};
-\path (1) edge[->] node[above] {$\scriptstyle{#2}$} (2)
-      (2) edge[->] node[above] {$\scriptstyle{#4}$} (3)
-      (2) edge[->] node[below] {$\scriptstyle{#6}$} (4);
+\path (1) edge[->] node[above] {\gl{#2}} (2)
+      (2) edge[->] node[above] {\gl{#4}} (3)
+      (2) edge[->] node[below] {\gl{#6}} (4);
 }}
 
 % Span graph
@@ -224,8 +249,8 @@
 \node (1) {$#1$};
 \node (2) [right=of 1] {$#3$};
 \node (3) [right=of 2] {$#5$};
-\path (1) edge[<-] node[above] {$\scriptstyle{#2}$} (2)
-      (2) edge[->] node[above] {$\scriptstyle{#4}$} (3);
+\path (1) edge[<-] node[above] {\gl{#2}} (2)
+      (2) edge[->] node[above] {\gl{#4}} (3);
 }}
 
 % Cospan graph
@@ -238,6 +263,6 @@
 \node (1) {$#1$};
 \node (2) [right=of 1] {$#3$};
 \node (3) [right=of 2] {$#5$};
-\path (1) edge[->] node[above] {$\scriptstyle{#2}$} (2)
-      (2) edge[<-] node[above] {$\scriptstyle{#4}$} (3);
+\path (1) edge[->] node[above] {\gl{#2}} (2)
+      (2) edge[<-] node[above] {\gl{#4}} (3);
 }}

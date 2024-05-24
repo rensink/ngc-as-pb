@@ -1,5 +1,5 @@
 \begin{tikzpicture}[on grid]
-  \node (R) {$R_c$};
+  \node (R) {$R$};
   \node (P1) [below left=of R] {};
   \node [below left=.8 and .4 of R] {$\cdots$};
   \node (Pi) [below=1.8 of R] {$P^i$};
@@ -11,7 +11,7 @@
   \path (R) edge [->] (P1)
         (R) edge [->] (Pn)
 		(R) edge[->] node[above] {$g$} (G)
-        (R) edge[->] node[left,near end] {$r_p$} (Pi)
+        (R) edge[->] node[left,near end] {$a_i$} (Pi)
         (Pi) edge[->,bend right] node[pos=0.2,below right] (h) {$h$} (G)
         (h) edge[draw=none] node[sloped,allow upside down] {$\nsat$} (ci);
 \end{tikzpicture}

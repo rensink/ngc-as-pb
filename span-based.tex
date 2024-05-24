@@ -1,6 +1,6 @@
 \section{Span-based conditions}
 
-We now present one the main idea of this paper based on the observation that there is a lot of duplication in a nested condition: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} structure (and how it is connected). This is achieved by replacing the branch arrows $r^c_i$ of a condition $c$ by \emph{spans}.
+We now present the main idea of this paper, inspired by on the observation that arrow-based conditions over graphs contain a lot of duplication: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} structure (and how it is connected). This is achieved by replacing the branch arrows $r^c_i$ of a condition $c$ by \emph{spans}.\footnote{We discuss and contrast an alternative way to resolve the same issue, using \emph{cospans} rather than spans, later in this paper.}
 
 Span-based conditions are inductively defined as follows:
 
@@ -47,7 +47,7 @@ Like before, we call $p_i$ the \emph{responsible branch} and $h$ the \emph{witne
 \medskip\noindent
 Span-based conditions have a notion of morphism.
 %
-\begin{definition}[span-based condition morphism]\dlabel{sb-morphism}
+\begin{definition}[span-based (complete) condition morphism]\dlabel{sb-morphism}
   Given two sb-conditions $b,c$, an \emph{sb-morphism} $m:b\to c$ is a triple $(t,o,m_1\ccdots m_{|b|})$ such that
   \begin{itemize}
   \item $t:R^b\func R^c$ is an arrow in $\bC$, called the \emph{top-level arrow} of $m$;
@@ -63,10 +63,17 @@ Span-based conditions have a notion of morphism.
     \item\label{down-commutes} $k_i;d^b_i=d^c_{o(i)};t_i$.
     \end{enumerate}
   \end{itemize}
-  $m$ is called \emph{complete} if $o$ is surjective and for all $i$, the commuting square of clause~\ref{down-commutes} is a pushout and $m_i$ is complete.
+  $m$ is called \emph{complete} if $o$ is surjective and for all $1\leq i\leq |b|$:
+    \begin{enumerate*}[label=(\roman*)]
+    \item the subcondition morphism $m_i$ is complete and 
+	\item after constructing three pusouts as in the figure below, the induced morphism $e$ is an iso.
+    \end{enumerate*}
 \end{definition}
 %
-%\emph{Notation and terminology:}
+\begin{center}
+\input{figs/completeness}
+\end{center}
+%
 We write $t^m$ and $o^m$ for the components of $m$, and (for all $1\leq i\leq |b|$) $t^m_i$ ($=t_{m_i}$) for the top-level arrow of $m_i$ --- often omitting the superscript $m$ if it is clear from the context. Pictorially, $m$ can be visualised as in \fcite{sb-morphism}.
 %
 \begin{figure}
