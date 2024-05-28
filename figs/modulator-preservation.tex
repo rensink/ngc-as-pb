@@ -1,0 +1,18 @@
+\begin{tikzpicture}[on grid]
+\node (A) {$A$};
+\node (B1) [below right=.5 and 2.3 of A] {$B$};
+\node (B2) [right=3 of A] {$B$};
+\node (C) [below=2 of A] {$C$};
+\node (G) [below=2 of B2] {$G$};
+
+\path (A) edge[->] node[above] (v) {$v$} (B2)
+      (A) edge[->] node[near start,right] (a) {$a$} (C)
+	  (B1) edge[->] node[near start,above left,inner sep=1pt] (a') {$a'$} (C)
+	  (B1) edge[gray,->] node[gray,near start,right] {$g$} (G)
+	  (B2) edge[->] node[near start,right] {$g$} (G)
+	  (C) edge[->] node[below] {$h$} (G);
+	  
+\path (a) edge[dotted,->] node[above] {$\scriptstyle\cM$} (a'.west);
+
+\node [above=.7 of v] {$(a,a')\in \cM$};
+\end{tikzpicture}

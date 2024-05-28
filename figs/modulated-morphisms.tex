@@ -1,0 +1,112 @@
+\begin{tikzpicture}[on grid]
+\node (b) {$b$};
+\node (Rb) [below=.7 of b] {$R$};
+\node (Pb1) [below left=of Rb] {};
+\node [below left=.8 and .4 of Rb] {$\cdots$};
+\node (Pbi) [below=1.8 of Rb] {$P^b_i$};
+\node [below right=.8 and .4 of Rb] {$\cdots$};
+\node (Pbn) [below right=of Rb] {};
+
+\path (Rb) edge[->] (Pb1)
+      (Rb) edge[->] (Pbn)
+	  (Rb) edge[->] (Pbi);
+
+\node (c) [right=3 of b] {$c$};
+\node (Rc) [below=.7 of c] {$R$};
+\node (Pc1) [below left=of Rc] {};
+\node [below left=.8 and .4 of Rc] {$\cdots$};
+\node (Pci) [below=1.8 of Rc] {$P^c_{o(i)}$};
+\node [below right=.8 and .4 of Rc] {$\cdots$};
+\node (Pcn) [below right=of Rc] {};
+\node (ci) [triangle,below=.20 of Pci.center] {\phantom{$b_i$}};
+\node at (ci) {$c_{o(i)}$};
+
+\node (bi-top) [below left=.20 and .01 of Pbi.center,inner sep=0] {};
+\node (bi-inner) [left=.1 of bi-top,inner sep=0] {};
+\node (bi-outer) [left=1.3 of bi-inner,inner sep=0] {};
+\node (bi-mid) [left=.7 of bi-inner] {};
+
+\draw (bi-top.center) -- (bi-inner.center |- ci.south)
+                      -- (bi-outer.center |- ci.south)
+					  -- (bi-top.center);
+
+\draw[draw=none] (bi-inner |- ci) -- node[pos=.3] {$b_i$} (bi-outer |- ci);
+
+\node (ci-top) [below right=.20 and .01 of Pbi.center,inner sep=0] {};
+\node (ci-inner) [right=.1 of ci-top,inner sep=0] {};
+\node (ci-outer) [right=1.3 of ci-inner,inner sep=0] {};
+\node (ci-mid) [right=.7 of ci-inner] {};
+
+\draw (ci-top.center) -- (ci-inner.center |- ci.south)
+                      -- (ci-outer.center |- ci.south)
+					  -- (ci-top.center);
+
+\draw[draw=none] (ci-inner |- ci) -- node (co') [pos=.3] {$c'_i$} (ci-outer |- ci);
+
+%\node (ci') at (ci-mid |- ci) {$c'_i$};
+	  
+\path (Rc) edge[->] (Pc1)
+      (Rc) edge[->] (Pcn)
+	  (Rc) edge[->] (Pci);
+
+\path (Rb) edge[<->] node[above] {$\id$} (Rc)
+      (Pci) edge[->] node[above] {$v_i$} (Pbi)
+      (ci-mid |- ci.south) edge[->,bend left=40] node[below] {$m_i$} (bi-mid |- ci.south)
+	  (ci) edge[dotted,->] node[above] {$\forw{\cC_i}$} ++ (-1.9,0);	  
+\end{tikzpicture}
+%
+\qquad
+%
+\begin{tikzpicture}[on grid]
+\node (b) {$b$};
+\node (Rb) [below=.7 of b] {$R$};
+\node (Pb1) [below left=of Rb] {};
+\node [below left=.8 and .4 of Rb] {$\cdots$};
+\node (Pbi) [below=1.8 of Rb] {$P^b_i$};
+\node [below right=.8 and .4 of Rb] {$\cdots$};
+\node (Pbn) [below right=of Rb] {};
+\node (bi) [triangle,below=.20 of Pbi.center] {$b_i$};
+
+\path (Rb) edge[->] (Pb1)
+      (Rb) edge[->] (Pbn)
+	  (Rb) edge[->] (Pbi);
+
+\node (c) [right=3 of b] {$c$};
+\node (Rc) [below=.7 of c] {$R$};
+\node (Pc1) [below left=of Rc] {};
+\node [below left=.8 and .4 of Rc] {$\cdots$};
+\node (Pci) [below=1.8 of Rc] {$P^c_{o(i)}$};
+\node [below right=.8 and .4 of Rc] {$\cdots$};
+\node (Pcn) [below right=of Rc] {};
+
+\node (bi-top) [below left=.20 and .01 of Pci.center,inner sep=0] {};
+\node (bi-inner) [left=.1 of bi-top,inner sep=0] {};
+\node (bi-outer) [left=1.3 of bi-inner,inner sep=0] {};
+\node (bi-mid) [left=.7 of bi-inner] {};
+
+\draw (bi-top.center) -- (bi-inner.center |- bi.south)
+                      -- (bi-outer.center |- bi.south)
+					  -- (bi-top.center);
+
+\draw[draw=none] (bi-inner |- bi) -- node[pos=.3] {$b'_i$} (bi-outer |- bi);
+
+\node (ci-top) [below right=.20 and .01 of Pci.center,inner sep=0] {};
+\node (ci-inner) [right=.1 of ci-top,inner sep=0] {};
+\node (ci-outer) [right=1.3 of ci-inner,inner sep=0] {};
+\node (ci-mid) [right=.7 of ci-inner] {};
+
+\draw (ci-top.center) -- (ci-inner.center |- bi.south)
+                      -- (ci-outer.center |- bi.south)
+					  -- (ci-top.center);
+
+\draw[draw=none] (ci-inner |- bi) -- node (co') [pos=.3] {$c_{o(i)}$} (ci-outer |- bi);
+
+\path (Rc) edge[->] (Pc1)
+      (Rc) edge[->] (Pcn)
+	  (Rc) edge[->] (Pci);
+
+\path (Rb) edge[<->] node[above] {$\id$} (Rc)
+      (Pci) edge[->] node[above] {$v_i$} (Pbi)
+      (ci-mid |- bi.south) edge[->,bend left=40] node[below] {$m_i$} (bi-mid |- bi.south)
+	  (bi) edge[dotted,->] node[above] {$\back{\cC_i}$} ++ (1.9,0);	  
+\end{tikzpicture}

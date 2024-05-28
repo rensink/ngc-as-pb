@@ -1,0 +1,34 @@
+\begin{tikzpicture}[on grid]
+  \node (R1) [below=] {$A$};
+  \node (P1) [below=2 of R1] {$P$};
+
+  \path (R1) edge[->] node[left] {$\cE_v(a)$} (P1);
+
+  \node (R2) [right=2.5 of R1] {$B$};
+  \node (P2) [below=2 of R2] {$P$};
+
+  \path (R2) edge[->] node[right] {$a$} (P2);
+
+  \path (R1) edge[->>] node (vE) [above] {$v$} (R2)
+        (P1) edge[<->] node[below] {$\id$} (P2);
+
+%  \node [above=.7 of vE] {$(a_1,a_2)\in \cE_v$};
+
+  \node (R3) [right=3 of R2] {$A$};
+  \node (P3) [below=2 of R3] {$P$};
+
+  \path (R3) edge[->] node[left] {$a$} (P3);
+
+  \node (R4) [right=2.5 of R3] {$B$};
+  \node (I4) [below=1 of R4] {$B$};
+  \node (P4) [below=1 of I4] {$P$};
+
+  \path (I4) edge[->] node[right] {$\id$} (R4) 
+        (I4) edge[->] node[right] {$\cR_v^s(a)$} (P4);
+
+  \path (R3) edge[->] node (vR) [above] {$v$} (R4)
+        (I4) edge[->] node[below] {$s$} (R3)
+        (P3) edge[<->] node[below] {$\id$} (P4);
+
+%  \node [above=.7 of vR] {$(a_1,a_2)\in \cR_v$};
+\end{tikzpicture}

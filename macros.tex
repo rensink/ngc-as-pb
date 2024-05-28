@@ -39,6 +39,8 @@
 \newcommand{\shift}[2]{#1\Rshift #2}
 \newcommand{\bshift}[2]{#1\Rbshift #2}
 
+\newcommand{\dshift}[2]{#1{\downarrow_{#2}}}
+
 \newcommand{\pb}{\mathord{\downarrow}}
 \newcommand{\po}{\mathord{\uparrow}}
 
@@ -55,10 +57,31 @@
 
 \newcommand{\cB}{\mathcal{B}}
 \newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
 \newcommand{\cF}{\mathcal{F}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cI}{\mathcal{I}}
+\renewcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+
+\newcommand{\forw}[1]{\triangleright_{#1}}
+\newcommand{\back}[1]{\triangleleft_{#1}}
 
 \newcommand{\ABC}{\cat{AB-Cond}}
 \newcommand{\SBC}{\cat{SB-Cond}}
+
+\newcommand{\Hom}{\mathrm{Hom}}
+
+\newcommand{\Hyper}{\cat{Hyper}}
+\newcommand{\Graph}{\cat{Graph}}
+\newcommand{\Cospan}{\cat{Cospan}}
+
+\newcommand{\False}{\textbf{false}}
+\newcommand{\True}{\textbf{true}}
+
+% Alignment macro, see https://www.math.lsu.edu/~aperlis/publications/mathclap/perlis_mathclap_24Jun2003.pdf
+\def\clap#1{\hbox to 0pt{\hss#1\hss}}
 
 % Graph labels = binary relations
 % Graph label font
@@ -110,7 +133,7 @@
 % For equations
 \newcommand{\eqprf}{eq}
 \newcommand{\eqlabel}[1]{\label{\eqprf:#1}}
-\newcommand{\eqcite}[1]{\eqref{\eqprf:#1}}
+\newcommand{\eqcite}[1]{Eq.~\eqref{\eqprf:#1}}
 
 %% Tikz definitions
 \usetikzlibrary{shapes.geometric}
@@ -205,6 +228,18 @@
 \node (2) [right=of 1] {$#3$};
 \path (1) edge[->] node[above] {\gl{#2}} (2)
       (2) edge [->,loop right] node {\gl{#4}} ();
+}}
+
+% Loop + edge graph
+% #1: source node
+% #2: loop label
+% #3: edge label
+% #4: target node
+\newcommand{\looponeedge}[4]{\mygraph{
+\node (1) {$#1$};
+\node (2) [right=of 1] {$#4$};
+\path (1) edge[->] node[above] {\gl{#3}} (2)
+      (1) edge [->,loop left] node {\gl{#2}} ();
 }}
 
 % Serial two-edge graph

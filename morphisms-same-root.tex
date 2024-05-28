@@ -1,0 +1,131 @@
+\section{Morphisms of arrow-based conditions}
+
+The notion of \emph{morphism} of nested conditions has not received much attention in the literature. When considered at all, such as in \cite{Koenig-morphism}, they are essentially based on the semantics in terms of satisfaction. Indeed, entailment establishes a preorder over conditions and hence gives rise to a category in which there is a (unique) arrow between conditions if and only if the source entails the target. \todo{Is there a standard name for this interpretation?} Let us denote this category $\ABC^{\entails}$.
+
+The question that we address in this section is to establish a meaningful \emph{structural} notion of condition morphism. That is, given the fact that an ab-condition is essentially a diagram in the category $\bC$, a structural morphism from $b$ to $c$ consists of arrows between objects of $b$ and objects of $c$ satisfying certain confluence conditions. For morphisms to be meaningful, they should certainly only exist where there is entailment; in other words, we require there to be a functor to $\ABC^{\entails}$. As we will see, this requirement implies that it is not enough to consider only arrows from objects of $b$ \emph{to} objects of $c$, since in our definition of satisfaction, the direction of entailment flips at every subsequent nesting level. We also observe that the existence of a functor to $\ABC^{\entails}$ means that we only consider morphisms between conditions with the same root.
+
+In this section and the next, we will review several candidate notions of morphism, but the underlying principle is always the same: a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ to $c=(R,p^c_1\ccdots p^c_{|c|})$ must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that entails it. Entailment of branches, in turn, is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$ (hence going in the \emph{opposite} direction of $m$) such that, \emph{modulo $v_i$}, there is a morphism between the subconditions $c_j$ and $b_i$. The main task is to make the concept of ``modulo $v_i$" precise.
+
+\subsection{Modulation}
+
+We will first define what it means to ``modulate" an arrow; this will be extended later to (branches and) conditions.
+%
+\begin{definition}[modulator]\dlabel{modulation}
+Let $v:A\to B$ be an arrow. A \emph{modulator} $\cM$ for $v$ is a binary relation between $A$-sourced arrows and $B$-sourced ones, such that:
+%
+\begin{equation}\eqlabel{modulator preservation}
+\text{if } (a,a')\in \cM \text{ then } v;g=a;h \text{ implies } g=a';h \enspace.
+\end{equation}
+%
+$\cM$ is a \emph{forward modulator} if it is functional, i.e., for all $a:A\to C$ there is exactly one $a':B\to C$ such that $(a,a')\in \cM$ (we denote $a'=\forw\cM(a)$), and moreover, $\forw\cM(a);t=\forw\cM(a;t)$ for all $t:C\to D$.
+
+$\cM$ is a \emph{backward modulator} if its inverse is functional; i.e., for all $a:B\to C$ there is exactly one $a':A\to C$ such that $(a',a)\in \cM$ (we denote $a'=\back\cM(a)$), and moreover, $\back\cM(a;t)=\back\cM(a);t$ for all $t:D\to C$.
+\end{definition}
+%
+The preservation property \eqref{\eqprf:modulator preservation} as well as the principle of forward and backward modulation are visualised in \fcite{modulator-properties}.
+%
+\begin{figure}
+\centering
+\subcaptionbox{Preservation (\eqcite{modulator preservation})}[.3\textwidth]
+              {\input{figs/modulator-preservation}}%
+\subcaptionbox{Forward modulation}[.35\textwidth]{\input{figs/forward-modulation}}%
+\subcaptionbox{Backward modulation}[.35\textwidth]{\input{figs/backward-modulation}}%
+\caption{Visualisation of modulator properties ($\cM$ a modulator for $v$)}
+\flabel{modulator-properties}
+\end{figure}
+
+Modulation is extended to conditions. Let $v:A\to B$.
+%
+\begin{itemize}
+\item A \emph{condition modulator of width $w$} for $v$ is a vector $\cC=\cM_1\ccdots \cM_w$ of (arrow) modulators for $v$: given $b\in \AC A$ and $c\in \AC B$, let $(b,c)\in \cC$ if $|b|=|c|=w$ and for all $1\leq i\leq w$, $(a^b_i,a^c_i)\in \cM_i$ and $b_i=c_i$.
+\item Condition modulators are forward [backward] if all their constituent (arrow) modulators are forward [backward]. We reuse the notations $\forw\cC$, $\back\cC$ for (forward and backward) condition modulators.
+\end{itemize}
+%
+Note that condition modulation only affects the first level of arrows: the subconditions remain the same. Intuitively, $\cM$ for $v:A\to B$ ``rebases" conditions rooted in $A$ to conditions rooted in $B$, such that their semantics are ``equivalent modulo $v$". 
+
+Since modulation of conditions is defined on a branch-by-branch basis, for zero-width conditions (essentially encoding the property $\False$ over their respective roots) there is essentially no requirement to be fulfilled. Hence, the single pair $\cI_{A,B}=\setof{((A,\epsilon),(B,\epsilon))}$ is both a forward and a backward zero-width condition modulator for any $v:A\to B$.
+
+The following makes precise in what sense condition manipulation preserves ``semantics modulo $v$". The property follows from the preservation property \eqcite{modulator preservation}.
+%
+\begin{proposition}
+If $\cC$ is a condition modulator, then for all $(b,c)\in \cC$:
+\[ \text{ for all } g: \enspace v;g\sat b \text{ if and only if } g\sat c \enspace. \]
+\end{proposition}
+%
+We also note that modulators compose; that is, the following holds for both arrow and condition modulators.
+%
+\begin{proposition}
+If $\cM$ is a modulator for $u:A\to B$ and $\cN$ a modulator for $v:B\to C$, then $\cM;\cN$(understood as relation composition) is a modulator for $u;v$. Moreover, if both $\cM$ and $\cN$ are forward [backward], then $\cM;\cN$ is forward [backward].
+\end{proposition}
+
+
+\subsection{Epi- and retraction-based modulators}
+
+The following arrow modulators can be defined.
+
+\begin{itemize}
+\item If $v$ is epi, then the \emph{epi-based modulator} $\cE_v$ is defined by:
+\[ (a_1,a_2)\in \cE_v \text{ if } a_1=v;a_2 \enspace.
+\]
+\item If $v$ is a retraction with section $s$ (i.e., such that $s;v=\id$ then the \emph{retraction-based modulator} $\cR_v^s$ is defined by:
+\[ (a_1,a_2)\in \cR_v^s \text{ if } a_2=s;a_1 \enspace.
+\]
+\end{itemize}
+%
+The epi-based and retraction-based modulators are visualised in \fcite{modulators}.
+%
+\begin{figure}
+\centering
+\input{figs/modulators}
+\caption{Epi-based and retraction-based modulation (all subdiagrams commute)}
+\flabel{modulators}
+\end{figure}
+
+\begin{proposition}
+Let $v$ be an arrow.
+\begin{enumerate}
+\item If $v$ is epi, $\cE_v$ is a backward modulator for $v$.
+\item For all $s;v=\id$, $\cR_v^s$ is a forward modulator for $v$.
+\end{enumerate}
+\end{proposition}
+%
+Note that the existence of $s$ such that $s;v=\id$, as required for $\cR_v^s$, implies that $v$ is epi, as required for $\cE_v$; nevertheless, it is not the case that $\cR_v^s\subseteq\cE_v$: the commutation conditions cause these modulators to be independent.\todo{Insert example here?}
+
+Note that a retraction may have more than one section, and when modulating a condition, we may use different modulators for the branches. For any width $w$, we denote the retraction-based condition modulator obtained as the sequence $\cR_v^{s_1}\ccdots \cR_v^{s_w}$ by $\cR_v^{s_1\ccdots s_w}$ (with the special case $\cR_v^\epsilon=\cI_{A,B}$). Epi-based modulation is less complex in that (for any width) we have at most one epi-based modulator for any given arrow (namely, one if the arrow is epi or the width is zero, and none otherwise).
+
+\subsection{Structural morphisms}
+
+The following defines structural morphisms based on modulators.
+
+\begin{definition}[arrow-based condition morphism]\dlabel{ab-morphism}
+  Given two ab-conditions $b$ and $c$, a \emph{forward-shift [backward-shift] condition morphism} $m: b \to c$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
+  \begin{itemize}
+  \item $o:[1,|b|]\to[1,|c|]$ is a function from $b$'s branches to $c$'s branches;
+  \item for all $1\leq i\leq |b|$, $v_i:P^c_{o(i)}\to P^b_i$ is a mapping from the pattern of $p^c_{o(i)}$ to that of $p^b_i$ such that $a^c_{o(i)};v_i=a^b_i$;
+  \item\emph{Forward shift}: for all $1\leq i\leq |b|$, there is a forward modulator $\cC_i$ for $v_i$ such that $m_i:\forw{\cC_i}(c_{o(i)})\to b_i$ is a forward-shift morphism.
+  \item\emph{Backward shift}: for all $1\leq i\leq |b|$, there is a backward modulator $\cC_i$ for $v_i$ such that $m_i:c_{o(i)}\to \back{\cC_i}(b_i)$ is a backward-shift morphism.
+  \end{itemize}
+\end{definition}
+%
+\fcite{modulated-morphism} visualises the principle of forward- and backward-shift morphisms (on a single branch).
+%
+\begin{figure}
+\centering
+\input{figs/modulated-morphisms}
+\caption{Forward-shift and backward-shift morphism $m:b\to c$}
+\flabel{modulated-morphism}
+\end{figure}
+
+\begin{proposition}
+$\ABC$ endowed with either forward-shift or backward-shift morphisms give rise to a category that embeds into $\ABC^{\entails}$.
+\end{proposition}
+%
+Putting all these elements together, $\ABC$ can be meaningfully endowed with two concrete kinds of morphisms:
+
+\begin{itemize}
+\item Forward-shift morphisms using retraction-based modulation (or \emph{retraction-based morphisms} for short).
+\item Backward-shift morphisms using epi-based modulation (or \emph{epi-based} morphisms for short).
+\end{itemize}
+%
+There is no unequivocal evidence which one of these is the ``best" or ``most useful". For example, when instantiating arrow-based conditions in the category of cospans (as advicated by \cite{Koenig et al},  the notion of retraction-based morphism is all but useless, because in that category, only trivial cospans (in which both legs are epi) can be retractions. On the other hand, when we move to span-based conditions in the sequel, it will turn out out that retraction-based morphisms extend naturally whereas epi-based morphisms do not.
+
