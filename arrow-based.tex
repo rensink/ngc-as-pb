@@ -1,7 +1,7 @@
 \section{Arrow-based conditions}
 \slabel{ab-conditions}
 
-In this section we recall the standard notion of nested condition, using notations that will make the connection with the variation proposed in this paper as straightforward as possible. Here and in the remainder of the paper, we will mostly omit the term ``nested'' and just refer to \emph{conditions}; however, to distinguish them from our variation, we will refer to the standard notion of nested conditions as \emph{arrow-based}.
+In this section we recall the standard notion of nested condition, using notations that will make the connection with the variation proposed in this paper as straightforward as possible. Here and in the remainder of the paper, we will mostly omit the term ``nested'' and just refer to \emph{conditions}; however, to distinguish between variations upon this theme, we will refer to the standard notion of nested conditions as \emph{arrow-based}.
 
 The definitions below use \emph{objects} and \emph{arrows} as building blocks. These can for now be thought of as the objects and arrows of any category $\bC$; however, our examples and intuitions will all be based on $\cat{Graph}$,\todo{AC: formal def. of the category in background section?} the category of directed, edge-labelled multigraphs. 
 
@@ -52,20 +52,20 @@ A condition expresses a property of arrows from its root to an arbitrary object.
 \end{definition}
 %
 %\emph{Terminology and notation.}
-If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p$ the \emph{responsible branch} and $h$ the \emph{witness} for $g\sat C$. Pictorially, $g\sat c$ with responsible branch $p$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
+If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p$ the \emph{responsible branch} and $h$ the \emph{witness} for $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
 %
 \begin{figure}
   \centering
   \input{figs/ab-satisfaction}
-  \caption{Pictorial representation of $g\sat c$, with responsible branch $p_i$ and witness $h$}
+  \caption{Pictorial representation of $g\sat c$, with responsible branch $p_i=(a_i,c_i)$ and witness $h$}
   \flabel{ab-satisfaction}
 \end{figure}
 
-Based on the notion of satisfaction, we also define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalent} $b\equiv c$ over conditions:
+Based on the notion of satisfaction, we also define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalence} $b\equiv c$ over conditions:
 %
 \begin{align*}
 b \entails c & \text{ if for all arrows $g$: } g\sat b \text{ implies } c\sat g \\
-b \equiv c & \text{ if for all arrows $g$: } g\sat b \text{ if and only if } c\sat g \\
+b \equiv c & \text{ if for all arrows $g$: } g\sat b \text{ if and only if } g\sat c \\
 \end{align*}
 %
 \begin{example}\exlabel{ab-satisfaction}
@@ -105,16 +105,20 @@ It has been shown (e.g., \cite{Rensink-FOL,Habel-FOL}) that every first-order lo
 
 The syntax of FOL that we will use in the following is given by the grammar
 %
-\[ \phi \;::=\; \True
-        \;\mid\; \False
-		\;\mid\; \la(x_1,x_2)
-        \;\mid\; x_1=x_2
-		\;\mid\; \phi_1\wedge \phi_2
-		\;\mid\; \phi_1\vee \phi_2
-		\;\mid\; \neg\phi_1
-		\;\mid\; \exists \bar x_1,\ldots,x_n\st \phi_1 
-		\enspace, \]
-where $x_i$ are variables and $\la$ is a binary predicate.
+\[ \phi \:::=\: \True
+        \:\mid\: \False
+		\:\mid\: \la(x_1,x_2)
+        \:\mid\: x_1=x_2
+		\:\mid\: \phi_1\wedge \phi_2
+		\:\mid\: \phi_1\vee \phi_2
+		\:\mid\: \neg\phi_1
+		\:\mid\: \exists \bar x\st \phi_1 
+		\]
+where the $x_i$ are variables (say from some set $X$), $\bar x\in X^*$ is a finite sequence of variables and $\la$ is a binary predicate. We also use the concept of \emph{free variables} of $\phi$, denoted $\fv(\phi)$, inductively defined in the usual way.
+
+As for conditions, the semantics of FOL is defined through a notion of satisfaction; however, the models are not arbitrary arrows in $\Graph$ but \emph{valuations} that map the free variables to the nodes of a graph. Such a valuation can be seen as an arrow from the discrete graph with node set $X$, which for the purpose of this discussion we will denote $D_X$. Hence, the models of a formula $\phi$ are arrows $v:X\to G$ (for some graph $G$) such that $v\sat\phi$.
+
+This means that there is a hurdle: the models of FOL formulas are arrows from the discrete graph consisting of their free variables, whereas for conditions they are arrows from their root, which can be arbitrary graphs. Though this is really no more than a technicality, we still have to smooth it out. For that purpose, we will introduce the auxiliary notion of a \emph{context} in which a formula is evaluated, essentially consisting of the already known facts (reflecting the role of the root object of a condition).
 
 The correspondence of FOL to (arrow-based) conditions hinges on the existence of a \emph{normal form} for FOL formulas.
 %

@@ -1,17 +1,17 @@
 \section{Morphisms of arrow-based conditions}
 
-The notion of \emph{morphism} of nested conditions has not received much attention in the literature. When considered at all, such as in \cite{Koenig-morphism}, they are essentially based on the semantics in terms of satisfaction. Indeed, entailment establishes a preorder over conditions and hence gives rise to a category in which there is a (unique) arrow between conditions if and only if the source entails the target. \todo{Is there a standard name for this interpretation?} Let us denote this category $\ABC^{\entails}$.
+The notion of \emph{morphism} of nested conditions has not received much attention in the literature. When considered at all, such as in \cite{Koenig-morphism}, they are essentially based on the semantics in terms of satisfaction. Indeed, entailment establishes a preorder over conditions, which is a category in which there is a (unique) arrow between conditions if and only if the source entails the target. \todo{Is there a standard name for this interpretation?} Let us denote this category $\ABC^{\entails}$.
 
-The question that we address in this section is to establish a meaningful \emph{structural} notion of condition morphism. That is, given the fact that an ab-condition is essentially a diagram in the category $\bC$, a structural morphism from $b$ to $c$ consists of arrows between objects of $b$ and objects of $c$ satisfying certain confluence conditions. For morphisms to be meaningful, they should certainly only exist where there is entailment; in other words, we require there to be a functor to $\ABC^{\entails}$. As we will see, this requirement implies that it is not enough to consider only arrows from objects of $b$ \emph{to} objects of $c$, since in our definition of satisfaction, the direction of entailment flips at every subsequent nesting level. We also observe that the existence of a functor to $\ABC^{\entails}$ means that we only consider morphisms between conditions with the same root.
+The question that we address in this section is to establish a meaningful \emph{structural} notion of condition morphism. That is, given the fact that an ab-condition is essentially a diagram in the category $\bC$, a structural morphism from $b$ to $c$ consists of arrows between objects of $b$ and objects of $c$ satisfying certain commutativity conditions. For morphisms to be meaningful, they should certainly only exist where there is entailment; in other words, we require there to be a functor to $\ABC^{\entails}$. As we will see, this requirement implies that it is not enough to consider only arrows from objects of $b$ \emph{to} objects of $c$, since in our definition of satisfaction, the direction of entailment flips at every subsequent nesting level. We also observe that the existence of a functor to $\ABC^{\entails}$ means that we only consider morphisms between conditions with the same root.
 
-In this section and the next, we will review several candidate notions of morphism, but the underlying principle is always the same: a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ to $c=(R,p^c_1\ccdots p^c_{|c|})$ must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that entails it. Entailment of branches, in turn, is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$ (hence going in the \emph{opposite} direction of $m$) such that, \emph{modulo $v_i$}, there is a morphism between the subconditions $c_j$ and $b_i$. The main task is to make the concept of ``modulo $v_i$" precise.
+In this section and the next, we will review several candidate notions of morphism, but the underlying principle is always the same: a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ to $c=(R,p^c_1\ccdots p^c_{|c|})$ must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that entails it. Entailment of branches, in turn, is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$ (hence going in the \emph{opposite} direction of $m$) such that, \emph{modulo $v_i$}, there is a morphism between the subconditions $c_j$ and $b_i$. The main task is to make the concept of ``modulo $v_i$" precise, allowing to relate conditions rooted at different objects.
 
-\subsection{Modulation}
+\subsection{Change of root}
 
-We will first define what it means to ``modulate" an arrow; this will be extended later to (branches and) conditions.
+We will first define what it means to ``change the root" of an arrow; this will be extended later to (branches and) conditions.
 %
 \begin{definition}[modulator]\dlabel{modulation}
-Let $v:A\to B$ be an arrow. A \emph{modulator} $\cM$ for $v$ is a binary relation between $A$-sourced arrows and $B$-sourced ones, such that:
+Let $v:A\to B$ be an arrow. A \emph{modulator} $\cM$ for $v$ is a binary relation between $A$-sourced arrows and $B$-sourced ones having the same target, such that:
 %
 \begin{equation}\eqlabel{modulator preservation}
 \text{if } (a,a')\in \cM \text{ then } v;g=a;h \text{ implies } g=a';h \enspace.
@@ -19,7 +19,7 @@ Let $v:A\to B$ be an arrow. A \emph{modulator} $\cM$ for $v$ is a binary relatio
 %
 $\cM$ is a \emph{forward modulator} if it is functional, i.e., for all $a:A\to C$ there is exactly one $a':B\to C$ such that $(a,a')\in \cM$ (we denote $a'=\forw\cM(a)$), and moreover, $\forw\cM(a);t=\forw\cM(a;t)$ for all $t:C\to D$.
 
-$\cM$ is a \emph{backward modulator} if its inverse is functional; i.e., for all $a:B\to C$ there is exactly one $a':A\to C$ such that $(a',a)\in \cM$ (we denote $a'=\back\cM(a)$), and moreover, $\back\cM(a;t)=\back\cM(a);t$ for all $t:D\to C$.
+$\cM$ is a \emph{backward modulator} if its inverse is functional; i.e., for all $a:B\to C$ there is exactly one $a':A\to C$ such that $(a',a)\in \cM$ (we denote $a'=\back\cM(a)$), and moreover, $\back\cM(a;t)=\back\cM(a);t$ for all $t:C\to D$.
 \end{definition}
 %
 The preservation property \eqref{\eqprf:modulator preservation} as well as the principle of forward and backward modulation are visualised in \fcite{modulator-properties}.
@@ -89,7 +89,7 @@ Let $v$ be an arrow.
 \end{enumerate}
 \end{proposition}
 %
-Note that the existence of $s$ such that $s;v=\id$, as required for $\cR_v^s$, implies that $v$ is epi, as required for $\cE_v$; nevertheless, it is not the case that $\cR_v^s\subseteq\cE_v$: the commutation conditions cause these modulators to be independent.\todo{Insert example here?}
+Note that the existence of $s$ such that $s;v=\id$, as required for $\cR_v^s$, implies that $v$ is epi, as required for $\cE_v$; nevertheless, it is not the case that $\cR_v^s\subseteq\cE_v$: the commutativity conditions cause these modulators to be independent.\todo{Insert example here?}
 
 Note that a retraction may have more than one section, and when modulating a condition, we may use different modulators for the branches. For any width $w$, we denote the retraction-based condition modulator obtained as the sequence $\cR_v^{s_1}\ccdots \cR_v^{s_w}$ by $\cR_v^{s_1\ccdots s_w}$ (with the special case $\cR_v^\epsilon=\cI_{A,B}$). Epi-based modulation is less complex in that (for any width) we have at most one epi-based modulator for any given arrow (namely, one if the arrow is epi or the width is zero, and none otherwise).
 
