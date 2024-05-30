@@ -1,0 +1,149 @@
+\section{Morphisms of arrow-based conditions}
+
+The notion of \emph{morphism} of nested conditions has not received much attention in the literature. When considered at all, such as in \cite{Koenig-morphism}, they are essentially based on the semantics in terms of satisfaction. Indeed, entailment establishes a preorder over conditions, which is a category in which there is a (unique) arrow between conditions if and only if the source entails the target. \todo{Is there a standard name for this interpretation?} Let us denote this category $\ABC^{\entails}$.
+
+The question that we address in this section is to establish a meaningful \emph{structural} notion of condition morphism. That is, given the fact that an ab-condition is essentially a diagram in the category $\bC$, a structural morphism from $b$ to $c$ consists of arrows between objects of $b$ and objects of $c$ satisfying certain commutativity conditions. For morphisms to be meaningful, they should certainly only exist where there is entailment; in other words, we require there to be a functor to $\ABC^{\entails}$. As we will see, this requirement implies that it is not enough to consider only arrows from objects of $b$ \emph{to} objects of $c$, since in our definition of satisfaction, the direction of entailment flips at every subsequent nesting level. We also observe that the existence of a functor to $\ABC^{\entails}$ means that we only consider morphisms between conditions with the same root.
+
+In this section and the next, we will review several candidate notions of morphism, but the underlying principle is always the same: a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ to $c=(R,p^c_1\ccdots p^c_{|c|})$ must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that entails it. Entailment of branches, in turn, is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$ (hence going in the \emph{opposite} direction of $m$) such that, \emph{modulo $v_i$}, there is a morphism between the subconditions $c_j$ and $b_i$. The main task is to make the concept of ``modulo $v_i$" precise, allowing to relate conditions rooted at different objects.
+
+\subsection{Change of root}
+
+We will first define what it means to ``change the root" of an arrow; this will be extended later to conditions.
+%
+\begin{definition}[source shifter]\dlabel{source shifter}
+Let $A,B$ be objects. A \emph{source shifter} $\cS$ from $A$ to $B$ is a function from $A$-sourced arrows and $B$-sourced ones having the same target, say $C$, such that for all $t$ rooted in $C$:
+%
+\begin{equation}\eqlabel{shifter composition}
+\cS(a;t) = \cS(a);t \enspace.
+\end{equation}
+%
+If $v=A\to B$ is an arrow, then $\cS$ is a \emph{forward source shifter} for $v$ if, in addition to \eqref{shifter composition}:
+%
+\begin{equation}\eqlabel{forward condition}
+\cS(v) = \id \enspace.
+\end{equation}
+%
+If $v:B\to A$ is an arrow, then $\cS$ is a \emph{backward source shifter} for $v$ if, in addition to \eqref{shifter composition}:
+%
+\begin{equation}\eqlabel{backward condition}
+\cS(\id) = v \enspace.
+\end{equation}
+\end{definition}
+%
+The following properties are immediate:
+%
+\begin{proposition}[shifter properties]
+Let $\cS$ be a source shifter from $A$ to $B$.
+\begin{itemize}
+\item If $\cS$ is a forward source shifter for $v:A\to B$, then $s=\cS(\id_A)$ is a section of $v$ such that $\cS(a)=s;a$ for all $a:A\to C$.
+\item If $\cS$ is a backward source shifter for $v:B\to A$, then $\cS(a)=v;a$ for all $a:A\to C$.
+\end{itemize}
+\end{proposition}
+%
+\begin{proof}~
+\begin{itemize}
+\item Let $s=\cS(\id)$. It follows that $s;v=\cS(\id);v=\cS(\id;v)=\cS(v)=\id$; hence $s$ is a section of $v$. Furthermore, $\cS(a)=\cS(\id;a)=\cS(\id);a=s;a$ for all $a$.
+\item We have $\cS(a)=\cS(\id;a)=\cS(\id);a=v;a$.\qed
+\end{itemize}
+\end{proof}
+%
+It follows that $v$ has precisely one forward shifter for every section $s$ of $v$ (meaning, among other things, that $v$ must be a retraction and hence at least epi to have any forward shifters at all) and that every $v$ has exactly one backward shifter. We denote these $\cF_v^s$ and $\cB_v$, respectively. They are visualised in \fcite{source shifters}.
+
+\begin{figure}
+\centering
+\input{figs/source-shifting}
+\caption{Forward and backward source shifting (all subdiagrams commute)}
+\flabel{source shifters}
+\end{figure}
+
+Source shifting is extended to conditions, where it is called \emph{root shifting}. Let $A,B$ be arbitrary objects, and let $\cS_1\ccdots \cS_w$ be a sequence of source shifters from $A$ to $B$.
+%
+\begin{itemize}
+\item $\cC[\cS_1\ccdots \cS_w]$, a \emph{root shifter from $A$ to $B$}, is a function from $\AC A$ to $\AC B$ defined over conditions of width $w$, such that 
+\[ \cC[\cS_1\ccdots \cS_w](c) = (B,(\cS_1(a^c_1),c_1)\ccdots (\cS_w(a^c_w),c_w)) \enspace.
+\]
+We say that $\cC[\cS_1\ccdots \cS_w]$ has width $w$.
+\item $\cC[\cS_1\ccdots \cS_w]$ is called a forward [backward] root shifter for $v$ if all $\cS_i$ are forward [backward] source shifters for $v$.
+\end{itemize}
+%
+We use $\cC$ to range over root shifters (always obtained from a sequence of source shifters, as above), and $|\cC|$ to denote the width of $\cC$. Note that root shifting \emph{only} changes the root, i.e., the source of the first level of arrows: all subconditions remain the same. This is visualised in \fcite{root shifting}.
+%
+\begin{figure}
+\centering
+\input{figs/root-shifting.tex}
+\caption{Root shifting under $\cC[\cS_1\ccdots \cS_w]$: green is shifted to blue}
+\flabel{root shifting}
+\end{figure}
+
+Since root-shifting is defined on a branch-by-branch basis, for zero-width conditions (encoding the property $\False$ over their respective roots) there is essentially no requirement to be fulfilled. Hence, the single pair $\cI_{A,B}=\setof{((A,\epsilon),(B,\epsilon))}$ is both a forward shifter for any $v:A\to B$ and a backward shifter for any $v:B\to A$.
+
+The following proposition expresses the interplay between forward and backward root shifting and the semantics of a condition, in terms of satisfaction.
+%
+\begin{proposition}
+Let $v:A\to B$ and $g:B\to G$ be arrows.
+\begin{enumerate}
+\item {\bfseries Forward root shifters preserve satisfaction.} If $\cC$ is a forward root shifter for $v$ and $c\in\AB A$ with $|c|=|\cC|$, then $v;g\sat c$ implies $g\sat \cC(c)$. If, in addition, $|\cC|=0$, then also $g\sat \cC(c)$ implies $v;g\sat c$.
+\item {\bfseries Backward root shifters reflect satisfaction.} If $\cC$ is a backward root shifter for $v$ and $c\in\AB B$ with $|c|=|\cC|$, then $g\sat c$ implies $v;g\sat \cC(c)$. If, in addition, $v$ is epi or $|\cC|=0$, then also $v;g\sat \cC(c)$ implies $g\sat c$.
+\end{enumerate}
+\end{proposition}
+%
+\begin{proof}
+Let $\cC$ be a root shifter of width $w$. The cases for $w=0$ vacuously hold, as neither $g\sat c$ nor $g\sat \cC(c)$ can be fulfilled for any $g$. We now prove the non-vacuous cases. Let $|c|=w$ and $b=\cC(c)$.
+\begin{enumerate}
+\item Assume $v;g\sat c$. It follows that there is a responsible branch $p^c_i$ and a witness $h$ such that $v;g=a^c_i;h$ and $h\not\sat c_i$. Hence $g=\id;g=s;v;g=s;a^c_i;h=\cS(a^c_i);h$, making $p^b_i=(\cS(a^c_i),c_i)$ a responsible branch and $h$ a witness for $g\sat b$.
+
+\item Assume $g\sat c$. It follows that there is a responsible branch $p^c_i$ and a witness $h$ such that $g=a^c_i;h$ and $h\not\sat c_i$. Hence $v;g=v;a^c_i;h=\cS(a^c_i);h$, making $p^b_i=(\cS(a^c_i),c_i)$ a responsible branch and $h$ a witness for $v;g\sat b$.
+
+\smallskip
+Finally, assume $v$ is epi and $v;g\sat b$. It follows that there is a responsible branch $p^b_i=(\cS_i(a^c_i),c_i)$ and a witness $h$ such that $v;g=\cS_i(a^c_i);h$ and $h\not\sat c_i$. Since $\cS_i(a^c_i)=v;a^c_i$ we have $v;g=v;a^c_i;h$, and since $v$ is epi this implies $g=a^c_i;h$, making $p^c_i$ a responsible branch and $h$ a witness for $g\sat c$.
+\qed
+\end{enumerate}
+\end{proof}
+%
+Shifters compose; that is, the following holds for both source and root shifters.
+%
+\begin{proposition}
+If $\cU$ is a source [root] shifter from $A$ to $B$ and $\cV$ a source [root] shifter for from $B$ to $C$, then $\cU;\cV$ (understood as function composition) is a source [root] shifter from $A$ to $C$. Moreover, if $\cU$ and $\cV$ are forward [backward] for $u$ and $v$, respectively, then $\cU;\cV$ is forward [backward] for $u;v$ [$v;u$].
+\end{proposition}
+
+\begin{proof}
+We prove the case for source shifters; the case for root shifters follows by a straightfoward pointwise argument.
+
+To prove \eqcite{shifter composition} for $\cU;\cV$ consider:
+\[ (\cU;\cV)(a;t) = \cV(\cU(a;t))= \cV(\cU(a);t)=\cV(\cU(a));t=(\cU;\cV)(a);t \enspace. \]
+In case $\cU$ and $\cV$ are forward, to prove \eqcite{forward condition} consider:
+\[ (\cU;\cV)(u;v) = \cV(\cU(u;v)) = \cV(\cU(u);v) = \cV(\id;v) = \cV(v) = \id \enspace. \]
+In case $\cU$ and $\cV$ are backward, to prove \eqcite{backward condition} consider:
+\[ (\cU;\cV)(\id) = \cV(\cU(\id)) = \cV(u) = \cV(\id;u) = \cV(\id);u = v;u \enspace. \]
+\qed
+\end{proof}
+
+\subsection{Structural morphisms}
+
+The following defines structural morphisms based on root shifters.
+
+\begin{definition}[arrow-based condition morphism]\dlabel{ab-morphism}
+  Given two ab-conditions $b$ and $c$, a \emph{forward-shift [backward-shift] condition morphism} $m: b \to c$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
+  \begin{itemize}
+  \item $o:[1,|b|]\to[1,|c|]$ is a function from $b$'s branches to $c$'s branches;
+  \item for all $1\leq i\leq |b|$, $v_i:P^c_{o(i)}\to P^b_i$ is a mapping from the pattern of $p^c_{o(i)}$ to that of $p^b_i$ such that $a^c_{o(i)};v_i=a^b_i$;
+  \item\emph{Forward shift}: for all $1\leq i\leq |b|$, there is a forward root shifter $\cC_i$ for $v_i$ such that $m_i:\cC_i(c_{o(i)})\to b_i$ is a forward-shift morphism.
+  \item\emph{Backward shift}: for all $1\leq i\leq |b|$, there is a backward root shifter $\cC_i$ for $v_i$ such that $m_i:c_{o(i)}\to \cC_i(b_i)$ is a backward-shift morphism.
+  \end{itemize}
+\end{definition}
+%
+\fcite{shifted-morphism} visualises the principle of forward- and backward-shift morphisms (on a single branch).
+%
+\begin{figure}
+\centering
+\input{figs/shifted-morphisms}
+\caption{Forward-shift and backward-shift morphism $m:b\to c$}
+\flabel{shifted-morphism}
+\end{figure}
+
+\begin{proposition}
+$\ABC$ endowed with either forward-shift or backward-shift morphisms give rise to a category that embeds into $\ABC^{\entails}$.
+\end{proposition}
+
+There is no unequivocal evidence which one of these is the ``best" or ``most useful". For example, when instantiating arrow-based conditions in the category of cospans (as advocated by \cite{Koenig et al}), the notion of retraction-based morphism is all but useless, because in that category, only trivial cospans (in which both legs are epi) can be retractions. On the other hand, when we move to span-based conditions in the sequel, it will turn out out that retraction-based morphisms extend naturally whereas epi-based morphisms do not.
+

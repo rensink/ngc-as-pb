@@ -1,41 +1,22 @@
 \begin{tikzpicture}[on grid]
   \node (A) {$A$};
   \node (B) [right=3 of A] {$B$};
-  \node (B2) [right=2 of A] {$B$};
-  \path (A) edge[->] node[above] {$v$} (B2);
   \tri[green]{A}{3.5}{4}{3.7}{};
-  \node [below right=1.4 and .9 of A,ForestGreen] {$b$};
   \tri[blue]{B}{3.5}{-.3}{3.7}{};
-  \node [below left=1.4 and .9 of B,blue] {$c$};
   \node (P1) [below right=2.2 and .8 of A,inner sep=1] {};%{$P_1$};
   \node (Pn) [below right=2.2 and 2.2 of A,inner sep=1] {};%{$P_n$};
   \node [below right=2.2 and 1.5 of A] {$\cdots$};
 
-  \tri{P1}{1.2}{.6}{1}{}%{$c_1$}
-  \tri{Pn}{1.2}{.4}{1}{}%{$c_n$}
+  \tri{P1}{1.2}{.6}{1}{$c_1$}
+  \tri{Pn}{1.2}{.4}{1}{$c_n$}
   
   \path [allcolor={\darker{green}}]
-        (A.295) edge[->] node[left,pos=.45] (ab1) {$a^b_1$} (P1)
-                edge[->] node[above right,pos=.35] (abw) {$a^b_w$} (Pn)
+        (A.295) edge[->] node[left,pos=.45] (ab1) {$a_1$} (P1)
+                edge[->] node[above right,pos=.2] (abw) {$a_w$} (Pn)
 		;
   
   \path [draw=blue,text=blue,>/.tip={Latex[blue]}]
-        (B.245) edge[->] node[above left,pos=.35] (ac1) {$a^c_1$} (P1)
-                edge[->] node[right,pos=.45] (acw) {$a^c_w$} (Pn)
+        (B.245) edge[->] node[above left,pos=.2,inner sep=1] (ac1) {$\cS_1(a_1)$} (P1)
+                edge[->] node[right,pos=.45] (acw) {$\cS_w(a_w)$} (Pn)
 		;
-
-  \node [draw=none,below right=1 and 2 of B] {
-    \begin{minipage}{.3\textwidth}
-    \begin{align*}
-	(a^b_1,a^c_1) & \in \cS_1 \\
-	& \vdots \\
-	(a^b_w,a^c_w) & \in \cS_w 
-	\end{align*}
-	\end{minipage}
-  };
-  
-%  \path [dotted]
-%        (a1) edge node[very near start,above] {$\cC$} (a1')
-%        (an) edge node[very near end,above] {$\cC$} (an')
-%        ;		
 \end{tikzpicture}
