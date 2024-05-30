@@ -4,19 +4,19 @@
   \tri[green]{A}{3.5}{4}{3.7}{};
   \tri[blue]{B}{3.5}{-.3}{3.7}{};
   \node (P1) [below right=2.2 and .8 of A,inner sep=1] {};%{$P_1$};
-  \node (Pn) [below right=2.2 and 2.2 of A,inner sep=1] {};%{$P_n$};
+  \node (Pw) [below right=2.2 and 2.2 of A,inner sep=1] {};%{$P_w$};
   \node [below right=2.2 and 1.5 of A] {$\cdots$};
 
   \tri{P1}{1.2}{.6}{1}{$c_1$}
-  \tri{Pn}{1.2}{.4}{1}{$c_n$}
+  \tri{Pw}{1.2}{.4}{1}{$c_w$}
   
   \path [allcolor={\darker{green}}]
         (A.295) edge[->] node[left,pos=.45] (ab1) {$a_1$} (P1)
-                edge[->] node[above right,pos=.2] (abw) {$a_w$} (Pn)
+                edge[->] node[above right,pos=.2] (abw) {$a_w$} (Pw)
 		;
   
   \path [draw=blue,text=blue,>/.tip={Latex[blue]}]
         (B.245) edge[->] node[above left,pos=.2,inner sep=1] (ac1) {$\cS_1(a_1)$} (P1)
-                edge[->] node[right,pos=.45] (acw) {$\cS_w(a_w)$} (Pn)
+                edge[->] node[right,pos=.45] (acw) {$\cS_w(a_w)$} (Pw)
 		;
 \end{tikzpicture}

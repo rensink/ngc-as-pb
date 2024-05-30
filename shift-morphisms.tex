@@ -88,7 +88,7 @@ Let $v:A\to B$ and $g:B\to G$ be arrows.
 \end{proposition}
 %
 \begin{proof}
-Let $\cC$ be a root shifter of width $w$. The cases for $w=0$ vacuously hold, as neither $g\sat c$ nor $g\sat \cC(c)$ can be fulfilled for any $g$. We now prove the non-vacuous cases. Let $|c|=w$ and $b=\cC(c)$.
+Let $\cC$ be a root shifter of width $w$. The cases for $w=0$ vacuously hold, as neither $g\sat c$ nor $g\sat \cC(c)$ can be fulfilled for any $g$. We now prove the non-vacuous cases. Let $c$ be arbitrary such that $|c|=w$ and $b=\cC(c)$.
 \begin{enumerate}
 \item Assume $v;g\sat c$. It follows that there is a responsible branch $p^c_i$ and a witness $h$ such that $v;g=a^c_i;h$ and $h\not\sat c_i$. Hence $g=\id;g=s;v;g=s;a^c_i;h=\cS(a^c_i);h$, making $p^b_i=(\cS(a^c_i),c_i)$ a responsible branch and $h$ a witness for $g\sat b$.
 
@@ -100,7 +100,7 @@ Finally, assume $v$ is epi and $v;g\sat b$. It follows that there is a responsib
 \end{enumerate}
 \end{proof}
 %
-Shifters compose; that is, the following holds for both source and root shifters.
+Shifters compose, in the following way.
 %
 \begin{proposition}
 If $\cU$ is a source [root] shifter from $A$ to $B$ and $\cV$ a source [root] shifter for from $B$ to $C$, then $\cU;\cV$ (understood as function composition) is a source [root] shifter from $A$ to $C$. Moreover, if $\cU$ and $\cV$ are forward [backward] for $u$ and $v$, respectively, then $\cU;\cV$ is forward [backward] for $u;v$ [$v;u$].
@@ -141,9 +141,22 @@ The following defines structural morphisms based on root shifters.
 \flabel{shifted-morphism}
 \end{figure}
 
-\begin{proposition}
+\begin{theorem}
 $\ABC$ endowed with either forward-shift or backward-shift morphisms give rise to a category that embeds into $\ABC^{\entails}$.
-\end{proposition}
+\end{theorem}
+
+This depends on the following intermediate result.
+
+\begin{lemma}
+Let $b\in \AC A$ and $c\in \AC B$ with $w=|b|=|c|$, and let $\cS$ be a forward root shifter for $v:A\to B$. There exists a morphism $m:\cS(b)\to c$ if and only if there exists a morphism $n:b\to e$ for some condition $e\in \AC A$ such that $c=\cS(e)$.
+\end{lemma}
+%
+\begin{proof}
+In fact, $n=m$ as far as the actual structure of the morphism is concerned; the only difference is in the source and target roots ($B$ for $m$, $A$ for $n$).
+
+\qed
+\end{proof}
+
 
 There is no unequivocal evidence which one of these is the ``best" or ``most useful". For example, when instantiating arrow-based conditions in the category of cospans (as advocated by \cite{Koenig et al}), the notion of retraction-based morphism is all but useless, because in that category, only trivial cospans (in which both legs are epi) can be retractions. On the other hand, when we move to span-based conditions in the sequel, it will turn out out that retraction-based morphisms extend naturally whereas epi-based morphisms do not.
 
