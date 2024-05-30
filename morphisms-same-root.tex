@@ -8,112 +8,134 @@ In this section and the next, we will review several candidate notions of morphi
 
 \subsection{Change of root}
 
-We will first define what it means to ``change the root" of an arrow; this will be extended later to (branches and) conditions.
+We will first define what it means to ``change the root" of an arrow; this will be extended later to conditions.
 %
-\begin{definition}[modulator]\dlabel{modulation}
-Let $v:A\to B$ be an arrow. A \emph{modulator} $\cM$ for $v$ is a binary relation between $A$-sourced arrows and $B$-sourced ones having the same target, such that:
+\begin{definition}[source shifter]\dlabel{source shifter}
+Let $v:A\to B$ be an arrow. A \emph{source shifter} $\cS$ for $v$ is a binary relation between $A$-sourced arrows and $B$-sourced ones having the same target, such that $(a,a')\in \cS$ implies
 %
-\begin{equation}\eqlabel{modulator preservation}
-\text{if } (a,a')\in \cM \text{ then } v;g=a;h \text{ implies } g=a';h \enspace.
+\begin{equation}\eqlabel{shift preservation}
+\text{ for all } g: \enspace v;g=a;h \text{ implies } g=a';h \enspace.
 \end{equation}
 %
-$\cM$ is a \emph{forward modulator} if it is functional, i.e., for all $a:A\to C$ there is exactly one $a':B\to C$ such that $(a,a')\in \cM$ (we denote $a'=\forw\cM(a)$), and moreover, $\forw\cM(a);t=\forw\cM(a;t)$ for all $t:C\to D$.
+$\cS$ is a \emph{forward source shifter} if it is functional, i.e., for all $a:A\to C$ there is exactly one $a':B\to C$ such that $(a,a')\in \cS$ (we denote $a'=\forw\cS(a)$), and moreover, $\forw\cS(a);t=\forw\cS(a;t)$ for all $t:C\to D$.
 
-$\cM$ is a \emph{backward modulator} if its inverse is functional; i.e., for all $a:B\to C$ there is exactly one $a':A\to C$ such that $(a',a)\in \cM$ (we denote $a'=\back\cM(a)$), and moreover, $\back\cM(a;t)=\back\cM(a);t$ for all $t:C\to D$.
+$\cS$ is a \emph{backward source shifter} if its inverse is functional; i.e., for all $a:B\to C$ there is exactly one $a':A\to C$ such that $(a',a)\in \cS$ (we denote $a'=\back\cS(a)$), and moreover, $\back\cS(a;t)=\back\cS(a);t$ for all $t:C\to D$.
 \end{definition}
 %
-The preservation property \eqref{\eqprf:modulator preservation} as well as the principle of forward and backward modulation are visualised in \fcite{modulator-properties}.
+The preservation property \eqref{\eqprf:shift preservation} as well as the principle of forward and backward source shifting are visualised in \fcite{shifter-properties}.
 %
 \begin{figure}
 \centering
-\subcaptionbox{Preservation (\eqcite{modulator preservation})}[.3\textwidth]
-              {\input{figs/modulator-preservation}}%
-\subcaptionbox{Forward modulation}[.35\textwidth]{\input{figs/forward-modulation}}%
-\subcaptionbox{Backward modulation}[.35\textwidth]{\input{figs/backward-modulation}}%
-\caption{Visualisation of modulator properties ($\cM$ a modulator for $v$)}
-\flabel{modulator-properties}
+\subcaptionbox{Preservation (\eqcite{shift preservation})}[.3\textwidth]
+              {\input{figs/shift-preservation}}%
+\subcaptionbox{Forward source shift}[.35\textwidth]{\input{figs/forward-shift}}%
+\subcaptionbox{Backward source shift}[.35\textwidth]{\input{figs/backward-shift}}%
+\caption{Visualisation of source shifter properties ($\cS$ a source shifter for $v$)}
+\flabel{shifter-properties}
 \end{figure}
 
-Modulation is extended to conditions. Let $v:A\to B$.
+Source shifting is extended to conditions, where it is called \emph{root shifting}. Let $v:A\to B$, and let $\cS_1\ccdots \cS_w$ be a sequence of source shifters for $v$.
 %
 \begin{itemize}
-\item A \emph{condition modulator of width $w$} for $v$ is a vector $\cC=\cM_1\ccdots \cM_w$ of (arrow) modulators for $v$: given $b\in \AC A$ and $c\in \AC B$, let $(b,c)\in \cC$ if $|b|=|c|=w$ and for all $1\leq i\leq w$, $(a^b_i,a^c_i)\in \cM_i$ and $b_i=c_i$.
-\item Condition modulators are forward [backward] if all their constituent (arrow) modulators are forward [backward]. We reuse the notations $\forw\cC$, $\back\cC$ for (forward and backward) condition modulators.
+\item $\cC[\cS_1\ccdots \cS_w]$, a \emph{root shifter for $v$}, is a relation between $\AC A$ and $\AC B$ such that $(b,c)\in \cC[\cS_1\ccdots \cS_w]$ if $|b|=|c|=w$ and for all $1\leq i\leq w$, $(a^b_i,a^c_i)\in \cS_i$ and $b_i=c_i$. We say that $\cC[\cS_1\ccdots \cS_w]$ has \emph{width $w$}.
+\item $\cC[\cS_1\ccdots \cS_w]$ is called forward [backward] if all $\cS_i$ are forward [backward]. Note that, in that case, [the inverse of] $\cC[\cS_1\ccdots \cS_w]$ is indeed again functional.
 \end{itemize}
 %
-Note that condition modulation only affects the first level of arrows: the subconditions remain the same. Intuitively, $\cM$ for $v:A\to B$ ``rebases" conditions rooted in $A$ to conditions rooted in $B$, such that their semantics are ``equivalent modulo $v$". 
-
-Since modulation of conditions is defined on a branch-by-branch basis, for zero-width conditions (essentially encoding the property $\False$ over their respective roots) there is essentially no requirement to be fulfilled. Hence, the single pair $\cI_{A,B}=\setof{((A,\epsilon),(B,\epsilon))}$ is both a forward and a backward zero-width condition modulator for any $v:A\to B$.
-
-The following makes precise in what sense condition manipulation preserves ``semantics modulo $v$". The property follows from the preservation property \eqcite{modulator preservation}.
+We use $\cC$ to range over root shifters always obtained from a sequence of source shifters, as above), and $|\cC|$ to denote the width of $\cC$. Note that root shifting \emph{only} changes the root, i.e., the source of the first level of arrows: all subconditions remain the same. This is visualised in \fcite{root shifting}.
+%
+\begin{figure}
+\centering
+\input{figs/root-shifting.tex}
+\caption{Root shifting: $(b,c)\in \cC[\cS_1\ccdots \cS_w]$ for $v:A\to B$}
+\flabel{root shifting}
+\end{figure}
+%
+The semantics of the root-shifted condition is ``equivalent modulo $v$" to the original one, in the following sense: 
 %
 \begin{proposition}
-If $\cC$ is a condition modulator, then for all $(b,c)\in \cC$:
+If $\cC$ is a root shifter for $v$, then $(b,c)\in \cC$ implies
 \[ \text{ for all } g: \enspace v;g\sat b \text{ if and only if } g\sat c \enspace. \]
 \end{proposition}
 %
-We also note that modulators compose; that is, the following holds for both arrow and condition modulators.
+\begin{proof}
+Assume $v:A\to B$, $\cC=\cC[\cS_1\ccdots \cS_w]$ and assume $(b,c)\in \cC$. For all $1\leq i\leq w$, due to $(a^b_i,a^c_i)\in \cS_i$ we know that $b_i=c_i$ and, for all $g:B\to G$ and $h:P^c_i\to G$, $a^b_i;h= 
+\begin{description}
+\item[If:] Assume $g\sat c$; then there is a witness $h$ and a responsible branch $p^c_i$ such that $g=a^c_i;h$ and $h\nsat c_i$. But then (due to $(a^b_i,a^c_i)\in \cS_i$) $a^b_i;h=v;g$ and $h\nsat b_i$, hence $h$ is also a witness for $v;g\sat b$ (with responsible branch $p^b_i$).
+
+\item[Only if:] Assume $v;g\sat b$; then there is a witness $h$ and a responsible branch $p^c_i$ such that $v;g=a^b_i;h$ and $h\nsat c_i$. 
+\qed
+\end{description}
+\end{proof}
+%
+Since root-shifting is defined on a branch-by-branch basis, for zero-width conditions (encoding the property $\False$ over their respective roots) there is essentially no requirement to be fulfilled. Hence, the single pair $\cI_{A,B}=\setof{((A,\epsilon),(B,\epsilon))}$ is both a forward and a backward zero-width root shifter for any $v:A\to B$.
+
+Shifters compose; that is, the following holds for both source and root shifters.
 %
 \begin{proposition}
-If $\cM$ is a modulator for $u:A\to B$ and $\cN$ a modulator for $v:B\to C$, then $\cM;\cN$(understood as relation composition) is a modulator for $u;v$. Moreover, if both $\cM$ and $\cN$ are forward [backward], then $\cM;\cN$ is forward [backward].
+If $\cT$ is a shifter for $u:A\to B$ and $\cU$ a shifter for $v:B\to C$, then $\cT;\cU$ (understood as relation composition) is a shifter for $u;v$. Moreover, if both $\cT$ and $\cU$ are forward [backward], then $\cT;\cU$ is forward [backward].
 \end{proposition}
 
+\subsection{Epi- and retraction-based shifting}
 
-\subsection{Epi- and retraction-based modulators}
-
-The following arrow modulators can be defined.
-
+We now define two concrete, independent notions of (source and root) shifting. 
+Let $v:A\to B$ be an arrow.
 \begin{itemize}
-\item If $v$ is epi, then the \emph{epi-based modulator} $\cE_v$ is defined by:
+\item If $v$ is epi, then the relation $\cE_v$ (between $A$- and $B$-sourced arrows to the same target) is defined by:
 \[ (a_1,a_2)\in \cE_v \text{ if } a_1=v;a_2 \enspace.
 \]
-\item If $v$ is a retraction with section $s$ (i.e., such that $s;v=\id$ then the \emph{retraction-based modulator} $\cR_v^s$ is defined by:
+\item If $v$ is a retraction with section $s$ (i.e., such that $s;v=\id$), then the relation $\cR_v^s$ (between $A$- and $B$-sourced arrows to the same target) is defined by:
 \[ (a_1,a_2)\in \cR_v^s \text{ if } a_2=s;a_1 \enspace.
 \]
 \end{itemize}
 %
-The epi-based and retraction-based modulators are visualised in \fcite{modulators}.
+We will show that these relations, which we call epi-based and retraction-based, are, respectively, backward and forward source shifters. The underlying principles are visualised in \fcite{source shifters}.
 %
 \begin{figure}
 \centering
-\input{figs/modulators}
-\caption{Epi-based and retraction-based modulation (all subdiagrams commute)}
-\flabel{modulators}
+\input{figs/source-shifting}
+\caption{Epi-based and retraction-based source shifting (all subdiagrams commute)}
+\flabel{source shifters}
 \end{figure}
 
 \begin{proposition}
 Let $v$ be an arrow.
 \begin{enumerate}
-\item If $v$ is epi, $\cE_v$ is a backward modulator for $v$.
-\item For all $s;v=\id$, $\cR_v^s$ is a forward modulator for $v$.
+\item If $v$ is epi, then $\cE_v$ is a backward source shifter for $v$.
+\item For all $s;v=\id$, then $\cR_v^s$ is a forward source shifter for $v$.
 \end{enumerate}
 \end{proposition}
 %
-Note that the existence of $s$ such that $s;v=\id$, as required for $\cR_v^s$, implies that $v$ is epi, as required for $\cE_v$; nevertheless, it is not the case that $\cR_v^s\subseteq\cE_v$: the commutativity conditions cause these modulators to be independent.\todo{Insert example here?}
+Note that the existence of $s$ such that $s;v=\id$, as required for $\cR_v^s$, implies that $v$ is epi, as required for $\cE_v$; nevertheless, it is not the case that $\cR_v^s\subseteq\cE_v$: the commutativity conditions cause these source shifters to be independent.\todo{Insert example here?}
 
-Note that a retraction may have more than one section, and when modulating a condition, we may use different modulators for the branches. For any width $w$, we denote the retraction-based condition modulator obtained as the sequence $\cR_v^{s_1}\ccdots \cR_v^{s_w}$ by $\cR_v^{s_1\ccdots s_w}$ (with the special case $\cR_v^\epsilon=\cI_{A,B}$). Epi-based modulation is less complex in that (for any width) we have at most one epi-based modulator for any given arrow (namely, one if the arrow is epi or the width is zero, and none otherwise).
+A retraction may have more than one section, and when root-shifting a condition, we may use different source shifters for its branches. Epi-based shifting is less complex in that (for any width) we have at most one epi-based root shifter for any given arrow (namely, one if the arrow is epi or the width is zero, and none otherwise). For any width $w$, we introduce the following special root shifters:
+\begin{itemize}
+\item $\cR_v^{s_1\ccdots s_w} = \cC[\cR_v^{s_1}\ccdots \cR_v^{s_w}]$ with all $s_i$ sections of $v$;
+\item $\cE^w_v= \cC[\underbrace{\cE_v\ccdots\cE_v}_w]$ with $v$ epi.
+\end{itemize}
+%
+Note that, as as a consequence of the observation above regarding zero-width root shifters, $\cR_v^\epsilon=\cE_v^0=\cI_{A,B}$.
 
 \subsection{Structural morphisms}
 
-The following defines structural morphisms based on modulators.
+The following defines structural morphisms based on root shifters.
 
 \begin{definition}[arrow-based condition morphism]\dlabel{ab-morphism}
   Given two ab-conditions $b$ and $c$, a \emph{forward-shift [backward-shift] condition morphism} $m: b \to c$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
   \begin{itemize}
   \item $o:[1,|b|]\to[1,|c|]$ is a function from $b$'s branches to $c$'s branches;
   \item for all $1\leq i\leq |b|$, $v_i:P^c_{o(i)}\to P^b_i$ is a mapping from the pattern of $p^c_{o(i)}$ to that of $p^b_i$ such that $a^c_{o(i)};v_i=a^b_i$;
-  \item\emph{Forward shift}: for all $1\leq i\leq |b|$, there is a forward modulator $\cC_i$ for $v_i$ such that $m_i:\forw{\cC_i}(c_{o(i)})\to b_i$ is a forward-shift morphism.
-  \item\emph{Backward shift}: for all $1\leq i\leq |b|$, there is a backward modulator $\cC_i$ for $v_i$ such that $m_i:c_{o(i)}\to \back{\cC_i}(b_i)$ is a backward-shift morphism.
+  \item\emph{Forward shift}: for all $1\leq i\leq |b|$, there is a forward root shifter $\cC_i$ for $v_i$ such that $m_i:\forw{\cC_i}(c_{o(i)})\to b_i$ is a forward-shift morphism.
+  \item\emph{Backward shift}: for all $1\leq i\leq |b|$, there is a backward root shifter $\cC_i$ for $v_i$ such that $m_i:c_{o(i)}\to \back{\cC_i}(b_i)$ is a backward-shift morphism.
   \end{itemize}
 \end{definition}
 %
-\fcite{modulated-morphism} visualises the principle of forward- and backward-shift morphisms (on a single branch).
+\fcite{shifted-morphism} visualises the principle of forward- and backward-shift morphisms (on a single branch).
 %
 \begin{figure}
 \centering
-\input{figs/modulated-morphisms}
+\input{figs/shifted-morphisms}
 \caption{Forward-shift and backward-shift morphism $m:b\to c$}
-\flabel{modulated-morphism}
+\flabel{shifted-morphism}
 \end{figure}
 
 \begin{proposition}
@@ -123,9 +145,9 @@ $\ABC$ endowed with either forward-shift or backward-shift morphisms give rise t
 Putting all these elements together, $\ABC$ can be meaningfully endowed with two concrete kinds of morphisms:
 
 \begin{itemize}
-\item Forward-shift morphisms using retraction-based modulation (or \emph{retraction-based morphisms} for short).
-\item Backward-shift morphisms using epi-based modulation (or \emph{epi-based} morphisms for short).
+\item Forward-shift morphisms using retraction-based shifting (or \emph{retraction-based morphisms} for short).
+\item Backward-shift morphisms using epi-based shifting (or \emph{epi-based} morphisms for short).
 \end{itemize}
 %
-There is no unequivocal evidence which one of these is the ``best" or ``most useful". For example, when instantiating arrow-based conditions in the category of cospans (as advicated by \cite{Koenig et al},  the notion of retraction-based morphism is all but useless, because in that category, only trivial cospans (in which both legs are epi) can be retractions. On the other hand, when we move to span-based conditions in the sequel, it will turn out out that retraction-based morphisms extend naturally whereas epi-based morphisms do not.
+There is no unequivocal evidence which one of these is the ``best" or ``most useful". For example, when instantiating arrow-based conditions in the category of cospans (as advocated by \cite{Koenig et al}), the notion of retraction-based morphism is all but useless, because in that category, only trivial cospans (in which both legs are epi) can be retractions. On the other hand, when we move to span-based conditions in the sequel, it will turn out out that retraction-based morphisms extend naturally whereas epi-based morphisms do not.
 

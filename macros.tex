@@ -3,6 +3,7 @@
 \usepackage{mathdots}
 \usepackage{comment}
 \usepackage{subcaption}
+%\usepackage[svgnames]{xcolor}
 
 %% Some math definitions
 \newcommand{\tupof}[1]{\langle{#1}\rangle}
@@ -64,6 +65,8 @@
 \newcommand{\cI}{\mathcal{I}}
 \renewcommand{\cR}{\mathcal{R}}
 \newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
 
 \newcommand{\forw}[1]{{#1}}
 \newcommand{\back}[1]{{#1}^{\mathrm{op}}}
@@ -141,6 +144,7 @@
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{positioning}
 \usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
 
 \tikzset{>=latex}
 \tikzset{triangle/.style=
@@ -164,10 +168,39 @@
    arrows={|-|},
    >/.tip={Latex[color=black,scale=.5]}
 }}
+\tikzset{allcolor/.style= {
+   draw={#1},
+   text={#1},
+   >/.tip={latex[color={#1}]}
+}}
+
 \tikzset{|/.tip={Bar[black,width=.4pt,line width=2pt]}}
 \tikzset{cross/.style={
    preaction={draw=white,line width=2pt}
 }}
+
+% #1 - colour (optional)
+% #2 - name of top node
+% #3 - height
+% #4 - offset of right bottom point
+% #5 - (bottom) width
+% #6 - label
+\newcommand{\tri}[6][black]{
+  \path [fill=#1!10,draw=#1,opacity=.5]
+        (#2)
+		coordinate (#2-top)
+		-- +($(#4,-#3)$)
+		coordinate (#2-right)
+		-- +($(#4,-#3)-(#5,0)$)
+		coordinate (#2-left)
+		-- (#2);
+  \path (#2)
+        edge[draw=none]
+		node[near end,text=#1] (#2-label) {#6}
+		+($(#4,-#3)-(#5/2,0)$);
+}
+
+\newcommand{\darker}[1]{#1!50!black}
 
 \newcommand{\mygraph}[1]{%
 \renewcommand{\gl}[1]{\ensuremath{\scriptstyle{\mathsf{##1}}}}%

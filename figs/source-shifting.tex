@@ -1,0 +1,20 @@
+\begin{tikzpicture}[on grid]
+  \node (A1) {$A$};
+  \node (B1) [right=2 of A1] {$B$};
+  \node (C1) [below right=2 and 1 of A1] {$C$};
+  
+  \path (A1) edge[->] node[left] {$\back\cE_v(a)$} (C1)
+        (B1) edge[->] node[right] {$a$} (C1)
+		(A1) edge[->>] node[above] {$v$} (B1);
+
+  \node (A2) [right=3 of B1] {$A$};
+  \node (B2) [right=2 of A2] {$B$};
+  \node (B2') [below left=1 and .5 of B2] {$B$};
+  \node (C2) [below right=2 and 1 of A2] {$C$};
+
+  \path (A2) edge[->] node[left] {$a$} (C2)
+        (B2') edge[->] node[right] {$\id$} (B2) 
+        (B2') edge[->] node[right] {$\forw\cR_v^s(a)$} (C2)
+		(A2) edge[->] node [above] {$v$} (B2)
+        (B2') edge[->] node[below] {$s$} (A2);
+\end{tikzpicture}
