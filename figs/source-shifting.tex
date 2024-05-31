@@ -5,8 +5,8 @@
   \node (C2) [below right=2 and 1 of A2] {$C$};
 
   \path (A2) edge[->] node[left] {$a$} (C2)
-        (B2') edge[->] node[right] {$\id$} (B2) 
-        (B2') edge[->] node[right] {$\forw\cF_v^s(a)$} (C2)
+        (B2') edge[->] node[right] {$\id_B$} (B2) 
+        (B2') edge[->] node[right] {$\cF_v^s(a)$} (C2)
 		(A2) edge[->] node [above] {$v$} (B2)
         (B2') edge[->] node[below] {$s$} (A2);
 \end{tikzpicture}
@@ -16,7 +16,7 @@
   \node (B1) [right=2 of A1] {$B$};
   \node (C1) [below right=2 and 1 of A1] {$C$};
   
-  \path (A1) edge[->] node[left] {$\back\cB_v(a)$} (C1)
+  \path (A1) edge[->] node[left] {$\cB_v(a)$} (C1)
         (B1) edge[->] node[right] {$a$} (C1)
-		(A1) edge[->>] node[above] {$v$} (B1);
+		(A1) edge[->] node[above] {$v$} (B1);
 \end{tikzpicture}
