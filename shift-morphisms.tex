@@ -47,7 +47,7 @@ Let $v:A\to B$ be an arrow.
 \smallskip
 \textit{Only if:} Let $s=\cS(\id_A)$. It follows that $s;v=\cS(\id_A);v=\cS(\id_A;v)=\cS(v)=\id$; hence $s$ is a section of $v$. Furthermore, $\cS(a)=\cS(\id_A;a)=\cS(\id);a=s;a$ for all $a$.
 
-\item \textof{If:} To show \eqcite{shifters are functors}, consider $\cS(a;t)=v;a;t=\cS(a);t$. To show \excite{backward condition}, note that $\cS(\id_B)=v;\id_B=v$.
+\item \textit{If:} To show \eqcite{shifters are functors}, consider $\cS(a;t)=v;a;t=\cS(a);t$. To show \excite{backward condition}, note that $\cS(\id_B)=v;\id_B=v$.
 
 \smallskip
 \textit{Only if:} We have $\cS(a)=\cS(\id;a)=\cS(\id);a=v;a$.\qed
@@ -88,7 +88,7 @@ The following proposition expresses the interplay between forward and backward r
 \begin{proposition}[model preservation and reflection]
 Let $v:A\to B$ and $g:B\to G$ be arrows; let $\cF$ and $\cB$ be backward root shifters for $v$ of width $w$.
 \begin{enumerate}
-\item For all $c\in\AC A$ with $|c|=w$, $v;g\sat c$ implies $g\sat \cF(c)$. If, moreover, $#w=0$, then also $g\sat \cF(c)$ implies $v;g\sat c$.
+\item For all $c\in\AC A$ with $|c|=w$, $v;g\sat c$ implies $g\sat \cF(c)$. If, moreover, $w=0$, then also $g\sat \cF(c)$ implies $v;g\sat c$.
 \item For all $c\in\AC B$ with $|c|=w$, $g\sat c$ implies $v;g\sat \cB(c)$. If, in addition, $v$ is epi or $w=0$, then also $v;g\sat \cB(c)$ implies $g\sat c$.
 \end{enumerate}
 \end{proposition}
