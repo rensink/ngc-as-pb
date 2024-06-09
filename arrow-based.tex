@@ -3,7 +3,9 @@
 
 In this section we recall the standard notion of nested condition, using notations that will make the connection with the variation proposed in this paper as straightforward as possible. Here and in the remainder of the paper, we will mostly omit the term ``nested'' and just refer to \emph{conditions}; however, to distinguish between variations upon this theme, we will refer to the standard notion of nested conditions as \emph{arrow-based}.
 
-The definitions below use \emph{objects} and \emph{arrows} as building blocks. These can for now be thought of as the objects and arrows of any category $\bC$; however, our examples and intuitions will all be based on $\cat{Graph}$,\todo{AC: formal def. of the category in background section?} the category of directed, edge-labelled multigraphs. 
+Following an established practice (see e.g.~\cite{bchk:conditional-reactive-systems}), the definitions below are phrased in terms of objects and arrows of a generic category $\bC$, even if all examples and intuitions will be based on $\cat{Graph}$, the category of directed, edge-labelled multigraphs. This would make easy to instantiate such definitions to other categories (for example, in~\cite{bchk:conditional-reactive-systems} conditions over input-linear cospans of graphs are considered), but we do not pursue this further in this paper.
+
+% The definitions below use \emph{objects} and \emph{arrows} as building blocks. These can for now be thought of as the objects and arrows of a generic category $\bC$; however, our examples and intuitions will all be based on $\cat{Graph}$,\todo{AC: formal def. of the category in background section?} the category of directed, edge-labelled multigraphs. 
 
 Arrow-based conditions are inductively defined as follows:
 
@@ -28,7 +30,7 @@ We regularly abbreviate ``arrow-based" to ``ab". We call $R$ the \emph{root} of 
 Note that, as a consequence of the inductive nature of \dcite{ab-condition}, every ab-condition has a finite \emph{depth} $\depth(c)$, defined as $0$ if $|c|=0$ and $1+\max_{1\leq i\leq |c|} \depth(c_i)$ otherwise. The depth will provide a basis for inductive proofs.
 
 \begin{example}\exlabel{ab-conditions}
-The following figure depicts two arrow-based conditions. The first encodes a property over arrows from the empty graph, the second a property over arrows from the discrete one-node graph (meaning essentially that we already know the image of that node). In FOL, the properties can be expressed as follows:
+The following figure depicts two arrow-based conditions. According to the notion of satisfacion introduced below, the first encodes a property over arrows from the empty graph, the second a property over arrows from the discrete one-node graph (meaning essentially that we already know the image of that node). In FOL, the properties can be expressed as follows:
 \begin{itemize}
 \item $c_1$ encodes $\exists x,y\st \lb(x,y) \wedge \neg \la(y,y)\wedge \neg \exists z\st \lc(y,z)$
 \item $c_2$ encodes $\la(x,x)\vee \exists y\st \lb(x,y) \wedge \forall v,z\st \lc(y,v)\wedge \lc(y,z) \rightarrow v=z$
@@ -44,7 +46,7 @@ Note that in most cases we have used variable names to represent nodes, to make 
 A condition expresses a property of arrows from its root to an arbitrary object. This is operationalised through the notion of \emph{satisfaction}.
 
 \begin{definition}[satisfaction of arrow-based conditions]\dlabel{ab-satisfaction}
-  Let $c$ be an ab-condition and $g:R^c\func G$ an arrow from $c$'s root to some object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i$ of $c$ and an arrow $h:P_i\func G$ such that
+  Let $c$ be an ab-condition over $R$ and $g:R\func G$ an arrow from $c$'s root to some object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i$ of $c$ and an arrow $h:P_i\func G$ such that
   \begin{itemize}
   \item $g=a_i;h$
   \item $h\nsat c_i$.
@@ -52,7 +54,7 @@ A condition expresses a property of arrows from its root to an arbitrary object.
 \end{definition}
 %
 %\emph{Terminology and notation.}
-If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p$ the \emph{responsible branch} and $h$ the \emph{witness} for $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
+If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p$ the \emph{responsible branch} and $h$ the \emph{witness} for $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p_i$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
 %
 \begin{figure}
   \centering
@@ -61,11 +63,11 @@ If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p$ the \e
   \flabel{ab-satisfaction}
 \end{figure}
 
-Based on the notion of satisfaction, we also define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalence} $b\equiv c$ over conditions:
+Based on the notion of satisfaction, we also define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalence} $b\equiv c$ over conditions (over the same root):
 %
 \begin{align*}
-b \entails c & \text{ if for all arrows $g$: } g\sat b \text{ implies } c\sat g \\
-b \equiv c & \text{ if for all arrows $g$: } g\sat b \text{ if and only if } g\sat c \\
+b \entails c & \text{ if for all arrows $g$: } g\sat b \text{ implies } g\sat c \\
+b \equiv c & \text{ if for all arrows $g$: } g\sat b \text{ if and only if } g\sat c 
 \end{align*}
 %
 \begin{example}\exlabel{ab-satisfaction}
@@ -97,7 +99,7 @@ and let $g$ be the only arrow from the empty graph to $G_2$. This is \emph{not} 
 
 \subsection{Instantiating the framework}
 
-In the literature, arrow-based conditions have been studied for different base categories. The examples we have shown up to now were all based on $\Graph$, the category of edge-labelled, multi-sorted graphs. This is exemplary of any adhesive category: for instance, one might alternatively consider hypergraphs. Another interesting candidate is $\Cospan[\Graph]$, the category where objects are graphs and arrows are cospans of graph morphisms --- which in turn can be generalised to $\Cospan[\cat C]$ for any adhesive category $\cat C$.
+In the literature\todo{AC: this subsection can be deleted}, arrow-based conditions have been studied for different base categories. The examples we have shown up to now were all based on $\Graph$, the category of edge-labelled, multi-sorted graphs. This is exemplary of any adhesive category: for instance, one might alternatively consider hypergraphs. Another interesting candidate is $\Cospan[\Graph]$, the category where objects are graphs and arrows are cospans of graph morphisms --- which in turn can be generalised to $\Cospan[\cat C]$ for any adhesive category $\cat C$.
 
 \subsection{Connection to first-order logic}
 
