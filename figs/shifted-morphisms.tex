@@ -1,82 +1,55 @@
 \begin{tikzpicture}[on grid]
 \node (R) {$R$};
-\tri[green]{R}{3.2}{-.3}{2.8}{};
-\node [below left=2.8 and 2.4 of R,text=\darker{green}] {$b$};
+\tri[green]{R}{3.2}{-.5}{2.5}{}
+\node [below left=2.8 and 2.3 of R,text=\darker{green}] {$b$};
 \node (Pbi) [below left=1.6 and 1.0 of R] {};
 \path [allcolor={\darker{green}}] (R) edge[->] node[left] {$a^b_i$} (Pbi);
-\tri[green]{Pbi}{1.5}{.2}{1.4}{};
+\tri[green]{Pbi}{1.5}{.2}{1.4}{}
 \node (bi) [below left=.8 and .25 of Pbi,text=\darker{green}] {$b_i$};
 
-\tri[blue]{R}{3.2}{3.3}{2.8}{};
-\node [below right=2.8 and 2.4 of R,text=blue] {$c$};
+\tri[blue]{R}{3.2}{3.0}{2.5}{}
+\node [below right=2.8 and 2.3 of R,text=blue] {$c$};
 \node (Pci) [below right=1.6 and 1.0 of R] {};
 \path [allcolor=blue] (R) edge[->] node[right] {$a^c_{o(i)}$} (Pci);
-\tri[blue]{Pci}{1.5}{1.2}{1.4}{};
+\tri[blue]{Pci}{1.5}{1.2}{1.4}{}
 \node (ci) [below right=.8 and .25 of Pci,text=blue] {$c_{o(i)}$};
 
 \path (Pci) edge[->] node[above] {$v_i$} (Pbi);
 
-\tri[red]{Pbi}{1.5}{3.2}{1.4}{};
-\node [left=1.1 of ci,red,inner sep=1pt] (Ci) {$\cC_i(c_{o(i)})$};
+\tri[red]{Pbi}{1.5}{3.2}{1.4}{}
+\node [left=1.3 of ci,red,inner sep=1pt] (Ci) {$\cC_{\cF,i}(c_{o(i)})$};
 
-\path [->,bend left=80,looseness=2,below,dotted]
-      (ci) edge[looseness=2.5] node {$\cC_i$} (Ci)
-      (Ci) edge node {$m_i$} (bi)
+\path [->,bend left=80,below,dotted]
+      (ci) edge[looseness=2.1] node {$\cC_{\cF,i}$} (Ci)
+      (Ci) edge[looseness=2.3] node {$m_i$} (bi)
 	  ;
 \end{tikzpicture}
 %
-\qquad
+%\quad
 %
 \begin{tikzpicture}[on grid]
-\node (b) {$b$};
-\node (Rb) [below=.7 of b] {$R$};
-\node (Pb1) [below left=of Rb] {};
-\node [below left=.8 and .4 of Rb] {$\cdots$};
-\node (Pbi) [below=1.8 of Rb] {$P^b_i$};
-\node [below right=.8 and .4 of Rb] {$\cdots$};
-\node (Pbn) [below right=of Rb] {};
-\node (bi) [triangle,below=.20 of Pbi.center] {$b_i$};
+\node (R) {$R$};
+\tri[green]{R}{3.2}{-.5}{2.5}{}
+\node [below left=2.8 and 2.3 of R,text=\darker{green}] {$b$};
+\node (Pbi) [below left=1.6 and 1.0 of R] {};
+\path [allcolor={\darker{green}}] (R) edge[->] node[left] {$a^b_i$} (Pbi);
+\tri[green]{Pbi}{1.5}{.2}{1.4}{}
+\node (bi) [below left=.8 and .25 of Pbi,text=\darker{green}] {$b_i$};
 
-\path (Rb) edge[->] (Pb1)
-      (Rb) edge[->] (Pbn)
-	  (Rb) edge[->] (Pbi);
+\tri[blue]{R}{3.2}{3.0}{2.5}{}
+\node [below right=2.8 and 2.3 of R,text=blue] {$c$};
+\node (Pci) [below right=1.6 and 1.0 of R] {};
+\path [allcolor=blue] (R) edge[->] node[right] {$a^c_{o(i)}$} (Pci);
+\tri[blue]{Pci}{1.5}{1.2}{1.4}{}
+\node (ci) [below right=.8 and .25 of Pci,text=blue] {$c_{o(i)}$};
 
-\node (c) [right=3 of b] {$c$};
-\node (Rc) [below=.7 of c] {$R$};
-\node (Pc1) [below left=of Rc] {};
-\node [below left=.8 and .4 of Rc] {$\cdots$};
-\node (Pci) [below=1.8 of Rc] {$P^c_{o(i)}$};
-\node [below right=.8 and .4 of Rc] {$\cdots$};
-\node (Pcn) [below right=of Rc] {};
+\path (Pci) edge[->] node[above] {$v_i$} (Pbi);
 
-\node (bi-top) [below left=.20 and .01 of Pci.center,inner sep=0] {};
-\node (bi-right) [left=.1 of bi-top,inner sep=0] {};
-\node (bi-outer) [left=1.3 of bi-right,inner sep=0] {};
-\node (bi-mid) [left=.7 of bi-right] {};
+\tri[red]{Pci}{1.5}{-1.8}{1.4}{}
+\node [left=1.3 of ci,red,inner sep=1pt] (Ci) {$\cC_{\cB,i}(b_i)$};
 
-\draw (bi-top.center) -- (bi-right.center |- bi.south)
-                      -- (bi-outer.center |- bi.south)
-					  -- (bi-top.center);
-
-\draw[draw=none] (bi-right |- bi) -- node[pos=.3] {$b'_i$} (bi-outer |- bi);
-
-\node (ci-top) [below right=.20 and .01 of Pci.center,inner sep=0] {};
-\node (ci-inner) [right=.1 of ci-top,inner sep=0] {};
-\node (ci-outer) [right=1.3 of ci-inner,inner sep=0] {};
-\node (ci-mid) [right=.7 of ci-inner] {};
-
-\draw (ci-top.center) -- (ci-inner.center |- bi.south)
-                      -- (ci-outer.center |- bi.south)
-					  -- (ci-top.center);
-
-\draw[draw=none] (ci-inner |- bi) -- node (co') [pos=.3] {$c_{o(i)}$} (ci-outer |- bi);
-
-\path (Rc) edge[->] (Pc1)
-      (Rc) edge[->] (Pcn)
-	  (Rc) edge[->] (Pci);
-
-\path (Rb) edge[<->] node[above] {$\id$} (Rc)
-      (Pci) edge[->] node[above] {$v_i$} (Pbi)
-      (ci-mid |- bi.south) edge[->,bend left=40] node[below] {$m_i$} (bi-mid |- bi.south)
-	  (bi) edge[dotted,->] node[above] {$\back{\cC_i}$} ++ (1.9,0);	  
+\path [->,bend left=80,below,dotted]
+      (bi) edge[looseness=2.2,bend right=80] node {$\cC_{\cB,i}$} (Ci)
+      (ci) edge[looseness=2.1] node {$m_i$} (Ci)
+	  ;
 \end{tikzpicture}
