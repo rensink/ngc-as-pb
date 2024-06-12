@@ -1,5 +1,7 @@
 \section{Span-based conditions}
 
+\todo[inline]{I think it's useful to have a notation for a span consisting of left leg $a$ and right leg $b$; I'm using $\spanof a b$ for this. Maybe this should also be used in span-based branches and conditions? The complementary notation for cospans would be $\cospanof ab$. See \textsf{macros.tex} for alternatives.}
+
 We now present the main idea of this paper, inspired by on the observation that arrow-based conditions over graphs contain a lot of duplication: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} structure (and how it is connected). This is achieved by replacing the branch arrows $r^c_i$ of a condition $c$ by \emph{spans}.\footnote{We discuss and contrast an alternative way to resolve the same issue, using \emph{cospans} rather than spans, later in this paper.}
 
 Span-based conditions are inductively defined as follows:
@@ -12,7 +14,6 @@ Span-based conditions are inductively defined as follows:
   \end{itemize}
 \end{definition}
 %
-%\emph{Terminology and notation:}
 In a branch $p=(u,d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emph{down-arrow}. As before, we use $|c|=w$ to denote the width of a span-based condition $c$, $R^c$ to denote its root, and $p^c_i=(u^c_i,d^c_i,c_i)$ its $i$-th branch. Finally, we use $I^c_i$ for the interface of branch $p^c_i$ and $P^c_i$ ($=R^{c_i}$) for its pattern (hence $u^c_i:I^c_i\func R^c$ and $d^c_i:I^c_i\rightarrow P^c_i$). In all these cases, we may omit the superscript $c$ if it is clear from the context. Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
 %
 \begin{figure}
@@ -22,9 +23,9 @@ In a branch $p=(u,d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emp
   \flabel{sb-condition}
 \end{figure}
 %
-As we will see later, the arrows $r^c_i$ of an arrow-based condition can be reconstructed by taking the pushout over the spans $R^c\cnuf I^c_i\func P^c_i$.
+As we will see later, the arrows $a_i$ of an arrow-based condition can be reconstructed by taking pushouts over the spans $\tupof{u_i,d_i}$.
 
-\medskip\noindent Span-based conditions come with a modified notation of satisfaction.
+\medskip\noindent Span-based conditions come with a modified notation of satisfaction, defined as follows.
 
 \begin{definition}[satisfaction of span-based conditions]\dlabel{sb-satisfaction}
   Let $c$ be a span-based condition and $g:R\func G$ an arrow from $c$'s root to an object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i$ and an arrow $h:R_i\func G$ such that
@@ -34,7 +35,6 @@ As we will see later, the arrows $r^c_i$ of an arrow-based condition can be reco
   \end{enumerate}
 \end{definition}
 %
-%\emph{Terminology and notation.} 
 Like before, we call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p_i$ and witness $h$ can be visualised as in \fcite{sb-satisfaction}.
 %
 \begin{figure}
@@ -45,6 +45,13 @@ Like before, we call $p_i$ the \emph{responsible branch} and $h$ the \emph{witne
 \end{figure}
 
 \medskip\noindent
+To defined morphisms of span-based conditions, we start by extending the notion of source shifter to spans. Note that we do not work in the \emph{category} of spans, so arrows and their composition will continue to be in the base category $\bC$.
+
+\begin{definition}
+Let $X,Y$ be object. A \emph{span source shifter} $\cS$ from $X$ to $Y$ is a function from $X$-sourced spans to $Y$-sourced ones having the same target, say $Z$, such that for all arrows $t$ with source $Z$:
+\[ \cS(\spanof a{b;t}) \]
+\end{definition}
+
 Span-based conditions have a notion of morphism.
 %
 \begin{definition}[span-based (complete) condition morphism]\dlabel{sb-morphism}

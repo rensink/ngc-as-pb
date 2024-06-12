@@ -1,13 +1,63 @@
 %% Additional packages
 \usepackage[inline]{enumitem}
 \usepackage{mathdots}
+\usepackage{mathtools}
 \usepackage{comment}
 \usepackage{subcaption}
+\usepackage{relsize}
 %\usepackage[svgnames]{xcolor}
 
 %% Some math definitions
 \newcommand{\tupof}[1]{\langle{#1}\rangle}
 \newcommand{\setof}[1]{\{{#1}\}}
+% span <a,b> cospan >a,b<
+%\newcommand{\spanof}[2]{\tupof{{#1},{#2}}}
+%\newcommand{\cospanof}[2]{\rangle{#1},{#2}\langle}
+% span <a|b> cospan >a|b<
+%\newcommand{\spanof}[2]{\tupof{{#1}|{#2}}}
+%\newcommand{\cospanof}[2]{\rangle{#1}|{#2}\langle}
+% span a<>b cospan a><b
+\newcommand{\spanof}[2]{{#1}\lrangle{#2}}
+\newcommand{\cospanof}[2]{{#1}\rlangle{#2}}
+% span a<>b cospan a><b, using diamond and times symbols
+%\newcommand{\spanof}[2]{{#1}{\mathsmaller\diamond}{#2}}
+%\newcommand{\cospanof}[2]{{#1}{\mskip-1mu\mathsmaller\times\mskip-1mu}{#2}}
+
+% langle followed by adjacent rangle
+\newcommand{\lrangle}{{%
+\mathchoice{\mskip-1mu}%
+           {\mskip-1mu}%
+           {\mskip-1.1mu}%
+           {\mskip-1.2mu}%
+\langle
+\mathchoice{\mskip-2.65mu}%
+           {\mskip-2.65mu}%
+           {\mskip-3.1mu}%
+           {\mskip-3.65mu}%
+\rangle
+\mathchoice{\mskip-1mu}%
+           {\mskip-1mu}%
+           {\mskip-1.1mu}%
+           {\mskip-1.2mu}%
+}}
+% rangle followed by adjacent langle
+\newcommand{\rlangle}{{%
+\mathchoice{\mskip-1mu}%
+           {\mskip-1mu}%
+           {\mskip-1.2mu}%
+           {\mskip-1.5mu}%
+\rangle
+\mathchoice{\mskip-4.5mu}%
+           {\mskip-4.5mu}%
+           {\mskip-5mu}%
+           {\mskip-5.3mu}%
+\langle
+\mathchoice{\mskip-1mu}%
+           {\mskip-1mu}%
+           {\mskip-1.2mu}%
+           {\mskip-1.5mu}%
+}}
+
 \newcommand{\st}{.\;}
 \newcommand{\id}{\mathit{id}}
 \newcommand{\depth}{\mathit{dp}}
@@ -45,9 +95,9 @@
 \newcommand{\pb}{\mathord{\downarrow}}
 \newcommand{\po}{\mathord{\uparrow}}
 
-\newcommand{\spanof}[2]{\bigl[\atop{#1}{#2}\bigr]}
-
 % Letters and variables
+\newcommand{\Lab}{\mathsf{L}}
+
 \newcommand{\AB}[1]{\mathsf{AB}\if\relax\detokenize{#1}\relax\else(#1)\fi}
 \newcommand{\AC}[1]{\mathsf{AC}\if\relax\detokenize{#1}\relax\else(#1)\fi}
 
