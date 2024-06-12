@@ -106,7 +106,7 @@ In the literature\todo{AC: this subsection can be deleted}, arrow-based conditio
 
 \subsection{Connection to first-order logic}
 
-It has been shown (e.g., \cite{Rensink-FOL,Habel-FOL}) that every first-order logic (FOL) formula can be encoded as an arrow-based nested condition over $\Graph$. For the sake of completeness, we summarise the construction here.
+It has been shown (e.g., \cite{Rensink-FOL,Habel-FOL}) that every first-order logic (FOL) formula can be encoded as an arrow-based nested condition over $\Graph$. For the sake of completeness, we summarise the construction here. We restrict to binary predicates, which we take from the set of edge labels $\Lab$.
 
 The syntax of FOL that we will use in the following is given by the grammar
 %
@@ -121,16 +121,30 @@ The syntax of FOL that we will use in the following is given by the grammar
 		\]
 where the $x_i$ are variables (say from some set $X$), $\bar x\in X^*$ is a finite sequence of variables and $\la$ is a binary predicate. We also use the concept of \emph{free variables} of $\phi$, denoted $\fv(\phi)$, inductively defined in the usual way.
 
-As for conditions, the semantics of FOL is defined through a notion of satisfaction; however, the models are not arbitrary arrows in $\Graph$ but \emph{valuations} that map the free variables to the nodes of a graph. Such a valuation can be seen as an arrow from the discrete graph with node set $X$, which for the purpose of this discussion we will denote $D_X$. Hence, the models of a formula $\phi$ are arrows $v:X\to G$ (for some graph $G$) such that $v\sat\phi$.
+As for conditions, the semantics of FOL is defined through a notion of satisfaction; however, the models are not arbitrary arrows in $\Graph$ but \emph{valuations} that map the free variables to the nodes of a graph. Such a valuation can be seen as an arrow from the discrete graph with node set $X$, which for the purpose of this discussion we will denote $D_X$. Hence, the models of a formula $\phi$ are arrows $v:D_X\to G$ (for some graph $G$) such that $v\sat\phi$.
 
-This means that there is a hurdle: the models of FOL formulas are arrows from the discrete graph consisting of their free variables, whereas for conditions they are arrows from their root, which can be arbitrary graphs. Though this is really no more than a technicality, we still have to smooth it out. For that purpose, we will introduce the auxiliary notion of a \emph{context} in which a formula is evaluated, essentially consisting of the already known facts (reflecting the role of the root object of a condition).
+This means that there is a technical hurdle: the models of a FOL formula are arrows from the discrete graph consisting of its free variables, whereas the models of a nested condition are arrows from their root, which can be an arbitrary graph. To overcome this hurdle, we will introduce the auxiliary notion of a \emph{context} in which a formula is evaluated, essentially consisting of already known facts (reflecting the role of the root object of a condition). In order to define contexts, we first identify a fragment of FOL with a strong relation to graphs.
+
+\begin{itemize}
+\item We call a formula $\rho$ \emph{regular} if it equals $\bigwedge_{i\in I} \pi_i$ for some finite set $I$, where for all $i\in I$, $\pi_i$ equals either $x_i=y_i$ or $\la_i(x_i,y_i)$ for some variables $x_i,y_i$ and binary predicate $\la_i$.
+
+\item A regular formula $\rho$ gives rise to an equivalence ${\simeq_\rho}\subseteq \fv(\rho)\times \fv(\rho)$ defined as the smallest equivalence such that $x\simeq_\rho y$ for each conjunct $x=y$ in $\rho$.
+
+\item A regular formula $\rho$ can be encoded as a graph $G_\rho$ with node set $[\fv(\rho)]/{\simeq_\rho}$, and an edge $e$ with $s_e=[x]_{\simeq_\rho}$, $\ell_e=\la$ and $t_e=[y]_{\simeq_\rho}$ for each conjunct $\la(x,y)$ in $\rho$.
+
+\item Vice versa, a graph $G=\tupof{X,E}$ gives rise to the regular formula $\rho_G=\bigwedge_{x\in X} x=x \wedge \bigwedge_{e\in E} \ell_e(s_e,t_e)$.
+
+\item Clearly, $\rho$ and $\rho_{G_\rho}$ are equivalent for any regular formula $\rho$.
+\end{itemize}
+
+
 
 The correspondence of FOL to (arrow-based) conditions hinges on the existence of a \emph{normal form} for FOL formulas.
 %
 \begin{itemize}
-\item A formula $\rho$ is \emph{regular} if it equals $\bigwedge_{i\in I} \pi_i$ for some finite set $I$, where for all $i\in I$, $\pi_i$ equals either $x_i=y_i$ or $\la_i(x_i,y_i)$ for some variables $x_i,y_i$ and binary predicate $\la_i$.
-
 \item For two regular formulas $\rho=\bigwedge_{i\in I} \pi_i$ and $\rho=\bigwedge_{i\in I'} \pi'_i$, we say that $\rho'$ \emph{subsumes} $\rho$, denoted $\rho\sqsubseteq \rho'$, if for all $i\in I$ there is some $i'\in I'$ such that $\pi'_i=\pi'_{i'}$.
+
+\item If $\rho'$ subsumes $\rho$, there is an obvious graph morphism from $G_\rho$ to $G_{\rho'}$ with node mapping $[x]_{\simeq_\rho}\mapsto [x]_{\simeq_{\rho'}}$, which is well-defined because ${\simeq_\rho}\subseteq {\simeq_{\rho'}}$.
 
 \item A formula $\phi$ is in \emph{nested normal form} (NNF) if it equals $\bigvee_{j\in J} \exists X_j\st \rho_j\wedge\neg \phi_j$ for some finite index set $J$ (assumed to be of the form $\setof{1,\ldots,|J|}$), where for all $j\in J$:
 \begin{itemize}

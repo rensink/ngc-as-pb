@@ -4,30 +4,46 @@ The notion of \emph{morphism} of nested conditions has not received much attenti
 
 The question that we address in this section is to establish a meaningful \emph{structural} notion of condition morphism. That is, given the fact that an ab-condition is essentially a diagram in the category $\bC$, a structural morphism from $b$ to $c$ consists of arrows between objects of $b$ and objects of $c$ satisfying certain commutativity conditions. For morphisms to be meaningful, they should certainly only exist where there is entailment; in other words, we require there to be a functor to $\ABC^{\entails}$. As we will see, this requirement implies that it is not enough to consider only arrows from objects of $b$ \emph{to} objects of $c$, since in our definition of satisfaction, the direction of entailment flips at every subsequent nesting level. We also observe that the existence of a functor to $\ABC^{\entails}$ means that we only consider morphisms between conditions with the same root.
 
-In this section and the next, we will review several candidate notions of morphism, but the underlying principle is always the same: a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ to $c=(R,p^c_1\ccdots p^c_{|c|})$ must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that entails it. Entailment of branches, in turn, is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$ (hence going in the \emph{opposite} direction of $m$) such that, \emph{modulo $v_i$}, there is a morphism between the subconditions $c_j$ and $b_i$. The main task of the next subsection is to make the concept of ``modulo $v_i$" precise, allowing to relate conditions rooted at different objects.
+In this section and the next, we will review several candidate notions of morphism, but the underlying principle is always the same: a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ to $c=(R,p^c_1\ccdots p^c_{|c|})$ must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that entails it. Entailment of branches, in turn, is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$ (hence going in the \emph{opposite} direction of $m$) such that, \emph{modulo $v_i$}, there is a morphism between the subconditions $c_j$ and $b_i$. The main task of the next subsection is to make the concept of ``modulo $v_i$" precise.
 
-\subsection{Change of root}
+\subsection{Root shifters}
 
-We will first define what it means to ``change the source" of an arrow; this will be extended later to the roots of conditions. 
+
+In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}. Root shifters will later turn out to be functors between categories of conditions. For now, we note that the purpose of root shifters is to relate the models of a condition $b$ to those of a condition $c$, even if $b$ and $c$ are rooted at distinct objects (meaning that their respective sets of models are bound to be disjoint), given an arrow $v:R^b\to R^c$ between their roots. To be more precise, we will require that \emph{models are preserved along $v$}: if $v;g$ is a model of $b$, then $g$ is a model of $c$. In some cases, we will in addition require the complementary property of \emph{model reflection along $v$}.
+
+This can be achieved in essentially two ways, on the basis of $v$: by constructing $c$ from $b$ (which we will call \emph{forward shifting}) or by constructing $b$ from $c$ (which we will call \emph{backward shifting}).
+%
+
+We will first define the notion of shifting for arrows (where it is called source shifting) and then extend this in a natural way to conditions (where it is called root shifting).
+%
 
 \begin{definition}[source shifter]\dlabel{source shifter}
-Let $X,Y$ be objects. A \emph{source shifter} $\cS$ from $X$ to $Y$ is a function from $X$-sourced arrows to $Y$-sourced ones having the same target, say $X$, such that for all $t$ with source $Z$:
+Let $X,Y$ be objects. A \emph{source shifter} $\cS$ from $X$ to $Y$ is a function from $X$-sourced arrows to $Y$-sourced ones having the same target, say $Z$, such that for all $t$ with source $Z$:
 %
 \begin{equation}\eqlabel{shifters are functors}
 \cS(a;t) = \cS(a);t \enspace.
 \end{equation}
 %
-Now let $v=A\to B$ be an arrow. $\cS$ is a \emph{forward source shifter} for $v$ if it is a source shifter from $A$ to $B$ such that:
+Now let $v=A\to B$ be an arrow. $\cS$ is a \emph{forward source shifter for $v$} if it  is a source shifter from $A$ to $B$ such that for all $a:A\to C$, $g:B\to G$ and $h:C\to G$:
 %
 \begin{equation}\eqlabel{forward condition}
-\cS(v) = \id_B \enspace.
+v;g = a;h \text{ implies } g = \cS(a);h \enspace.
 \end{equation}
+%it is a source shifter from $A$ to $B$ such that:
+%%
+%\begin{equation}\eqlabel{forward condition}
+%\cS(v) = \id_B \enspace.
+%\end{equation}
 %
-$\cS$ is a \emph{backward source shifter} for $v$ if it is a source shifter from $B$ to $A$ such that:
+Instead, $\cS$ is a \emph{backward source shifter for $v$} if it is a source shifter from $B$ to $A$ such that for all $a:B\to C$, $g:B\to G$ and $h:C\to G$:
 %
 \begin{equation}\eqlabel{backward condition}
-\cS(\id_B) = v \enspace.
+v;g = \cS(a);h \text{ implies } g = a;h \enspace.
 \end{equation}
+%
+%\begin{equation}\eqlabel{backward condition}
+%\cS(\id_B) = v \enspace.
+%\end{equation}
 \end{definition}
 %
 The following properties are immediate:
@@ -35,12 +51,22 @@ The following properties are immediate:
 \begin{proposition}[shifter properties]
 Let $v:A\to B$ be an arrow.
 \begin{enumerate}
-\item $\cS$ is a forward source shifter for $v$ if and only if $s=\cS(\id_A)$ is a section of $v$ and $\cS(a)=s;a$ for all $a:A\to C$.
-\item $\cS$ is a backward source shifter for $v$ if and only if $\cS(a)=v;a$ for all $a:B\to C$.
+\item The following three statements are equivalent.
+\begin{enumerate}
+\item $\cS$ is a forward source shifter for $v$;
+\item $\cS$ is a source shifter from $A$ to $B$ such that $\cS(v)=\id_B$;
+\item $\cS$ is a mapping from $A$-sourced arrows to $B$-sourced arrows such that $s=\cS(\id_A)$ is a section of $v$ and $\cS(a)=s;a$ for all $a:A\to C$.
+\end{enumerate}
+\item The following three statements are equivalent.
+\begin{enumerate}
+\item $\cS$ is a backward source shifter for $v$;
+\item $v$ is epi and $\cS$ is a source shifter from $B$ to $A$ such that $\cS(\id_B)=v$;
+\item $v$ is epi and $\cS$ is a mapping from $B$-sourced arrows to $A$-sourced arrows such that $\cS(a)=v;a$ for all $a:B\to C$.
+\end{enumerate}
 \end{enumerate}
 \end{proposition}
 %
-\begin{proof}~
+\begin{proof}~\todo{To be modified}
 \begin{enumerate}
 \item \textit{If:} To show \eqcite{shifters are functors}, consider $\cS(a;t)=s;a;t=\cS(a);t$. To show \eqcite{forward condition}, note that $\cS(v)=s;v=\id_B$, because $s$ is a section.
 
@@ -54,7 +80,7 @@ Let $v:A\to B$ be an arrow.
 \end{enumerate}
 \end{proof}
 %
-It follows that $v$ has precisely one forward shifter for every section $s$ of $v$ (meaning, among other things, that $v$ must be a retraction and hence at least epi to have any forward shifter at all) and that every $v$ has exactly one backward shifter. We denote these $\cF_v^s$ and $\cB_v$, respectively. They are visualised in \fcite{source shifters}.
+It follows that $v$ has precisely one forward shifter for every section $s$ of $v$ (meaning, among other things, that $v$ must be a retraction and hence at least epi to have any forward shifter at all) and that $v$ has a backward shifter if and only if $v$ is epi. We denote these $\cF_v^s$ and $\cB_v$, respectively. They are visualised in \fcite{source shifters}.
 
 \begin{figure}
 \centering
