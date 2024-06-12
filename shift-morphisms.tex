@@ -8,7 +8,8 @@ In this section and the next, we will review several candidate notions of morphi
 
 \subsection{Root shifters}
 
-In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}. Root shifters will later turn out to be functors between categories of conditions. For now, we note that the purpose of root shifters is to relate the models of a condition $b$ to those of a condition $c$, even if $b$ and $c$ are rooted at distinct objects (meaning that their respective sets of models are bound to be disjoint), given an arrow $v:R^b\to R^c$ between their roots. To be more precise, we will require that \emph{models are preserved along $v$}: if $v;g$ is a model of $b$, then $g$ is a model of $c$. In some cases, we will in addition require the complementary property of \emph{model reflection along $v$}.
+In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}. Root shifters will later turn out to be functors between categories of conditions. For now, we note that the purpose of root shifters is to relate the models of a condition $b$ to those of a condition $c$, given an arrow $v:R^b\to R^c$ between their roots, even if $R^b$ and $R^c$ are distinct objects (meaning that their respective sets of models are bound to be disjoint). To be more precise, we will require that \emph{every $v$-prepended model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
+% In some cases, we will in addition require the complementary property of \emph{model reflection along $v$}.
 
 This can be achieved in essentially two ways, on the basis of $v$: by constructing $c$ from $b$ (which we will call \emph{forward shifting}) or by constructing $b$ from $c$ (which we will call \emph{backward shifting}).
 %
@@ -51,20 +52,53 @@ Let $v:A\to B$ be an arrow.
 \begin{enumerate}
 \item The following three statements are equivalent.
 \begin{enumerate}
-\item $\cS$ is a forward source shifter for $v$;
-\item $\cS$ is a source shifter from $A$ to $B$ such that $\cS(v)=\id_B$;
-\item $\cS$ is a mapping from $A$-sourced arrows to $B$-sourced arrows such that $s=\cS(\id_A)$ is a section of $v$ and $\cS(a)=s;a$ for all $a:A\to C$.
+\item\label{forward-1} $\cS$ is a forward source shifter for $v$;
+\item\label{forward-2} $\cS$ is a source shifter from $A$ to $B$ such that $\cS(v)=\id_B$;
+\item\label{forward-3} $\cS$ is a mapping from $A$-sourced arrows to $B$-sourced arrows such that $s=\cS(\id_A)$ is a section of $v$ and $\cS(a)=s;a$ for all $a:A\to C$.
 \end{enumerate}
 \item The following three statements are equivalent.
 \begin{enumerate}
-\item $\cS$ is a backward source shifter for $v$;
-\item $v$ is epi and $\cS$ is a source shifter from $B$ to $A$ such that $\cS(\id_B)=v$;
-\item $v$ is epi and $\cS$ is a mapping from $B$-sourced arrows to $A$-sourced arrows such that $\cS(a)=v;a$ for all $a:B\to C$.
+\item\label{backward-1} $\cS$ is a backward source shifter for $v$;
+\item\label{backward-2} $v$ is epi and $\cS$ is a source shifter from $B$ to $A$ such that $\cS(\id_B)=v$;
+\item\label{backward-3} $v$ is epi and $\cS$ is a mapping from $B$-sourced arrows to $A$-sourced arrows such that $\cS(a)=v;a$ for all $a:B\to C$.
 \end{enumerate}
 \end{enumerate}
 \end{proposition}
 %
 \begin{proof}~\todo{To be modified}
+\textbf{New}
+\begin{itemize}
+\item \emph{\ref{forward-1} implies \ref{forward-2}.}
+%
+Assume that \ref{forward-1} holds. Clearly, $\cS$ is a source shifter from $A$ to $B$. In \eqref{forward-condition}, let $a=v$ and $g=h=\id_B$; then clearly $v;g=a;h$, hence $\id_B=g = \cS(a);h=\cS(a)$.
+
+\item \emph{\ref{forward-2} implies \ref{forward-3}.}
+%
+Assume that \ref{forward-2} holds. Clearly, $\cS$ is a mapping from $A$-sourced arrows to $B$-sourced arrows; moreover, if $s=\cS(\id_A)$ then $s;v=\cS(\id_A);v=\cS(\id_A;v)=\cS(v)=\id_B$, priving that $s$ is a section of $v$. Moreover, $\cS(a)=\cS(\id_A;a)=\cS(\id_A);a=s;a$.
+
+\item \emph{\ref{forward-3} implies \ref{forward-1}.}
+%
+Assume that \ref{forward-3} holds. To show \eqref{shifters are functors}, note that $\cS(a;t)=s;a;t=\cS(a);t$. To show \eqref{forward condition}, consider $a,g,h$ such that $v;g=a;h$; then $g=\id_A;g=s;v;g=\cS(v);g$.
+
+\end{itemize}
+\item 
+\begin{itemize}
+\item \emph{\ref{backward-1} implies \ref{backward-2}.}
+%
+Assume that \ref{backward-1} holds.  Clearly, $\cS$ is a source shifter from $B$ to $A$. First consider \eqref{backward-condition} and let 
+
+To show that $v$ is epi, consider \eqref{backward-condition}
+
+\item \emph{\ref{backward-2} implies \ref{backward-3}.}
+%
+Assume that \ref{backward-2} holds.
+
+\item \emph{\ref{backward-3} implies \ref{backward-1}.}
+%
+Assume that \ref{backward-3} holds.
+\end{itemize}
+\textbf{Old}
+
 \begin{enumerate}
 \item \textit{If:} To show \eqcite{shifters are functors}, consider $\cS(a;t)=s;a;t=\cS(a);t$. To show \eqcite{forward condition}, note that $\cS(v)=s;v=\id_B$, because $s$ is a section.
 
@@ -107,16 +141,16 @@ We use $\cC$ to range over root shifters (always obtained from a sequence of sou
 \flabel{root shifting}
 \end{figure}
 
-Since root-shifting is defined on a branch-by-branch basis, for zero-width conditions (encoding the property $\False$ over their respective roots) there is essentially no requirement to be fulfilled. Hence, the single pair $\cC_{A,B}=\setof{((A,\epsilon),(B,\epsilon))}$ (of width $|\cC_{A,B}=0|$) is both a forward shifter for any $v:A\to B$ and a backward shifter for any $v:B\to A$.
+Since root-shifting is defined on a branch-by-branch basis, for zero-width conditions (encoding the property $\False$ over their respective roots) there is essentially no requirement to be fulfilled. Hence, the single pair $\cC_{A,B}=\setof{((A,\epsilon),(B,\epsilon))}$ (of width $|\cC_{A,B}|=0$) is both a forward shifter for any $v:A\to B$ and a backward shifter for any $v:B\to A$.
 
 The following proposition expresses the interplay between forward and backward root shifting and the semantics of a condition, in terms of satisfaction.
 
 \begin{proposition}[model preservation and reflection]
   \plabel{model preservation by shifters}
-Let $v:A\to B$ and $g:B\to G$ be arrows; let $\cC_\cF$ and $\cC_\cB$ be forward and backward root shifters for $v$, respectively, both of width $w$.
+Let $v:A\to B$ and $g:B\to G$ be arrows; let $\cC_\cF$ and $\cC_\cB$ be forward and backward root shifters for $v$.
 \begin{enumerate}
-\item For all $c\in\AC A$ with $|c|=w$, $v;g\sat c$ implies $g\sat \cC_\cF(c)$. If, moreover, $w=0$, then also $g\sat \cC_\cF(c)$ implies $v;g\sat c$.
-\item For all $c\in\AC B$ with $|c|=w$, $g\sat c$ implies $v;g\sat \cC_\cB(c)$. If, in addition, $v$ is epi or $w=0$, then also $v;g\sat \cC_\cB(c)$ implies $g\sat c$.
+\item \emph{$\cC_\cF$ preserves models along $v$}: for all $c\in\AC A$, $v;g\sat c$ implies $g\sat \cC_\cF(c)$.
+\item \emph{$\cC_\cB$ reflects models against $v$}: if $v$ is epi or $|\cC_\cB|=0$, then for all $c\in\AC B$, $v;g\sat \cC_\cB(c)$ implies $g\sat c$.
 \end{enumerate}
 \end{proposition}
 %
