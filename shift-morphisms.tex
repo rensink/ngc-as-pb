@@ -6,15 +6,13 @@ The question that we address in this section is to establish a meaningful \emph{
 
 In this section and the next, we will review several candidate notions of morphism, but the underlying principle is always the same: a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ to $c=(R,p^c_1\ccdots p^c_{|c|})$ must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that entails it. Entailment of branches, in turn, is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$ (hence going in the \emph{opposite} direction of $m$) such that, \emph{modulo $v_i$}, there is a morphism between the subconditions $c_j$ and $b_i$. The main task of the next subsection is to make the concept of ``modulo $v_i$" precise.
 
-\subsection{Root shifters}
+\subsection{Root shifting}
 
-In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}. Root shifters will later turn out to be functors between categories of conditions. For now, we note that the purpose of root shifters is to relate the models of a condition $b$ to those of a condition $c$, given an arrow $v:R^b\to R^c$ between their roots, even if $R^b$ and $R^c$ are distinct objects (meaning that their respective sets of models are bound to be disjoint). To be more precise, we will require that \emph{every $v$-prepended model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
+In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}, which will later turn out to be functors between categories of conditions. For now, we note that the purpose of root shifters is to relate the models of a condition $b$ to those of a condition $c$, given an arrow $v:R^b\to R^c$ between their roots, even if $R^b$ and $R^c$ are distinct objects (meaning that the sets of models of $b$ and $c$ are bound to be disjoint). To be more precise, we will require that \emph{every $v$-prepended model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
 
 This can be achieved in essentially two ways, on the basis of $v$: by constructing $c$ from $b$ (which we will call \emph{forward shifting}) or by constructing $b$ from $c$ (which we will call \emph{backward shifting}).
-%
 
 We will first define the notion of shifting for arrows (where it is called source shifting) and then extend this in a natural way to conditions (where it is called root shifting).
-%
 
 \begin{definition}[source shifter]\dlabel{source shifter}
 Let $X,Y$ be objects. A \emph{source shifter} $\cS$ from $X$ to $Y$ is a function from $X$-sourced arrows to $Y$-sourced ones having the same target, say $Z$, such that for all $t$ with source $Z$:
@@ -28,91 +26,63 @@ Now let $v=A\to B$ be an arrow. $\cS$ is a \emph{forward source shifter for $v$}
 \begin{equation}\eqlabel{forward condition}
 v;g = a;h \text{ implies } g = \cS(a);h \enspace.
 \end{equation}
-%it is a source shifter from $A$ to $B$ such that:
-%%
-%\begin{equation}\eqlabel{forward condition}
-%\cS(v) = \id_B \enspace.
-%\end{equation}
 %
 Instead, $\cS$ is a \emph{backward source shifter for $v$} if it is a source shifter from $B$ to $A$ such that for all $a:B\to C$, $g:B\to G$ and $h:C\to G$:
 %
 \begin{equation}\eqlabel{backward condition}
 v;g = \cS(a);h \text{ implies } g = a;h \enspace.
 \end{equation}
-%
-%\begin{equation}\eqlabel{backward condition}
-%\cS(\id_B) = v \enspace.
-%\end{equation}
 \end{definition}
 %
-The following properties are immediate:
+The following proposition characterises the (forward and backward) root shifters. 
 %
 \begin{proposition}[shifter properties]
 Let $v:A\to B$ be an arrow.
 \begin{enumerate}
 \item The following three statements are equivalent.
-\begin{enumerate}
+\begin{enumerate}[label=(\alph*),ref=\theenumi(\theenumii)]
 \item\label{forward-1} $\cS$ is a forward source shifter for $v$;
 \item\label{forward-2} $\cS$ is a source shifter from $A$ to $B$ such that $\cS(v)=\id_B$;
 \item\label{forward-3} $\cS$ is a mapping from $A$-sourced arrows to $B$-sourced arrows such that $s=\cS(\id_A)$ is a section of $v$ and $\cS(a)=s;a$ for all $a:A\to C$.
 \end{enumerate}
-\item The following three statements are equivalent.
-\begin{enumerate}
-\item\label{backward-1} $\cS$ is a backward source shifter for $v$;
-\item\label{backward-2} $v$ is epi and $\cS$ is a source shifter from $B$ to $A$ such that $\cS(\id_B)=v$;
-\item\label{backward-3} $v$ is epi and $\cS$ is a mapping from $B$-sourced arrows to $A$-sourced arrows such that $\cS(a)=v;a$ for all $a:B\to C$.
+\item The following two statements are equivalent.
+\begin{enumerate}[label=(\alph*),ref=\theenumi(\theenumii)]
+\item\label{backward-1} $\cS$ is a source shifter from $B$ to $A$ such that $\cS(\id_B)=v$;
+\item\label{backward-2} $\cS$ is a mapping from $B$-sourced arrows to $A$-sourced arrows such that $\cS(a)=v;a$ for all $a:B\to C$.
 \end{enumerate}
+\item If either \ref{backward-1} or \ref{backward-2} holds, then $\cS$ is a backward source shifter for $v$ if and only if $v$ is epi.
 \end{enumerate}
 \end{proposition}
 %
-\begin{proof}~\todo{To be modified}
-\textbf{New}
+\begin{proof}~
 \begin{itemize}
 \item \emph{\ref{forward-1} implies \ref{forward-2}.}
 %
-Assume that \ref{forward-1} holds. Clearly, $\cS$ is a source shifter from $A$ to $B$. In \eqref{forward-condition}, let $a=v$ and $g=h=\id_B$; then clearly $v;g=a;h$, hence $\id_B=g = \cS(a);h=\cS(a)$.
+Assume that \ref{forward-1} holds. By definition, $\cS$ is a source shifter from $A$ to $B$. Now consider \eqref{eq:forward condition} with $a=v$ and $g=h=\id_B$: then $v;g=a;h$, hence $\id_B=g = \cS(a);h=\cS(a)$.
 
 \item \emph{\ref{forward-2} implies \ref{forward-3}.}
 %
-Assume that \ref{forward-2} holds. Clearly, $\cS$ is a mapping from $A$-sourced arrows to $B$-sourced arrows; moreover, if $s=\cS(\id_A)$ then $s;v=\cS(\id_A);v=\cS(\id_A;v)=\cS(v)=\id_B$, priving that $s$ is a section of $v$. Moreover, $\cS(a)=\cS(\id_A;a)=\cS(\id_A);a=s;a$.
+Assume that \ref{forward-2} holds. By definition, $\cS$ is a mapping from $A$-sourced arrows to $B$-sourced arrows; moreover, if $s=\cS(\id_A)$ then $s;v=\cS(\id_A);v=\cS(\id_A;v)=\cS(v)=\id_B$, proving that $s$ is a section of $v$. Moreover, $\cS(a)=\cS(\id_A;a)=\cS(\id_A);a=s;a$.
 
 \item \emph{\ref{forward-3} implies \ref{forward-1}.}
 %
-Assume that \ref{forward-3} holds. To show \eqref{shifters are functors}, note that $\cS(a;t)=s;a;t=\cS(a);t$. To show \eqref{forward condition}, consider $a,g,h$ such that $v;g=a;h$; then $g=\id_A;g=s;v;g=\cS(v);g$.
+Assume that \ref{forward-3} holds. To show \eqref{eq:shifters are functors}, note that $\cS(a;t)=s;a;t=\cS(a);t$. To show \eqref{eq:forward condition}, consider $a,g,h$ such that $v;g=a;h$; then $g=\id_A;g=s;v;g=\cS(v);g$.
 
-\end{itemize}
-\item 
-\begin{itemize}
 \item \emph{\ref{backward-1} implies \ref{backward-2}.}
 %
-Assume that \ref{backward-1} holds.  Clearly, $\cS$ is a source shifter from $B$ to $A$. First consider \eqref{backward-condition} and let 
+Assume that \ref{backward-1} holds. By definition, $\cS$ is a mapping from $B$-sourced arrows to $A$-sourced arrows. Now let $a:B\to C$; by \eqref{eq:shifters are functors}, it follows that $\cS(a)=\cS(\id_B;a)=\cS(\id_B);a=v;a$.
 
-To show that $v$ is epi, consider \eqref{backward-condition}
-
-\item \emph{\ref{backward-2} implies \ref{backward-3}.}
+\item \emph{\ref{backward-2} implies \ref{backward-1}.}
 %
-Assume that \ref{backward-2} holds.
+Assume that \ref{backward-2} holds. To show \eqref{eq:shifters are functors}, note that $\cS(a;t)=v;a;t=\cS(a);t$. Furthermore, $\cS(\id_B)=v;\id_B=v$.
 
-\item \emph{\ref{backward-3} implies \ref{backward-1}.}
-%
-Assume that \ref{backward-3} holds.
+\item \emph{\ref{backward-2} with $v$ epi implies that $\cS$ is a backward source shifter for $v$.} To show \eqref{eq:backward condition}, let $a,g,h$ be such that $v;g=\cS(a);h=v;a;h$; then $g=a;h$ because $v$ is epi.
+
+\item \emph{\ref{backward-2} with $\cS$ a backward source shifter for $v$ implies that $v$ is epi.} Let $g,h:B\to C$ be such that $v;g=v;h$, and let $a=\id_B$; then $v;g=\cS(a);h$, hence \eqref{eq:backward condition} implies $g=a;h=\id_B;h=h$. It follows that $v$ is epi.\qed
 \end{itemize}
-\textbf{Old}
-
-\begin{enumerate}
-\item \textit{If:} To show \eqcite{shifters are functors}, consider $\cS(a;t)=s;a;t=\cS(a);t$. To show \eqcite{forward condition}, note that $\cS(v)=s;v=\id_B$, because $s$ is a section.
-
-\smallskip
-\textit{Only if:} Let $s=\cS(\id_A)$. It follows that $s;v=\cS(\id_A);v\stackrel{\eqref{eq:shifters are functors}}{=}\cS(\id_A;v)=\cS(v)\stackrel{\eqref{eq:forward condition}}{=}\id_B$; hence $s$ is a section of $v$. Furthermore, $\cS(a)=\cS(\id_A;a)=\cS(\id_A);a=s;a$ for all $a$.
-
-\item \textit{If:} To show \eqcite{shifters are functors}, consider $\cS(a;t)=v;a;t=\cS(a);t$. To show \eqcite{backward condition}, note that $\cS(\id_B)=v;\id_B=v$.
-
-\smallskip
-\textit{Only if:} We have $\cS(a)=\cS(\id;a)\stackrel{\eqref{eq:shifters are functors}}{=}\cS(\id);a=v;a$.\qed
-\end{enumerate}
 \end{proof}
 %
-It follows that $v$ has precisely one forward shifter for every section $s$ of $v$ (meaning, among other things, that $v$ must be a retraction and hence at least epi to have any forward shifter at all) and that $v$ has a backward shifter if and only if $v$ is epi. We denote these $\cF_v^s$ and $\cB_v$, respectively. They are visualised in \fcite{source shifters}.
+It follows that $v$ has precisely one forward source shifter for every section $s$ of $v$ (meaning, among other things, that $v$ must be a retraction (and hence at least epi) to have any forward shifter at all). As for backward source shifters, if $\cS(\id_B)=v$ (which is in general the only known arrow from $A$ to $B$), then $v$ has a backward source shifter if and only if $v$ is epi. We denote these source shifters by $\cF_v^s$ and $\cB_v$, respectively. They are visualised in \fcite{source shifters}.
 
 \begin{figure}
 \centering
