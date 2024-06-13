@@ -4,7 +4,7 @@
 \usepackage{mathtools}
 \usepackage{comment}
 \usepackage{subcaption}
-\usepackage{relsize}
+\usepackage{scalerel}
 %\usepackage[svgnames]{xcolor}
 
 %% Some math definitions
@@ -17,46 +17,57 @@
 %\newcommand{\spanof}[2]{\tupof{{#1}|{#2}}}
 %\newcommand{\cospanof}[2]{\rangle{#1}|{#2}\langle}
 % span a<>b cospan a><b
-\newcommand{\spanof}[2]{{#1}\lrangle{#2}}
-\newcommand{\cospanof}[2]{{#1}\rlangle{#2}}
+%\newcommand{\spanof}[2]{{#1}\lrangle{#2}}
+%\newcommand{\cospanof}[2]{{#1}\rlangle{#2}}
 % span a<>b cospan a><b, using diamond and times symbols
 %\newcommand{\spanof}[2]{{#1}{\mathsmaller\diamond}{#2}}
 %\newcommand{\cospanof}[2]{{#1}{\mskip-1mu\mathsmaller\times\mskip-1mu}{#2}}
+% span <|a,b|> and cospan |>a,b<|
+\newcommand{\spanof}[2]{\lmangle{#1},{#2}\mrangle}
+\newcommand{\cospanof}[2]{\mrangle{#1},{#2}\lmangle}
 
-% langle followed by adjacent rangle
-\newcommand{\lrangle}{{%
+% skip distance before langle or after rangle
+\newcommand{\angleskip}{%
 \mathchoice{\mskip-1mu}%
            {\mskip-1mu}%
            {\mskip-1.1mu}%
            {\mskip-1.2mu}%
+}
+% skip distance before langle or after rangle
+\newcommand{\anglemidskip}{%
+\mathchoice{\mskip-3.8mu}%
+           {\mskip-3.8mu}%
+           {\mskip-4.1mu}%
+           {\mskip-4.6mu}%
+}
+% langle followed by adjacent rangle
+\newcommand{\lrangle}{{%
+\angleskip
 \langle
 \mathchoice{\mskip-2.65mu}%
            {\mskip-2.65mu}%
            {\mskip-3.1mu}%
            {\mskip-3.65mu}%
 \rangle
-\mathchoice{\mskip-1mu}%
-           {\mskip-1mu}%
-           {\mskip-1.1mu}%
-           {\mskip-1.2mu}%
+\angleskip
 }}
 % rangle followed by adjacent langle
 \newcommand{\rlangle}{{%
-\mathchoice{\mskip-1mu}%
-           {\mskip-1mu}%
-           {\mskip-1.2mu}%
-           {\mskip-1.5mu}%
+\angleskip
 \rangle
 \mathchoice{\mskip-4.5mu}%
            {\mskip-4.5mu}%
            {\mskip-5mu}%
            {\mskip-5.3mu}%
 \langle
-\mathchoice{\mskip-1mu}%
-           {\mskip-1mu}%
-           {\mskip-1.2mu}%
-           {\mskip-1.5mu}%
+\angleskip
 }}
+% langle followed by adjacent mid
+\newcommand{\lmangle}{{\langle\anglemidskip|}}
+% mid followed by adjacent rangle
+\newcommand{\mrangle}{{|\anglemidskip\rangle}}
+
+\newcommand{\commutes}{\circlearrowleft}
 
 \newcommand{\st}{.\;}
 \newcommand{\id}{\mathit{id}}

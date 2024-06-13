@@ -1,15 +1,17 @@
 \begin{tikzpicture}[on grid]
   \node (R) {$R$};
-  \node (I1) [below left=of R] {$I_1$};
-  \node (R1) [below=1.2 of I1] {$R_1$};
-  \node (c1) [triangle,below=.15 of R1.center] {$c_1$};
-  \node [below=.8 of R] {$\cdots$};
-  \node (In) [below right=of R] {$I_w$};
-  \node (Rn) [below=1.2 of In] {$R_w$};
-  \node (cn) [triangle,below=.15 of Rn.center] {$c_w$};
+  \tri{Rc}{3.8}{2.3}{4.6}{}
+  \node (I1) [below left=1.2 and .5 of R] {$I_1$};
+  \node (P1) [below left=1.2 and .0 of I1] {$P_1$};
+  \node [below= of R] {$\cdots$};
+  \node (Iw) [below right=1.2 and .5 of R] {$I_w$};
+  \node (Pw) [below right=1.2 and .0 of Iw] {$P_w$};
 
-  \path (I1) edge[->] node[above left] {$u_1$} (R)
-        (I1) edge[->] node[left] {$d_1$} (R1)
-        (In) edge[->] node[above right] {$u_w$} (R)
-        (In) edge[->] node[right] {$d_w$} (Rn);
+  \tri{P1}{1.2}{.4}{1.2}{$c_1$}
+  \tri{Pw}{1.2}{.8}{1.2}{$c_w$}
+  
+  \path (I1) edge[->] node[left=.1] {$u_1$} (R.260)
+        (I1) edge[->] node[left] {$d_1$} (P1)
+        (Iw) edge[->] node[right=.1] {$u_w$} (R.280)
+        (Iw) edge[->] node[right] {$d_w$} (Pw);
 \end{tikzpicture}

@@ -1,19 +1,14 @@
 \begin{tikzpicture}[on grid]
   \node (R) {$R$};
-  \node (I1) [below left=of R] {};
-  \node [below left=.8 and .4 of R] {$\cdots$};
-  \node (Ii) [below=1.8 of R] {$I_i$};
-  \node [below right=.8 and .4 of R] {$\cdots$};
-  \node (In) [below right=of R] {};
-  \node (Ri) [below=1.2 of Ii] {$R_i$};
-  \node (ci) [triangle,below=.15 of Ri.center] {$c_i$};
+  \tri{R}{3.4}{1.2}{2.4}{}
+  \node (Ii) [below=of R] {$I_i$};
+  \node (Pi) [below=of Ii] {$R_i$};
+  \tri{Pi}{1.2}{.6}{1.2}{$c_i$}
   \node (G) [right=2 of R] {$G$};
 
-  \path (R) edge [<-] (I1)
-        (R) edge [<-] (In)
-		(R) edge[->] node[above] {$g$} (G)
-        (Ii) edge[->] node[left,near start] {$u_i$} (R)
-        (Ii) edge[->] node[left] {$d_i$} (Ri)
-        (Ri) edge[->,bend right] node[pos=0.2,below right] (h) {$h$} (G)
-        (h) edge[draw=none] node[sloped,allow upside down] {$\nsat$} (ci);
+  \path (R) edge[->] node[above] {$g$} (G)
+        (Ii) edge[->] node[left=.1] {$u_i$} (R)
+        (Ii) edge[->] node[left] {$d_i$} (Pi)
+        (Pi) edge[->,bend right] node[pos=0.2,below right] (h) {$h$} (G)
+        (h) edge[draw=none] node[sloped,allow upside down] {$\nsat$} (Pi-label);
 \end{tikzpicture}
