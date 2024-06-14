@@ -66,7 +66,7 @@ Assume that \ref{forward-2} holds. By definition, $\cS$ is a mapping from $A$-so
 
 \item \emph{\ref{forward-3} implies \ref{forward-1}.}
 %
-Assume that \ref{forward-3} holds. To show \eqref{eq:shifters are functors}, note that $\cS(a;t)=s;a;t=\cS(a);t$. To show \eqref{eq:forward condition}, consider $a,g,h$ such that $v;g=a;h$; then $g=\id_A;g=s;v;g=\cS(v);g$.
+Assume that \ref{forward-3} holds. To show \eqref{eq:shifters are functors}, note that $\cS(a;t)=s;a;t=\cS(a);t$. To show \eqref{eq:forward condition}, consider $a,g,h$ such that $v;g=a;h$; then $g=\id_A;g=s;v;g=s;a;h = \cS(a);h$.
 
 \item \emph{\ref{backward-1} implies \ref{backward-2}.}
 %
@@ -241,7 +241,7 @@ For each $1\leq i \leq |b|$ we have $m'_i: c_{o'(i)} \to \cC_{\cB',i}(b_i)$, whe
 By the previous lemma, since $v''_{o(i)}$ is epi (unless $|c_o(i)| = 0$\todo{AC: trivial case?}),  $m'_i$ is also a morphism from $\cC_{\cB'',i}(c_{o'(i)})$  to $\cC_{\cB'',i}(\cC_{\cB',i}(b_i))$, where $\cC_{\cB'',i}$ is the backward shifter along $v''_{o(i)}$. Also, $m''_{o'(i)}: e_{o''(o'(i))} \to \cC_{\cB'',i}(c_{(o(i))})$. Finally we take $m_i = m''_{o'(i)}; m'_i : e_{o''(o'(i))} \to \cC_{\cB'',i}(\cC_{\cB',i}(b_i))$, which has the desired source and target. Note that there is a circularity in the argument, because we used $m''_{o'(i)}; m'_i$ to define composition. However, the last morphism are at a deeper level in the conditions: the problem can be fixed with a definition by induction on the depth of morphisms.  \qed
 \end{proof}
 
-\begin{theorem}
+\begin{theorem} 
 Let $\ABC^{\to}$ be the category having ab-conditions as objects and forward-shift morphims as arrows, and let $\ABC^{\twoheadleftarrow}$ be the category having the same objects and epi-based backward-shift morphisms as arrows. They are well-defined, and there are identity-on-objects functors $\ABC^{\to} \to \ABC^{\entails}$ and $\ABC^{\twoheadleftarrow} \to \ABC^{\entails}$
 \end{theorem}
 \emph{Proof sketch.}
