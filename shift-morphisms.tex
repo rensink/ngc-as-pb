@@ -14,8 +14,8 @@ This can be achieved in essentially two ways, on the basis of $v$: by constructi
 
 We will first define the notion of shifting for arrows (where it is called source shifting) and then extend this in a natural way to conditions (where it is called root shifting).
 
-\begin{definition}[source shifter]\dlabel{ab-source-shifter}
-Let $X,Y$ be objects. A \emph{source shifter} $\cS$ from $X$ to $Y$ is a function from $X$-sourced arrows to $Y$-sourced ones having the same target, say $Z$, such that for all $t$ with source $Z$:
+\begin{definition}[source shifter]\dlabel{ab-source shifter}
+Let $X,Y$ be objects. A \emph{source shifter} $\cS$ from $X$ to $Y$ is a function from $X$-sourced arrows to $Y$-sourced ones, such that for all arrows $a:X\to Y, t:Y\to Z$:
 %
 \begin{equation}\eqlabel{shifters are functors}
 \cS(a;t) = \cS(a);t \enspace.
@@ -40,7 +40,7 @@ Condition \eqref{eq:shifters are functors} is actually quite strong, since it ho
 %
 implying that the action of a source shifter $\cS$ from $X$ to $Y$ simply consists of prepending the image of $\cS(\id_X)$ to its argument. In turn, knowing that $\cS(t)=v;t$ for some $v$ (namely, $\cS(\id_X)$) is enough to prove \eqcite{shifters are functors}.
 %
-\begin{lemma}[source shifter properties]\llabel{ab-source-shifters}
+\begin{lemma}[source shifter properties]\llabel{ab-source shifters}
 The following two statements are equivalent.
 \begin{enumerate}[label=(\alph*),ref=(\alph{enumi})]
 \item\label{shifter-2} $\cS$ is a mapping from $B$-sourced arrows to $A$-sourced arrows such that $\cS(a)=v;a$ for all $a:B\to C$.
@@ -60,11 +60,11 @@ Assume that \ref{shifter-1} holds. By definition, $\cS$ is a mapping from $B$-so
 \end{itemize}
 \end{proof}
 
-This in turn implies that source shifters are entirely determined by $\cS(\id_X)$, which can form a basis for their construction.
+This in turn implies that source shifters from $X$ are entirely determined by $\cS(\id_X)$, which can form a basis for their construction.
 
 If $\cS$ is known to be a forward shifter, we often use $\cF$ to denote it; similarly, we often use $\cB$ to denote backward shifters. The following proposition characterises the (forward and backward) root shifters.
 %
-\begin{proposition}[source shifter characterisation]\plabel{ab-source-shifters}
+\begin{proposition}[source shifter characterisation]\plabel{ab-source shifters}
 Let $v:A\to B$ be an arrow.
 \begin{enumerate}
 \item The following three statements are equivalent.
@@ -104,13 +104,13 @@ Assume that \ref{forward-3} holds. To show \eqref{eq:shifters are functors}, not
 \end{enumerate}
 \end{proof}
 %
-It follows that $v$ has precisely one forward source shifter for every section $s$ of $v$ (meaning, among other things, that $v$ must be a retraction (and hence at least epi) to have any forward shifter at all). As for backward source shifters, if $\cS(\id_B)=v$ (which is in general the only known arrow from $A$ to $B$), then $v$ has a backward source shifter if and only if $v$ is epi. We denote these source shifters by $\cF_v^s$ and $\cB_v$, respectively. They are visualised in \fcite{source shifters}.
+It follows that $v$ has precisely one forward source shifter for every section $s$ of $v$ (meaning, among other things, that $v$ must be a retraction (and hence at least epi) to have any forward shifter at all). As for backward source shifters, if $\cS(\id_B)=v$ (which is in general the only known arrow from $A$ to $B$), then $v$ has a backward source shifter if and only if $v$ is epi. We denote these source shifters by $\cF_v^s$ and $\cB_v$, respectively. They are visualised in \fcite{ab-source shifters}.
 
 \begin{figure}
 \centering
-\input{figs/source-shifting}
+\input{figs/ab-source-shifting}
 \caption{Forward and backward source shifting (all subdiagrams commute)}
-\flabel{source shifters}
+\flabel{ab-source shifters}
 \end{figure}
 
 Source shifting is extended in a straightforward manner to conditions, where it is called \emph{root shifting}. To root-shift a condition, we only have to source-shift the arrows of its branches: the subconditions remain the same. This also means that for zero-width conditions, there is essentially nothing to be done. Hence we can extend the action of a source shifter $\cS$ from $X$ to $Y$ to conditions $c\in \AC X$ of arbitrary width $|c|=w$, as follows:
@@ -127,16 +127,16 @@ Let $v:A\to B$ be an arrow.
 \end{itemize}
 \end{definition}
 %
-If should be noted that \emph{all} root shifters $\bar\cS$ with $\cS$ a source shifter from $X$ to $Y$ behave as $\cI_{X,Y}$ on zero-width conditions; however, $\cI_{X,Y}$ is a root shifter for \emph{any} $v$, whereas, as we have seen in \dcite{ab-source-shifter}, forward and backward source shifters only exist for certain $v$. This makes it useful to distinguish this special case.
+If should be noted that \emph{all} root shifters $\bar\cS$ with $\cS$ a source shifter from $X$ to $Y$ behave as $\cI_{X,Y}$ on zero-width conditions; however, $\cI_{X,Y}$ is a root shifter for \emph{any} $v$, whereas, as we have seen in \dcite{ab-source shifter}, forward and backward source shifters only exist for certain $v$. This makes it useful to distinguish this special case.
 
-The following fact, which follows from \lcite{ab-source-shifters} for source shifters, will be very useful in reasoning about root shifters.
+The following fact, which follows from \lcite{ab-source shifters} for source shifters, will be very useful in reasoning about root shifters.
 %
 \begin{lemma}[root shifter property]\llabel{ab-root-shifters}
-For any non-trivial root shifter $\cC$ from $A$ to $B$, there is a $t:A\to B$ such that, for all $c\in \AC A$ on which $\cC$ is defined, $\cC(c)= (B,(t;a^c_1,c_1)\ccdots (t;a^c_{|c|},c_{|c|}))$.
+For any non-trivial root shifter $\cC$ from $A$ to $B$, there is a $t:B\to A$ such that, for all $c\in \AC A$ on which $\cC$ is defined, $\cC(c)= (B,(t;a^c_1,c_1)\ccdots (t;a^c_{|c|},c_{|c|}))$.
 \end{lemma}
 %
 \begin{proof}
-If $\cC$ is non-trivial, then $\cC=\bar\cS$ for some source shifter then this follows immediately from \lcite{ab-source-shifters}, with $t=\cS(\id_A)$.\qed
+If $\cC$ is non-trivial, then $\cC=\bar\cS$ for some source shifter then this follows immediately from \lcite{ab-source shifters}, with $t=\cS(\id_A)$.\qed
 \end{proof}
 %
 We use $\cC$ to range over root shifters, and by ignoring from now on the notational distinction between $\cS$ and $\bar\cS$, also reuse $\cF$ and $\cB$ for forward and backward root shifters. The action of a root shifter is visualised in \fcite{root shifting}.
@@ -190,7 +190,7 @@ The following defines structural morphisms based on root shifters over ab-condit
   Given two ab-conditions $b,c \in \AC{R}$, a \emph{forward-shift [backward-shift] condition morphism} $m: b \to c$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
   \begin{itemize}
   \item $o:[1,|b|]\to[1,|c|]$ is a function from $b$'s branches to $c$'s branches;
-  \item for all $1\leq i\leq |b|$, $v_i:P^c_{o(i)}\to P^b_i$ is a mapping from the pattern of $p^c_{o(i)}$ to that of $p^b_i$ such that $a^c_{o(i)};v_i=a^b_i$;
+  \item for all $1\leq i\leq |b|$, $v_i:P^c_{o(i)}\to P^b_i$ is an arrow from the pattern of $p^c_{o(i)}$ to that of $p^b_i$ such that $a^c_{o(i)};v_i=a^b_i$;
   \item\emph{Forward shift}: for all $1\leq i\leq |b|$, there is a forward root shifter $\cF,i$ for $v_i$ such that $m_i:\cF_i(c_{o(i)})\to b_i$ is a forward-shift morphism.
   \item\emph{Backward shift}: for all $1\leq i\leq |b|$, there is a backward root shifter $\cB_i$ for $v_i$ such that $m_i:c_{o(i)}\to \cB_i(b_i)$ is a backward-shift morphism.
   \end{itemize}

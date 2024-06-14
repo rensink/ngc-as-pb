@@ -30,7 +30,7 @@ Satisfaction of sb-conditions is then defined as follows:
 \begin{definition}[satisfaction of span-based conditions]\dlabel{sb-satisfaction}
   Let $c$ be a span-based condition and $g:R\func G$ an arrow from $c$'s root to an object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i$ and an arrow $h:R_i\func G$ such that
   \begin{enumerate*}
-  \item $s_i \commutes (g h)$, and
+  \item $s_i \commutes (g, h)$, and
   \item $h\nsat c_i$.
   \end{enumerate*}
 \end{definition}
@@ -46,7 +46,7 @@ Note that this is entirely analogous fo \dcite{ab-satisfaction}, especially if w
 
 \subsection{Span-based root shifting}
 
-To define morphisms of sb-conditions, we will go over the same ground as for ab-conditions, but take a slightly more abstract view --- as we did for satisfaction by introducting $\commutes$. Having recognised that the \emph{semantics} of a span in sb-conditions is essentially given by the set of model/witness pairs that it commutes with, we can now in general consider relations over spans that either preserve or reflect their semantics, in the sense that if $s_1,s_2$ are related, then either $s_1\commutes (g,h)$ implies $s_2\commutes (g,h)$ (preservation) or $s_2\commutes (g,h)$ implies $s_1\commutes (g,h)$ (reflection). In most cases, however, the model/witness pairs are not preserved or reflected precisely, but modulo some arrow that gets added to or erased from the model or witness. Thus:\todo{shorten}
+To define morphisms of sb-conditions, we will go over the same ground as for ab-conditions, but take a slightly more abstract view --- as we did for satisfaction by introducting $\commutes$. Having recognised that the \emph{semantics} of a span in sb-conditions is essentially given by the set of model/witness pairs that it commutes with, we can now in general consider relations over spans that either preserve or reflect their semantics, in the sense that if $s_1,s_2$ are related, then either $s_1\commutes (g,h)$ implies $s_2\commutes (g,h)$ (preservation) or $s_2\commutes (g,h)$ implies $s_1\commutes (g,h)$ (reflection). Typically, however, the model/witness pairs are not preserved or reflected precisely, but modulo some arrow that gets added to or erased from the model or witness. Thus:\todo{shorten}
 %
 \begin{itemize}
 \item $(s_1,s_2)$ preserves models plus $v$ if $s_1\commutes (g,h)$ implies $s_2\commutes (v;g,h)$;
@@ -64,7 +64,7 @@ The above is defined on individual pairs. For a relation $\cR$ over spans, we sa
 To extend \eqcite{shifters are functors} from arrows to spans, we also need to consider span composition. This is defined as usual: $\spanof u d;\spanof v w=\spanof{v';u}{d';w}$ where $(v',d')$ is the pullback span of $(d,v)$.\footnote{Technically, this is only well-defined if we consider spans up to isomorphism of their middle objects; we will gloss over this here.}
 
 \begin{definition}[span source shifters]
-Let $X,Y$ be objects. A \emph{span source shifter} $\cS$ from $X$ to $Y$ is a function from $X$-sourced spans to $Y$-sourced spans having the same target, say $Z$, such that for all spans $s:X\to Y,t:X\to Z$:
+Let $X,Y$ be objects. A \emph{span source shifter} $\cS$ from $X$ to $Y$ is a function from $X$-sourced spans to $Y$-sourced spans having the same target, say $Z$, such that for all spans $s:X\to Y,t:Y\to Z$:
 %
 \begin{equation}\eqlabel{span shifters are functors}
 \cS(s;t) = \cS(s);t \enspace.
@@ -76,7 +76,7 @@ Now let $v=A\to B$ be an arrow. $\cS$ is a \emph{forward span source shifter for
 s\commutes (v;g,h) \enspace\text{ implies }\enspace \cS(s) \commutes (g,h) \enspace.
 \end{equation}
 %
-A forward span source shifter is called \emph{complete}\todo{other term?} if it also reflects models plus $v$; i.e., if the ``implies" in \eqref{eq:forward condition} is an `` if and only if".
+A forward span source shifter is called \emph{complete}\todo{other term?} if it also reflects models plus $v$; i.e., if the ``implies" in \eqref{eq:sb-forward condition} is an ``if and only if".
 
 Instead, $\cS$ is a \emph{backward span source shifter for $v$} if it is a span source shifter from $B$ to $A$ that reflects models minus $v$, i.e., such that for all spans $s:B\to C$ and all pairs $g:B\to G,h:C\to G$:
 %
@@ -84,23 +84,53 @@ Instead, $\cS$ is a \emph{backward span source shifter for $v$} if it is a span 
 \cS(s) \commutes (v;g,h) \enspace\text{ implies }\enspace s\commutes (g,h) \enspace.
 \end{equation}
 %
-A backward span source shifter is called \emph{complete} if it also preserves models plus $v$; i.e., if the ``implies" in \eqref{eq:backward condition} is an `` if and only if".
+A backward span source shifter is called \emph{complete} if it also preserves models plus $v$; i.e., if the ``implies" in \eqref{eq:sb-backward condition} is an ``if and only if".
 \end{definition}
 %
 Span source shifters extend to root shifters (of span-based conditions) exactly as in the arrow-based case. Before showing how this gives rise to morphisms, however, let us investigate the possible instantiations of span source shifters.
 
+Since span source shifters from $X$ are, just as in the arrow-based case, completely determined by $\cS(\id_X)$ (due to \eqref{eq:span shifters are functors}), we can enumerate the choices of forward and backward shifters for $v$ that are generally available (without having additional information about $v$).
+%
+\begin{description}
+\item[Forward shifting.] For $\cS$ to be a forward span source shifter for $v:A\to B$, there must be a span $t=\cF(\id_A):B\to A$, which automatically determines $\cS(s)=t;s$ for all $s:A\to C$. There are essentially two options: $t=\spanof{v}{\id_B}$ or $t=\spanof{\id_A}{x}$ for some section $x$ of $v$, i.e., such that $x;v=\id_B$. We denote the resulting span source shifters by $\cF_v^\circ$ and $\cF_v^x$, respectively.
+
+\item[Backward shifting.] For $\cS$ to be a backward span source shifter for $v:A\to B$, there must be a span $t=\cB(\id_B):A\to B$, which automatically determines $\cS(s)=t;s$ for all $s:B\to C$. Again, there are essentially two options: $t=\spanof{\id_A}{v}$, or $t=\spanof{\id_B}{x}$ for some section $x$ of $v$, i.e., such that $x;v=\id_A$. We denote the resulting span source shifters by $\cB_v^\circ$ and $\cB_v^x$, respectively.
+\end{description}
+%
+These options are depicted in \fcite{sb-span source shifters} (in a simplified construction that omits the intermediate steps of the span composition where possible). It turns out that, indeed, each of these four options gives rise to a valid shifter.
+%
+\begin{figure}
+\centering
+\input{figs/sb-source-shifting}
+\caption{Forward and backward span source shifters. In each case, $\spanof{u'}{d'}$ is the image of $\spanof{u}{d}$.}
+\flabel{sb-source shifters}
+\end{figure}
+%
+\begin{proposition}[span source shifters]\plabel{sb-source shifters}
+\begin{enumerate}
+\item $\cF_v^\circ$ is a complete forward span source shifter for $v$, and $\cF_v^x$ is a forward span shifter for $v$ if $x$ is a section of $v$.
+\item $\cF_v^\circ$ is a complete backward span source shifter for $v$ if $v$ is epi, and $\cF_v^x$ is a backward span shifter for $v$ if $x$ is a section of $v$.
+\end{enumerate}
+\end{proposition}
 
 
 \subsection{Span-based morphisms}
 
-A final change with respect to the arrow-based case is that we also abstract the commutation condition in \dcite{ab-morphism} by relying instead on a family or relations $\cR_v$ over spans (where $m$ is an arrow in $\bC$) such that $\cR_v$ reflects witnesses plus $v$. $\cR_v$ is called \emph{complete} if it also preserves witnesses minus $m$. To see the analogy with the arrow-based case, note that $\cR_v=\setof{(a_1,a_2)\mid a_1;v=a_2}$ precisely satisfies the requirement of reflecting witnesses plus $v$ (and if $v$ is iso, $R_v$ is complete, though we did not consider this notion for ab-morphisms).
+A final change with respect to the arrow-based case is that we also abstract the commutation condition in \dcite{ab-morphism} by relying on a family of \emph{transfer relations} $\cR_v$ over identically-sourced spans (where $v$ ranges over arrows in $\bC$), such that
+%
+\begin{enumerate*}[label=\emph{\roman*}]
+\item\label{transfer-1} $\cR_v$ reflects witnesses plus $v$, and
+\item\label{transfer-2} for any span $s$, $(s_1,s_2)\in \cR_v$ implies $(s;s_1,s;s_2)\in \cR_v$.
+\end{enumerate*}
+%
+$\cR_v$ is called \emph{complete} if it also preserves witnesses minus $v$ --- i.e., the complementary property of \ref{transfer-1}. To see the analogy with the arrow-based case, note that $\cR_v=\setof{(a_1,a_2)\mid a_1;v=a_2}$ precisely satisfies the requirement of reflecting witnesses plus $v$ (and if $v$ is iso, $R_v$ is complete, though we did not consider this notion for ab-morphisms).
 %
 \begin{definition}[span-based (complete) condition morphism]\dlabel{sb-morphism}
-  Given two sb-conditions $b,c$, a \emph{forward-shif [backward-shift] sb-morphism} $m:b\to c$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
+  Given two sb-conditions $b,c$, a \emph{forward-shift [backward-shift] sb-morphism} $m:b\to c$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
   \begin{itemize}
   \item $o:[1,|b|]\to [1,|c|]$ is a function from $b$'s branches to $c$'s branches;
-  \item for all $1\leq i\leq |b|$, $v_i:P^c_{o(i)}\to P^b_i$ is a mapping from the pattern of $p^c_{o(i)}$ to that of $p^b_i$ such that $(s^b_i,s^c_{o(i)})\in \cR_{v_i}$;
-  \item \emph{Forward shift:} for all $1\leq i\leq |b|$, there is a forward root shifter $F_i$ for $v_i$ such that $m_i:\cF_i(c_{o(i)})\to b_i$ is a forward-shift morphism;
+  \item for all $1\leq i\leq |b|$, $v_i:P^c_{o(i)}\to P^b_i$ is a arrow from the pattern of $p^c_{o(i)}$ to that of $p^b_i$ such that $(s^b_i,s^c_{o(i)})\in \cR_{v_i}$;
+  \item \emph{Forward shift:} for all $1\leq i\leq |b|$, there is a forward root shifter $\cF_i$ for $v_i$ such that $m_i:\cF_i(c_{o(i)})\to b_i$ is a forward-shift morphism;
   \item \emph{Backward shift:} for all $1\leq i\leq |b|$, there is a backward root shifter $\cB_i$ for $v_i$ such that $m_i:c_{o(i)}\to \cB(b_i)$ is a backward-shift morphism.
   \end{itemize}
   $m$ is called \emph{complete} if $o$ is surjective and for all $1\leq i\leq |b|$, $\cR_{v_i}$ is complete and $\cF_i$ [$\cB_i$] is complete.
