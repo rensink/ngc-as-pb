@@ -4,11 +4,11 @@ The notion of \emph{morphism} of nested conditions has not received much attenti
 
 The question that we address in this section is to establish a meaningful \emph{structural} notion of condition morphism. That is, given the fact that an ab-condition is essentially a diagram in the category $\bC$, a structural morphism from $b$ to $c$ consists of arrows between objects of $b$ and objects of $c$ satisfying certain commutativity conditions. For morphisms to be meaningful, they should certainly only exist where there is entailment; in other words, we require there to be a functor to $\ABC^{\entails}$. As we will see, this requirement implies that it is not enough to consider only arrows from objects of $b$ \emph{to} objects of $c$, since in our definition of satisfaction, the direction of entailment flips at every subsequent nesting level. We also observe that the existence of a functor to $\ABC^{\entails}$ means that we only consider morphisms between conditions with the same root.
 
-In this section and the next, we will review several candidate notions of morphism, but the underlying principle is always the same: a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ to $c=(R,p^c_1\ccdots p^c_{|c|})$ must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that entails it. Entailment of branches, in turn, is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$ (hence going in the \emph{opposite} direction of $m$) such that, \emph{modulo $v_i$}, there is a morphism between the subconditions $c_j$ and $b_i$. The main task of the next subsection is to make the concept of ``modulo $v_i$" precise.
+The underlying principle for a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ to $c=(R,p^c_1\ccdots p^c_{|c|})$ is that it must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that entails it. Entailment of branches, in turn, is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$ (hence going in the \emph{opposite} direction of $m$) such that there is (recursively, but in the opposite direction) a morphism between the subconditions $c_j$ and $b_i$; however, this sub-morphism can only exist ``modulo" the morphism $v_i$ between their roots. The main task of the next subsection is to make the concept of ``modulo $v_i$" precise.
 
 \subsection{Root shifting}
 
-In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}, which will later turn out to be functors between categories of conditions. For now, we note that the purpose of root shifters is to relate the models of a condition $b$ to those of a condition $c$, given an arrow $v:R^b\to R^c$ between their roots, even if $R^b$ and $R^c$ are distinct objects (meaning that the sets of models of $b$ and $c$ are bound to be disjoint). To be more precise, we will require that \emph{every $v$-prepended model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
+In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}, which will later turn out to be functors between categories of conditions. For now, we note that the purpose of root shifters is to relate the models of a condition $b$ to those of a condition $c$, given an arrow $v:R^b\to R^c$ between their roots (the existence of which implies that the model sets are typically disjoint). To be more precise, we will require that \emph{every $v$-prepended model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
 
 This can be achieved in essentially two ways, on the basis of $v$: by constructing $c$ from $b$ (which we will call \emph{forward shifting}) or by constructing $b$ from $c$ (which we will call \emph{backward shifting}).
 
@@ -34,7 +34,7 @@ v;g = \cS(a);h \text{ implies } g = a;h \enspace.
 \end{equation}
 \end{definition}
 %
-The following proposition characterises the (forward and backward) root shifters. 
+If $\cS$ is known to be a forward shifter, we often use $\cF$ to denote it; similarly, we often use $\cB$ to denote backward shifters. The following proposition characterises the (forward and backward) root shifters.
 %
 \begin{proposition}[shifter properties]
 Let $v:A\to B$ be an arrow.
@@ -91,100 +91,80 @@ It follows that $v$ has precisely one forward source shifter for every section $
 \flabel{source shifters}
 \end{figure}
 
-Source shifting is extended to conditions, where it is called \emph{root shifting}. Let $X,Y$ be arbitrary objects, and let $\cS_1\ccdots \cS_w$ be a sequence of source shifters from $X$ to $Y$.
+Source shifting is extended in a straightforward manner to conditions, where it is called \emph{root shifting}. To root-shift a condition, we only have to source-shift the arrows of its branches: the subconditions remain the same. This also means that for zero-width conditions, there is essentially nothing to be done. Hence we can extend the action of a source shifter $\cS$ from $X$ to $Y$ to conditions $c\in \AC X$ of arbitrary width $|c|=w$, as follows:
+\[ \bar\cS: c\mapsto (Y,(\cS(a^c_1),c_1)\ccdots (\cS(a^c_w),c_w)) \enspace. \]
+Moreover, for the special case of trivial (zero-width) conditions, we introduce the special root shifer $\cI_{X,Y}$, defined by
+\[ \cI_{X,Y}: (X,\epsilon) \mapsto (Y,\epsilon) \enspace. \]
 %
+\begin{definition}[root shifter]
+Let $v:A\to B$ be an arrow.
 \begin{itemize}
-\item $\cC[\cS_1\ccdots \cS_w]$, a \emph{root shifter from $X$ to $Y$ of width $w$}, is a function from $\AC X$ to $\AC Y$ defined over conditions of width $w$, such that 
-\[ \cC[\cS_1\ccdots \cS_w](c) = (Y,(\cS_1(a^c_1),c_1)\ccdots (\cS_w(a^c_w),c_w)) \enspace.
-\]
-\item $\cC[\cS_1\ccdots \cS_w]$ is called a forward [backward] root shifter for $v$ if all $\cS_i$ are forward [backward] source shifters for $v$.
-\end{itemize}
-%
-Note that for any arrow $v$ there is exactly one backward root shifter of width $w$, namely $\cC[\cB_v\ccdots \cB_v]$, while there are $k^w$ potentially different forward root shifters, where $k$ is the number of sections for $v$.
+\item A \emph{forward root shifter} $\cC$ for $v$ is a partial function from $\AC A$ to $\AC B$ such that either $\cC=\bar\cF$ for some forward source shifter $\cF$, or $\cC=\cI_{A,B}$.
 
-We use $\cC$ to range over root shifters (always obtained from a sequence of source shifters, as above), and $|\cC|$ to denote the width of $\cC$. Note that root shifting \emph{only} changes the root, i.e., the source of the first level of arrows: all subconditions remain the same. This is visualised in \fcite{root shifting}.
+\item A \emph{backward root shifter} $\cC$ for $v$ is a partial function from $\AC B$ to $\AC A$ such that either $\cC=\bar\cB$ for some backward source shifter $\cB$, or $\cC=\cI_{B,A}$.
+\end{itemize}
+\end{definition}
+%
+If should be noted that \emph{all} root shifters $\bar\cS$ with $\cS$ a source shifter from $X$ to $Y$ behave as $\cI_{X,Y}$ on zero-width conditions; however, $\cI_{X,Y}$ is a root shifter for \emph{any} $v$, whereas, as we have seen in \dcite{source shifter}, forward and backward source shifters only exist for certain $v$. This makes it useful to distinguish this special case.
+
+We use $\cC$ to range over root shifters, and by ignoring from now on the notational distinction between $\cS$ and $\bar\cS$, also reuse $\cF$ and $\cB$ for forward and backward root shifters. The action of a root shifter is visualised in \fcite{root shifting}.
 %
 \begin{figure}
 \centering
 \input{figs/root-shifting.tex}
-\caption{Root shifting under $\cC[\cS_1\ccdots \cS_w]$: green is shifted to blue}
+\caption{Root shifting using a source shifter $\cS$: green is shifted to blue}
 \flabel{root shifting}
 \end{figure}
-
-Since root-shifting is defined on a branch-by-branch basis, for zero-width conditions (encoding the property $\False$ over their respective roots) there is essentially no requirement to be fulfilled. Hence, the single pair $\cC_{A,B}=\setof{((A,\epsilon),(B,\epsilon))}$ (of width $|\cC_{A,B}|=0$) is both a forward shifter for any $v:A\to B$ and a backward shifter for any $v:B\to A$.
-
-The following proposition expresses the interplay between (forward and backward) root shifting and the semantics of a condition, in terms of satisfaction.
-
-\begin{proposition}[model preservation and reflection]
-  \plabel{model preservation by shifters}
-Let $v:A\to B$ and $g:B\to G$ be arrows; let $\cC_\cF$ and $\cC_\cB$ be forward and backward root shifters for $v$.
+%
+The following is the crucial preservation property of root shifters:
+%
+\begin{proposition}~
+Let $v:A\to B$.
 \begin{enumerate}
-\item \emph{$\cC_\cF$ preserves models along $v$}: for all $c\in\AC A$, $v;g\sat c$ implies $g\sat \cC_\cF(c)$.
-\item \emph{$\cC_\cB$ reflects models against $v$}: if $v$ is epi or $|\cC_\cB|=0$, then for all $c\in\AC B$, $v;g\sat \cC_\cB(c)$ implies $g\sat c$.
+\item If $c\in \AC A$ and $\cF$ is a forward root shifter for $v$ that is defined on $c$, then $v;g\sat c$ implies $g\sat \cF(c)$.
+\item If $c\in \AC B$ and $\cB$ is a backward root shifter for $v$ that is defined on $c$, then $v;g\sat \cB(c)$ implies $g\sat c$.
 \end{enumerate}
 \end{proposition}
 %
-% AC: tried to rephrase, but it becomes heavier
-% \begin{proposition}[model preservation and reflection]
-%   Let $v:A\to B$ and $g:B\to G$ be arrows; let $\cC_\cF$ and $\cC_\cB$ be forward and backward root shifters for $v$, respectively, both of width $w > 0$.
-%   \begin{enumerate}
-%   \item For all $c\in\AC A$ with $|c|=w$, $v;g\sat c$ implies $g\sat \cC_\cF(c)$.
-%   \item For all $c\in\AC B$ with $|c|=w$, $g\sat c$ implies $v;g\sat \cC_\cB(c)$. If, in addition, $v$ is epi, then also $v;g\sat \cC_\cB(c)$ implies $g\sat c$.
-%   \item Furthermore, for all $c\in\AC A$ with $|c|=0$, $v;g\sat c$ if and only if  $g\sat \cC_{A,B}[](c)$, and 
-%   \item for all $c\in\AC B$ with $|c|=0$, $g\sat c$ if and only if  $v;g\sat \cC_{B,A}[](c)$
-%   \end{enumerate}
-%   \end{proposition}
-
-\begin{proof}
-The cases for $w=0$ vacuously hold, as neither $g\sat c$ nor $g\sat \cC(c)$ can be fulfilled for any zero-width condition $c$ or root shifter $\cC$. We now prove the non-vacuous cases for $w > 0$.
+Source and root shifters compose, in the following way.
+%
+\begin{proposition}~
 \begin{enumerate}
-\item Let $b=\cC_\cF(c)$ and assume $v;g\sat c$. It follows that there is a responsible branch $p^c_i$ and a witness $h$ such that $v;g=a^c_i;h$ and $h\not\sat c_i$. Let $\cF_v^s$ be the $i$-th forward source shifter of $\cC_\cF$, with associated section $s: B\to A$. Hence $g=\id_B;g=s;v;g=s;a^c_i;h=\cF_v^s(a^c_i);h$, making $p^b_i=(\cF_v^s(a^c_i),c_i)$ a responsible branch and $h$ a witness for $g\sat b$.
-
-\item Let $b=\cC_\cB(c)$ and assume $g\sat c$. It follows that there is a responsible branch $p^c_i$ and a witness $h$ such that $g=a^c_i;h$ and $h\not\sat c_i$. Hence $v;g=v;a^c_i;h=\cB_v(a^c_i);h$, where $\cB_v$ is the $i$-th backward source shifter of $\cC_\cB$. Thus $p^b_i=(\cB_v(a^c_i),c_i)$ a responsible branch and $h$ a witness for $v;g\sat b$.
-
-\smallskip
-Finally, assume $v$ is epi and $v;g\sat b$, where $b = \cC_\cB(c)$. It follows that there is a responsible branch $p^b_i=(\cB_v(a^c_i),c_i)$ and a witness $h$ such that $v;g=\cB_v(a^c_i);h$ and $h\not\sat c_i$. Since $\cB_v(a^c_i)=v;a^c_i$ we have $v;g=v;a^c_i;h$, and since $v$ is epi this implies $g=a^c_i;h$, making $p^c_i$ a responsible branch and $h$ a witness for $g\sat c$.
-\qed
+\item If $\cU$ is a source [root] shifter from $X$ to $Y$ and $\cV$ a source [root] shifter for from $Y$ to $Z$, then $\cU;\cV$ (understood as function composition) is a source [root] shifter from $X$ to $Z$. 
+\item If $\cU$ and $\cV$ are forward source [root] shifters for $u: X\to Y$ and $v: Y \to Z$, respectively, then $\cU;\cV$ is forward source [root] shifter for $u;v$.
+\item Dually, if $\cU$ and $\cV$ are backward sort [root] shifters for $u: Y\to X$ and $v: Z \to Y$, respectively, then $\cU;\cV$ is a backward source [root] shifter for $v;u$.
 \end{enumerate}
-\end{proof}
-%
-Because we will use backward shifters in situations where the reflection, and not the preservation, of models is the essential property, we will henceforth limit ourselves to \emph{epi-based backward shifters}, where a backward source shifter $\cB$ for $v$ is epi-based if $v$ is epi, and a backward root shifter $\cC[\cS_1\ccdots \cS_w]$ is epi-based if all $\cS_i$ are epi-based (which is vacuously true if $w=0$).\todo{AR: Added}
-
-Shifters compose, in the following way.
-%
-\begin{proposition}
-If $\cU$ is a source [root] shifter from $X$ to $Y$ and $\cV$ a source [root] shifter for from $Y$ to $Z$, then $\cU;\cV$ (understood as function composition) is a source [root] shifter from $X$ to $Z$. Moreover, if $\cU$ and $\cV$ are forward shifters for $u: X\to Y$ and $v: Y \to Z$, respectively, then $\cU;\cV$ is forward shifter for $u;v$. Dually, if $\cU$ and $\cV$ are epi-based backward shifters for $u: Y\to X$ and $v: Z \to Y$, respectively, then $\cU;\cV$ is an epi-based backward shifter for $v;u$.
 \end{proposition}
 
 \begin{proof}
-We prove the case for source shifters; the case for root shifters follows by a straightfoward pointwise argument.
-
-To prove \eqcite{shifters are functors} for $\cU;\cV$ consider:
+We first prove the case for source shifters.
+\begin{enumerate}
+\item To prove \eqcite{shifters are functors} for $\cU;\cV$ consider:
 \[ (\cU;\cV)(a;t) = \cV(\cU(a;t))= \cV(\cU(a);t)=\cV(\cU(a));t=(\cU;\cV)(a);t \enspace. \]
-In case $\cU$ and $\cV$ are forward, to prove \eqcite{forward condition} consider:
+\item In case $\cU$ and $\cV$ are forward, to prove \eqcite{forward condition} consider:
 \[ (\cU;\cV)(u;v) = \cV(\cU(u;v)) = \cV(\cU(u);v) = \cV(\id_Y;v) = \cV(v) = \id_Z \enspace. \]
-In case $\cU$ and $\cV$ are backward, to prove \eqcite{backward condition} consider:
+\item In case $\cU$ and $\cV$ are backward, to prove \eqcite{backward condition} consider:
 \[ (\cU;\cV)(\id_X) = \cV(\cU(\id_X)) = \cV(u) = \cV(\id_Y;u) = \cV(\id_Y);u = v;u \enspace. \]
-Finally, if $\cU$ and $\cV$ are epi-based (either because $v$ and $u$ are epi or because $\cU$ and $\cV$ are root shifters of width 0), then so is $\cU;\cV$.
+\end{enumerate}
+The case for root shifters follows by a straightfoward pointwise argument, noting again that for conditions of width $0$, all root shifters from $X$ to $Y$ behave as $\cI_{X,Y}$.
 \qed
 \end{proof}
 
 \subsection{Structural morphisms}
 
-The following defines structural morphisms based on root shifters over ab-conditions with the same root.\todo{AR: I would prefer to restrict to epi-based backward shift morphisms from the start (and not call them epi-based), as those are the only ones we ever use. \\ AC: ok, done.}
+The following defines structural morphisms based on root shifters over ab-conditions with the same root.
 
 \begin{definition}[arrow-based condition morphism]\dlabel{ab-morphism}
   Given two ab-conditions $b,c \in \AC{R}$, a \emph{forward-shift [backward-shift] condition morphism} $m: b \to c$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
   \begin{itemize}
   \item $o:[1,|b|]\to[1,|c|]$ is a function from $b$'s branches to $c$'s branches;
   \item for all $1\leq i\leq |b|$, $v_i:P^c_{o(i)}\to P^b_i$ is a mapping from the pattern of $p^c_{o(i)}$ to that of $p^b_i$ such that $a^c_{o(i)};v_i=a^b_i$;
-  \item\emph{Forward shift}: for all $1\leq i\leq |b|$, there is a forward root shifter $\cC_{\cF,i}$ for $v_i$ such that $m_i:\cC_{\cF,i}(c_{o(i)})\to b_i$ is a forward-shift morphism.
-  \item\emph{Backward shift}: for all $1\leq i\leq |b|$, there is an epi-based backward root shifter $\cC_{\cB,i}$ for $v_i$ such that $m_i:c_{o(i)}\to \cC_{\cB,i}(b_i)$ is a backward-shift morphism.
+  \item\emph{Forward shift}: for all $1\leq i\leq |b|$, there is a forward root shifter $\cF,i$ for $v_i$ such that $m_i:\cF_i(c_{o(i)})\to b_i$ is a forward-shift morphism.
+  \item\emph{Backward shift}: for all $1\leq i\leq |b|$, there is a backward root shifter $\cB_i$ for $v_i$ such that $m_i:c_{o(i)}\to \cB_i(b_i)$ is a backward-shift morphism.
   \end{itemize}
-% A backward-shift morphism  $m = (o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|})): b \to c$ is called \emph{epi-based} if for all $1 \leq i \leq |b|$ it holds that if $|b_i| > 0$ then $v_i$ is epi and $m_i$ is epi-based.
 \end{definition}
 %
-\fcite{shifted-morphism} visualises the principle of forward- and backward-shift morphisms (on a single branch).
+\fcite{shifted-morphism} visualises the principle of forward- and backward-shift morphisms.
 %
 \begin{figure}
 \centering
@@ -205,21 +185,15 @@ Let $m = (o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ and assume by induction hypothe
 Hence we have $(\dagger)\, g=a^b_i;h$ and $(\ddagger)\, h \nsat b_i$.  
 We show that $g \sat c$, with responsible branch $p^c_{o(i)}$ and witness $a^c_{o(i)}; v_i ;h$. In fact, we immediately have  $a^c_{o(i)}; v_i ;h = a^b_i ; h \stackrel{(\dagger)}{=} g$. It remains to show that $v_i ;h \nsat c_{o(i)}$, for which we consider separately the two cases.
 \begin{enumerate}
-\item Let $m$ be a forward-shift morphism. Then for all $1\leq j\leq |b|$ we have that   $m_j:\cC_{\cF,j}(c_{o(j)}) \to b_j$ is a forward-shift morphism, where $\cC_{\cF,j}$ is a forward root shifter for $v_j$. If (ad absurdum) $v_i ;h \sat c_{o(i)}$, by clause 1 of \pcite{model preservation by shifters} we would have $h \sat \cC_{\cF,i}(c_{o(i)})$, and by induction hypothesis on $m_i$ also $h \sat b_i$, contradicting $(\ddagger)$.
+\item Let $m$ be a forward-shift morphism. Then for all $1\leq j\leq |b|$ we have that   $m_j:\cF_j(c_{o(j)}) \to b_j$ is a forward-shift morphism, where $\cF_j$ is a forward root shifter for $v_j$. If (ad absurdum) $v_i ;h \sat c_{o(i)}$, by clause 1 of \pcite{model preservation by shifters} we would have $h \sat \cF_i(c_{o(i)})$, and by induction hypothesis on $m_i$ also $h \sat b_i$, contradicting $(\ddagger)$.
 
-\item Let $m$ be a backward-shift morphism. Then for all $1\leq j\leq |b|$ we have that  $m_j:c_{o(j)}\to \cC_{\cB,j}(b_j)$ is a backward-shift morphism, where $\cC_{\cB,j}$ is an epi-based backward root shifter of width $|b_j|$.
-Suppose (ad absurdum) that $v_i ;h \sat c_{o(i)}$. Then by the induction hypothesis on $m_i$ we also have $v_i ;h \sat \cC_{\cB,i}(b_i)$, and by clause 2 of \pcite{model preservation by shifters}  we  have $h \sat b_i$, contradicting $(\ddagger)$.\todo{AC: Simplified. Should we say that either $|b_i| =0$ or $v_i$ is epi?} 
-
-
-% Now, if $|b_i|= 0$ then also $|\cC_{\cB,i}(b_i)| = 0$ because root shifting preserves the width, meaning that both are equivalent to $\False$ and thus have no models, contradicting $(\star)$. Otherwhise,  $v_j$ is epi and thus by clause 2 of \pcite{model preservation by shifters} from $(\star)$ we would have $h \sat b_i$, contradicting $(\ddagger)$. \qed
-% and $m_j:c_{o(j)}\to \cC_{\cB,j}(b_j)$ is an epi-based backward-shift morphism. If $|b_j| =0$ then also $|c_{o(j)}| = 0$ (because $m_i:c_{o(i)}\to \cC_{\cB,i}(b_i)$ is a backward-shift morphism), thus it is equivalent to $\False$ and it has no model.
-
-% Otherwise ($|b_i| > 0$), suppose (ad absurdum) that $v_i ;h \sat c_{o(i)}$. Then by the induction hypothesis on $m_i$ also $v_i ;h \sat \cC_{\cB,i}(b_i)$,  and thus by clause 2 of \pcite{model preservation by shifters}, since $v_i$ is epi, we would have $h \sat b_i$, contradicting $(\ddagger)$.\qed
+\item Let $m$ be a backward-shift morphism. Then for all $1\leq j\leq |b|$ we have that  $m_j:c_{o(j)}\to \cB_j(b_j)$ is a backward-shift morphism, where $\cB_j$ is a backward root shifter of width $|b_j|$.
+Suppose (ad absurdum) that $v_i ;h \sat c_{o(i)}$. Then by the induction hypothesis on $m_i$ we also have $v_i ;h \sat \cB_i(b_i)$, and by clause 2 of \pcite{model preservation by shifters}  we  have $h \sat b_i$, contradicting $(\ddagger)$.
+\qed
 \end{enumerate}
 \end{proof}
 %
-
-The property that existence of morphims guarantees entailment can be phrased more abstractly as the existence of a functor from a category of conditions and their morphims to $\ABC^{\entails}$. To this aim we first have to show that condition morphims compose. Let us start with backward-shift morphisms.
+The property that existence of morphims guarantees entailment can be phrased more abstractly as the existence of a functor from a category of conditions and their morphims to $\ABC^{\entails}$. To this aim we first have to show that condition morphims compose. Let us start with backward-shift morphisms.\todo{AR: Remainder of this section not yet adapted}
 
 \begin{lemma}[backward root shift preserves morphisms]
 Let $b,c \in  \AC{R}$ and $v: R' \to R$ be an epimorphism. Then $m = (o,(v_1,m_1)\cdots(v_{|b|},m_{|b|}))$ is a morphism from $b$ to $c$ if and only if it is a morphism from $\cC_{\cB}(b)$ to $\cC_{\cB}(c)$, where $\cC_\cB$ is the backward root shifter along $v$. 
