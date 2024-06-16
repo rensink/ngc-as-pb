@@ -1,0 +1,100 @@
+\newcommand{\Cgraph}{\mygraph{
+    \node[n] (1) {$y$};
+    \node[n] (2) [right=of 1] {$x$};
+    \node[n] (3) [right=of 2] {$z$};
+    \path (1) edge[<-] node[above] {\la} (2)
+          (2) edge[->,bend left] node[near start,above] {\la} (3)
+          (3) edge[->,bend left] node[near start,below] {\lb} (2);
+    }
+}%
+%
+\begin{tikzpicture}[on grid]
+  \node[graph] (A) {\spangraph{y}{a}{x}{a}{z}};
+  \node [above right=0 and 0 of A.north west] {$A$};
+  \node[graph,below=2 of A] (C) {\Cgraph};
+  \node [above right=0 and 0 of C.north west] {$C$};
+  \node[graph] (B) [right=2.3 of A] {\oneedge{x'}{a}{z'}};
+  \node [above left=0 and 0 of B.north east] {$B$};
+
+  \path (A) edge[->] node[left] {$a$} (C);
+
+  \path (A) edge[->,bend left] node[above]
+            {$v \left\{\mapping{
+			x & x' \\
+			y & z' \\
+			z & z'}\right.$}
+	    (B);
+
+  \path (B) edge[->] node[above] {$s_1$}
+                     node[below]
+            {$\mapping{
+			x' & x \\
+			z' & y}$}
+	    (A);
+
+  \path (B.south) edge[->] node[near start,below right,inner sep=0pt] {$\cF_v^{s_1}(a) $}  
+                           node[near end,below right=-.1] 
+            {$\mapping{
+			x' & x \\
+			z' & y}$}
+		(C.north east);
+\end{tikzpicture}%
+\enspace
+\begin{tikzpicture}[on grid]
+  \node[graph] (A) {\spangraph{y}{a}{x}{a}{z}};
+  \node [above right=0 and 0 of A.north west] {$A$};
+  \node[graph,below=2 of A] (C) {\Cgraph};
+  \node [above right=0 and 0 of C.north west] {$C$};
+  \node[graph] (B) [right=2.3 of A] {\oneedge{x'}{a}{z'}};
+  \node [above left=0 and 0 of B.north east] {$B$};
+
+  \path (A) edge[->] node[left] {$a$} (C);
+
+  \path (A) edge[->,bend left] node[above]
+            {$v \left\{\mapping{
+			x & x' \\
+			y & z' \\
+			z & z'}\right.$}
+	    (B);
+
+  \path (B) edge[->] node[above] {$s_2$} 
+                     node[below]
+            {$\mapping{
+			x' & x \\
+			z' & z}$}
+	    (A);
+
+  \path (B.south) edge[->] node[near start,below right,inner sep=0pt] {$\cF_v^{s_2}(a)$}
+                           node[near end,below right=-.1] 
+            {$\mapping{
+			x' & x \\
+			z' & z}$}
+		(C.north east);
+\end{tikzpicture}%
+\enspace
+\begin{tikzpicture}[on grid]
+  \node[graph] (A) {\spangraph{y'}{a}{x'}{a}{z'}};
+  \node [above right=0 and 0 of A.north west] {$A$};
+  \node[graph] (B) [right=1.9 of A] {\oneedge{x}{a}{z}};
+  \node [above left=0 and 0 of B.north east] {$B$};
+  \node[graph,below left=2 and .4 of B] (C) {\Cgraph};
+  \node [above left=0 and 0 of C.north east] {$C$};
+
+  \path (B) edge[->] node[right] {$a$} (C.north -| B);
+
+  \path (A) edge[->,bend left] node[above]
+            {$v \left\{\mapping{
+			x' & x \\
+			y' & z \\
+			z' & z}\right.$}
+	    (B);
+
+  \path (A.south) edge[->] node[near start,below left=-.1] {$\cB_v(a)$}
+                           node[below left] 
+            {$\mapping{
+			x' & x \\
+			y' & z \\
+			z' & z}$}
+		(C);
+\end{tikzpicture}
+
