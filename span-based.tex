@@ -1,6 +1,6 @@
 \section{Span-based conditions}
 
-We now present the main idea of this paper, inspired by on the observation that arrow-based conditions over graphs contain a lot of duplication: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} structure (and how it is connected). This is achieved by replacing the branch arrows $r^c_i$ of a condition $c$ by \emph{spans}.\footnote{We discuss and contrast an alternative way to resolve the same issue, using \emph{cospans} rather than spans, later in this paper.}
+We now present the main idea of this paper, inspired by on the observation that arrow-based conditions over graphs contain a lot of duplication: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} structure (and how it is connected). This is achieved by replacing the branch arrows $a^c_i$ of a condition $c$ by \emph{spans}.\footnote{We discuss and contrast an alternative way to resolve the same issue, using \emph{cospans} rather than spans, later in this paper.}
 
 Span-based conditions are inductively defined as follows:
 
@@ -12,13 +12,22 @@ Span-based conditions are inductively defined as follows:
   \end{itemize}
 \end{definition}
 %
-In a branch $p=(\spanof u d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emph{down-arrow}. As before, we use $|c|=w$ to denote the width of a span-based condition $c$, $R^c$ to denote its root, and $p^c_i=(s^c_i,c_i)$ with span $s^c_i=\spanof{u^c_i}{d^c_i}$ its $i$-th branch. Finally, we use $I^c_i$ for the interface of span $s^c_i$ and $P^c_i$ ($=R^{c_i}$) for its target (hence $u^c_i:I^c_i\func R^c$ and $d^c_i:I^c_i\rightarrow P^c_i$). In all these cases, we may omit the superscript $c$ if it is clear from the context. Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
+In the span $\spanof u d$ of a branch $p=(\spanof u d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emph{down-arrow}. As before, we use $|c|=w$ to denote the width of a span-based condition $c$, $R^c$ to denote its root, and $p^c_i=(s^c_i,c_i)$ with span $s^c_i=\spanof{u^c_i}{d^c_i}$ its $i$-th branch. Finally, we use $I^c_i$ for the interface of span $s^c_i$ and $P^c_i$ ($=R^{c_i}$) for its target (hence $u^c_i:I^c_i\func R^c$ and $d^c_i:I^c_i\rightarrow P^c_i$). In all these cases, we may omit the superscript $c$ if it is clear from the context. Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
 %
 \begin{figure}
-  \centering
-  \input{figs/sb-condition}
-  \caption{Pictorial representation of a span-based condition $c=(R,p_1\ccdots p_w)$, with $p_i=(\spanof{u_i}{d_i},c_i)$ for all $1\leq i\leq w$}
-  \flabel{sb-condition}
+\centering
+\subcaptionbox
+  {Condition $c=(R,p_1\ccdots p_w)$, with $p_i=(\spanof{u_i}{d_i},c_i)$ for $1\leq i\leq w$
+   \flabel{sb-condition}}
+  [.4\textwidth]
+  {\input{figs/sb-condition}}
+\qquad
+\subcaptionbox
+  {$g\sat c$, with responsible branch $p_i=(\spanof{u_i}{d_i},c_i)$ and witness $h$ such that $\spanof{u_i}{d_i}\commutes (g,h)$
+   \flabel{sb-satisfaction}}
+  [.4\textwidth]
+  {\input{figs/sb-satisfaction}}
+\caption{Visualisation of span-based conditions}
 \end{figure}
 %
 As we will see later, we can reconstruct an arrow-based condition from a span-based one by taking pushouts over the spans $\spanof{u_i}{d_i}$; the arrows $a_i$ will then correspond to the image of $d_i$ in the pushout cospan.
@@ -36,30 +45,23 @@ Satisfaction of sb-conditions is then defined as follows:
 \end{definition}
 %
 Note that this is entirely analogous fo \dcite{ab-satisfaction}, especially if we would retrofit the notation $a\commutes (g,h)$ there. Like before, we call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat c$. Satisfaction of sb-conditions is visualised in \fcite{sb-satisfaction}.
-%
-\begin{figure}
-  \centering
-  \input{figs/sb-satisfaction}
-  \caption{Pictorial representation of $g\sat c$ for a span-based condition $c$, with responsible branch $p_i=(\spanof{u_i}{d_i},c_i)$ and witness $h$ such that $\spanof{u_i}{d_i}\commutes (g,h)$}
-  \flabel{sb-satisfaction}
-\end{figure}
 
 \subsection{Span-based root shifting}
 
 To define morphisms of sb-conditions, we will go over the same ground as for ab-conditions, but take a slightly more abstract view --- as we did for satisfaction by introducting $\commutes$. Having recognised that the \emph{semantics} of a span in sb-conditions is essentially given by the set of model/witness pairs that it commutes with, we can now in general consider relations over spans that either preserve or reflect their semantics, in the sense that if $s_1,s_2$ are related, then either $s_1\commutes (g,h)$ implies $s_2\commutes (g,h)$ (preservation) or $s_2\commutes (g,h)$ implies $s_1\commutes (g,h)$ (reflection). Typically, however, the model/witness pairs are not preserved or reflected precisely, but modulo some arrow that gets added to or erased from the model or witness. Thus:\todo{shorten}
 %
 \begin{itemize}
-\item $(s_1,s_2)$ preserves models plus $v$ if $s_1\commutes (g,h)$ implies $s_2\commutes (v;g,h)$;
-\item $(s_1,s_2)$ preserves models minus $v$ if $s_1\commutes (v;g,h)$ implies $s_2\commutes (g,h)$;
-\item $(s_1,s_2)$ reflects models plus $v$ if $s_2\commutes (g,h)$ implies $s_1\commutes (v;g,h)$;
-\item $(s_1,s_2)$ reflects models minus $v$ if $s_2\commutes (v;g,h)$ implies $s_1\commutes (g,h)$;
-\item $(s_1,s_2)$ preserves witnesses plus $v$ if $s_1\commutes (g,h)$ implies $s_2\commutes (g,v;h)$;
-\item $(s_1,s_2)$ preserves witnesses minus $v$ if $s_1\commutes (g,v;h)$ implies $s_2\commutes (g,h)$;
-\item $(s_1,s_2)$ reflects witnesses plus $v$ if $s_2\commutes (g,h)$ implies $s_1\commutes (g,v;h)$;
-\item $(s_1,s_2)$ reflects witnesses minus $v$ if $s_2\commutes (g,v;h)$ implies $s_1\commutes (g,h)$;
+\item $(s_1,s_2)$ preserves models adding $v$ if $s_1\commutes (g,h)$ implies $s_2\commutes (v;g,h)$;
+\item $(s_1,s_2)$ preserves models erasing $v$ if $s_1\commutes (v;g,h)$ implies $s_2\commutes (g,h)$;
+\item $(s_1,s_2)$ reflects models adding $v$ if $s_2\commutes (g,h)$ implies $s_1\commutes (v;g,h)$;
+\item $(s_1,s_2)$ reflects models erasing $v$ if $s_2\commutes (v;g,h)$ implies $s_1\commutes (g,h)$;
+\item $(s_1,s_2)$ preserves witnesses adding $v$ if $s_1\commutes (g,h)$ implies $s_2\commutes (g,v;h)$;
+\item $(s_1,s_2)$ preserves witnesses erasing $v$ if $s_1\commutes (g,v;h)$ implies $s_2\commutes (g,h)$;
+\item $(s_1,s_2)$ reflects witnesses adding $v$ if $s_2\commutes (g,h)$ implies $s_1\commutes (g,v;h)$;
+\item $(s_1,s_2)$ reflects witnesses erasing $v$ if $s_2\commutes (g,v;h)$ implies $s_1\commutes (g,h)$;
 \end{itemize}
 %
-The above is defined on individual pairs. For a relation $\cR$ over spans, we say that $\cR$ preserves [reflects] models [witnesses] plus [minus] $v$ if it consists of pairs that do so.
+The above is defined on individual pairs. For a relation $\cR$ over spans, we say that $\cR$ preserves [reflects] models [witnesses] adding [erasing] $v$ if it consists of pairs that do so.
 
 To extend \eqcite{shifters are functors} from arrows to spans, we also need to consider span composition. This is defined as usual: $\spanof u d;\spanof v w=\spanof{v';u}{d';w}$ where $(v',d')$ is the pullback span of $(d,v)$.\footnote{Technically, this is only well-defined if we consider spans up to isomorphism of their middle objects; we will gloss over this here.}
 
@@ -70,21 +72,21 @@ Let $X,Y$ be objects. A \emph{span source shifter} $\cS$ from $X$ to $Y$ is a fu
 \cS(s;t) = \cS(s);t \enspace.
 \end{equation}
 %
-Now let $v=A\to B$ be an arrow. $\cS$ is a \emph{forward span source shifter for $v$} if it is a span source shifter from $A$ to $B$ that preserves models minus $v$, i.e., such that for all spans $s:A\to C$ and all and all pairs $g:A\to G,h:C \to G$:
+Now let $v=A\to B$ be an arrow. $\cS$ is a \emph{forward span source shifter for $v$} if it is a span source shifter from $A$ to $B$ that preserves models erasing $v$, i.e., such that for all spans $s:A\to C$ and all and all pairs $g:A\to G,h:C \to G$:
 %
 \begin{equation}\eqlabel{sb-forward condition}
 s\commutes (v;g,h) \enspace\text{ implies }\enspace \cS(s) \commutes (g,h) \enspace.
 \end{equation}
 %
-A forward span source shifter is called \emph{complete}\todo{other term?} if it also reflects models plus $v$; i.e., if the ``implies" in \eqref{eq:sb-forward condition} is an ``if and only if".
+A forward span source shifter is called \emph{complete}\todo{other term?} if it also reflects models adding $v$; i.e., if the ``implies" in \eqref{eq:sb-forward condition} is an ``if and only if".
 
-Instead, $\cS$ is a \emph{backward span source shifter for $v$} if it is a span source shifter from $B$ to $A$ that reflects models minus $v$, i.e., such that for all spans $s:B\to C$ and all pairs $g:B\to G,h:C\to G$:
+Instead, $\cS$ is a \emph{backward span source shifter for $v$} if it is a span source shifter from $B$ to $A$ that reflects models erasing $v$, i.e., such that for all spans $s:B\to C$ and all pairs $g:B\to G,h:C\to G$:
 %
 \begin{equation}\eqlabel{sb-backward condition}
 \cS(s) \commutes (v;g,h) \enspace\text{ implies }\enspace s\commutes (g,h) \enspace.
 \end{equation}
 %
-A backward span source shifter is called \emph{complete} if it also preserves models plus $v$; i.e., if the ``implies" in \eqref{eq:sb-backward condition} is an ``if and only if".
+A backward span source shifter is called \emph{complete} if it also preserves models adding $v$; i.e., if the ``implies" in \eqref{eq:sb-backward condition} is an ``if and only if".
 \end{definition}
 %
 Span source shifters extend to root shifters (of span-based conditions) exactly as in the arrow-based case. Before showing how this gives rise to morphisms, however, let us investigate the possible instantiations of span source shifters.
@@ -97,7 +99,7 @@ Since span source shifters from $X$ are, just as in the arrow-based case, comple
 \item[Backward shifting.] For $\cS$ to be a backward span source shifter for $v:A\to B$, there must be a span $t=\cS(\id_B):A\to B$, which automatically determines $\cS(s)=t;s$ for all $s:B\to C$. Again, there are essentially two options: $t=\spanof{\id_A}{v}$, or $t=\spanof{\id_B}{x}$ for some section $x$ of $v$, i.e., such that $x;v=\id_A$. We denote the resulting span source shifters by $\cB_v^\circ$ and $\cB_v^x$, respectively.
 \end{description}
 %
-These options are depicted in \fcite{sb-span source shifters} (in a simplified construction that omits the intermediate steps of the span composition where possible). It turns out that, indeed, each of these four options gives rise to a valid shifter.
+These options are depicted in \fcite{sb-source shifters} (in a simplified construction that omits the intermediate steps of the span composition where possible). It turns out that, indeed, each of these four options gives rise to a valid shifter.
 %
 \begin{figure}
 \centering
@@ -113,17 +115,29 @@ These options are depicted in \fcite{sb-span source shifters} (in a simplified c
 \end{enumerate}
 \end{proposition}
 
+\begin{proof}
+In the proof, we make use of the diagrams (especially the arrow names) in \fcite{sb-source shifters}.
+\begin{enumerate}
+\item We first show that $\cF_v^\circ$ is a complete forward span source shifter. Let $g:B\to G$ and $h:C\to G$; then $\spanof{u}{d}\commutes (g,h)$ and $\spanof{u'}{d'}\commutes (g,h)$ are both equivalent to $u;v;g=d;h$, hence they are equivalent to one another. It follows that $\cF_v^\circ$ both  preserves models erasing $v$ and reflects models adding $v$.
+
+We now show that $\cF_v^x$ is a forward source shifter, i.e., that it preserves models erasing $v$. Let $g:B\to G$ and $h:C\to G$ be such that $\spanof{u}{d}\commutes (v;g,h)$, meaning $u;v;g=d;h$. It follows that $x';u;v;g=x';d;h$ and hence $u';g=u';x;v;g=d';h$, hence $\spanof{u'}{d'}\commutes (g;h)$.
+
+\item We first show that $\cB_v^\circ$ is a complete backward span source shifter for $v$ if $v$ is epi. First note that in toposes the pullback of an epi is epi; hence, as already indicated in the figure, $v'$ is epi. Now let $g:B\to G$ and $h:C\to G$; then $\spanof{u}{d}\commutes (g,h)$ comes down to $u;g=d;h$ whereas $\spanof{u'}{d'}\commutes (v;g,h)$ comes down to $u';v;g=d';h$, which is equivalent to $v';u;g=v';d;g$. Because $v'$ is epi, $u;g=d;h$ if and only if $v';u;g=v';d;g$, implying that $\cB_v^\circ$ both reflects models erasing $v$ and preserves models adding $v$.
+
+We now show that $\cB_v^x$ is a backward span source shifter for $v$, i.e., that it reflects models erasing $v$. Let $g:B\to G$ and $h:C\to G$ be such that $\spanof{u'}{d'}\commutes (v;g,h)$, meaning $u';v;g=d';h$. It follows that $u;g=u;x;v;g=u';v;g=d';h=d;h$, hence $\spanof u d\commutes (g,h)$.\qed
+\end{enumerate}
+\end{proof}
 
 \subsection{Span-based morphisms}
 
 A final change with respect to the arrow-based case is that we also abstract the commutation condition in \dcite{ab-morphism} by relying on a family of \emph{transfer relations} $\cR_v$ over identically-sourced spans (where $v$ ranges over arrows in $\bC$), such that
 %
-\begin{enumerate*}[label=\emph{\roman*}]
-\item\label{transfer-1} $\cR_v$ reflects witnesses plus $v$, and
+\begin{enumerate*}[label=\emph{(\roman*)}]
+\item\label{transfer-1} $\cR_v$ preserves witnesses adding $v$, and
 \item\label{transfer-2} for any span $s$, $(s_1,s_2)\in \cR_v$ implies $(s;s_1,s;s_2)\in \cR_v$.
 \end{enumerate*}
 %
-$\cR_v$ is called \emph{complete} if it also preserves witnesses minus $v$ --- i.e., the complementary property of \ref{transfer-1}. To see the analogy with the arrow-based case, note that $\cR_v=\setof{(a_1,a_2)\mid a_1;v=a_2}$ precisely satisfies the requirement of reflecting witnesses plus $v$ (and if $v$ is iso, $R_v$ is complete, though we did not consider this notion for ab-morphisms).
+$\cR_v$ is called \emph{complete} if it also reflects witnesses erasing $v$ --- i.e., the complementary property of \ref{transfer-1}. To see the analogy with the arrow-based case, note that $\cR_v=\setof{(a_1,a_2)\mid a_1;v=a_2}$ precisely satisfies the requirement of reflecting witnesses adding $v$ (and if $v$ is iso, $R_v$ is complete, though we did not consider this notion for ab-morphisms).
 %
 \begin{definition}[span-based (complete) condition morphism]\dlabel{sb-morphism}
   Given two sb-conditions $b,c$, a \emph{forward-shift [backward-shift] sb-morphism} $m:b\to c$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
@@ -136,9 +150,13 @@ $\cR_v$ is called \emph{complete} if it also preserves witnesses minus $v$ --- i
   $m$ is called \emph{complete} if $o$ is surjective and for all $1\leq i\leq |b|$, $\cR_{v_i}$ is complete and $\cF_i$ [$\cB_i$] is complete.
 \end{definition}
 %
-As before, we want morphisms to satisfy certain ``nice" properties: preservation of semantics, reflection in case of completeness, and compositionality. As it turns out, these all follow from the nature of forward and backward source shifters in combination with that of $\cR_v$. However, before embarking on the proofs, we will first give an concrete instance of $\cR_v$.
+As before, we want morphisms to satisfy certain ``nice" properties: preservation of semantics, reflection in case of completeness, and compositionality. As it turns out, these all follow from the nature of forward and backward source shifters in combination with that of $\cR_v$. However, before embarking on the proofs, we will first give an concrete instance of $\cR_v$. For $i=1,2$ let $\spanof{u_i}{d_i}:R\to P_i$ be spans with intermediate objects $I_i$, and let $v:P_1\to P_2$.
 
+\begin{itemize}
+\item $\spanof{u_1}{d_1}\cRsp_v\spanof{u_2}{d_2}$ if there exists a pair of arrows $k_1:I_1\to J,k_2:I_2\to J$ with $k_2$ epi, such that $k_1;u_1=k_2;u_2$ and $k_1;d_1=k_2;d_2;v$.
 
+\item $\spanof{u_1}{d_1}\cRpo_v \spanof{u_2}{d_2}$ if, after building the pushouts $d'_1:,u'_2)$ of $\spanof{u_1}{d_1}$ and $(d'_2,u'_2)$ of $\spanof{u_2}{d_2}$, the induced morphism $k$
+\end{itemize}
 %
 \begin{center}
 \input{figs/completeness}
