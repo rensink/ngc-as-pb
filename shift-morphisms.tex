@@ -63,7 +63,7 @@ Knowing that source shifters from $X$ are entirely determined by $\cS(\id_X)$ gi
 %
 \begin{proposition}[known source shifters]\plabel{ab-source shifters}
 Let $v:A\to B$ be an arrow.
-\begin{enumerate}
+\begin{enumerate}[topsep=\smallskipamount]
 \item The following three statements are equivalent.
 \begin{enumerate}[label=(\alph*),ref=\theenumi(\theenumii)]
 \item\label{forward-1} $\cS$ is a forward source shifter for $v$;
@@ -101,7 +101,7 @@ Assume that \ref{forward-3} holds. To show \eqref{eq:shifters are functors}, not
 \end{enumerate}
 \end{proof}
 %
-It follows that $v$ has precisely one forward source shifter for every section $s$ of $v$ (meaning, among other things, that $v$ must be a retraction --- and hence at least epi --- to have any forward shifter at all). As for backward source shifters, if $\cS(\id_B)=v$ (which is in general the only known arrow from $A$ to $B$), then $v$ has a backward source shifter if and only if $v$ is epi. We denote these source shifters by $\cF_v^s$ and $\cB_v$, respectively. They are visualised in \fcite{ab-source shifters}.
+It follows that $v$ has precisely one forward source shifter for every section $s$ of $v$ (meaning, among other things, that $v$ must be a retraction --- and hence at least epi --- to have any forward shifter at all). As for backward source shifters, if $\cS(\id_B)=v$ (which is in general the only known arrow from $A$ to $B$), then $v$ has a backward source shifter if and only if $v$ is epi. We denote these source shifters by $\cF_v^s$ and $\cB_v$, respectively. Their working is visualised in \fcite{ab-source shifters}. \fcite{ex-ab-shifters} shows some examples.
 
 \begin{figure}
 \centering
@@ -110,11 +110,18 @@ It follows that $v$ has precisely one forward source shifter for every section $
 \flabel{ab-source shifters}
 \end{figure}
 
+\begin{figure}
+\centering
+\input{figs/ex-ab-shifters}
+\caption{Forward source shifters $\cF_v^{s_1}$ and $\cF_v^{s_2}$ and backward source shifter $\cB_v$ for an arrow $v:A\to B$. (The arrow $a$ is the identity on nodes.)}
+\flabel{ex-ab-shifters}
+\end{figure}
+
 Source shifting is extended in a straightforward manner to conditions, where it is called \emph{root shifting}. To root-shift a condition, we only have to source-shift the arrows of its branches: the subconditions remain the same. This also means that for zero-width conditions, there is essentially nothing to be done. Hence we can extend the action of a source shifter $\cS$ from $X$ to $Y$ to conditions $c\in \AC X$ of arbitrary width $|c|=w$, as follows:
 \[ \bar\cS: c\mapsto (Y,(\cS(a^c_1),c_1)\ccdots (\cS(a^c_w),c_w)) \enspace. \]
 Moreover, for the special case of zero-width conditions, we introduce the special \emph{trivial} root shifter $\cI_{X,Y}$, defined by
 \[ \cI_{X,Y}: (X,\epsilon) \mapsto (Y,\epsilon) \enspace. \]
-%
+
 \begin{definition}[root shifter]\dlabel{ab-root shifter}
 Let $X,Y$ be objects and $v:A\to B$ an arrow.
 \begin{itemize}[topsep=\smallskipamount]
@@ -289,39 +296,42 @@ Even though both forward- and backward-shift morphisms preserve models, they are
 \begin{figure}
 \centering
 \subcaptionbox
-  {A forward-shift morphism where there is no epi-based backward-shift one
-   \flabel{retraction-no-epi}
+  {A forward-shift morphism for which there is no backward-shift one
+   \flabel{forward-no-backward}
   }
-  {\input{figs/ex-retraction-no-epi}}
+  [.45\textwidth]
+  {\input{figs/ex-forward-no-backward}}
   \qquad
 \subcaptionbox
-  {An epi-based backward-shift morphism where there is no forward-shift one
-   \flabel{epi-no-retraction}
+  {A backward-shift morphism for which there is no forward-shift one
+   \flabel{backward-no-forward}
   }
-  {\input{figs/ex-epi-no-retraction}}
-\caption{Retraction-based versus epi-based morphisms}
-\flabel{retraction versus epi}
+  [.45\textwidth]
+  {\input{figs/ex-backward-no-forward}}
+\caption{Forward-shift versus backward-shift morphisms}
+\flabel{forward vs backward}
 \end{figure}
 %
-\begin{example}\exlabel{retraction-no-epi}
-\fcite{epi-no-retraction} \todo{AC: to be updated} shows two ab-conditions between which there exists an retraction-based morphism (shown in the figure) but no epi-based one.
+\begin{example}\exlabel{forward-no-backward}
+\fcite{forward-no-backward} shows a forward-shift morphism that does not have a corresponding backward-shift one. Both are evaluated in a context where we know $\la(x,z)$.
 \begin{itemize}
-\item $c_1$ encodes the property $\lb(z,x)$, in a context where we know $\la(x,y)\wedge \la(x,z)$;
-\item $c_2$ also encodes $\lb(z,x)$, but now in a context where we (only) know $\la(x,z)$.
+\item $b$ encodes the property $\neg \lb(z,x)$;
+\item $c$ encodes $\exists y\st \la(x,y) \wedge \neg \lb(z,x)$.
 \end{itemize}
-The top-level arrow $t$ modifies the context of $c_1$ to that of $c_2$ by equating $y=z$; the existence of the morphism $(t,\setof{1\mapsto 1},v)$ with $s;t=\id$ and $s;a_1=a_2;v$ implies that, in that modified context, $c_1$ implies $c_2$ --- which is obviously correct. However, no epi-based morphism exists, since $t$ is the only arrow from $R^{c_1}$ to $R^{c_2}$ and the requirement for an epi-based morphism is that $t;a_2;w=a_1$ for some arrow $w$, which cannot be satisfied because $a_1(x)\neq a_1(z)$ whereas $(t;a_2)(x)=(t;a_1)(z)$.
+Clearly, $b$ (logically) entails $c$ because $y$ can be instantiated with the value of $z$.\todo{AR: to be extended}
 \end{example}
 %
-\begin{example}\exlabel{epi-no-retraction}
-\fcite{epi-no-retraction}\todo{AC: to be updated} shows two ab-conditions between which there exists an epi-based morphism (shown in the figure) but no retraction-based one.
+\begin{example}\exlabel{backward-no-forward}
+\fcite{backward-no-forward} shows a backward-shift morphism that does not have a corresponding forward-shift one. Both are evaluated in a context where we know $\la(x,y)$.
 \begin{itemize}
-\item $c_3$ encodes the property $\lc(y,x)\wedge y=z$, in a context where $\la(x,y)\wedge \lb(z,z)$;
-\item $c_4$ encodes the property $\exists z.\lc(z,x)$, in a context where $\la(x,y)\wedge \lb(y,y)$.
+\item $b$ encodes the property $\lb(y,y) \wedge \nexists z\st \lc(z,x)$;
+\item $c$ encodes the property $\exists z.\lb(z,z) \wedge \neg(y=z \wedge \lc(y,x))$.
 \end{itemize}
-The top-level arrow $t'$ modifies the context of $c_3$ to that of $c_4$ by equating $y=z$; the existence of the epi-based morphism $(t',\setof{1\mapsto 1},v')$ with $a_3=t';a_4;v'$ implies that, in that modified context, $c_3$ implies $c_4$ --- which is clearly correct. However, no retraction-based morphism exists, since $t'$ (which is the only arrow from $R^{c_3}$ to $R^{c_4}$) is not a retraction.
+Clearly, $b$ (logically) entails $c$ because $z$ can be instantiated with the value of $y$.
+\todo{AR: to be extended}
 \end{example}
 %
-Further\todo{AC: to adjust or delete} comparing the two notions of morphism, note that retractions are epi in any category, but not vice versa: for example, in \cat{Graph} there are epis which do not have a section (an example being $t'$ in \fcite{epi-no-retraction}). Therefore, asking for the existence of a section is a stronger condition than being an epi, suggesting that every retraction-based morphism may be epi-based, but certainly not vice versa. However, this also fails to be the case, for two reasons:
+Further\todo{AC: to adjust or delete. AR: rest of the section unchanged} comparing the two notions of morphism, note that retractions are epi in any category, but not vice versa: for example, in \cat{Graph} there are epis which do not have a section (an example being $t'$ in \fcite{epi-no-retraction}). Therefore, asking for the existence of a section is a stronger condition than being an epi, suggesting that every retraction-based morphism may be epi-based, but certainly not vice versa. However, this also fails to be the case, for two reasons:
 %
 \begin{itemize}
 \item The existence of a section (in retraction-based morphisms) is only required when the source condition has branches, whereas our definition of epi-based morphism asks for all arrows to be epi.

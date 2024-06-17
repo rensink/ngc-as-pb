@@ -164,6 +164,11 @@
 \newcommand{\lc}{\gl{c}}
 \newcommand{\ld}{\gl{d}}
 
+\newcommand{\mapping}[1]{%
+  \scalebox{.7}{$\begin{array}{@{}r@{\mapsto}l@{}}
+  #1
+  \end{array}$}
+}
 
 % Auxiliary labelling macros
 % For definitions
@@ -227,6 +232,8 @@
    line width=3pt,
    draw=white,
    double=black}}
+\tikzset{arrow/.style={
+   draw=brown!50!black,color=brown!50!black}}
 \tikzset{over/.style={
    line width=.8pt,
    double distance=0.4pt,
@@ -271,6 +278,7 @@
 
 \newcommand{\mygraph}[1]{%
 \renewcommand{\gl}[1]{\ensuremath{\scriptstyle{\mathsf{##1}}}}%
+\tikzset{n/.style={inner sep=1pt}}%
 \begin{tikzpicture}[on grid,scale=.5,inner sep=2pt,baseline=(current bounding box.center)]
 \begin{scope}[node distance=8mm]
 #1
@@ -280,21 +288,21 @@
 % Discrete one-node graph
 % #1: node
 \newcommand{\onenode}[1]{\mygraph{
-\node (1) {$#1$};
+\node[n] (1) {$#1$};
 }}
 
 % Discrete two-node graph
 % #1: node
 \newcommand{\twonode}[2]{\mygraph{
-\node (1) {$#1$};
-\node (2) [right=.5 of 1] {$#2$};
+\node[n] (1) {$#1$};
+\node[n] (2) [right=.5 of 1] {$#2$};
 }}
 
 % One-node graph with loop
 % #1: node
 % #2: loop label
 \newcommand{\oneloop}[2]{\mygraph{
-\node (1) {$#1$};
+\node[n] (1) {$#1$};
 \path (1) edge [->,loop right] node {\gl{#2}} ();
 }}
 
@@ -304,8 +312,8 @@
 % #1: second node
 % #2: left-pointing edge
 \newcommand{\twoloop}[4]{\mygraph{
-\node (1) {$#1$};
-\node (2) [right=of 1] {$#3$};
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#3$};
 \path (1) edge [->,bend left] node[near start,above] {\gl{#2}} (2)
       (2) edge [->,bend left] node[near start,below] {\gl{#4}} (1);
 }}
@@ -315,8 +323,8 @@
 % #2: edge label
 % #3: target node
 \newcommand{\oneedge}[3]{\mygraph{
-\node (1) {$#1$};
-\node (2) [right=of 1] {$#3$};
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#3$};
 \path (1) edge[->] node[above] {\gl{#2}} (2);
 }}
 
@@ -326,8 +334,8 @@
 % #3: target node
 % #4: loop label
 \newcommand{\oneedgeloop}[4]{\mygraph{
-\node (1) {$#1$};
-\node (2) [right=of 1] {$#3$};
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#3$};
 \path (1) edge[->] node[above] {\gl{#2}} (2)
       (2) edge [->,loop right] node {\gl{#4}} ();
 }}
@@ -338,8 +346,8 @@
 % #3: edge label
 % #4: target node
 \newcommand{\looponeedge}[4]{\mygraph{
-\node (1) {$#1$};
-\node (2) [right=of 1] {$#4$};
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#4$};
 \path (1) edge[->] node[above] {\gl{#3}} (2)
       (1) edge [->,loop left] node {\gl{#2}} ();
 }}
@@ -351,9 +359,9 @@
 % #4: second edge label
 % #5: third node
 \newcommand{\twoedge}[5]{\mygraph{
-\node (1) {$#1$};
-\node (2) [right=of 1] {$#3$};
-\node (3) [right=of 2] {$#5$};
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#3$};
+\node[n] (3) [right=of 2] {$#5$};
 \path (1) edge[->] node[above] {\gl{#2}} (2)
       (2) edge[->] node[above] {\gl{#4}} (3);
 }}
@@ -367,10 +375,10 @@
 % #6: third edge label
 % #7: lower right node
 \newcommand{\onetwoedge}[7]{\mygraph{
-\node (1) {$#1$};
-\node (2) [right=of 1] {$#3$};
-\node (3) [above right=.3 and 1 of 2] {$#5$};
-\node (4) [below right=.3 and 1 of 2] {$#7$};
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#3$};
+\node[n] (3) [above right=.3 and 1 of 2] {$#5$};
+\node[n] (4) [below right=.3 and 1 of 2] {$#7$};
 \path (1) edge[->] node[above] {\gl{#2}} (2)
       (2) edge[->] node[above] {\gl{#4}} (3)
       (2) edge[->] node[below] {\gl{#6}} (4);
@@ -383,9 +391,9 @@
 % #4: second edge label
 % #5: third node
 \newcommand{\spangraph}[5]{\mygraph{
-\node (1) {$#1$};
-\node (2) [right=of 1] {$#3$};
-\node (3) [right=of 2] {$#5$};
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#3$};
+\node[n] (3) [right=of 2] {$#5$};
 \path (1) edge[<-] node[above] {\gl{#2}} (2)
       (2) edge[->] node[above] {\gl{#4}} (3);
 }}
@@ -397,9 +405,9 @@
 % #4: second edge label
 % #5: third node
 \newcommand{\cospangraph}[5]{\mygraph{
-\node (1) {$#1$};
-\node (2) [right=of 1] {$#3$};
-\node (3) [right=of 2] {$#5$};
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#3$};
+\node[n] (3) [right=of 2] {$#5$};
 \path (1) edge[->] node[above] {\gl{#2}} (2)
       (2) edge[<-] node[above] {\gl{#4}} (3);
 }}
