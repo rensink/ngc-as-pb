@@ -54,14 +54,10 @@ To define morphisms of sb-conditions, we will go over the same ground as for ab-
 \item $(s_1,s_2)$ preserves models adding $v$ if $s_1\commutes (g,h)$ implies $s_2\commutes (v;g,h)$;
 \item $(s_1,s_2)$ preserves models erasing $v$ if $s_1\commutes (v;g,h)$ implies $s_2\commutes (g,h)$;
 \item $(s_1,s_2)$ reflects models adding $v$ if $s_2\commutes (g,h)$ implies $s_1\commutes (v;g,h)$;
-\item $(s_1,s_2)$ reflects models erasing $v$ if $s_2\commutes (v;g,h)$ implies $s_1\commutes (g,h)$;
-\item $(s_1,s_2)$ preserves witnesses adding $v$ if $s_1\commutes (g,h)$ implies $s_2\commutes (g,v;h)$;
-\item $(s_1,s_2)$ preserves witnesses erasing $v$ if $s_1\commutes (g,v;h)$ implies $s_2\commutes (g,h)$;
-\item $(s_1,s_2)$ reflects witnesses adding $v$ if $s_2\commutes (g,h)$ implies $s_1\commutes (g,v;h)$;
-\item $(s_1,s_2)$ reflects witnesses erasing $v$ if $s_2\commutes (g,v;h)$ implies $s_1\commutes (g,h)$;
+\item $(s_1,s_2)$ reflects models erasing $v$ if $s_2\commutes (v;g,h)$ implies $s_1\commutes (g,h)$.
 \end{itemize}
 %
-The above is defined on individual pairs. For a relation $\cR$ over spans, we say that $\cR$ preserves [reflects] models [witnesses] adding [erasing] $v$ if it consists of pairs that do so.
+The above is defined on individual pairs. For a relation $\cR$ over spans, we say that $\cR$ preserves [reflects] models adding [erasing] $v$ if it consists of pairs that do so.
 
 To extend \eqcite{shifters are functors} from arrows to spans, we also need to consider span composition. This is defined as usual: $\spanof u d;\spanof v w=\spanof{v';u}{d';w}$ where $(v',d')$ is the pullback span of $(d,v)$.\footnote{Technically, this is only well-defined if we consider spans up to isomorphism of their middle objects; we will gloss over this here.}
 
@@ -127,35 +123,76 @@ We now show that $\cF_v^x$ is a forward source shifter, i.e., that it preserves 
 We now show that $\cB_v^x$ is a backward span source shifter for $v$, i.e., that it reflects models erasing $v$. Let $g:B\to G$ and $h:C\to G$ be such that $\spanof{u'}{d'}\commutes (v;g,h)$, meaning $u';v;g=d';h$. It follows that $u;g=u;x;v;g=u';v;g=d';h=d;h$, hence $\spanof u d\commutes (g,h)$.\qed
 \end{enumerate}
 \end{proof}
+%
+The ability to forward-shift and backward-shift in so many different ways means that there are many options for building morphisms. In fact, however, we will show later that all root shifters for $v$ (both backward and forward) are subsumed by $\cF_v^\circ$, in the sense that a morphism based on any of the (other) root shifters is also a morphism based on $\cF_v^\circ$.\todo{To be done}
 
 \subsection{Span-based morphisms}
 
-A final change with respect to the arrow-based case is that we also abstract the commutation condition in \dcite{ab-morphism} by relying on a family of \emph{transfer relations} $\cR_v$ over identically-sourced spans (where $v$ ranges over arrows in $\bC$), such that
+A final change with respect to the arrow-based case is that we also abstract the commutation condition in \dcite{ab-morphism} by relying instead on a family of \emph{pattern shift relations} --- which essentially complement the root shifters in their role in morphisms.
+
+\begin{itemize}
+\item $(s_1,s_2)$ preserves witnesses adding $v$ if $s_1\commutes (g,h)$ implies $s_2\commutes (g,v;h)$;
+\item $(s_1,s_2)$ reflects witnesses subtracting $v$ if $s_2\commutes (g,h)$ implies $h=v;h'$ such that $s_2\commutes (g,h')$.
+\end{itemize}
+
+\begin{definition}
+Let $v:A\to B$ be an arrow. A \emph{pattern shift relation for $v$} is a binary relation $\cP_v$ over identically-sourced spans with a \emph{kernel} $\hat\cP_v\subseteq \cP_v$, such that 
 %
-\begin{enumerate*}[label=\emph{(\roman*)}]
-\item\label{transfer-1} $\cR_v$ preserves witnesses adding $v$, and
-\item\label{transfer-2} for any span $s$, $(s_1,s_2)\in \cR_v$ implies $(s;s_1,s;s_2)\in \cR_v$.
-\end{enumerate*}
+\begin{enumerate}[label=(\roman*)]
+\item\label{transfer-preserves} $\cP_v$ preserves witnesses adding $v$,
+\item\label{transfer-complete} $\hat\cP_v$ reflects witnesses subtracting $v$, and
+\item\label{transfer-congruence} $\cP_v$ and $\hat\cP_v$ are preserved by prepending a span; that is, if $(s_1,s_2)$ is related then so is $(s;s_1,s;s_2)$.
+\end{enumerate}
+\end{definition}
 %
-$\cR_v$ is called \emph{complete} if it also reflects witnesses erasing $v$ --- i.e., the complementary property of \ref{transfer-1}. To see the analogy with the arrow-based case, note that $\cR_v=\setof{(a_1,a_2)\mid a_1;v=a_2}$ precisely satisfies the requirement of reflecting witnesses adding $v$ (and if $v$ is iso, $R_v$ is complete, though we did not consider this notion for ab-morphisms).
+To see the analogy with the arrow-based case, note that $\cP_v=\setof{(a_1,a_2)\mid a_1;v=a_2}$ preserves witnesses adding $v$, and also satisfies \ref{transfer-congruence} if we replace all spans by arrows; hence with hindsight it is an arrow-based pattern shift relation for all $v$. The kernel of this $\cP_v$, which would have to satisfy that $g=a_2;h$ implies $h=v;h'$ such that $g=a_1;h'$ for any pair $(g,h)$, could consist of all $(a_1,a_2)$ where $a_2=a_1;s$ for a section $s$ of $v$. (In fact, we did not consider the notion of completeness for ab-morphisms.)
 %
 \begin{definition}[span-based (complete) condition morphism]\dlabel{sb-morphism}
   Given two sb-conditions $b,c$, a \emph{forward-shift [backward-shift] sb-morphism} $m:b\to c$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
   \begin{itemize}
   \item $o:[1,|b|]\to [1,|c|]$ is a function from $b$'s branches to $c$'s branches;
-  \item for all $1\leq i\leq |b|$, $v_i:P^c_{o(i)}\to P^b_i$ is a arrow from the pattern of $p^c_{o(i)}$ to that of $p^b_i$ such that $(s^b_i,s^c_{o(i)})\in \cR_{v_i}$;
+  \item for all $1\leq i\leq |b|$, $v_i:P^c_{o(i)}\to P^b_i$ is a arrow from the pattern of $p^c_{o(i)}$ to that of $p^b_i$ such that $(s^b_i,s^c_{o(i)})\in \cP_{v_i}$;
   \item \emph{Forward shift:} for all $1\leq i\leq |b|$, there is a forward root shifter $\cF_i$ for $v_i$ such that $m_i:\cF_i(c_{o(i)})\to b_i$ is a forward-shift morphism;
   \item \emph{Backward shift:} for all $1\leq i\leq |b|$, there is a backward root shifter $\cB_i$ for $v_i$ such that $m_i:c_{o(i)}\to \cB(b_i)$ is a backward-shift morphism.
   \end{itemize}
-  $m$ is called \emph{complete} if $o$ is surjective and for all $1\leq i\leq |b|$, $\cR_{v_i}$ is complete and $\cF_i$ [$\cB_i$] is complete.
+  $m$ is called \emph{complete} if $o$ is surjective, $(s^b_i,s^c_{o(i)})\in \hat\cP_{v_i}$for all $1\leq i\leq |b|$, and $\cF_i$ [$\cB_i$] is complete.
 \end{definition}
 %
-As before, we want morphisms to satisfy certain ``nice" properties: preservation of semantics, reflection in case of completeness, and compositionality. As it turns out, these all follow from the nature of forward and backward source shifters in combination with that of $\cR_v$. However, before embarking on the proofs, we will first give an concrete instance of $\cR_v$. For $i=1,2$ let $\spanof{u_i}{d_i}:R\to P_i$ be spans with intermediate objects $I_i$, and let $v:P_1\to P_2$.
+The following result states that we actually only have to consider forward shifting.
+%
+\begin{proposition}
+If $m$ is a [complete] backward- or forward-shift morphism from $b$ to $c$, then it is a [complete] forward-shift morphism from $b$ to $c$ using only $\cF_v^\circ$.
+\end{proposition}
+%
+In more detail, this is a consequence of the following lemma.
+%
+\begin{lemma}~
+\begin{enumerate}
+\item If $m$ is a [complete] backward-shift morphism from $b$ to $\cB_v^s(c)$, then it is a [complete] forward-shift morphism from $\cF_v^\circ(b)$ to $c$.
+\item If $m$ is a [complete] backward-shift morphism from $b$ to $\cB_v^\circ(c)$, then it is a [complete] forward-shift morphism from $\cF_v^\circ(b)$ to $c$.
+\item If $m$ is a [complete] forward-shift morphism from $\cF_v^s(b)$ to $c$, then it is a [complete] forward-shift morphism from $\cF_v^\circ(b)$ to $c$.
+\end{enumerate}
+\end{lemma}
+%
+\begin{proof}
+The result follows by induction on the depth of $m$ from the following separate observations, in which $v:R_1\to R_2$, $t:P_2\to P_1$ and $s_i:R_i\to P_i$ for $i=1,2$ are arbitrary, and $x$ is an arbitrary section of $v$.
+\begin{enumerate}
+\item $(s_1,\cB_v^x(s_2))\in \cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \cP_t$ and $(s_1,\cB_v^x(s_2))\in \hat\cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \hat\cP_t$.
+
+\item $(s_1,\cB_v^\circ(s_2))\in \cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \cP_t$ and $(s_1,\cB_v^\circ(s_2))\in \hat\cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \hat\cP_t$.
+
+\item $(\cF_v^x(s_1),s_2)\in \cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \cP_t$ and $(\cF_v^x(s_1),s_2)\in \cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \cP_t$.
+\qed
+\end{enumerate}
+\end{proof}
+
+%
+As before, we want morphisms to satisfy certain ``nice" properties: preservation of semantics, reflection in case of completeness, and compositionality. As it turns out, these all follow from the nature of forward and backward root shiftersand pattern shift relations. However, before embarking on the proofs, we will first two concrete pattern shift relations. For $i=1,2$ let $\spanof{u_i}{d_i}:R\to P_i$ be spans with intermediate objects $I_i$, and let $v:P_1\to P_2$.
 
 \begin{itemize}
-\item $\spanof{u_1}{d_1}\cRsp_v\spanof{u_2}{d_2}$ if there exists a pair of arrows $k_1:I_1\to J,k_2:I_2\to J$ with $k_2$ epi, such that $k_1;u_1=k_2;u_2$ and $k_1;d_1=k_2;d_2;v$.
+\item $\spanof{u_1}{d_1}\cPsp_v\spanof{u_2}{d_2}$ if there exists an arrow $k:I_2\to I_1$ with $k_2$ epi, such that $u_1=k;u_2$ and $k;d_1=d_2;v$. If, moreover, the square consisting of $k,d_1,d_2,v$ is a pushout, then $\spanof{u_1}{d_1}\hat\cPsp_v \spanof{u_2}{d_2}$.
 
-\item $\spanof{u_1}{d_1}\cRpo_v \spanof{u_2}{d_2}$ if, after building the pushouts $d'_1:,u'_2)$ of $\spanof{u_1}{d_1}$ and $(d'_2,u'_2)$ of $\spanof{u_2}{d_2}$, the induced morphism $k$
+\item $\spanof{u_1}{d_1}\cPpo_v \spanof{u_2}{d_2}$ if, after building the pushouts $d'_1:,u'_2)$ of $\spanof{u_1}{d_1}$ and $(d'_2,u'_2)$ of $\spanof{u_2}{d_2}$, there is a morphism $k$ between their pushout objects such that $d'_2;k=d'_1$. If, moreover, the square consisting of $v,u'_1,u'_2,k$ is a pushout, then $\spanof{u_1}{d_1}\hat\cPpo_v \spanof{u_2}{d_2}$.
 \end{itemize}
 %
 \begin{center}
@@ -170,9 +207,6 @@ We write $t^m$ and $o^m$ for the components of $m$, and (for all $1\leq i\leq |b
   \caption{Pictorial representation of a span-based condition morphism $m:b\func c$ (with $w=|b|$ and $m=(t,o,m_1\ccdots m_w)$)}
   \flabel{sb-morphism}
 \end{figure}
-%
-%\medskip\noindent
-%\emph{Note to self: I find it surprising that there are no conditions on $k_p$ except for the confluence equations. For instance, $k_p,d_q$ is \emph{not} necessarily a pullback of $t_{m_p},d_p$ (\excite{no pullback} below); in fact, $k_p$ is \emph{not even} uniquely determined by the two confluence equations (\excite{k not unique} below). This is one of the reasons why the $k$ are not part of the morphism, but merely required to exist; otherwise there can be multiple morphisms between the same conditions that only differ in their $k$-components.}
 
 \medskip\noindent Again, span-based condition morphisms have the expected properties: identities and composition exist and the categorical laws are satisfied, thus span-based conditions and their morphisms form a category.
 
