@@ -37,12 +37,12 @@ v;g = \cS(a);h \text{ implies } g = a;h \enspace.
 \end{itemize}
 \end{definition}
 %
-If $\cS$ is known to be a forward shifter, we often use $\cF$ to denote it; similarly, we often use $\cB$ to denote backward shifters. Condition \eqref{eq:shifters are functors} is actually quite strong, since it holds for any arrow $a$ and $t$; in particular also for the case that $a=\id_X$ (and hence $Z=X$). This leads to the following observation.
+If $\cS$ is known to be a forward shifter, we often use $\cF$ to denote it; similarly, we often use $\cB$ to denote backward shifters. Condition \eqref{eq:shifters are functors} is actually quite strong, since it holds for any arrow $a$ and $t$; in particular also for the case that $a=\id_X$ (and hence $Y=X$). This leads to the following observation.
 %
 \begin{lemma}\llabel{ab-source shifters}
 Let $\cS$ map $X$-sourced arrows to $Y$-sourced arrows. The following statements are equivalent.
 \begin{enumerate}[topsep=\smallskipamount,label=(\alph*),ref=(\alph{enumi})]
-\item\label{shifter-1} There exists a $v:X\to Y$ such that $\cS(a)=v;a$ for all $a:X\to Z$;
+\item\label{shifter-1} There exists a $v:Y\to X$ such that $\cS(a)=v;a$ for all $a:X\to Z$;
 \item\label{shifter-2} $\cS$ is a source shifter from $X$ to $Y$ such that $\cS(\id_X)=v$.
 \end{enumerate}
 \end{lemma}
@@ -244,7 +244,7 @@ Suppose (ad absurdum) that $v_i ;h \sat c_{o(i)}$. Then by the induction hypothe
 The property that existence of morphims guarantees entailment can be phrased more abstractly as the existence of a functor from a category of conditions and their morphims to $\ABC^{\entails}$. To this aim we first have to show that condition morphims compose. As an (important) intermediate result, we show that root shifters preserve morphisms.
 
 \begin{lemma}[root shifters preserves morphisms]\llabel{ab-root shifters preserve morphisms}
-Let $b,c \in  \AC{R}$ and let $\cC$ be a root shifter from $X$ to $Y$ that is defined on $b$ and $c$. If $m = (o,(v_1,m_1)\cdots(v_{|b|},m_{|b|}))$ is a morphism from $b\in \AC(X)$ to $c\in\AC(X)$, then it is a morphism from $\cC(b)$ to $\cC(c)$. 
+Let $b,c \in  \AC{R}$ and let $\cC$ be a root shifter from $X$ to $Y$ that is defined on $b$ and $c$. If $m = (o,(v_1,m_1)\cdots(v_{|b|},m_{|b|}))$ is a morphism from $b\in \AC X$ to $c\in\AC X$, then it is a morphism from $\cC(b)$ to $\cC(c)$. 
 \end{lemma}
 
 \begin{proof}
@@ -260,13 +260,13 @@ We also (recursively) define the identity on a condition $c$ with $|c|=w$:
 %
 \[ \id_c = (\id_{[1,w]},(\id_{P^c_1},\id_{c_1})\ccdots (\id_{P^c_w},\id_{c_w})) \]
 %
-It remains to be shown that these are morphisms that satisfty the usual identity and associativity laws.
+The next lemma shows that the composition of morphisms is well-defined.
 %
 \begin{lemma}[ab-morphisms compose]\llabel{ab-morphisms compose}
 Let $m:b\to c$ and $n:c\to e$ be morphisms and let $|b|=w$.
 \begin{enumerate}[topsep=\smallskipamount]
-\item If $m$ and $n$ are backward-shift morphisms, then $m;n$ is a backward-shift morphism from $c$ to $e$.
 \item If $m$ and $n$ are forward-shift morphisms, then $m;n$ is a forward-shift morphism from $c$ to $e$.
+\item If $m$ and $n$ are backward-shift morphisms, then $m;n$ is a backward-shift morphism from $c$ to $e$.
 \end{enumerate}
 \end{lemma}
 
@@ -281,13 +281,15 @@ For all $1\leq i\leq w$, we need to show the existence of a forward root shifter
 \qed
 \end{enumerate}
 \end{proof}
+%
+We now state the first main result, that ab-conditions endowed with either forward or backward morphisms give rise to a category with a functor to $\ABC^\entails$
 
 \begin{theorem} 
 Let $\ABC^{\forw}$ be the category having ab-conditions as objects and forward-shift morphims as arrows, and let $\ABC^{\back}$ be the category having the same objects and backward-shift morphisms as arrows. They are well-defined, and there are identity-on-objects functors $\ABC^{\forw} \to \ABC^{\entails}$ and $\ABC^{\back} \to \ABC^{\entails}$
 \end{theorem}
 %
 \emph{Proof sketch.} Composition of morphisms was shown by \lcite{ab-morphisms compose}.
-Observing that, for any $A$, the identity function on $A$-sourced arrows is both a forward and backward source shifter for $\id_A$, and hence gives rise to a forward and backward root shifter for $\id_A$, it is routine to check that for each ab-condition $c$ the identity morphism $id_c$ is both a forward-shift and a backward-shift morphism. Moreover, identitie morphisms and morphism composition satisfy the unit and associativity laws. The existence of the two identity-on-object functors follows from \pcite{ab-morphisms preserve models}.
+Observing that, for any $A$, the identity function on $A$-sourced arrows is both a forward and backward source shifter for $\id_A$, and hence gives rise to a forward and backward root shifter for $\id_A$, it is routine to check that for each ab-condition $c$ the identity morphism $id_c$ is both a forward-shift and a backward-shift morphism. Moreover, identity morphisms and morphism composition satisfy the unit and associativity laws. The existence of the two identity-on-object functors follows from \pcite{ab-morphisms preserve models}.
 \qed 
 
 \medskip\noindent
@@ -318,7 +320,7 @@ Even though both forward- and backward-shift morphisms preserve models, they are
 \item $b$ encodes the property $\neg \lb(z,x)$;
 \item $c$ encodes $\exists y\st \la(x,y) \wedge \neg \lb(z,x)$.
 \end{itemize}
-Clearly, $b$ (logically) entails $c$ because $y$ can be instantiated with the value of $z$.\todo{AR: to be extended}
+Clearly, $b$ (logically) entails $c$ because $y$ can be instantiated with the value of $z$. The figure shows $\cF_v^s(a^c_{11})$ (for one of the sections $s$ of $v$), which act as the identity. 
 \end{example}
 %
 \begin{example}\exlabel{backward-no-forward}

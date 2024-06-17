@@ -136,7 +136,7 @@ A final change with respect to the arrow-based case is that we also abstract the
 \end{itemize}
 
 \begin{definition}
-Let $v:A\to B$ be an arrow. A \emph{pattern shift relation for $v$} is a binary relation $\cP_v$ over identically-sourced spans with a \emph{kernel} $\hat\cP_v\subseteq \cP_v$, such that 
+Let $v:A\to B$ be an arrow. A \emph{pattern shift relation for $v$} is a binary relation $\cP_v$ over identically-sourced spans with a distinguished subrelation $\hat\cP_v\subseteq \cP_v$, such that 
 %
 \begin{enumerate}[label=(\roman*)]
 \item\label{transfer-preserves} $\cP_v$ preserves witnesses adding $v$,
@@ -145,7 +145,7 @@ Let $v:A\to B$ be an arrow. A \emph{pattern shift relation for $v$} is a binary 
 \end{enumerate}
 \end{definition}
 %
-To see the analogy with the arrow-based case, note that $\cP_v=\setof{(a_1,a_2)\mid a_1;v=a_2}$ preserves witnesses adding $v$, and also satisfies \ref{transfer-congruence} if we replace all spans by arrows; hence with hindsight it is an arrow-based pattern shift relation for all $v$. The kernel of this $\cP_v$, which would have to satisfy that $g=a_2;h$ implies $h=v;h'$ such that $g=a_1;h'$ for any pair $(g,h)$, could consist of all $(a_1,a_2)$ where $a_2=a_1;s$ for a section $s$ of $v$. (In fact, we did not consider the notion of completeness for ab-morphisms.)
+To see the analogy with the arrow-based case, note that $\cP_v=\setof{(a_1,a_2)\mid a_1;v=a_2}$ preserves witnesses adding $v$, and also satisfies \ref{transfer-congruence} if we replace all spans by arrows; hence with hindsight it can be seen as an arrow-based pattern shift relation for $v$. The subrelation $\hat\cP_v$, which would have to satisfy that $g=a_2;h$ implies $h=v;h'$ such that $g=a_1;h'$ for any pair $(g,h)$, could consist of all $(a_1,a_2)$ where $a_2=a_1;s$ for a section $s$ of $v$. (In fact, in the previous section we did not consider the notion of completeness for ab-morphisms.)
 %
 \begin{definition}[span-based (complete) condition morphism]\dlabel{sb-morphism}
   Given two sb-conditions $b,c$, a \emph{forward-shift [backward-shift] sb-morphism} $m:b\to c$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
@@ -181,7 +181,7 @@ The result follows by induction on the depth of $m$ from the following separate 
 
 \item $(s_1,\cB_v^\circ(s_2))\in \cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \cP_t$ and $(s_1,\cB_v^\circ(s_2))\in \hat\cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \hat\cP_t$.
 
-\item $(\cF_v^x(s_1),s_2)\in \cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \cP_t$ and $(\cF_v^x(s_1),s_2)\in \cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \cP_t$.
+\item $(\cF_v^x(s_1),s_2)\in \cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \cP_t$ and $(\cF_v^x(s_1),s_2)\in \cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \hat\cP_t$.
 \qed
 \end{enumerate}
 \end{proof}
@@ -190,10 +190,20 @@ The result follows by induction on the depth of $m$ from the following separate 
 As before, we want morphisms to satisfy certain ``nice" properties: preservation of semantics, reflection in case of completeness, and compositionality. As it turns out, these all follow from the nature of forward and backward root shiftersand pattern shift relations. However, before embarking on the proofs, we will first two concrete pattern shift relations. For $i=1,2$ let $\spanof{u_i}{d_i}:R\to P_i$ be spans with intermediate objects $I_i$, and let $v:P_1\to P_2$.
 
 \begin{itemize}
-\item $\spanof{u_1}{d_1}\cPsp_v\spanof{u_2}{d_2}$ if there exists an arrow $k:I_2\to I_1$ with $k_2$ epi, such that $u_1=k;u_2$ and $k;d_1=d_2;v$. If, moreover, the square consisting of $k,d_1,d_2,v$ is a pushout, then $\spanof{u_1}{d_1}\hat\cPsp_v \spanof{u_2}{d_2}$.
+\item $\spanof{u_1}{d_1}\cPsp v\spanof{u_2}{d_2}$ if there exists an arrow $k:I_2\to I_1$ with $k_2$ epi, such that $u_1=k;u_2$ and $k;d_1=d_2;v$. If, moreover, the square consisting of $k,d_1,d_2,v$ is a pushout, then $\spanof{u_1}{d_1}\hat{\cPsp v} \spanof{u_2}{d_2}$.
 
-\item $\spanof{u_1}{d_1}\cPpo_v \spanof{u_2}{d_2}$ if, after building the pushouts $d'_1:,u'_2)$ of $\spanof{u_1}{d_1}$ and $(d'_2,u'_2)$ of $\spanof{u_2}{d_2}$, there is a morphism $k$ between their pushout objects such that $d'_2;k=d'_1$. If, moreover, the square consisting of $v,u'_1,u'_2,k$ is a pushout, then $\spanof{u_1}{d_1}\hat\cPpo_v \spanof{u_2}{d_2}$.
+\item $\spanof{u_1}{d_1}\cPpo v \spanof{u_2}{d_2}$ if, after building the pushouts $d'_1:,u'_2)$ of $\spanof{u_1}{d_1}$ and $(d'_2,u'_2)$ of $\spanof{u_2}{d_2}$, there is a morphism $k$ between their pushout objects such that $d'_2;k=d'_1$. If, moreover, the square consisting of $v,u'_1,u'_2,k$ is a pushout, then $\spanof{u_1}{d_1}\hat{\cPpo v} \spanof{u_2}{d_2}$.
 \end{itemize}
+
+Let $\sqsubseteq$ be the smallest partial order over sb-conditions such that $b\sqsubseteq c$ if there is a morphism $m:b\to c$ or a complete morphism $m:c\to b$, and let ${\cong}={\sqsubseteq}\cap {\sqsupseteq}$. Clearly, $\sqsubseteq$ is a subset of $\entails$ and $\cong$ is a subset of $\equiv$. We would like to have an independent characterisation of $\sqsubseteq$ and $\cong$.
+
+\subsection{From arrow-based to span-based and back}
+
+\emph{There is a faithful, semantics-preserving functor from $\ABC$ to $\SBC$, as well as a semantics-preserving mapping from sb-conditions to ab-conditions. Every sb-condition is provably equivalent to an ab-condition (i.e., they are $\cong$-related).}
+
+\subsection{Normal forms}
+
+
 %
 \begin{center}
 \input{figs/completeness}
