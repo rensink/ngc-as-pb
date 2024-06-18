@@ -15,11 +15,11 @@ Span-based conditions are inductively defined as follows:
   For any object $R$ of $\bC$, $\SC R$ (the set of \emph{span-based conditions} over $R$) and $\SB R$ (the set of \emph{span-based branches} over $R$) are the smallest sets such that
   \begin{itemize}
   \item $c\in \SC R$ if $c=(R,p_1\ccdots p_w)$ is a pair with $p_i\in \SB R$ for all $1\leq i\leq w$;
-  \item $p\in \SB R$ if $p=(\spanof u d,c)$ where $u: I\to R, d:I\func P$ form a span of arrows of $\bC$ and $c\in \SC P$.
+  \item $p\in \SB R$ if $p=(\spanof u d,c)$ where $u: I\to R, d:I\to P$ form a span of arrows of $\bC$ and $c\in \SC P$.
   \end{itemize}
 \end{definition}
 %
-In the span $\spanof u d$ of a branch $p=(\spanof u d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emph{down-arrow}. As before, we use $|c|=w$ to denote the width of a span-based condition $c$, $R^c$ to denote its root, and $p^c_i=(s^c_i,c_i)$ with span $s^c_i=\spanof{u^c_i}{d^c_i}$ its $i$-th branch. Finally, we use $I^c_i$ for the interface of span $s^c_i$ and $P^c_i$ ($=R^{c_i}$) for its target (hence $u^c_i:I^c_i\func R^c$ and $d^c_i:I^c_i\rightarrow P^c_i$). In all these cases, we may omit the superscript $c$ if it is clear from the context. Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
+In the span $\spanof u d$ of a branch $p=(\spanof u d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emph{down-arrow}. As before, we use $|c|=w$ to denote the width of a span-based condition $c$, $R^c$ to denote its root, and $p^c_i=(s^c_i,c_i)$ with span $s^c_i=\spanof{u^c_i}{d^c_i}$ its $i$-th branch. Finally, we use $I^c_i$ for the interface of span $s^c_i$ and $P^c_i$ ($=R^{c_i}$) for its target (hence $u^c_i:I^c_i\to R^c$ and $d^c_i:I^c_i\rightarrow P^c_i$). In all these cases, we may omit the superscript $c$ if it is clear from the context. Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
 %
 \begin{figure}
 \centering
@@ -46,7 +46,7 @@ We now present the modified notion of satisfaction for span-based conditions. Fi
 Satisfaction of sb-conditions is then defined as follows:
 
 \begin{definition}[satisfaction of span-based conditions]\dlabel{sb-satisfaction}
-  Let $c$ be a span-based condition and $g:R\func G$ an arrow from $c$'s root to an object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i$ and an arrow $h:R_i\func G$ such that
+  Let $c$ be a span-based condition and $g:R\to G$ an arrow from $c$'s root to an object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i$ and an arrow $h:R_i\to G$ such that
   \begin{enumerate*}
   \item $s_i \commutes (g, h)$, and
   \item $h\nsat c_i$.
@@ -138,19 +138,19 @@ We now show that $\cB_v^x$ is a backward span source shifter for $v$, i.e., that
 %
 The ability to forward-shift and backward-shift in many different ways means that there are equally many options for building morphisms. In fact, however, we will show later that all above root shifters for $v$ (both forward and backward) are subsumed by $\cF_v^\circ$, in the sense that entailment or equivalence of sb-conditions ``explained" by morphisms based on any of the (other) known root shifters can also be ``explained" by morphisms based on $\cF_v^\circ$.
 
-The step from span source shifters to span root shifters is completely identical to the arrow-based case; we omit the definition here. A new aspect is that the identity root shifter is complete.
+The step from span source shifters to span root shifters is completely identical to the arrow-based case; we omit the definition here. A new aspect is that the trivial root shifter is complete.
 
 \begin{proposition}
-The identity root shifter $\cI_{A,B}$ is both a complete forward span root shifter and a complete backward span root shifter for any arrow $v:A\to B$. 
+The trivial root shifter $\cI_{A,B}$ is both a complete forward span root shifter and a complete backward span root shifter for any arrow $v:A\to B$. 
 \end{proposition}
 %
 Span root shifters satisfy the analogous properties of arrow root shifters formulated in Propositions \pref{ab-root shifters preserve} and \pref{ab-shifters compose}, extended with the case of complete shifters. As the proofs are essentially identical, we omit them here.\todo{AR: do you agree?}
 
-\begin{proposition}[span root shifters preserve models]\plabel{ab-root shifters preserve}~
+\begin{proposition}[span root shifters preserve models]\plabel{sb-shifters preserve}
 Let $v:A\to B$.
 \begin{enumerate}[topsep=\smallskipamount]
 \item If $c\in \SC A$ and $\cF$ is a forward span root shifter for $v$ that is defined on $c$, then $v;g\sat c$ implies $g\sat \cF(c)$. If, moreover, $\cF$ is complete then also $g\sat \cF(c)$ implies $v;g\sat c$.
-\item If $c\in \SC B$ and $\cB$ is a backward span root shifter for $v$ that is defined on $c$, then $v;g\sat \cB(c)$ implies $g\sat c$. If, moreover, $\cF$ is complete then also $v;g\sat \cF(c)$ implies $g\sat c$.
+\item If $c\in \SC B$ and $\cB$ is a backward span root shifter for $v$ that is defined on $c$, then $v;g\sat \cB(c)$ implies $g\sat c$. If, moreover, $\cB$ is complete then also $v;g\sat \cB(c)$ implies $g\sat c$.
 \end{enumerate}
 \end{proposition}
 
@@ -287,51 +287,83 @@ Using pattern shift, we define morphisms over sb-conditions as follows.
   \item \emph{Forward shift:} for all $1\leq i\leq |b|$, there is a forward root shifter $\cF_i$ for $v_i$ such that $m_i:\cF_i(c_{o(i)})\to b_i$ is a forward-shift morphism;
   \item \emph{Backward shift:} for all $1\leq i\leq |b|$, there is a backward root shifter $\cB_i$ for $v_i$ such that $m_i:c_{o(i)}\to \cB(b_i)$ is a backward-shift morphism.
   \end{itemize}
+  The morphism $m$ is called \emph{direct} if all $\cF_i$ [$\cB_i$] are direct.
+  
   The morphism $m$ is called \emph{complete} if $o$ is surjective, $(s^c_{o(i)},s^b_i)\in \ccP_{v_i}$ for all $1\leq i\leq |b|$, and $\cF_i$ [$\cB_i$] is complete.
 \end{definition}
 %
-Note that only direct (forward or backward) root shifters are complete, hence complete morphisms can only use direct root shifters.
+Note that only direct (forward or backward) root shifters are complete, hence also only direct morphisms can be complete.
 
-On of the most essential properties of morphisms is that they preserve models and, in the case of complete morphisms, also reflect models. This is the analogous property of \pcite{ab-morphisms preserve models}, extended with the case for completeness.
+On of the most essential properties of morphisms is that they preserve models and, in the case of complete morphisms, also reflect them. This is the analogous property of \pcite{ab-morphisms preserve models}, extended with the case for completeness.
 %
 \begin{proposition}[sb-condition morphisms preserve models]
                    \plabel{sb-morphisms preserve models}
-Let $b,c \in \SC{R}$ be span-based conditions. If $m:b\func c$ is an sb-morphism, then $g\sat b$ implies $g \sat c$ for all arrows $g:R\func G$. Moreover, if $m$ is complete, then also $g\sat c$ implies $g\sat b$ for all $g$.
+Let $b,c \in \SC{R}$ be span-based conditions. If $m:b\to c$ is an sb-morphism, then $g\sat b$ implies $g \sat c$ for all arrows $g:R\to G$. Moreover, if $m$ is complete, then also $g\sat c$ implies $g\sat b$ for all $g$.
 \end{proposition}
 %
 \begin{proof}
-By induction on the depth of $m$. If $m:b\func c$ is an sb-morphism and $g\sat b$, then let $p^b_i$ be the responsible branch and $h$ the witness such that $\spanof{u^b_i}{d^b_i}\commutes (g,h)$ and $h\nsat b_i$, and let $j=o(i)$. Since $(s^c_j,s^b_i)\in \cP_{v_i}$, it follows by \pcite{pattern shift}.\ref{pattern-preserves} that $\spanof{u^c_j}{d^c_j}\commutes (g,v_i;h)$. Now assume (ad absurdum) that $v_i;h\sat c_j$. This will lead to a contradiction, hence $g\sat c$ with responsible branch $p^c_j$ and witness $v_i;h$.
+By induction on the depth of $m$. If $m:b\to c$ is an sb-morphism and $g\sat b$, then let $p^b_i$ be the responsible branch and $h$ the witness such that $\spanof{u^b_i}{d^b_i}\commutes (g,h)$ and $h\nsat b_i$, and let $j=o(i)$. Since $(s^c_j,s^b_i)\in \cP_{v_i}$, it follows by \pcite{pattern shift}.\ref{pattern-preserves} that $\spanof{u^c_j}{d^c_j}\commutes (g,v_i;h)$. Now assume (ad absurdum) that $v_i;h\sat c_j$. This will lead to a contradiction, hence $g\sat c$ with responsible branch $p^c_j$ and witness $v_i;h$.
 \begin{itemize}[topsep=\smallskipamount]
-\item For the forward-shift case, due to \pref{sb-shifters preserve models} it follows that $h\sat \cF_i(c_j)$, and hence by the induction hypothesis the existence of $m_i:\cF_i(c_j)\to b_i$ implies $h\sat b_i$, contradicting the above.
+\item For the forward-shift case, due to \pref{sb-shifters preserve} it follows that $h\sat \cF_i(c_j)$, and hence by the induction hypothesis the existence of $m_i:\cF_i(c_j)\to b_i$ implies $h\sat b_i$, contradicting the above.
 
-\item For the backward-shift case, by the induction hypothesis the existence of $m_i:c_j\to \cB_i(b_i)$ implies $v_i;h\sat \cB_i(b_i)$, and hence due to \pref{sb-shifters preserve models} it follows that $h\sat b_i$, contradicting the above.
+\item For the backward-shift case, by the induction hypothesis the existence of $m_i:c_j\to \cB_i(b_i)$ implies $v_i;h\sat \cB_i(b_i)$, and hence due to \pref{sb-shifters preserve} it follows that $h\sat b_i$, contradicting the above.
 \end{itemize}
 If $m$ is complete and $g\sat c$, then let $p^c_j$ be the responsible branch and $h$ the witness such that $\spanof{u^c_j}{d^c_j}\commutes (g,h)$ and $h\nsat c_j$. Let $i$ be such that $j=o(i)$ (which exists because $o$ is surjective). Since $(s^c_j,s^b_i)\in \ccP_{v_i}$, it follows by \pcite{pattern shift}.\ref{conservative-reflects} that $\spanof{u^b_i}{d^b_i}\commutes (g,h')$ for some $h'$ such that $h=v_i;h'$. Now assume (ad absurdum) that $h'\sat b_i$. This will lead to a contradiction, hence $g\sat b$ with responsible branch $p^b_i$ and witness $h'$.
 \begin{itemize}[topsep=\smallskipamount]
-\item For the forward-shift case: by the induction hypothesis, the existence of the complete $m_i:\cF_i(c_j)\to b_i$ implies $h'\sat \cF_i(c_j)$. Since $\cF_i$ is complete, due to \pref{sb-shifters preserve models} it follows that $h=v_i;h'\sat c_j$, contradicting the above.
-\item For the backward-shift case, since $\cB_i$ is complete, due to  \pref{sb-shifters preserve models} it follows that $h=v_i;h'\sat \cB_i(b_i)$, and hence by the induction hypothesis the existence of the complete $m_i:c_j\to \cB_i(b_i)$ implies $h\sat c_j$, contradicting the above.
+\item For the forward-shift case: by the induction hypothesis, the existence of the complete $m_i:\cF_i(c_j)\to b_i$ implies $h'\sat \cF_i(c_j)$. Since $\cF_i$ is complete, due to \pref{sb-shifters preserve} it follows that $h=v_i;h'\sat c_j$, contradicting the above.
+\item For the backward-shift case, since $\cB_i$ is complete, due to \pref{sb-shifters preserve} it follows that $h=v_i;h'\sat \cB_i(b_i)$, and hence by the induction hypothesis the existence of the complete $m_i:c_j\to \cB_i(b_i)$ implies $h\sat c_j$, contradicting the above.
 \qed
 \end{itemize}
 \end{proof}
 %
-Given the number of possible forward and backward shifters we identified, it would seem that there is a lot of choice within the concept of a morphism, possibly making them complex to reason about. However, the following result states that we actually only have to consider direct forward shifting.
+Given the number of possible forward and backward shifters we identified, there is a lot of choice within the concept of a morphism, possibly making them complex to reason about. However, we now set about showing that, in an important sense, it is enough to consider only direct forward-shift morphisms. To make this statement precise, we introduce the notion of \emph{provable entailment}.
+%
+\begin{definition}[provable entailment/equivalence]\dlabel{provable}
+\emph{Provable entailment}, denoted $\pentails$, is the smallest partial order such that for all sb-conditions $b,c$:
+\begin{itemize}[topsep=\smallskipamount]
+\item If there is a direct forward-shift morphism $m:b\to c$, then $b\pentails c$;
+\item If there is a complete direct forward-shift morphism $m:b\to c$, then $c\pentails b$.
+\end{itemize}
+\emph{Provable equivalence}, denoted $\pequiv$, is defined as ${\pequiv}=({\pentails}\cap{\pentailedby})^*$.
+\end{definition}
+%
+The following is a property that we will need in the proof below.
+%
+\begin{lemma}\llabel{pequiv}
+Let $b,c$ be sb-conditions with $|b|=|c|$ and $s^b_i=s^c_i$ for all $1\leq i\leq |b|$.
+\begin{enumerate}[topsep=\smallskipamount]
+\item If $b_i\pentails c_i$ for all $i=1,\ldots,|b|$ then $c\pentails b$;
+\item If $b_i\pequiv c_i$ for all $i=1,\ldots,|b|$ then $b\pequiv c$.
+\end{enumerate}
+\end{lemma}
+%
+The above claim about direct forward-shift morphisms being general enough now comes down to the following:
+%
+\begin{proposition}[provable entailment]
+Let $b,c$ be sb-conditions. If there exists a morphism $m:b\to c$, then $b\pentails c$; moreover, if $m$ is complete then $c\pentails b$.
+\end{proposition}
+%
+The reason why this holds is that any (forward- or backward-shift) morphism is itself actually a direct forward-shift morphism between provably equivalent conditions.
 %
 \begin{proposition}\plabel{sb-forward only}
 Let $b,c$ be sb-conditions.
 \begin{enumerate}[topsep=\smallskipamount]
-\item If $m$ is a [complete] forward-shift morphism from $b$ to $c$, then $m$ is also a [complete] forward-shift morphism using only direct forward root shifters.
-\item If $m$ is a [complete] backward-shift morphism from $b$ to $c$, then there are sb-conditions $b',c'$ such that $m$ is a [complete] forward-shift morphism from $b'$ to $c'$ using only direct forward root shifters, and there are complete forward-shift morphism from $b'$ to $b$ and from $c$ to $c'$.
+\item If $m$ is a [complete] forward-shift morphism from $b$ to $c$, then $m$ is also a direct [complete] forward-shift morphism.
+
+\item We call a morphism \emph{branch preserving} if all its mappings $o$ are identities $\id_{[1,w]}$. For any $m$, let $\bar m$ be the branch-preserving morphism derived from $m$, by replacing all branch mappings $o$ (on all levels) by the corresponding identities.
+
+If $m$ is a [complete] backward-shift morphism from $b$ to $c$, then there are sb-conditions $b'\pequiv b$ and $c'\pequiv c$ such that $\bar m$ is a direct [complete] forward-shift morphism from $b'$ to $c'$.
 \end{enumerate}
 \end{proposition}
 %
-This is proved by induction on the depth of the morphism; to make the induction work, we actually need a stronger version of the property.
+This is proved by induction on the depth of the morphism; to make the induction work, we actually need a stronger version of the property.\todo{Already \pcite{sb-forward only} is quite technical, I am not sure it makes sense to leave it in.}
 %
 \begin{lemma}\llabel{sb-forward only}
 Let $b\in \SC A,c\in \SC B$ be sb-conditions, and let $v:A\to B$ be an arrow.
 \begin{enumerate}[topsep=\smallskipamount]
-\item For any [complete] forward root shifter $\cF$ for $v$, if $m$ is a [complete] forward-shift morphism from $\cF(b)$ to $c$, then $m$ is also a [complete] forward-shift morphism using from $\dcF v(b)$ to $c$ using only direct forward root shifters.
+\item For any [complete] forward root shifter $\cF$ for $v$, if $m$ is a [complete] forward-shift morphism from $\cF(b)$ to $c$, then $m$ is also a direct [complete] forward-shift morphism from $\dcF v(b)$ to $c$.
 
-\item For any [complete] backward root shifter $\cB$ for $v$, if $m$ is a [complete] backward-shift morphism from $b$ to $\cB(c)$, then there are sb-conditions $b'\in\SC A, c'\in \SC B$ such that $m$ is a [complete] forward-shift morphism from $\dcF v(b')$ to $c'$ using only direct forward root shifters, and there are complete forward-shift morphisms $m^b:b'\to b$ and $m^c:c\to c'$.
+\item For any [complete] backward root shifter $\cB$ for $v$, if $m$ is a [complete] backward-shift morphism from $b$ to $\cB(c)$, then there are sb-conditions $b'\pequiv b$ and $c'\pequiv c$ such that $\bar m$ is a direct [complete] forward-shift morphism from $\dcF v(b')$ to $c'$.
 \end{enumerate}
 \end{lemma}
 %
@@ -340,45 +372,57 @@ Clearly, \pcite{sb-forward only} is a special case of \lcite{sb-forward only} fo
 \begin{proof}
 Let $b\in \SC A,c\in \SC B$ be sb-conditions, and let $v:A\to B$ be an arrow. The proof is by induction on the depth of $m$.
 \begin{enumerate}[topsep=\smallskipamount]
-\item Let $\cF$ be a forward root shifter for $v$, and $m=(o,(v_1,m_1)\ccdots(v_w,m_w)):\cF(b)\to c$ a forward-shift morphism. It follows that all $m_i$ are morphisms from $\cF_i(c_{o(i)})$ to $b_i$ for some forward shifter $\cF_i$; by the induction hypothesis therefore, also $m_i:\dcF{v_i}(c_{o(i)})\to b_i$. It only remains to be shown that, for all $1\leq i\leq w$, $(\cF_i(s^c_i),s^b_{o(i)})\in \cP_{v_i}$ implies $(\dcF{v_i}(s^c_i),s^b_{o(i)})\in \cP_{v_i}$. This is a consequence of \lcite{BF}.
+\item Let $\cF$ be a forward root shifter for $v$, and $m=(o,(v_1,m_1)\ccdots(v_w,m_w)):\cF(b)\to c$ a forward-shift morphism. It follows that all $m_i$ are morphisms from $\cF_i(c_{o(i)})$ to $b_i$ for some forward shifter $\cF_i$; by the induction hypothesis therefore, also $m_i:\dcF{v_i}(c_{o(i)})\to b_i$. It only remains to be shown that, for all $1\leq i\leq w$, $(\cF_i(s^c_{o(i)}),s^b_i)\in \cP_{v_i}$ implies $(\dcF{v_i}(s^c_{o(i)}),s^b_i)\in \cP_{v_i}$. This is a consequence of \lcite{BF}.
 
+\smallskip
 If $m$ is complete, then all its root shifters are complete, and hence already direct.
 
-\item Let $\cB$ be a forward root shifter for $v$, and $m=(o,(v_1,m_1)\ccdots(v_w,m_w)):\cF(b)\to c$ a backward-shift morphism. It follows that all $m_i$ are morphisms from $c_{o(i)}$ to $\cB_i(b_i)$ for some backward shifter $\cB_i$; by the induction hypothesis therefore (letting $j=o(i)$), $m_i:\dcF{v_i}(c_j')\to b_i'$ for some $c_j'\in \SC{P^c_j}$ and $b_i'\in \SC{P^b_i}$ such that there are a complete forward-shift morphisms $m^c_j:c'_j\to c_j$ and $m_i^b:b_i\to b'_i$.
+\item Let $\cB$ be a backward root shifter for $v$, and let $m=(o,(v_1,m_1)\ccdots(v_w,m_w)):\to \cB(c)$ a backward-shift morphism. It follows that all $m_i$ are morphisms from $c_{o(i)}$ to $\cB_i(b_i)$ for some backward shifter $\cB_i$. By the induction hypothesis therefore (letting $j=o(i)$), $\bar m_i:\dcF{v_i}(c_j')\to b_i'$ for some $c_j'\pequiv c_j$ and $b'_i\pequiv b_i$.
 
-Now let $b'=(A,(\dcF{v_1}(s^b_1),b_1)\ccdots (\dcF{v_w}(s^b_w),b_w))$ and 
+\smallskip
+In constructing $c'$ from $c$, we have to make sure that we retain the $c$-branches that are not the image of any $b$-branch under $o$. For this purpose, let $J=\setof{1\leq j\leq |c|\mid \nexists i\st o(i)=j}$ be the set of indexes of those branches, and let $j_1,\ldots,j_n$ be an arbitrary ordering of the elements of $J$. We define 
+\begin{align*}
+b'=\;&(A,(s^b_1,b'_1)\ccdots (s^b_w,b'_w)) \\
+c'=\;&(B,p_1\ccdots p_w\,p^c_{j_1}\ccdots p^c_{j_n}) \\
+   & \quad\text{where} p_i = (\dcF v(\cB(s^c_{o(i)})),c'_{o(i)}) \text{ for all $1\leq i\leq w$}\enspace.
+\end{align*}
+%
+Note that $|c'|=w+n$. For $1\leq i\leq w$, the $i$th branch of $c'$ is based on the $o(i)$th branch of $c$, modifying its span by first backward-shifting it using $\cB$ and then forward-shifting using $\dcF v$, and modifying its subcondition by taking, instead of $c_{o(i)}$, the provably equivalent $c'_{o(i)}$. For $w+1\leq i\leq w+n$, the $i$th branch of $c'$ is the $j_i$th branch of $c$.
+
+\smallskip
+$\bar m$ (which has $o^{\bar m}=\id_{[1,w]}$) is a direct forward-shift morphism from $\dcF v(b')$ to $c'$. To show this, all that is yet required is that $(\dcF v(s^b_i),\dcF v(\cB(s^c_{o(i)}))) \in \cP_{v_i}$ for $1\leq i\leq w$. This follows from the fact that $m:b\to \cB(c)$ is a morphism, which means $(s^b_i,\cB(s^c_{o(i)}))\in \cP_{v_i}$, in combination with \pcite{pattern shift}.\ref{pattern-congruence}, which states that the action of $\dcF v$ on spans (which comes down to prefixing them with $\spanof{v}{\id}$, see \fcite{sb-source shifters}) preserves $\cP_{v_i}$.
+
+\smallskip
+It only remains to be shown that $b'\pequiv b$ and $c'\pequiv c$. The first directly follows from \lcite{pequiv}, given that $b'_i\pequiv b_i$ for all $1\leq i\leq w$. For the second, we go through the auxiliary conditions
+\begin{align*}
+c''=\;&(B,(s^c_{o(1)},c'_{o(1)})\ccdots (s^c_{o(w)},c'_{o(w)})\,p^c_{j_1}\ccdots p^c_{j_n}) \\
+c'''=\;&(B,(s^c_{o(1)},c_{o(1)})\ccdots (s^c_{o(w)},c_{o(w)})\,p^c_{j_1}\ccdots p^c_{j_n}) \enspace.
+\end{align*}
+\begin{itemize}
+\item $c'\pequiv c''$ because the identity morphism $\id_{c'}$ is a direct complete forward-shift morphism from $c'$ to $c''$ due to $(s^c_{o(i)},\dcF v(\cB(s^c_{o(i)})))\in \ccP_\id$ for all $1\leq i\leq w$ (see \lcite{BF});
+\item $c''\pequiv c'''$ due to \lcite{pequiv}, given that $c'_{o(w)}\pequiv c_{o(w)}$ for all $1\leq i\leq w$; 
+\item $c'''\pequiv c$ because $m'=(o',(\id_{P^c_1},\id_{c_1})\ccdots (\id_{P^c_{|c|}},\id_{c_{|c|}}))$ with $o'=o^m\cup\setof{(w+i,j_i) \mid 1\leq i\leq n}$ is a direct complete forward-shift morphism from $c'''$ to $c$.
+\qed
+\end{itemize}
+If $m$ is complete, then so is $\bar m$, because in that case $n=0$ (there are no $c$-branches that are not the image of any $b$-branch) and so $\id_{[1,w]}$ is surjective in $\bar m:\dcF v(b')\to c'$.
 \end{enumerate}
 \end{proof}
-
-
-a consequence of the following lemma.
 %
-\begin{lemma}~
-Let $b\in\SC A$, $c\in\SC B$ be sb-conditions, and let $v:A\to B$ be an arrow.
+\begin{lemma}\llabel{BF}
+Let $v:A\to B$ be an arrow.
 \begin{enumerate}[topsep=\smallskipamount]
-\item There is a complete forward-shift morphism from $c$ to $\dcF v(\dcB v(c))$.
-\item For any section $x$ of $v$, $\dcF v(\rcB v x(c))=c$.
-\item If $m$ is a forward-shift morphism from $\rcF v x(b)$ to $c$, then $m$ is a forward-shift morphism from $\dcF v(b)$ to $c$.
+\item For any forward shifter $\cF$ for $v$ and any $A$-sourced span $s$, $(\cF(s_1),s_2)\in \cP_v$ implies $(\dcF v(s_1),s_2)\in \cP_v$.
+\item For any backward shifter $\cB$ for $v$ and any $B$-sourced span $s$, $(\dcF v(\cB(s)),s)\in \ccP_\id$.
 \end{enumerate}
 \end{lemma}
 %
 \begin{proof}
-\todo{AR: to be redone.} The result follows by induction on the depth of $m$ from the following separate observations, in which $v:R_1\to R_2$, $t:P_2\to P_1$ and $s_i:R_i\to P_i$ for $i=1,2$ are arbitrary, and $x$ is an arbitrary section of $v$.
 \begin{enumerate}[topsep=\smallskipamount]
-\item $(s_1,\cB_v^\circ(s_2))\in \cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \cP_t$ and $(s_1,\cB_v^\circ(s_2))\in \hat\cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \hat\cP_t$.
-
-\item $(s_1,\cB_v^x(s_2))\in \cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \cP_t$.
-
-\item $(\cF_v^x(s_1),s_2)\in \cP_t$ implies $(\cF_v^\circ(s_1),s_2)\in \cP_t$.
+\item 
 \qed
 \end{enumerate}
 \end{proof}
 %
-\noindent\emph{Proof of \pcite{sb-forward only}.} By induction on the depth of $m$.
-\begin{enumerate}[topsep=\smallskipamount]
-\item Let $m$ be a forward-shift morphism from $b$ to $c$
-\end{enumerate}
-
 Motivated by \pref{sb-forward only}, from now on we drop the qualifiers ``forward-shift" and ``backward-shift" and just talk about (sb-)morphisms, always meaning those that are based on direct forward shifting.
 
 \begin{theorem} 
@@ -402,7 +446,7 @@ We write $t^m$ and $o^m$ for the components of $m$, and (for all $1\leq i\leq |b
 \begin{figure}
   \centering
   \input{figs/sb-morphism}
-  \caption{Pictorial representation of a span-based condition morphism $m:b\func c$ (with $w=|b|$ and $m=(t,o,m_1\ccdots m_w)$)}
+  \caption{Pictorial representation of a span-based condition morphism $m:b\to c$ (with $w=|b|$ and $m=(t,o,m_1\ccdots m_w)$)}
   \flabel{sb-morphism}
 \end{figure}
 
@@ -413,9 +457,9 @@ We write $t^m$ and $o^m$ for the components of $m$, and (for all $1\leq i\leq |b
 \end{proposition}
  
 \begin{proof}
-  Given an sb-condition $c=(R,p_1\ccdots p_w)$, the identity morphism $\id_c:c\func c$ is inductively defined as $(\id_R,\id_w,\id_{c_1}\ccdots \id_{c_w})$: the required commutativity properties trivially hold by choosing $k_i=\id_{I_i}$. By construction, $\id_c$ is complete.
+  Given an sb-condition $c=(R,p_1\ccdots p_w)$, the identity morphism $\id_c:c\to c$ is inductively defined as $(\id_R,\id_w,\id_{c_1}\ccdots \id_{c_w})$: the required commutativity properties trivially hold by choosing $k_i=\id_{I_i}$. By construction, $\id_c$ is complete.
   
-Given two ab-condition morphisms $m:b\func c$ and $n:c\func e$, their composition is defined as $m;n=(t^m;t^n,o^m;o^n,(n_{o^m(1)};m_1)\ccdots (n_{o^m(w)};m_{w}))$ (where $w=|b|$).
+Given two ab-condition morphisms $m:b\to c$ and $n:c\to e$, their composition is defined as $m;n=(t^m;t^n,o^m;o^n,(n_{o^m(1)};m_1)\ccdots (n_{o^m(w)};m_{w}))$ (where $w=|b|$).
 The well-definedness of $m;n$ can be proved in a standard way, choosing as intermediate morphisms $k_i=k^n_{o(i)};k^m_i$ for all $1\leq i\leq w$. If $m$ and $n$ are complete, so is $m;n$ (due to the fact that $o^m;o^n$ is surjective if both $o^m$ and $o^n$ are, and that pushouts compose).
 
 The identity laws and associativity of composition can be proved in a standard way. \qed
@@ -424,11 +468,11 @@ The identity laws and associativity of composition can be proved in a standard w
 With this notion of morphism, we not only have the desired preservation of satisfaction, but also reflection of satisfaction in case of completeness, in the following sense:
 %
 \begin{proposition}[morphisms preserve satisfaction]\plabel{sb-morphism preserves satisfaction}
-Let $b$ and $c$ be span-based conditions. If $m:b\func c$ is an sb-condition morphism, then $t;g\sat b$ implies $g\sat c$ for all arrows $g:R^c\to G$. Moreover, if $m$ is complete then also the converse is true: $g\sat c$ implies for $t;g\sat b$ all arrows $g:R^c\to G$.
+Let $b$ and $c$ be span-based conditions. If $m:b\to c$ is an sb-condition morphism, then $t;g\sat b$ implies $g\sat c$ for all arrows $g:R^c\to G$. Moreover, if $m$ is complete then also the converse is true: $g\sat c$ implies for $t;g\sat b$ all arrows $g:R^c\to G$.
 \end{proposition}
 %
 \begin{proof}
-By induction. Assume that $p_i$ is the responsible branch of $b$ and $h^b\colon R_{c_p}\func G$ the witness for $t;g\sat b$; hence the induction hypothesis implies that the proposition holds for $c_{o(i)}$, and moreover, $u^b_i;t;g=d^b_i;h^b$ and $h^b\nsat b_i$. Moreover, let $j=o(i)$ and let $k\colon I^c_j\func I^b_i$ be as required in \dcite{sb-morphism}. This is visualised in \fcite{sb-morphism preserves satisfaction}.
+By induction. Assume that $p_i$ is the responsible branch of $b$ and $h^b\colon R_{c_p}\to G$ the witness for $t;g\sat b$; hence the induction hypothesis implies that the proposition holds for $c_{o(i)}$, and moreover, $u^b_i;t;g=d^b_i;h^b$ and $h^b\nsat b_i$. Moreover, let $j=o(i)$ and let $k\colon I^c_j\to I^b_i$ be as required in \dcite{sb-morphism}. This is visualised in \fcite{sb-morphism preserves satisfaction}.
 %
 \begin{figure}
   \centering
@@ -463,7 +507,7 @@ It follows (by induction) that $\hat c\in \SC R$ for all $c\in \AC R$ and $\hat 
 The structure of morphisms remains essentially identical. Let $b,c\in \ABC$.
 %
 \begin{itemize}
-\item For arbitrary $m:b\func c$ with $m=(t,o,m_1\ccdots m_w)$, let $\hat m=(t,o,\hat m_1\ccdots \hat m_w)$.
+\item For arbitrary $m:b\to c$ with $m=(t,o,m_1\ccdots m_w)$, let $\hat m=(t,o,\hat m_1\ccdots \hat m_w)$.
 \end{itemize}
 %
 \begin{proposition}

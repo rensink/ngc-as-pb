@@ -19,7 +19,7 @@ Arrow-based conditions are inductively defined as follows:
   Let $R$ be any object of $\bC$. $\AC R$ (the set of \emph{arrow-based conditions} over $R$) and $\AB R$ (the set of \emph{arrow-based branches} over $R$) are the smallest sets such that
   \begin{itemize}
   \item $c\in \AC R$ if $c=(R,p_1\ccdots p_w)$ is a pair with $p_i\in \AB R$ for all $1\leq i\leq w$;
-  \item $p\in \AB R$ if $p=(a,c)$ where $a: R\func P$ is an arrow of $\bC$ and $c\in \AC P$.
+  \item $p\in \AB R$ if $p=(a,c)$ where $a: R\to P$ is an arrow of $\bC$ and $c\in \AC P$.
   \end{itemize}
 \end{definition}
 %
@@ -51,7 +51,7 @@ Note that in most cases we have used variable names to represent nodes, to make 
 A condition expresses a property of arrows from its root to an arbitrary object. This is operationalised through the notion of \emph{satisfaction}.
 
 \begin{definition}[satisfaction of arrow-based conditions]\dlabel{ab-satisfaction}
-  Let $c$ be an ab-condition over $R$ and $g:R\func G$ an arrow from $c$'s root to some object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i=(a_i,c_i)$ of $c$ and an arrow $h:P_i\func G$ such that
+  Let $c$ be an ab-condition over $R$ and $g:R\to G$ an arrow from $c$'s root to some object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i=(a_i,c_i)$ of $c$ and an arrow $h:P_i\to G$ such that
   \begin{itemize}
   \item $g=a_i;h$
   \item $h\nsat c_i$.

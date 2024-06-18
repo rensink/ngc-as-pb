@@ -178,7 +178,7 @@ Source and root shifters compose, in the following way.
 \begin{proposition}[shifters compose]\plabel{ab-shifters compose}
 \begin{enumerate}[topsep=\smallskipamount]
 \item If $\cU$ is a source [root] shifter from $X$ to $Y$ and $\cV$ a source [root] shifter from $Y$ to $Z$, then $\cU;\cV$ (understood as partial function composition) is a source [root] shifter from $X$ to $Z$. 
-\item If $\cU$ and $\cV$ are forward source [root] shifters for $u: X\to Y$ and $v: Y \to Z$, respectively, then $\cU;\cV$ is forward source [root] shifter for $u;v$.
+\item If $\cU$ and $\cV$ are forward source [root] shifters for $u: X\to Y$ and $v: Y \to Z$, respectively, then $\cU;\cV$ is a forward source [root] shifter for $u;v$.
 \item Dually, if $\cU$ and $\cV$ are backward source [root] shifters for $u: Y\to X$ and $v: Z \to Y$, respectively, then $\cU;\cV$ is a backward source [root] shifter for $v;u$.
 \end{enumerate}
 \end{proposition}
@@ -225,7 +225,7 @@ The next result states that the existence of a morphism between two conditions $
 
 \begin{proposition}[ab-condition morphisms preserve models]
   \plabel{ab-morphisms preserve models}
-Let $b,c \in \AC{R}$  be arrow-based conditions. If $m:b\func c$ is a forward-shift or a backward-shift morphism, then $g\sat b$ implies $g \sat c$ for all arrows $g:R\func G$. 
+Let $b,c \in \AC{R}$  be arrow-based conditions. If $m:b\to c$ is a forward-shift or a backward-shift morphism, then $g\sat b$ implies $g \sat c$ for all arrows $g:R\to G$. 
 \end{proposition}
 
 \begin{proof}
