@@ -10,6 +10,9 @@ Along the paper examples and intuitions will be based on $\cat{Graph}$, the cate
         (1) edge[bend right=20,->] (2);
 }$. Furthermore, they are closed under the construction of slice and functor categories, thus they include labeled/typed (hyper)graphs (see Sec.~5 of~\cite{AzziCR19}). 
 
+Assuming that \cat{C} is a presheaf topos ensures that all limits and colimits exist and that they can be computed pointwise. Further \cat{C} is \emph{adhesive}~\cite{ls:adhesive-journal}, enjoing several properties exploited in the algebraic theory of graph rewriting, where the results of this paper have potential interesting application.\footnote{Note however that requiring \cat{C} to be just adhesive would not suffice: for example, we need arbitrary pushouts, while adhesivity only guarantees pushouts along monos.}
+
+\medskip
 Arrow-based conditions are inductively defined as follows:
 
 \begin{definition}[arrow-based condition]\dlabel{ab-condition}
