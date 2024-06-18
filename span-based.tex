@@ -1,6 +1,13 @@
 \section{Span-based conditions}
 
-We now present the main idea of this paper, inspired by on the observation that arrow-based conditions over graphs contain a lot of duplication: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} structure (and how it is connected). This is achieved by replacing the branch arrows $a^c_i$ of a condition $c$ by \emph{spans}.\footnote{We discuss and contrast an alternative way to resolve the same issue, using \emph{cospans} rather than spans, later in this paper.}
+The peculiar definition of morphisms of ab-conditions just introduced, with arrows changing direction at each layer in order to ensure the preservation of models, clashes with a structural property of arrow-based conditions, namely the fact that the pattern of each subcondition contains a copy of the parent pattern because a branch consists of an arrow of $\cat{C}$ from the latter to the former. Thus if a morphism maps, say, the pattern $P^b$ of (a subcondition) of $b$ to a pattern $P^c$ of $c$, at the next layer (the copy of) $P^c$ must be mapped backwards to (the copy) of $P^b$. The consequence is that morphisms fail to exist even in very simple situations.\todo{AC: refer to an example?}
+  
+Inspired by these observation, we present now one main contribution of this paper: an original definition of nested condition where the duplication of structure just described does not appear, because at each level we can specify only the \emph{additional} structure (and how it is connected). This is achieved by replacing the branch arrows $a^c_i$ of a condition $c$ by \emph{spans}.\footnote{We discuss and contrast an alternative way to resolve the same issue, using \emph{cospans} rather than spans, later in this paper.}\todo{AC: Remove the footnote and add a sentence in the future work section.}
+
+% We now present the main idea of this paper, inspired by on the observation that arrow-based conditions over graphs contain a lot of duplication: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} structure (and how it is connected). This is achieved by replacing the branch arrows $a^c_i$ of a condition $c$ by \emph{spans}.\footnote{We discuss and contrast an alternative way to resolve the same issue, using \emph{cospans} rather than spans, later in this paper.}\todo{AC: Remove the footnote and add a sentence in the future work section.}
+
+A span $s = (f: I \to A, g:I \to B)$ over \cat{C}, that we will denote $\spanof f g$, is a pair of arrows of \cat{C} having the same source. Objects $A$ and $B$ are the \emph{source} and \emph{target} of $s$, respectively, while $I$ is its \emph{interface}. Spans can be composed: if the target of $\spanof u d$ is equal to the source of $\spanof v w$, then $\spanof u d;\spanof v w=\spanof{v';u}{d';w}$ where $\spanof {v'}{d'}$ is the pullback span of $(d,v)$. The result is defined, because \cat{C} has all pullbacks, but non-deterministic in general because pullbacks are defined up to iso. The standard solution would be to consider spans up to isomorphism of their interface (yielding category \SpanC having the same objects of \cat{C} and equivalence classes of spans as arrows), but to avoid further technicalities we will gloss over this along the paper.
+An arrow $a:A \to B$ can be seen as a span $\spanof{id_A}{a}$. This defines an embedding of standard arrows of \cat{C} into spans over \cat{C} that preserves composition. Composing an arrow with a span, as in $a ; \spanof f g$, is intended to mean $\spanof{id}{a}  ; \spanof f g$.
 
 Span-based conditions are inductively defined as follows:
 
@@ -32,7 +39,9 @@ In the span $\spanof u d$ of a branch $p=(\spanof u d,c)$, $u$ stands for the \e
 %
 As we will see later, we can reconstruct an arrow-based condition from a span-based one by taking pushouts over the spans $\spanof{u_i}{d_i}$; the arrows $a_i$ will then correspond to the image of $d_i$ in the pushout cospan.
 
-\medskip\noindent We now present the modified notion of satisfaction for span-based conditions. First we recognise that the purpose of an arrow $a$ in an ab-condition is essentially to establish ``correct" model/witness pairs $(g,h)$ --- namely, those pairs that commute with $a$ in the sense of satisfying $g=a;h$. We may write $a\commutes (g,h)$ to express this commutation relation. This is what we now formalise for spans, as follows:
+\medskip\noindent The careful reader might have observed that \dcite{sb-condition} is essentially \dcite{ab-condition} instantiated to the category \SpanC. But first, this would not fall in our frameqork because \SpanC is not a presheaf topos even if \cat{C} is, and second, the definitions that follow (satisfaction, morphisms, \ldots) are phrased using arrows and diagrams of \cat{C}, not of \SpanC.
+
+We now present the modified notion of satisfaction for span-based conditions. First we recognise that the purpose of an arrow $a$ in an ab-condition is essentially to establish ``correct" model/witness pairs $(g,h)$ --- namely, those pairs that commute with $a$ in the sense of satisfying $g=a;h$. We may write $a\commutes (g,h)$ to express this commutation relation. This is what we now formalise for spans, as follows:
 \[ \spanof u d \commutes (g,h) \text{ if } u;g=d;h \enspace. \]
 Satisfaction of sb-conditions is then defined as follows:
 
@@ -45,6 +54,9 @@ Satisfaction of sb-conditions is then defined as follows:
 \end{definition}
 %
 Note that this is entirely analogous fo \dcite{ab-satisfaction}, especially if we would retrofit the notation $a\commutes (g,h)$ there. Like before, we call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat c$. Satisfaction of sb-conditions is visualised in \fcite{sb-satisfaction}.
+
+To conclude this section let us observe that there is an obvious embedding of arrow-based conditions into span-based conditions, and that it preserves the models. Simply, given a condition $c \in \AC {R}$, define $\cS(c)\in \SC R$ inductively by replacing every branch $(a_i,c_i)$ of $c$ with $(\spanof{id_R}{a_i},\cS(c_i))$. 
+The result is a span based condition, and it is easily shown that for each $g:R \to G$ we have that $g \sat c$ with witness $h$, by \dcite{ab-satisfaction}, if and only if $g \sat \cS(c)$ with the same witness, by \dcite{sb-satisfaction}. This embedding will be turned into a functor after defining morphisms of span-based conditions. 
 
 \subsection{Span-based root shifting}
 
