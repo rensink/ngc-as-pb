@@ -399,12 +399,12 @@ Clearly, \pcite{sb-forward only} is a special case of \lcite{sb-forward only} fo
 \begin{proof}
 Let $b\in \SC A,c\in \SC B$ be sb-conditions, and let $v:A\to B$ be an arrow. The proof is by induction on the depth of $m$.
 \begin{enumerate}[topsep=\smallskipamount]
-\item Let $\cF$ be a forward root shifter for $v$, and $m=(o,(v_1,m_1)\ccdots(v_w,m_w)):\cF(b)\to c$ a forward-shift morphism. It follows that all $m_i$ are morphisms from $\cF_i(c_{o(i)})$ to $b_i$ for some forward shifter $\cF_i$; by the induction hypothesis therefore, also $m_i:\dF{v_i}(c_{o(i)})\to b_i$. It only remains to be shown that, for all $1\leq i\leq w$, $(\cF_i(s^c_{o(i)}),s^b_i)\in \cP_{v_i}$ implies $(\dF{v_i}(s^c_{o(i)}),s^b_i)\in \cP_{v_i}$. This is a consequence of \lcite{BF}.
+\item Let $\cF$ be a forward root shifter for $v$, and $m=(o,(v_1,m_1)\ccdots(v_w,m_w)):\cF(b)\to c$ a forward-shift morphism. It follows that all $m_i$ are morphisms from $\cF_i(c_{o(i)})$ to $b_i$ for some forward shifter $\cF_i$; by the induction hypothesis therefore, also $m_i:\dF{v_i}(c_{o(i)})\to b_i$. It only remains to be shown that, for all $1\leq i\leq w$, $(\cF_i(s^c_{o(i)}),s^b_i)\in \cP_{v_i}$ implies $(\dF{v_i}(s^c_{o(i)}),s^b_i)\in \cP_{v_i}$. This is a consequence of \lcite{BF}.\todo{AC: not obvious: it seems to imply the opposite implication.}
 
 \smallskip
 If $m$ is complete, then all its root shifters are complete, and hence already direct.
 
-\item Let $\cB$ be a backward root shifter for $v$, and let $m=(o,(v_1,m_1)\ccdots(v_w,m_w)):\to \cB(c)$ a backward-shift morphism. It follows that all $m_i$ are morphisms from $c_{o(i)}$ to $\cB_i(b_i)$ for some backward shifter $\cB_i$. By the induction hypothesis therefore (letting $j=o(i)$), $\bar m_i:\dF{v_i}(c_j')\to b_i'$ for some $c_j'\pequiv c_j$ and $b'_i\pequiv b_i$.
+\item Let $\cB$ be a backward root shifter for $v$, and let $m=(o,(v_1,m_1)\ccdots(v_w,m_w)): b \to \cB(c)$ a backward-shift morphism. It follows that all $m_i$ are morphisms from $c_{o(i)}$ to $\cB_i(b_i)$ for some backward shifter $\cB_i$. By the induction hypothesis therefore (letting $j=o(i)$), $\bar m_i:\dF{v_i}(c_j')\to b_i'$ for some $c_j'\pequiv c_j$ and $b'_i\pequiv b_i$.
 
 \smallskip
 In constructing $c'$ from $c$, we have to make sure that we retain the $c$-branches that are not the image of any $b$-branch under $o$. For this purpose, let $J=\setof{1\leq j\leq |c|\mid \nexists i\st o(i)=j}$ be the set of indexes of those branches, and let $j_1,\ldots,j_n$ be an arbitrary ordering of the elements of $J$. We define 
@@ -446,11 +446,11 @@ Let $v:A\to B$ be an arrow.
 \begin{proof}
 We prove both clauses for elementary shifters (i.e., of the form $\rF v x$, $\dF v$, $\rB v x$ or $\dB v$); the case for arbitrary shifters then follows from \asscite{sb-shifters} in combination with \pref{sb-shifters compose} and \pref{pattern shift} (clauses \ref{pattern-transitive} and \ref{conservative-transitive}). Let $v:A\to B$ be an arrow.
 \begin{enumerate}[topsep=\smallskipamount]
-\item We only need to show this for $\rF v x$ (where $x;v=\id_B$). Let $s=\spanof u d$, $\rF v x=s_1=\spanof{u_1}{d_1}$ and $\dF v(s)=s_2=\spanof{u_2}{d_2}$. Now $k=x'$ as in \cite{sb-shifters} shows $(s_1,s_2)\in \cP_\id$ according to \eqcite{eq:pattern shift}.
+\item We only need to show this for $\rF v x$ (where $x;v=\id_B$). Let $s=\spanof u d$, $\rF v x=s_1=\spanof{u_1}{d_1}$ and $\dF v(s)=s_2=\spanof{u_2}{d_2}=\spanof{u;v}{d}$. Now $k=x'$ as in \fcite{sb-source shifters} shows $(s_1,s_2)\in \cP_\id$ according to \eqcite{pattern shift}.
 
-\item First consider $\cB=\rB v x$ where $x;v=\id_B$. Referring to \eqcite{pattern shift}, it is immediately clear that $\dF v(\cB(s))=s$ for all $s$.
+\item First consider $\cB=\rB v x$ where $x;v=\id_B$. Referring to \fcite{sb-source shifters}, it is immediately clear that $\dF v(\cB(s))=s$ for all $s$.
 
-Now consider $\cB=\dB v$. This time $\dF v$ does not act as the inverse of $\cB$. Rather, if $s=\spanof{u_1}{d_1}:B\to C$ with interface object $I_1$ and $\dF v(\dB v(s))=\spanof{u_2}{d_2}$ with interface object $I_2$, then the diagram on the left hand side arises:
+Now consider $\cB=\dB v$. This time $\dF v$ does not act as the inverse of $\cB$. Rather, if $s=\spanof{u_1}{d_1}:B\to C$ with interface object $I_1$ and $\dF v(\dB v(s))=\spanof{u_2}{d_2}$ with interface object $I_2$, then the diagram on the left hand side arises:\todo{AC: in the diagram all 1's and 2's are switched, right? Also in the right part that has to be fixed.}
 \begin{center}
 \begin{tikzpicture}[on grid]
 \node (A) {$A$};
@@ -480,7 +480,7 @@ Now consider $\cB=\dB v$. This time $\dF v$ does not act as the inverse of $\cB$
   (I1) edge[->] node[right] {$d_1$} (C2);
 \end{tikzpicture}
 \end{center}
-Note that $v$ has to be epi for $\dB v$ to exist, and $k$ is then epi because, in toposes, epis are preserved by pullback. The diagram shows $(\dF v(\dB v(s)),s)\in \cP_\id$.
+Note that $v$ has to be epi for $\dB v$ to exist, and $k$ is then epi because, in toposes, epis are preserved by pullbacks. The diagram shows $(\dF v(\dB v(s)),s)\in \cP_\id$.
 
 For the pattern shift to be conservative, we need the bottom ``square" (with $\id_C$ as the arrow along the bottom).\todo{AR: not quite done} This square is explicitly drawn on the right hand side. Indeed, the pushout nature follows from the fact that $k$ is epi.\todo{AR: Include the arrows that make up the pushout argument?}
 \qed
