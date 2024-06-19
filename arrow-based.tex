@@ -53,10 +53,10 @@ A condition expresses a property of arrows from its root to an arbitrary object.
 
 \begin{definition}[satisfaction of arrow-based conditions]\dlabel{ab-satisfaction}
   Let $c$ be an ab-condition over $R$ and $g:R\to G$ an arrow from $c$'s root to some object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i=(a_i,c_i)$ of $c$ and an arrow $h:P_i\to G$ such that
-  \begin{itemize}
-  \item $g=a_i;h$
+  \begin{enumerate*}
+  \item $g=a_i;h$ and
   \item $h\nsat c_i$.
-  \end{itemize}
+  \end{enumerate*}
 \end{definition}
 %
 If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} for $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p_i$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
@@ -64,7 +64,7 @@ If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p_i$ the 
 \begin{figure}
   \centering
   \input{figs/ab-satisfaction}
-  \caption{Pictorial representation of $g\sat c$, with responsible branch $p_i=(a_i,c_i)$ and witness $h$}
+  \caption{Visualisation of $g\sat c$, with responsible branch $p_i=(a_i,c_i)$ and witness $h$}
   \flabel{ab-satisfaction}
 \end{figure}
 
@@ -74,7 +74,7 @@ If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p_i$ the 
 b \entails c & \text{ if for all arrows $g$: } g\sat b \text{ implies } g\sat c \\
 b \equiv c & \text{ if for all arrows $g$: } g\sat b \text{ if and only if } g\sat c 
 \end{align*}
-%
+
 \begin{example}\exlabel{ab-satisfaction}
 Let us consider some models for the ab-conditions in \excite{ab-conditions}.
 \begin{itemize}
@@ -84,9 +84,9 @@ Let us consider some models for the ab-conditions in \excite{ab-conditions}.
 \path (1) edge[bend left=20,->] node[near start,above] {\lb} (2)
       (2) edge[bend left=20,->] node[near start,below] {\lb} (1)
 	  (1) edge[loop left,->] node[left] {\lc} (1);
-	  }$
-and let $g$ be the arrow from the one-node discrete graph $x$ to the left-hand node of $G_1$. It follows that $g\sat c_1$: the witness $h$ (for the first level) maps $y$ to the right-hand node of $G_1$. $h$ does not satisfy the subconditions because it cannot be extended with either the $\la$-loop specified by the left branch or the outgoing $\lc$-edge specified by the right branch.
-	  
+}$
+and let $g$ be the arrow from the one-node discrete graph \inline{\onenode x} to the left-hand node of $G_1$. It follows that $g\sat c_1$: the witness $h$ (for the first level) maps $y$ to the right-hand node of $G_1$. $h$ does not satisfy the subconditions of \inline{\oneedge x b y} because it cannot be extended with either the $\la$-loop specified by the left branch or the outgoing $\lc$-edge specified by the right branch. Similarly, $g\sat c_2$, but $g\nsat c_3$ because there is no witness for the first level ($G_1$ does not have the required $\lb$-loop).
+
 \item Let $G_2=\myinlinegraph{
 \node (1) {$\bullet$};
 \node (2) [right=of 1] {$\bullet$};
@@ -96,9 +96,9 @@ and let $g$ be the arrow from the one-node discrete graph $x$ to the left-hand n
 	  (1) edge[loop left,->] node[left] {\la} (1)
       (2) edge[->] node[above] {\lc} (3);
 	  }$
-and let $g$ and $g'$ be the two arrows from the one-node discrete graph to $G_2$. Then both $g\nsat c_1$ and $g'\nsat c_1$, being ruled out by the different subconditions of $c_1$.
+and let $g,g',g''$ be the three arrows from \inline{\onenode x} to $G_2$. We have $g\nsat c_1$, $g'\nsat c_1$ and $g''\nsat c_1$: the first two have witnesses for the first level of $c_1$ but are ruled out by different subconditions of \inline{\oneedge x b y}, whereas the third does not even have a witness. Instead, both $g\sat c_2$ (in fact there are two witnesses, one for each branch of $c_2$) and $g'\sat c_2$ (due to $c_2$'s right branch), but again $g''\nsat c_2$. None of the models satisfy $c_3$.
 
-\item If $G_3=\inline{\oneloopleft \bullet b}$, then the only arrow $g$ from the one-node discrete graph to $G_3$ has both $g\sat c_3$ and $g\sat c_2$.
+\item If $G_3=\inline{\oneloopleft \bullet b}$, then the only arrow $g$ from \inline{\onenode x} to $G_3$ has $g\sat c_1$, $g\sat c_2$ and $g\sat c_3$.
 \end{itemize}
 \end{example}
 

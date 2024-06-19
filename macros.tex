@@ -12,8 +12,8 @@
 \newboolean{full}
 \ifthenelse
   {\isundefined{\extendedversion}}
-  {\setboolean{fest}{false}\setboolean{full}{true}}
   {\setboolean{fest}{true}\setboolean{full}{false}}
+  {\setboolean{fest}{false}\setboolean{full}{true}}
 
 %% Some math definitions
 \newcommand{\tupof}[1]{\langle{#1}\rangle}
@@ -315,7 +315,14 @@
   \begin{scope}[node distance=8mm]
   #1
   \end{scope}
-  \end{tikzpicture}
+  \end{tikzpicture}%
+}
+\newcommand{\inline}[1]{%
+  \setlength{\fboxsep}{0pt}%
+  \fbox{#1}%
+}
+\newcommand{\myinlinegraph}[1]{%
+  \inline{\mygraph{#1}}%
 }
 
 % Discrete one-node graph
