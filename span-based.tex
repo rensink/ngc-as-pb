@@ -295,7 +295,7 @@ Using pattern shift, we define morphisms over sb-conditions as follows.
 %
 Note that only direct (forward or backward) root shifters are complete, hence also only direct morphisms can be complete.
 
-On of the most essential properties of morphisms is that they preserve models and, in the case of complete morphisms, also reflect them. This is the analogous property of \pcite{ab-morphisms preserve models}, extended with the case for completeness.
+One of the most essential properties of morphisms is that they preserve models and, in the case of complete morphisms, also reflect them. This is the analogous property of \pcite{ab-morphisms preserve models}, extended with the case for completeness.
 %
 \begin{proposition}[sb-condition morphisms preserve models]
                    \plabel{sb-morphisms preserve models}
@@ -320,12 +320,12 @@ If $m$ is complete and $g\sat c$, then let $p^c_j$ be the responsible branch and
 Given the number of possible forward and backward shifters we identified, there is a lot of choice within the concept of a morphism, possibly making them complex to reason about. However, we now set about showing that, in an important sense, it is enough to consider only direct forward-shift morphisms. To make this statement precise, we introduce the notion of \emph{provable entailment}.
 %
 \begin{definition}[provable entailment/equivalence]\dlabel{provable}
-\emph{Provable entailment}, denoted $\pentails$, is the smallest partial order such that for all sb-conditions $b,c$:
+\emph{Provable entailment}, denoted $\pentails$, is the smallest partial order\todo{AC: preorder?} such that for all sb-conditions $b,c$:
 \begin{itemize}[topsep=\smallskipamount]
 \item If there is a direct forward-shift morphism $m:b\to c$, then $b\pentails c$;
 \item If there is a complete direct forward-shift morphism $m:b\to c$, then $c\pentails b$.
 \end{itemize}
-\emph{Provable equivalence}, denoted $\pequiv$, is defined as ${\pequiv}=({\pentails}\cap{\pentailedby})^*$.
+\emph{Provable equivalence}, denoted $\pequiv$, is defined as ${\pequiv}=({\pentails}\cap{\pentailedby})^*$.\todo{AC: is * necessary?}
 \end{definition}
 %
 The following is a property that we will need in the proof below.
