@@ -411,10 +411,10 @@ In constructing $c'$ from $c$, we have to make sure that we retain the $c$-branc
 \begin{align*}
 b'=\;&(A,(s^b_1,b'_1)\ccdots (s^b_w,b'_w)) \\
 c'=\;&(B,p_1\ccdots p_w\,p^c_{j_1}\ccdots p^c_{j_n}) \\
-   & \quad\text{where} p_i = (\dF v(\cB(s^c_{o(i)})),c'_{o(i)}) \text{ for all $1\leq i\leq w$}\enspace.
+   & \quad\text{where } p_i = (\dF v(\cB(s^c_{o(i)})),c'_{o(i)}) \text{ for all $1\leq i\leq w$}\enspace.
 \end{align*}
 %
-Note that $|c'|=w+n$. For $1\leq i\leq w$, the $i$th branch of $c'$ is based on the $o(i)$th branch of $c$, modifying its span by first backward-shifting it using $\cB$ and then forward-shifting using $\dF v$, and modifying its subcondition by taking, instead of $c_{o(i)}$, the provably equivalent $c'_{o(i)}$. For $w+1\leq i\leq w+n$, the $i$th branch of $c'$ is the $j_i$th branch of $c$.
+Note that $|c'|=w+n$. For $1\leq i\leq w$, the $i$th branch of $c'$ is based on the $o(i)$-th branch of $c$, modifying its span by first backward-shifting it using $\cB$ and then forward-shifting using $\dF v$, and modifying its subcondition by taking, instead of $c_{o(i)}$, the provably equivalent $c'_{o(i)}$. For $w+1\leq i\leq w+n$, the $i$th branch of $c'$ is the $j_i$-th branch of $c$.
 
 \smallskip
 $\bar m$ (which has $o^{\bar m}=\id_{[1,w]}$) is a direct forward-shift morphism from $\dF v(b')$ to $c'$. To show this, all that is yet required is that $(\dF v(s^b_i),\dF v(\cB(s^c_{o(i)}))) \in \cP_{v_i}$ for $1\leq i\leq w$. This follows from the fact that $m:b\to \cB(c)$ is a morphism, which means $(s^b_i,\cB(s^c_{o(i)}))\in \cP_{v_i}$, in combination with \pcite{pattern shift}.\ref{pattern-congruence}, which states that the action of $\dF v$ on spans (which comes down to prefixing them with $\spanof{v}{\id}$, see \fcite{sb-source shifters}) preserves $\cP_{v_i}$.
@@ -426,7 +426,7 @@ c''=\;&(B,(s^c_{o(1)},c'_{o(1)})\ccdots (s^c_{o(w)},c'_{o(w)})\,p^c_{j_1}\ccdots
 c'''=\;&(B,(s^c_{o(1)},c_{o(1)})\ccdots (s^c_{o(w)},c_{o(w)})\,p^c_{j_1}\ccdots p^c_{j_n}) \enspace.
 \end{align*}
 \begin{itemize}
-\item $c'\pequiv c''$ because the identity morphism $\id_{c'}$ is a direct complete forward-shift morphism from $c'$ to $c''$ due to $(s^c_{o(i)},\dF v(\cB(s^c_{o(i)})))\in \ccP_\id$ for all $1\leq i\leq w$ (see \lcite{BF});
+\item $c'\pequiv c''$ because the identity morphism $\id_{c'}$ is a direct complete forward-shift morphism from $c'$ to $c''$ due to $(s^c_{o(i)},\dF v(\cB(s^c_{o(i)})))\in \ccP_\id$ \todo{AC: this also looks switched wrt Lemma 4.18.} for all $1\leq i\leq w$ (see \lcite{BF});
 \item $c''\pequiv c'''$ due to \lcite{pequiv}, given that $c'_{o(w)}\pequiv c_{o(w)}$ for all $1\leq i\leq w$; 
 \item $c'''\pequiv c$ because $m'=(o',(\id_{P^c_1},\id_{c_1})\ccdots (\id_{P^c_{|c|}},\id_{c_{|c|}}))$ with $o'=o^m\cup\setof{(w+i,j_i) \mid 1\leq i\leq n}$ is a direct complete forward-shift morphism from $c'''$ to $c$.
 \qed
