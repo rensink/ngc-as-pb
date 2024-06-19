@@ -10,9 +10,9 @@ Along the paper examples and intuitions will be based on $\cat{Graph}$, the cate
         (1) edge[bend right=20,->] (2);
 }$. Furthermore, they are closed under the construction of slice and functor categories, thus they include labeled/typed (hyper)graphs (see Sec.~5 of~\cite{AzziCR19}). 
 
-Assuming that \cat{C} is a presheaf topos ensures that all limits and colimits exist and that they can be computed pointwise. Further \cat{C} is \emph{adhesive}~\cite{ls:adhesive-journal}, enjoing several properties exploited in the algebraic theory of graph rewriting, where the results of this paper have potential interesting application.\footnote{Note however that requiring \cat{C} to be just adhesive would not suffice: for example, we need arbitrary pushouts, while adhesivity only guarantees pushouts along monos.}
+Assuming that \cat{C} is a presheaf topos ensures that all limits and colimits exist and that they can be computed pointwise. Furthermore, \cat{C} is \emph{adhesive}~\cite{ls:adhesive-journal}, enjoing several properties exploited in the algebraic theory of graph rewriting, where the results of this paper have potential interesting application.\footnote{Note however that requiring \cat{C} to be just adhesive would not suffice: for example, we need arbitrary pushouts, while adhesivity only guarantees pushouts along monos.}
 
-\medskip
+\medskip\noindent
 Arrow-based conditions are inductively defined as follows:
 
 \begin{definition}[arrow-based condition]\dlabel{ab-condition}
@@ -25,25 +25,38 @@ Arrow-based conditions are inductively defined as follows:
 %
 We regularly abbreviate ``arrow-based" to ``ab". We call $R$ the \emph{root} of an ab-condition or ab-branch, and $P$ the \emph{pattern} of an ab-branch (which is simultaneously the root of its subconditon). \fcite{ab-condition} provides a visualisation of an ab-condition $c$. We use $b,c$ to range over ab-conditions and $p,q$ to range over ab-branches. We use $|c|=w$ to denote the width of an ab-condition $c$, $R^c$ to denote its root, and $p^c_i=(a^c_i,c_i)$ its $i$-th branch. Finally, we use $P^c_i$ ($=R^{c_i}$) for the pattern of branch $p^c_i$. In all these cases, we may omit the superscript $c$ if it is clear from the context.
 %
-\begin{figure}
-  \centering
-  \input{figs/ab-condition}
-  \caption{Pictorial representation of a arrow-based condition $c$}
-  \flabel{ab-condition}
+\begin{figure}[t]
+\centering
+\subcaptionbox
+  {Condition $c=(R,p_1\ccdots p_w)$, with $p_i=(a_i,c_i)$ for $1\leq i\leq w$
+   \flabel{ab-condition}}
+  [.45\textwidth]
+  {\input{figs/ab-condition}}
+\quad
+\subcaptionbox
+  {$g\sat c$, with responsible branch $p_i=(a_i,c_i)$ and witness $h$ such that $g=a_i;h$
+   \flabel{ab-satisfaction}}
+  [.5\textwidth]
+  {\input{figs/ab-satisfaction}}
+\caption{Visualisations for arrow-based conditions}
 \end{figure}
 
 Note that, as a consequence of the inductive nature of \dcite{ab-condition}, every ab-condition has a finite \emph{depth} $\depth(c)$, defined as $0$ if $|c|=0$ and $1+\max_{1\leq i\leq |c|} \depth(c_i)$ otherwise. The depth will provide a basis for inductive proofs.
 
 \begin{example}\exlabel{ab-conditions}
-The following figure depicts three arrow-based conditions, encodes properties arrows from the discrete one-node graph --- meaning essentially that we already know the image of that node. In FOL, the properties can be expressed as follows:
+\fcite{ab-conditions} depicts three arrow-based conditions, rooted in the discrete one-node graph \inline{\onenode x} --- meaning essentially that we already know the image of $x$. The properties can be expressed as follows in FOL:
 \begin{itemize}
 \item $c_1$ encodes $\exists x,y\st \lb(x,y) \wedge \neg \la(y,y)\wedge \neg \exists z\st \lc(y,z)$
 \item $c_2$ encodes $\la(x,x)\vee \exists y\st \lb(x,y) \wedge \forall v,z\st \lc(y,v)\wedge \lc(y,z) \rightarrow v=z$
 \item $c_3$ encodes $\lb(x,x)\wedge \nexists y\st(\la(x,y)\vee \lc(x,y)$
 \end{itemize}
+\begin{figure}[t]
 \begin{center}
 \input{figs/ex-ab-conditions}
 \end{center}
+\caption{Examples of arrow-based conditions (see \excite{ab-conditions})}
+\flabel{ab-conditions}
+\end{figure}
 Note that we have used variable names to represent nodes, to make the connection to the corresponding FOL properties more immediately understandable. The arrows are in all cases implied by the graph structure and variable names.
 \end{example}
 
@@ -60,15 +73,8 @@ A condition expresses a property of arrows from its root to an arbitrary object.
 \end{definition}
 %
 If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} for $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p_i$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
-%
-\begin{figure}
-  \centering
-  \input{figs/ab-satisfaction}
-  \caption{Visualisation of $g\sat c$, with responsible branch $p_i=(a_i,c_i)$ and witness $h$}
-  \flabel{ab-satisfaction}
-\end{figure}
 
-\todo{AR: does this come too early?} Based on the notion of satisfaction, we also define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalence} $b\equiv c$ over conditions (over the same root):
+\todo{AR: does this come too early? In \excite{ab-satisfaction} we can observe that $c_3\entails c_2\entails c_1$, but otherwise this is only used in \pcite{ab-morphisms preserve models}, which is 5 pages down the line.} Based on the notion of satisfaction, we also define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalence} $b\equiv c$ over conditions (over the same root):
 %
 \begin{align*}
 b \entails c & \text{ if for all arrows $g$: } g\sat b \text{ implies } g\sat c \\
@@ -76,7 +82,7 @@ b \equiv c & \text{ if for all arrows $g$: } g\sat b \text{ if and only if } g\s
 \end{align*}
 
 \begin{example}\exlabel{ab-satisfaction}
-Let us consider some models for the ab-conditions in \excite{ab-conditions}.
+Let us consider some models for the ab-conditions in \fcite{ab-conditions}.
 \begin{itemize}
 \item Let $G_1=\myinlinegraph{
 \node (1) {$\bullet$};
@@ -85,7 +91,7 @@ Let us consider some models for the ab-conditions in \excite{ab-conditions}.
       (2) edge[bend left=20,->] node[near start,below] {\lb} (1)
 	  (1) edge[loop left,->] node[left] {\lc} (1);
 }$
-and let $g$ be the arrow from the one-node discrete graph \inline{\onenode x} to the left-hand node of $G_1$. It follows that $g\sat c_1$: the witness $h$ (for the first level) maps $y$ to the right-hand node of $G_1$. $h$ does not satisfy the subconditions of \inline{\oneedge x b y} because it cannot be extended with either the $\la$-loop specified by the left branch or the outgoing $\lc$-edge specified by the right branch. Similarly, $g\sat c_2$, but $g\nsat c_3$ because there is no witness for the first level ($G_1$ does not have the required $\lb$-loop).
+and let $g$ be the arrow from the one-node discrete graph \inline{\onenode x} to the left-hand node of $G_1$. It follows that $g\sat c_1$: the witness $h$ (for $c_{11}$) maps $y$ to the right-hand node of $G_1$. $h$ does not satisfy the subconditions of $c_{11}$ because it cannot be extended with either the $\la$-loop specified by $c_{111}$ or the outgoing $\lc$-edge specified by $c_{112}$. Similarly, $g\sat c_2$, but on the other hand $g\nsat c_3$ because there is no witness for $c_{31}$ ($G_1$ does not have the required $\lb$-loop).
 
 \item Let $G_2=\myinlinegraph{
 \node (1) {$\bullet$};
@@ -96,7 +102,7 @@ and let $g$ be the arrow from the one-node discrete graph \inline{\onenode x} to
 	  (1) edge[loop left,->] node[left] {\la} (1)
       (2) edge[->] node[above] {\lc} (3);
 	  }$
-and let $g,g',g''$ be the three arrows from \inline{\onenode x} to $G_2$. We have $g\nsat c_1$, $g'\nsat c_1$ and $g''\nsat c_1$: the first two have witnesses for the first level of $c_1$ but are ruled out by different subconditions of \inline{\oneedge x b y}, whereas the third does not even have a witness. Instead, both $g\sat c_2$ (in fact there are two witnesses, one for each branch of $c_2$) and $g'\sat c_2$ (due to $c_2$'s right branch), but again $g''\nsat c_2$. None of the models satisfy $c_3$.
+and let $g,g',g''$ be the three arrows from \inline{\onenode x} to $G_2$. We have $g\nsat c_1$, $g'\nsat c_1$ and $g''\nsat c_1$: the first two have witnesses for $c_{11}$ but are ruled out by either $c_{11}$ (in the case of $g$) or $c_{12}$ (in the case of $g'$), whereas the third does not even have a witness for $c_{11}$. Instead, both $g\sat c_2$ (in fact there are two distinct witnesses, one for $c_{21}$ and one for $c_{22}$) and $g'\sat c_2$ (due to $c_{22}$), but again $g''\nsat c_2$. None of the models satisfy $c_3$.
 
 \item If $G_3=\inline{\oneloopleft \bullet b}$, then the only arrow $g$ from \inline{\onenode x} to $G_3$ has $g\sat c_1$, $g\sat c_2$ and $g\sat c_3$.
 \end{itemize}
