@@ -354,11 +354,30 @@ Let $b,c$ be sb-conditions with $|b|=|c|$ and $s^b_i=s^c_i$ for all $1\leq i\leq
 \end{enumerate}
 \end{lemma}
 %
-\begin{proof}\todo{AR: added AC: I'm not convinced... :-(}
-We prove this for the case where each $b_i\pentails c_i$ [$b_i\pequiv c_i$] follows from the existence of a [complete] morphism $m_i:b_i\to c_i$; all other cases are a consequence of transitive [and symmetric] closure. In fact, letting $w=|b|$ we can immediately construct
-\[ m = (\id_{[1,w]}((\id_{b_1},m_1)\ccdots (\id_{b_w},m_w)) \]
-which is clearly a morphism from $c$ to $b$, and is complete if all $m_i$ are complete.
+\begin{proof}\todo{AR: added AC: I'm not convinced... :-( AR: extended}
+Each $b_i\pentails c_i$ follows from the transitive closure of a sequence of primitive steps (i.e., one of the two cases of \dcite{provable}). It therefore suffices to prove that, if \emph{a single} $p_i\pentails c_i$ is due to the existence of either
+\begin{enumerate*}[label=(roman*)]
+\item a forward [backward] shift morphism $m_i:b_i\to c_i$ or
+\item a complete forward [backward] shift morphism $c_i\to b_i$,
+\end{enumerate*}
+whereas $b_j=c_j$ for all $j\leq i$, then there exists either
+\begin{enumerate*}[label=(\roman*)]
+\item a forward [backward] shift morphism $m:c\to b$ or 
+\item a complete forward [backward] shift morphism $m:b\to c$,
+\end{enumerate*}
+implying, in both cases, $c\pentails b$.
+
+\smallskip
+For both cases of the proof, let $m_j=\id_{b_j}$ for $j\leq i$, and let
+%
+\[ m = (\id_{[1,w]}((\id_{P^b_1}},m_1)\ccdots (\id_{P^b_w},m_w)) \]
+%
+\begin{enumerate}[label=(roman*)]
+\item In this case, each $m_j$ (for $1\leq j\leq w$) is a forward [backward] morphism from $b_j$ to $c_j$; hence $m$ is a morphism from $c$ to $b$.\todo{AR: This uses the ``fact" that identity morphisms are both complete backward and complete backward shift morphisms. Should we state that explicitly?}
+
+\item In this case, each $m_j$ (for $1\leq j\leq w$) is a complete morphism from $c_j$ to $b_j$; hence $m$ is a complete morphism from $c$ to $c$.
 \qed
+\end{enumerate*}
 \end{proof}
 %
 The above claim about direct forward-shift morphisms being general enough now comes down to the following:
