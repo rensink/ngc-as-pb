@@ -120,7 +120,7 @@ These options are depicted in \fcite{sb-source shifters} (in a simplified constr
 \begin{proposition}[span source shifters]\plabel{sb-source shifters}
 \begin{enumerate}
 \item $\cF_v^\circ$ is a complete forward span source shifter for $v$, and $\cF_v^x$ is a forward span shifter for $v$ if $x$ is a section of $v$.
-\item $\cF_v^\circ$ is a complete backward span source shifter for $v$ if $v$ is epi, and $\cF_v^x$ is a backward span shifter for $v$ if $x$ is a section of $v$.
+\item $\cF_v^\circ$\todo{AC: old version?} is a complete backward span source shifter for $v$ if $v$ is epi, and $\cF_v^x$ is a backward span shifter for $v$ if $x$ is a section of $v$.
 \end{enumerate}
 \end{proposition}
 
@@ -165,7 +165,7 @@ Then we observe that span shifters compose, exactly as arrow shifters do.
 \end{enumerate}
 \end{proposition}
 %
-In fact we also need the following auxiliary composition property for direct span shifters.\todo{AR: Added} This immediately follows from the associativity of span composition combined with the fact that spans with identity left-legs and identity right-legs compose; we omit the proof.
+In fact we also need the following auxiliary composition property for direct span shifters.\todo{AR: Added AC: ok} This immediately follows from the associativity of span composition combined with the fact that spans with identity left-legs and identity right-legs compose; we omit the proof.
 %
 \begin{lemma}[direct span shifters compose]\llabel{direct sb-shifters compose}
 Let $t:A\to B,v:B\to C$ be arrows.
@@ -175,14 +175,14 @@ Let $t:A\to B,v:B\to C$ be arrows.
 \end{enumerate}
 \end{lemma}
 %
-\todo{AR: Reformulated ths paragraph and the assumption.}
+\todo{AR: Reformulated ths paragraph and the assumption. AC: ok}
 We call the span source and root shifters of the shape $\dF v$, $\rF v x$, $\dB v$, $\rB v x$ and $\cI_{A,B}$ \emph{elementary}. It is not the case that every span shifter is elementary; e.g., $\dF{v_1};\rF{v_2}{x_2}$ is in general not equal to $\dF v$ or $\rF v x$ for any $x$. However, for the remainder of this paper we will restrict ourselves to span shifters that are at least \emph{composed} from elementary ones, in the following sense:
 %
-Let $\cS$ be a span root shifter for $v$.
-\begin{assumption}\asslabel{sb-shifters}
+
+\begin{assumption}\asslabel{sb-shifters} Let $\cS$ be a span root shifter for $v$.\todo{AC: moved inside the Assumption}
 \begin{itemize}[topsep=\smallskipamount]
-\item If $\cS$ is a forward shifter, then $\cS_1;\cdots;\cS_n$ where each $\cS_i$ is an elementary forward shifter for some $v_i$ such that $v=v_1;\cdots;v_n$. If, moreover, $\cS$ is complete then either $\cS$ is trivial or $\cS=\dF v$.
-\item If $\cS$ is a backward shifter, then $\cS_1;\cdots;\cS_n$ where each $\cS_i$ is an elementary backward shifter for some $v_i$ such that $v=v_n;\cdots;v_1$. If, moreover, $\cS$ is complete then either $\cS$ is trivial or $\cS=\dB{v}$.
+\item If $\cS$ is a forward shifter, then $\cS = \cS_1;\cdots;\cS_n$ where each $\cS_i$ is an elementary forward shifter for some $v_i$ such that $v=v_1;\cdots;v_n$. If, moreover, $\cS$ is complete then either $\cS$ is trivial or $\cS=\dF v$.
+\item If $\cS$ is a backward shifter, then $\cS = \cS_1;\cdots;\cS_n$ where each $\cS_i$ is an elementary backward shifter for some $v_i$ such that $v=v_n;\cdots;v_1$. If, moreover, $\cS$ is complete then either $\cS$ is trivial or $\cS=\dB{v}$.
 \end{itemize}
 \end{assumption}
  
@@ -311,8 +311,8 @@ Using pattern shift, we define morphisms over sb-conditions as follows.
 %
 Note that, by \asscite{sb-shifters}, only direct (forward or backward) span root shifters are complete, hence also only direct sb-morphisms can be complete.
 
-\todo{AR: Paragraph added}%
-We immediately observe that the exact same construction as for ab-morphisms again give us identity sb-morphisms as well as a composition operator over sb-morphisms (which we will later show to yield an sb-morphism): see Equations \eqref{eq:id-morphism} and~\eqref{eq:morphism composition}.
+\todo{AR: Paragraph added AC ok}%
+We immediately observe that  exactly the same construction as for ab-morphisms again give us identity sb-morphisms as well as a composition operator over sb-morphisms (which we will later show to yield an sb-morphism): see Equations \eqref{eq:id-morphism} and~\eqref{eq:morphism composition}.
 
 One of the most essential properties of morphisms is that they preserve models and, in the case of complete morphisms, also reflect them. This is the analogous property of \pcite{ab-morphisms preserve models}, extended with the case for completeness.
 %
@@ -357,7 +357,7 @@ Let $b,c$ be sb-conditions with $|b|=|c|$ and $s^b_i=s^c_i$ for all $1\leq i\leq
 \end{enumerate}
 \end{lemma}
 %
-\begin{proof}\todo{AR: added}
+\begin{proof}\todo{AR: added AC: I'm not convinced... :-(}
 We prove this for the case where each $b_i\pentails c_i$ [$b_i\pequiv c_i$] follows from the existence of a [complete] morphism $m_i:b_i\to c_i$; all other cases are a consequence of transitive [and symmetric] closure. In fact, letting $w=|b|$ we can immediately construct
 \[ m = (\id_{[1,w]}((\id_{b_1},m_1)\ccdots (\id_{b_w},m_w)) \]
 which is clearly a morphism from $c$ to $b$, and is complete if all $m_i$ are complete.
