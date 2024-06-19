@@ -5,7 +5,15 @@
 \usepackage{comment}
 \usepackage{subcaption}
 \usepackage{hyperref}
+\usepackage{ifthen}
 %\usepackage[svgnames]{xcolor}
+
+\newboolean{fest}
+\newboolean{full}
+\ifthenelse
+  {\isundefined{\extendedversion}}
+  {\setboolean{fest}{false}\setboolean{full}{true}}
+  {\setboolean{fest}{true}\setboolean{full}{false}}
 
 %% Some math definitions
 \newcommand{\tupof}[1]{\langle{#1}\rangle}
@@ -301,13 +309,14 @@
 \newcommand{\darker}[1]{#1!50!black}
 
 \newcommand{\mygraph}[1]{%
-\renewcommand{\gl}[1]{\ensuremath{\scriptstyle{\mathsf{##1}}}}%
-\tikzset{n/.style={inner sep=1pt}}%
-\begin{tikzpicture}[on grid,scale=.5,inner sep=2pt,baseline=(current bounding box.center)]
-\begin{scope}[node distance=8mm]
-#1
-\end{scope}
-\end{tikzpicture}}
+  \renewcommand{\gl}[1]{\ensuremath{\scriptstyle{\mathsf{##1}}}}%
+  \tikzset{n/.style={inner sep=1pt}}%
+  \begin{tikzpicture}[on grid,scale=.5,inner sep=2pt,baseline=(1.south)]
+  \begin{scope}[node distance=8mm]
+  #1
+  \end{scope}
+  \end{tikzpicture}
+}
 
 % Discrete one-node graph
 % #1: node
@@ -328,6 +337,14 @@
 \newcommand{\oneloop}[2]{\mygraph{
 \node[n] (1) {$#1$};
 \path (1) edge [->,loop right] node {\gl{#2}} ();
+}}
+
+% One-node graph with loop to the left
+% #1: node
+% #2: loop label
+\newcommand{\oneloopleft}[2]{\mygraph{
+\node[n] (1) {$#1$};
+\path (1) edge [->,loop left] node {\gl{#2}} ();
 }}
 
 % two-node graph with loop

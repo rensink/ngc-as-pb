@@ -1,24 +1,34 @@
 \begin{tikzpicture}[on grid]
-  \node (phi) {$c_1$};
-  \node[graph,below=.5 of phi] (10) {\onenode{}};
+  \node[graph] (10) {\onenode{x}};
+  \node  [left=of 10] {$c_1:$};
   \node[graph,below=of 10] (11) {\oneedge{x}{b}{y}}; 
-  \node[graph,below left=1 and 1.5 of 11] (111) {\oneedgeloop{x}{b}{y}{a}};
-  \node[graph,below right=1 and 1.5 of 11] (112) {\twoedge{x}{b}{y}{c}{z}};
+  \node[graph,below left=1 and 1.1 of 11] (111) {\oneedgeloop{x}{b}{y}{a}};
+  \node[graph,below right=1 and 1.1 of 11] (112) {\twoedge{x}{b}{y}{c}{z}};
   
   \path (10) edge[->] (11)
         (11) edge[->] (111)
         (11) edge[->] (112);
   
-  \node (psi) [right=6 of phi] {$c_2$};
-  \node[graph,below=.5 of psi] (20) {\onenode{x}};
+  \node[graph,right=3.5 of 10] (20) {\onenode{x}};
+  \node [left=of 20] {$c_2:$};
   \node[graph,below left=of 20] (21) {\oneloop{x}{a}}; 
   \node[graph,below right=of 20] (22) {\oneedge{x}{b}{y}}; 
-  \node[graph,below=1.3 of 22] (221) {\onetwoedge{x}{b}{y}{c}{v}{c}{z}}; 
-  \node[graph,below=1.3 of 221] (2211) {\twoedge{x}{b}{y}{c}{\bullet}}; 
+  \node[graph,below=1.2 of 22] (221) {\onetwoedge{x}{b}{y}{c}{v}{c}{z}}; 
+  \node[graph,below=1.2 of 221] (2211) {\twoedge{x}{b}{y}{c}{z}}; 
 
   \path (20) edge[->] (21)
         (20) edge[->] (22)
 		(22) edge[->] (221)
-		(221) edge[->] (2211);
+		(221) edge[->] node[right] {\mapping{v&z}} (2211);
+
+  \node[graph] [right=4.5 of 20] (30) {\onenode{x}};
+  \node [left=of 30] {$c_3:$};
+  \node[graph,below=of 30] (31) {\oneloopleft{x}{b}}; 
+  \node[graph,below left=1 and 1.1 of 31] (311) {\looponeedge{x}{b}{a}{y}};
+  \node[graph,below right=1 and 1.1 of 31] (312) {\looponeedge{x}{b}{c}{y}};
+  
+  \path (30) edge[->] (31)
+        (31) edge[->] (311)
+        (31) edge[->] (312);
 \end{tikzpicture}
 
