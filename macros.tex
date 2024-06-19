@@ -134,13 +134,13 @@
 \newcommand{\cV}{\mathcal{V}}
 
 % Direct forward-shifting
-\newcommand{\dcF}[1]{\cF^\circ_{#1}}
+\newcommand{\dF}[1]{\cF^\circ_{#1}}
 % Retraction-based forward-shifting
-\newcommand{\rcF}[2]{\cF^{#2}_{#1}}
+\newcommand{\rF}[2]{\cF^{#2}_{#1}}
 % Direct backward-shifting
-\newcommand{\dcB}[1]{\cB^\circ_{#1}}
+\newcommand{\dB}[1]{\cB^\circ_{#1}}
 % Retraction-based backward-shifting
-\newcommand{\rcB}[2]{\cB^{#2}_{#1}}
+\newcommand{\rB}[2]{\cB^{#2}_{#1}}
 \newcommand{\ccP}{\cP^\circ}
 
 \newcommand{\forw}{{\mathsf{f}}}
@@ -215,6 +215,13 @@
 \newcommand{\exlabel}[1]{\label{\exprf:#1}}
 \newcommand{\exref}[1]{\ref{\exprf:#1}}
 \newcommand{\excite}[1]{Ex.~\exref{#1}}
+
+% For assumptions
+\newtheorem{assumption}{Assumption}
+\newcommand{\assprf}{ass}
+\newcommand{\asslabel}[1]{\label{\assprf:#1}}
+\newcommand{\assref}[1]{\ref{\assprf:#1}}
+\newcommand{\asscite}[1]{Assumption~\assref{#1}}
 
 % For equations
 \newcommand{\eqprf}{eq}

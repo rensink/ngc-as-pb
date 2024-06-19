@@ -253,12 +253,15 @@ If $\cC$ is trivial, the result is immediate. Otherwise, let $t$ be as in \lcite
 %
 Composition of ab-condition morphisms is defined recursively, independently of whether they are forward or backward. Let $m:b\to c$ and $n:c\to e$ be morphisms with $|m|=w$.
 %
-\[ m;n = (o^m;o^n,(v^n_{o^m(1)};v^m_1,n_{o^m(1)};m_1)\ccdots v^n_{o^m(w)};v^m_w,n_{o^m(w)};m_w)) \enspace.
-\]
+\begin{equation}\eqlabel{morphism composition}
+m;n = (o^m;o^n,(v^n_{o^m(1)};v^m_1,n_{o^m(1)};m_1)\ccdots v^n_{o^m(w)};v^m_w,n_{o^m(w)};m_w)) \enspace.
+\end{equation}
 %
 We also (recursively) define the identity on a condition $c$ with $|c|=w$:
 %
-\[ \id_c = (\id_{[1,w]},(\id_{P^c_1},\id_{c_1})\ccdots (\id_{P^c_w},\id_{c_w})) \]
+\begin{equation}\eqlabel{id-morphism}
+\id_c = (\id_{[1,w]},(\id_{P^c_1},\id_{c_1})\ccdots (\id_{P^c_w},\id_{c_w})) \enspace.
+\end{equation}
 %
 The next lemma shows that the composition of morphisms is well-defined.
 %

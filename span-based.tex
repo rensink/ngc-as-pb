@@ -107,7 +107,7 @@ Since span source shifters from $X$ are, just as in the arrow-based case, comple
 \item[Backward shifting.] For $\cS$ to be a backward span source shifter for $v:A\to B$, there must be a span $t=\cS(\id_B):A\to B$, which automatically determines $\cS(s)=t;s$ for all $s:B\to C$. Again, there are essentially two options: $t=\spanof{\id_A}{v}$, or $t=\spanof{x}{\id_B}$ for some section $x$ of $v$, i.e., such that $x;v=\id_A$. We denote the resulting span source shifters by $\cB_v^\circ$ and $\cB_v^x$, respectively.
 \end{description}
 %
-These options are depicted in \fcite{sb-source shifters} (in a simplified construction that omits the intermediate steps of the span composition where possible). We call $\dcF v$ and $\dcB v$ \emph{direct shifters} and $\rcF v x$ and $\rcB v x$ \emph{retraction-based shifters}. It turns out that, indeed, each of these four options gives rise to a valid shifter.
+These options are depicted in \fcite{sb-source shifters} (in a simplified construction that omits the intermediate steps of the span composition where possible). We call $\dF v$ and $\dB v$ \emph{direct shifters} and $\rF v x$ and $\rB v x$ \emph{retraction-based shifters}. It turns out that, indeed, each of these four options gives rise to a valid shifter.
 %
 \begin{figure}
 \centering
@@ -144,7 +144,7 @@ The step from span source shifters to span root shifters is completely identical
 The trivial root shifter $\cI_{A,B}$ is both a complete forward span root shifter and a complete backward span root shifter for any arrow $v:A\to B$. 
 \end{proposition}
 %
-Span root shifters satisfy the analogous properties of arrow root shifters formulated in Propositions \pref{ab-root shifters preserve} and \pref{ab-shifters compose}, extended with the case of complete shifters. As the proofs are essentially identical, we omit them here.\todo{AR: do you agree?}
+Span root shifters satisfy the analogous properties of arrow root shifters formulated in Propositions \pref{ab-root shifters preserve} and \pref{ab-shifters compose}, extended with the case of complete shifters. As the proofs are essentially identical, we omit them here. First, we state the property of model preservation for the span-based case.
 
 \begin{proposition}[span root shifters preserve models]\plabel{sb-shifters preserve}
 Let $v:A\to B$.
@@ -153,7 +153,9 @@ Let $v:A\to B$.
 \item If $c\in \SC B$ and $\cB$ is a backward span root shifter for $v$ that is defined on $c$, then $v;g\sat \cB(c)$ implies $g\sat c$. If, moreover, $\cB$ is complete then also $v;g\sat \cB(c)$ implies $g\sat c$.
 \end{enumerate}
 \end{proposition}
-
+%
+Then we observe that span shifters compose, exactly as arrow shifters do.
+%
 \begin{proposition}[span shifters compose]\plabel{sb-shifters compose}
 \begin{enumerate}[topsep=\smallskipamount]
 \item If $\cU$ is a span source [root] shifter from $X$ to $Y$ and $\cV$ a span source [root] shifter from $Y$ to $Z$, then $\cU;\cV$ (understood as partial function composition) is a span source [root] shifter from $X$ to $Z$. 
@@ -162,11 +164,25 @@ Let $v:A\to B$.
 \end{enumerate}
 \end{proposition}
 %
-Because we can also obtain span (source and root) shifters by composition, it is not necessarily the case that every forward shifter for $v:A\to B$ is of the shape $\dcF v$, $\rcF v x$ or $\cI_{A,B}$. However, for the remainder of this paper we will restrict ourselves to span shifters that are at least \emph{composed} from these elementary cases, in the following sense:\todo{Discuss}
+In fact we also need the following auxiliary composition property for direct span shifters.\todo{AR: Added} This immediately follows from the associativity of span composition combined with the fact that spans with identity left-legs and identity right-legs compose; we omit the proof.
 %
-\newtheorem{assumption}{Assumption}
-\begin{assumption}[universe of span shifters]
-Every span shifter $\cS$ is equal to a sequence $\cS_1;\cdots;\cS_n$ of elementary span shifters $\cS_i$, such that, moreover, all $\cS_i$ are [forward/backward/complete] if $\cS$ is [forward/backward/complete].
+\begin{lemma}[direct span shifters compose]\llabel{direct sb-shifters compose}
+Let $t:A\to B,v:B\to C$ be arrows.
+\begin{enumerate}[topsep=\smallskipamount]
+\item $\dF t;\dF v=\dF{t;v}$;
+\item $\dB v;\dB t=\dB{t;v}$.
+\end{enumerate}
+\end{lemma}
+%
+\todo{AR: Reformulated ths paragraph and the assumption.}
+We call the span source and root shifters of the shape $\dF v$, $\rF v x$, $\dB v$, $\rB v x$ and $\cI_{A,B}$ \emph{elementary}. It is not the case that every span shifter is elementary; e.g., $\dF{v_1};\rF{v_2}{x_2}$ is in general not equal to $\dF v$ or $\rF v x$ for any $x$. However, for the remainder of this paper we will restrict ourselves to span shifters that are at least \emph{composed} from elementary ones, in the following sense:
+%
+Let $\cS$ be a span root shifter for $v$.
+\begin{assumption}\asslabel{sb-shifters}
+\begin{itemize}[topsep=\smallskipamount]
+\item If $\cS$ is a forward shifter, then $\cS_1;\cdots;\cS_n$ where each $\cS_i$ is an elementary forward shifter for some $v_i$ such that $v=v_1;\cdots;v_n$. If, moreover, $\cS$ is complete then either $\cS$ is trivial or $\cS=\dF v$.
+\item If $\cS$ is a backward shifter, then $\cS_1;\cdots;\cS_n$ where each $\cS_i$ is an elementary backward shifter for some $v_i$ such that $v=v_n;\cdots;v_1$. If, moreover, $\cS$ is complete then either $\cS$ is trivial or $\cS=\dB{v}$.
+\end{itemize}
 \end{assumption}
  
 \subsection{Span-based morphisms}
@@ -292,9 +308,12 @@ Using pattern shift, we define morphisms over sb-conditions as follows.
   The morphism $m$ is called \emph{complete} if $o$ is surjective, $(s^c_{o(i)},s^b_i)\in \ccP_{v_i}$ for all $1\leq i\leq |b|$, and $\cF_i$ [$\cB_i$] is complete.
 \end{definition}
 %
-Note that only direct (forward or backward) root shifters are complete, hence also only direct morphisms can be complete.
+Note that, by \asscite{sb-shifters}, only direct (forward or backward) span root shifters are complete, hence also only direct sb-morphisms can be complete.
 
-On of the most essential properties of morphisms is that they preserve models and, in the case of complete morphisms, also reflect them. This is the analogous property of \pcite{ab-morphisms preserve models}, extended with the case for completeness.
+\todo{AR: Paragraph added}%
+We immediately observe that the exact same construction as for ab-morphisms again give us identity sb-morphisms as well as a composition operator over sb-morphisms (which we will later show to yield an sb-morphism): see Equations \eqref{eq:id-morphism} and~\eqref{eq:morphism composition}.
+
+One of the most essential properties of morphisms is that they preserve models and, in the case of complete morphisms, also reflect them. This is the analogous property of \pcite{ab-morphisms preserve models}, extended with the case for completeness.
 %
 \begin{proposition}[sb-condition morphisms preserve models]
                    \plabel{sb-morphisms preserve models}
@@ -337,6 +356,13 @@ Let $b,c$ be sb-conditions with $|b|=|c|$ and $s^b_i=s^c_i$ for all $1\leq i\leq
 \end{enumerate}
 \end{lemma}
 %
+\begin{proof}\todo{AR: added}
+We prove this for the case where each $b_i\pentails c_i$ [$b_i\pequiv c_i$] follows from the existence of a [complete] morphism $m_i:b_i\to c_i$; all other cases are a consequence of transitive [and symmetric] closure. In fact, letting $w=|b|$ we can immediately construct
+\[ m = (\id_{[1,w]}((\id_{b_1},m_1)\ccdots (\id_{b_w},m_w)) \]
+which is clearly a morphism from $c$ to $b$, and is complete if all $m_i$ are complete.
+\qed
+\end{proof}
+%
 The above claim about direct forward-shift morphisms being general enough now comes down to the following:
 %
 \begin{proposition}[provable entailment]
@@ -356,14 +382,14 @@ If $m$ is a [complete] backward-shift morphism from $b$ to $c$, then there are s
 \end{enumerate}
 \end{proposition}
 %
-This is proved by induction on the depth of the morphism; to make the induction work, we actually need a stronger version of the property.\todo{Already \pcite{sb-forward only} is quite technical, I am not sure it makes sense to leave it in.}
+This is proved by induction on the depth of the morphism; to make the induction work, we actually need a stronger version of the property.\todo{AR: Already \pcite{sb-forward only} is quite technical, I am not sure it makes sense to leave it in.}
 %
 \begin{lemma}\llabel{sb-forward only}
 Let $b\in \SC A,c\in \SC B$ be sb-conditions, and let $v:A\to B$ be an arrow.
 \begin{enumerate}[topsep=\smallskipamount]
-\item For any [complete] forward root shifter $\cF$ for $v$, if $m$ is a [complete] forward-shift morphism from $\cF(b)$ to $c$, then $m$ is also a direct [complete] forward-shift morphism from $\dcF v(b)$ to $c$.
+\item For any [complete] forward root shifter $\cF$ for $v$, if $m$ is a [complete] forward-shift morphism from $\cF(b)$ to $c$, then $m$ is also a direct [complete] forward-shift morphism from $\dF v(b)$ to $c$.
 
-\item For any [complete] backward root shifter $\cB$ for $v$, if $m$ is a [complete] backward-shift morphism from $b$ to $\cB(c)$, then there are sb-conditions $b'\pequiv b$ and $c'\pequiv c$ such that $\bar m$ is a direct [complete] forward-shift morphism from $\dcF v(b')$ to $c'$.
+\item For any [complete] backward root shifter $\cB$ for $v$, if $m$ is a [complete] backward-shift morphism from $b$ to $\cB(c)$, then there are sb-conditions $b'\pequiv b$ and $c'\pequiv c$ such that $\bar m$ is a direct [complete] forward-shift morphism from $\dF v(b')$ to $c'$.
 \end{enumerate}
 \end{lemma}
 %
@@ -372,25 +398,25 @@ Clearly, \pcite{sb-forward only} is a special case of \lcite{sb-forward only} fo
 \begin{proof}
 Let $b\in \SC A,c\in \SC B$ be sb-conditions, and let $v:A\to B$ be an arrow. The proof is by induction on the depth of $m$.
 \begin{enumerate}[topsep=\smallskipamount]
-\item Let $\cF$ be a forward root shifter for $v$, and $m=(o,(v_1,m_1)\ccdots(v_w,m_w)):\cF(b)\to c$ a forward-shift morphism. It follows that all $m_i$ are morphisms from $\cF_i(c_{o(i)})$ to $b_i$ for some forward shifter $\cF_i$; by the induction hypothesis therefore, also $m_i:\dcF{v_i}(c_{o(i)})\to b_i$. It only remains to be shown that, for all $1\leq i\leq w$, $(\cF_i(s^c_{o(i)}),s^b_i)\in \cP_{v_i}$ implies $(\dcF{v_i}(s^c_{o(i)}),s^b_i)\in \cP_{v_i}$. This is a consequence of \lcite{BF}.
+\item Let $\cF$ be a forward root shifter for $v$, and $m=(o,(v_1,m_1)\ccdots(v_w,m_w)):\cF(b)\to c$ a forward-shift morphism. It follows that all $m_i$ are morphisms from $\cF_i(c_{o(i)})$ to $b_i$ for some forward shifter $\cF_i$; by the induction hypothesis therefore, also $m_i:\dF{v_i}(c_{o(i)})\to b_i$. It only remains to be shown that, for all $1\leq i\leq w$, $(\cF_i(s^c_{o(i)}),s^b_i)\in \cP_{v_i}$ implies $(\dF{v_i}(s^c_{o(i)}),s^b_i)\in \cP_{v_i}$. This is a consequence of \lcite{BF}.
 
 \smallskip
 If $m$ is complete, then all its root shifters are complete, and hence already direct.
 
-\item Let $\cB$ be a backward root shifter for $v$, and let $m=(o,(v_1,m_1)\ccdots(v_w,m_w)):\to \cB(c)$ a backward-shift morphism. It follows that all $m_i$ are morphisms from $c_{o(i)}$ to $\cB_i(b_i)$ for some backward shifter $\cB_i$. By the induction hypothesis therefore (letting $j=o(i)$), $\bar m_i:\dcF{v_i}(c_j')\to b_i'$ for some $c_j'\pequiv c_j$ and $b'_i\pequiv b_i$.
+\item Let $\cB$ be a backward root shifter for $v$, and let $m=(o,(v_1,m_1)\ccdots(v_w,m_w)):\to \cB(c)$ a backward-shift morphism. It follows that all $m_i$ are morphisms from $c_{o(i)}$ to $\cB_i(b_i)$ for some backward shifter $\cB_i$. By the induction hypothesis therefore (letting $j=o(i)$), $\bar m_i:\dF{v_i}(c_j')\to b_i'$ for some $c_j'\pequiv c_j$ and $b'_i\pequiv b_i$.
 
 \smallskip
 In constructing $c'$ from $c$, we have to make sure that we retain the $c$-branches that are not the image of any $b$-branch under $o$. For this purpose, let $J=\setof{1\leq j\leq |c|\mid \nexists i\st o(i)=j}$ be the set of indexes of those branches, and let $j_1,\ldots,j_n$ be an arbitrary ordering of the elements of $J$. We define 
 \begin{align*}
 b'=\;&(A,(s^b_1,b'_1)\ccdots (s^b_w,b'_w)) \\
 c'=\;&(B,p_1\ccdots p_w\,p^c_{j_1}\ccdots p^c_{j_n}) \\
-   & \quad\text{where} p_i = (\dcF v(\cB(s^c_{o(i)})),c'_{o(i)}) \text{ for all $1\leq i\leq w$}\enspace.
+   & \quad\text{where} p_i = (\dF v(\cB(s^c_{o(i)})),c'_{o(i)}) \text{ for all $1\leq i\leq w$}\enspace.
 \end{align*}
 %
-Note that $|c'|=w+n$. For $1\leq i\leq w$, the $i$th branch of $c'$ is based on the $o(i)$th branch of $c$, modifying its span by first backward-shifting it using $\cB$ and then forward-shifting using $\dcF v$, and modifying its subcondition by taking, instead of $c_{o(i)}$, the provably equivalent $c'_{o(i)}$. For $w+1\leq i\leq w+n$, the $i$th branch of $c'$ is the $j_i$th branch of $c$.
+Note that $|c'|=w+n$. For $1\leq i\leq w$, the $i$th branch of $c'$ is based on the $o(i)$th branch of $c$, modifying its span by first backward-shifting it using $\cB$ and then forward-shifting using $\dF v$, and modifying its subcondition by taking, instead of $c_{o(i)}$, the provably equivalent $c'_{o(i)}$. For $w+1\leq i\leq w+n$, the $i$th branch of $c'$ is the $j_i$th branch of $c$.
 
 \smallskip
-$\bar m$ (which has $o^{\bar m}=\id_{[1,w]}$) is a direct forward-shift morphism from $\dcF v(b')$ to $c'$. To show this, all that is yet required is that $(\dcF v(s^b_i),\dcF v(\cB(s^c_{o(i)}))) \in \cP_{v_i}$ for $1\leq i\leq w$. This follows from the fact that $m:b\to \cB(c)$ is a morphism, which means $(s^b_i,\cB(s^c_{o(i)}))\in \cP_{v_i}$, in combination with \pcite{pattern shift}.\ref{pattern-congruence}, which states that the action of $\dcF v$ on spans (which comes down to prefixing them with $\spanof{v}{\id}$, see \fcite{sb-source shifters}) preserves $\cP_{v_i}$.
+$\bar m$ (which has $o^{\bar m}=\id_{[1,w]}$) is a direct forward-shift morphism from $\dF v(b')$ to $c'$. To show this, all that is yet required is that $(\dF v(s^b_i),\dF v(\cB(s^c_{o(i)}))) \in \cP_{v_i}$ for $1\leq i\leq w$. This follows from the fact that $m:b\to \cB(c)$ is a morphism, which means $(s^b_i,\cB(s^c_{o(i)}))\in \cP_{v_i}$, in combination with \pcite{pattern shift}.\ref{pattern-congruence}, which states that the action of $\dF v$ on spans (which comes down to prefixing them with $\spanof{v}{\id}$, see \fcite{sb-source shifters}) preserves $\cP_{v_i}$.
 
 \smallskip
 It only remains to be shown that $b'\pequiv b$ and $c'\pequiv c$. The first directly follows from \lcite{pequiv}, given that $b'_i\pequiv b_i$ for all $1\leq i\leq w$. For the second, we go through the auxiliary conditions
@@ -399,31 +425,68 @@ c''=\;&(B,(s^c_{o(1)},c'_{o(1)})\ccdots (s^c_{o(w)},c'_{o(w)})\,p^c_{j_1}\ccdots
 c'''=\;&(B,(s^c_{o(1)},c_{o(1)})\ccdots (s^c_{o(w)},c_{o(w)})\,p^c_{j_1}\ccdots p^c_{j_n}) \enspace.
 \end{align*}
 \begin{itemize}
-\item $c'\pequiv c''$ because the identity morphism $\id_{c'}$ is a direct complete forward-shift morphism from $c'$ to $c''$ due to $(s^c_{o(i)},\dcF v(\cB(s^c_{o(i)})))\in \ccP_\id$ for all $1\leq i\leq w$ (see \lcite{BF});
+\item $c'\pequiv c''$ because the identity morphism $\id_{c'}$ is a direct complete forward-shift morphism from $c'$ to $c''$ due to $(s^c_{o(i)},\dF v(\cB(s^c_{o(i)})))\in \ccP_\id$ for all $1\leq i\leq w$ (see \lcite{BF});
 \item $c''\pequiv c'''$ due to \lcite{pequiv}, given that $c'_{o(w)}\pequiv c_{o(w)}$ for all $1\leq i\leq w$; 
 \item $c'''\pequiv c$ because $m'=(o',(\id_{P^c_1},\id_{c_1})\ccdots (\id_{P^c_{|c|}},\id_{c_{|c|}}))$ with $o'=o^m\cup\setof{(w+i,j_i) \mid 1\leq i\leq n}$ is a direct complete forward-shift morphism from $c'''$ to $c$.
 \qed
 \end{itemize}
-If $m$ is complete, then so is $\bar m$, because in that case $n=0$ (there are no $c$-branches that are not the image of any $b$-branch) and so $\id_{[1,w]}$ is surjective in $\bar m:\dcF v(b')\to c'$.
+If $m$ is complete, then so is $\bar m$, because in that case $n=0$ (there are no $c$-branches that are not the image of any $b$-branch) and so $\id_{[1,w]}$ is surjective in $\bar m:\dF v(b')\to c'$.
 \end{enumerate}
 \end{proof}
 %
 \begin{lemma}\llabel{BF}
 Let $v:A\to B$ be an arrow.
 \begin{enumerate}[topsep=\smallskipamount]
-\item For any forward shifter $\cF$ for $v$ and any $A$-sourced span $s$, $(\cF(s_1),s_2)\in \cP_v$ implies $(\dcF v(s_1),s_2)\in \cP_v$.
-\item For any backward shifter $\cB$ for $v$ and any $B$-sourced span $s$, $(\dcF v(\cB(s)),s)\in \ccP_\id$.
+\item For any forward span source shifter $\cF$ for $v$ and any $A$-sourced span $s$, $(\cF(s),\dF v(s))\in \cP_\id$.
+\item For any backward span source shifter $\cB$ for $v$ and any $B$-sourced span $s$, $(\dF v(\cB(s)),s)\in \ccP_\id$.
 \end{enumerate}
 \end{lemma}
 %
 \begin{proof}
+We prove both clauses for elementary shifters (i.e., of the form $\rF v x$, $\dF v$, $\rB v x$ or $\dB v$); the case for arbitrary shifters then follows from \asscite{sb-shifters} in combination with \pref{sb-shifters compose} and \pref{pattern shift} (clauses \ref{pattern-transitive} and \ref{conservative-transitive}). Let $v:A\to B$ be an arrow.
 \begin{enumerate}[topsep=\smallskipamount]
-\item 
+\item We only need to show this for $\rF v x$ (where $x;v=\id_B$). Let $s=\spanof u d$, $\rF v x=s_1=\spanof{u_1}{d_1}$ and $\dF v(s)=s_2=\spanof{u_2}{d_2}$. Now $k=x'$ as in \cite{sb-shifters} shows $(s_1,s_2)\in \cP_\id$ according to \eqcite{pattern shift}.
+
+\item First consider $\cB=\rB v x$ where $x;v=\id_B$. Referring to \eqcite{pattern shift}, it is immediately clear that $\dF v(\cB(s))=s$ for all $s$.
+
+Now consider $\cB=\dB v$. This time $\dF v$ does not act as the inverse of $\cB$. Rather, if $s=\spanof{u_1}{d_1}:B\to C$ with interface object $I_1$ and $\dF v(\dB v(s))=\spanof{u_2}{d_2}$ with interface object $I_2$, then the diagram on the left hand side arises:
+\begin{center}
+\begin{tikzpicture}[on grid]
+\node (A) {$A$};
+\node (B) [right=2 of A] {$B$};
+\node (I1) [below left=of B] {$I_1$};
+\node (I2) [below right=of B] {$I_2$};
+\node (C) [below right=of I1] {$C$};
+\path
+  (A) edge[->>] node[above] {$v$} (B)
+  (I1) edge[->] node[above left] {$u_1$} (B)
+  (I1) edge[->] node[below left] {$d_1$} (C)
+  (I2) edge[->] node[above right] {$u_2$} (B)
+  (I2) edge[->] node[below right] {$d_2$} (C);
+\path[red,color=red]
+  (I1) edge[->>] node[above] {$k$} (I2);
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[on grid]
+\node (I1) {$I_1$};
+\node (I2) [right=1.5 of I1] {$I_2$};
+\node (C1) [below=of I1] {$C$};
+\node (C2) [below=of I2] {$C$};
+\path
+  (I1) edge[->>] node[above] {$k$} (I2)
+  (I1) edge[->] node[left] {$d_1$} (C1)
+  (C1) edge[->] node[above] {$\id$} (C2)
+  (I1) edge[->] node[right] {$d_1$} (C2);
+\end{tikzpicture}
+\end{center}
+Note that $v$ has to be epi for $\dB v$ to exist, and $k$ is then epi because, in toposes, epis are preserved by pullback. The diagram shows $(\dF v(\dB v(s)),s)\in \cP_\id$.
+
+For the pattern shift to be conservative, we need the bottom ``square" (with $\id_C$ as the arrow along the bottom).\todo{AR: not quite done} This square is explicitly drawn on the right hand side. Indeed, the pushout nature follows from the fact that $k$ is epi.\todo{AR: Include the arrows that make up the pushout argument?}
 \qed
 \end{enumerate}
 \end{proof}
 %
-Motivated by \pref{sb-forward only}, from now on we drop the qualifiers ``forward-shift" and ``backward-shift" and just talk about (sb-)morphisms, always meaning those that are based on direct forward shifting.
+Motivated by \pcite{sb-forward only}, from now on we drop the qualifiers ``forward-shift" and ``backward-shift" and just talk about (sb-)morphisms, always meaning those that are based on direct forward shifting.
 
 \begin{theorem} 
 Let $\SBC$ and $\SBC^\circ$ be the categories having sb-conditions as objects and sb-morphims, respectively complete sb-morphisms, as arrows. These are well-defined, and there are identity-on-objects functors $\SBC \to \SBC^{\entails}$ and $\SBC^\circ \to \SBC^{\equiv}$.
