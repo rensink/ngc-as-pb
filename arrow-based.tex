@@ -44,11 +44,12 @@ We regularly abbreviate ``arrow-based" to ``ab". We call $R$ the \emph{root} of 
 Note that, as a consequence of the inductive nature of \dcite{ab-condition}, every ab-condition has a finite \emph{depth} $\depth(c)$, defined as $0$ if $|c|=0$ and $1+\max_{1\leq i\leq |c|} \depth(c_i)$ otherwise. The depth will provide a basis for inductive proofs.
 
 \begin{example}\exlabel{ab-conditions}
-\fcite{ab-conditions} depicts three arrow-based conditions, rooted in the discrete one-node graph \inline{\onenode x} --- meaning essentially that we already know the image of $x$. The properties can be expressed as follows in FOL:
+\fcite{ab-conditions} depicts three arrow-based conditions, rooted in the discrete one-node graph \inline{\onenode x}. According
+to the notion of satisfacion introduced below, assuming that we already know the image of $x$ in a graph, the properties can be expressed as follows in FOL:
 \begin{itemize}
-\item $c_1$ encodes $\exists x,y\st \lb(x,y) \wedge \neg \la(y,y)\wedge \neg \exists z\st \lc(y,z)$
-\item $c_2$ encodes $\la(x,x)\vee \exists y\st \lb(x,y) \wedge \forall v,z\st \lc(y,v)\wedge \lc(y,z) \rightarrow v=z$
-\item $c_3$ encodes $\lb(x,x)\wedge \nexists y\st(\la(x,y)\vee \lc(x,y)$
+\item $c_1$ encodes $\exists y\st \lb(x,y) \wedge \neg \la(y,y)\wedge \neg \exists z\st \lc(y,z)$ 
+\item $c_2$ encodes $\la(x,x)\vee (\exists y\st \lb(x,y) \wedge \forall v,z\st \lc(y,v)\wedge \lc(y,z) \rightarrow v=z)$
+\item $c_3$ encodes $\lb(x,x)\wedge \nexists y\st(\la(x,y)\vee \lc(x,y))$
 \end{itemize}
 \begin{figure}[t]
 \begin{center}
@@ -74,7 +75,7 @@ A condition expresses a property of arrows from its root to an arbitrary object.
 %
 If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} for $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p_i$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
 
-\todo{AR: does this come too early? In \excite{ab-satisfaction} we can observe that $c_3\entails c_2\entails c_1$, but otherwise this is only used in \pcite{ab-morphisms preserve models}, which is 5 pages down the line.} Based on the notion of satisfaction, we also define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalence} $b\equiv c$ over conditions (over the same root):
+\todo{AR: does this come too early? In \excite{ab-satisfaction} we can observe that $c_3\entails c_2\entails c_1$, but otherwise this is only used in \pcite{ab-morphisms preserve models}, which is 5 pages down the line.\\ AC: No, it is fine to keep it here. I would add this to the example.} Based on the notion of satisfaction, we also define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalence} $b\equiv c$ over conditions (over the same root):
 %
 \begin{align*}
 b \entails c & \text{ if for all arrows $g$: } g\sat b \text{ implies } g\sat c \\
@@ -104,13 +105,13 @@ and let $g$ be the arrow from the one-node discrete graph \inline{\onenode x} to
 	  }$
 and let $g,g',g''$ be the three arrows from \inline{\onenode x} to $G_2$. We have $g\nsat c_1$, $g'\nsat c_1$ and $g''\nsat c_1$: the first two have witnesses for $c_{11}$ but are ruled out by either $c_{11}$ (in the case of $g$) or $c_{12}$ (in the case of $g'$), whereas the third does not even have a witness for $c_{11}$. Instead, both $g\sat c_2$ (in fact there are two distinct witnesses, one for $c_{21}$ and one for $c_{22}$) and $g'\sat c_2$ (due to $c_{22}$), but again $g''\nsat c_2$. None of the models satisfy $c_3$.
 
-\item If $G_3=\inline{\oneloopleft \bullet b}$, then the only arrow $g$ from \inline{\onenode x} to $G_3$ has $g\sat c_1$, $g\sat c_2$ and $g\sat c_3$.
+\item If $G_3=\inline{\oneloopleft \bullet b}$, then the only arrow $g$ from \inline{\onenode x} to $G_3$ has $g\sat c_1$, $g\sat c_2$ and $g\sat c_3$. In general, it can be checked that every model of $c_3$ is also a model of $c_2$ and a model of $c_1$, thus $c_3 \entails c_2$ and $c_3 \entails c_1$. Instead, for example, $c_2 \nsat c_1$ as shown by morphism $g$ of the previous point. 
 \end{itemize}
 \end{example}
 
 \subsection{Connection to first-order logic}
 
-It has been shown (e.g., \cite{Rensink-FOL,Habel-FOL}) that every first-order logic (FOL) formula can be encoded as an arrow-based nested condition over $\Graph$. For the sake of completeness, we summarise the construction here. We restrict to binary predicates, which we take from the set of edge labels $\Lab$.
+It has been shown (e.g., \cite{Rensink-FOL,Habel-FOL}) that every first-order logic (FOL) formula can be encoded as an arrow-based nested condition over $\Graph$. For the sake of completeness, we summarise the construction here.\todo{AC: not if not full: add precise reference} We restrict to binary predicates, which we take from the set of edge labels $\Lab$.
 
 The syntax of FOL that we will use in the following is given by the grammar
 %

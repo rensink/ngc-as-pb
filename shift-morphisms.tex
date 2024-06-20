@@ -61,7 +61,10 @@ Assume that \ref{shifter-2} holds. Let $a:X\to Z$; by \eqref{eq:shifters are fun
 \end{proof}
 \fi
 %
-Knowing that source shifters from $X$ are entirely determined by $\cS(\id_X)$ gives us a basis for their construction. The following proposition characterises the (forward and backward) root shifters that exist in general.
+Knowing that source shifters from $X$ are entirely determined by $\cS(\id_X)$ gives us a basis for their construction. Before that, let us introduce some categorical terminology. An arrow $r: A \to B$ is a \emph{split epi(morphism)} if there is an arrow $m:B\to A$ such that $m;r = id_B$. In this case, arrow $m$ which satisfies the dual condition is a 
+\emph{split mono(morphism)}. We also say that $r$ is a \emph{retraction} of $m$, and that $m$ is a \emph{section} of $r$.
+
+The following proposition characterises the (forward and backward) root shifters that exist in general.
 %
 \begin{proposition}[known source shifters]\plabel{ab-source shifters}
 Let $v:A\to B$ be an arrow.
@@ -105,7 +108,7 @@ Assume that \ref{forward-3} holds. To show \eqref{eq:shifters are functors}, not
 \end{proof}
 \fi
 %
-It follows that $v$ has precisely one forward source shifter for every section $s$ of $v$ (meaning, among other things, that $v$ must be a retraction --- and hence at least epi --- to have any forward shifter at all). As for backward source shifters, if $\cS(\id_B)=v$ (which is in general the only known arrow from $A$ to $B$), then $v$ has a backward source shifter if and only if $v$ is epi. We denote these source shifters by $\cF_v^s$ and $\cB_v$, respectively. Their working is visualised in \fcite{ab-source shifters}. \fcite{ex-ab-shifters} shows some examples.
+It follows that $v$ has precisely one forward source shifter for every section $s$ of $v$ (meaning, among other things, that $v$ must be a split epi --- hence a fortiori an epi --- to have any forward shifter at all). As for backward source shifters, if $\cS(\id_B)=v$ (which is in general the only known arrow from $A$ to $B$), then $v$ has a backward source shifter if and only if $v$ is epi. We denote these source shifters by $\cF_v^s$ and $\cB_v$, respectively. Their working is visualised in \fcite{ab-source shifters}. \fcite{ex-ab-shifters} shows some examples.
 
 \begin{figure}[t]
 \centering
@@ -262,7 +265,7 @@ If $\cC$ is trivial, the result is immediate. Otherwise, let $t$ be as in \lcite
 Composition of ab-condition morphisms is defined recursively, independently of whether they are forward or backward. Let $m:b\to c$ and $n:c\to e$ be morphisms with $|m|=w$.
 %
 \begin{equation}\eqlabel{morphism composition}
-m;n = (o^m;o^n,(v^n_{o^m(1)};v^m_1,n_{o^m(1)};m_1)\ccdots v^n_{o^m(w)};v^m_w,n_{o^m(w)};m_w)) \enspace.
+m;n = (o^m;o^n,(v^n_{o^m(1)};v^m_1,n_{o^m(1)};m_1)\ccdots (v^n_{o^m(w)};v^m_w,n_{o^m(w)};m_w)) \enspace.
 \end{equation}
 %
 We also (recursively) define the identity on a condition $c$ with $|c|=w$:
@@ -342,7 +345,7 @@ Indeed, $b$ entails $c$ because $z$ can be instantiated with the value of $y$. T
 \end{example}
 %
 \begin{comment}
-Further comparing the two notions of morphism, note that retractions are epi in any category, but not vice versa: for example, in \cat{Graph} there are epis which do not have a section (an example being $t'$ in \fcite{epi-no-retraction}). Therefore, asking for the existence of a section is a stronger condition than being an epi, suggesting that every retraction-based morphism may be epi-based, but certainly not vice versa. However, this also fails to be the case, for two reasons:
+Further comparing the two notions of morphism, note that split epis are epi in any category, but not vice versa: for example, in \cat{Graph} there are epis which do not have a section (an example being $t'$ in \fcite{epi-no-retraction}). Therefore, asking for the existence of a section is a stronger condition than being an epi, suggesting that every retraction-based morphism may be epi-based, but certainly not vice versa. However, this also fails to be the case, for two reasons:
 %
 \begin{itemize}
 \item The existence of a section (in retraction-based morphisms) is only required when the source condition has branches, whereas our definition of epi-based morphism asks for all arrows to be epi.
