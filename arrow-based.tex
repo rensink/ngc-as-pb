@@ -123,7 +123,7 @@ The syntax of FOL that we will use in the following is given by the grammar
 		\:\mid\: \neg\phi_1
 		\:\mid\: \exists \bar x\st \phi_1 
 		\]
-where the $x_i$ are variables (say from some set $X$), $\bar x\in X^*$ is a finite sequence of variables and $\la$ is a binary predicate. We also use the concept of \emph{free variables} of $\phi$, denoted $\fv(\phi)$, inductively defined in the usual way.
+where the $x_i$ are variables (say from some set $X$), $\bar x\in X^*$ is a finite sequence of variables and $\la$ is a binary predicate. We also use the concept of \emph{free variables} of $\phi$, denoted $\fv(\phi)$, inductively defined in the usual way.\todo{Formulate the connection between FOL and ab-conditions}
 
 \iffull
 As for conditions, the semantics of FOL is defined through a notion of satisfaction; however, the models are not arbitrary arrows in $\Graph$ but \emph{valuations} that map the free variables to the nodes of a graph. Such a valuation can be seen as an arrow from the discrete graph with node set $X$, which for the purpose of this discussion we will denote $D_X$. Hence, the models of a formula $\phi$ are arrows $v:D_X\to G$ (for some graph $G$) such that $v\sat\phi$.

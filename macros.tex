@@ -6,6 +6,7 @@
 \usepackage{subcaption}
 \usepackage{hyperref}
 \usepackage{ifthen}
+\usepackage{environ}
 %\usepackage[svgnames]{xcolor}
 
 \newboolean{fest}
@@ -14,6 +15,21 @@
   {\isundefined{\extendedversion}}
   {\setboolean{fest}{true}\setboolean{full}{false}}
   {\setboolean{fest}{false}\setboolean{full}{true}}
+\NewEnviron{fullorname}[1][\lastlabel]{%
+  \iffest
+     Label: #1
+     \global\expandafter\let\csname #1\endcsname\BODY
+%    \expandafter\gdef\csname #1\endcsname{\BODY}
+  \else
+    \BODY
+  \fi
+}
+\renewenvironment{proof}[1][]{%
+  \noindent
+  \emph{Proof%
+  \ifthenelse{\equal{#1}{}}{}{ #1}.}
+}{}
+\newcommand{\displayhere}[1]{\expandafter{\csname#1\endcsname}}
 
 %% Some math definitions
 \newcommand{\tupof}[1]{\langle{#1}\rangle}
@@ -196,53 +212,73 @@
 }
 
 % Auxiliary labelling macros
+\newcommand{\savelabel}[1]{%
+  \label{#1}%
+  \gdef\lastlabel{#1}%
+}
 % For definitions
 \newcommand{\dprf}{def}
-\newcommand{\dlabel}[1]{\label{\dprf:#1}}
-\newcommand{\dref}[1]{\ref{\dprf:#1}}
+\newcommand{\dname}[1]{\dprf:#1}
+\newcommand{\dlabel}[1]{\savelabel{\dname{#1}}}
+\newcommand{\dref}[1]{\ref{\dname{#1}}}
 \newcommand{\dcite}[1]{Def.~\dref{#1}}
 
 % For figures
 \newcommand{\fprf}{fig}
-\newcommand{\flabel}[1]{\label{\fprf:#1}}
-\newcommand{\fref}[1]{\ref{\fprf:#1}}
+\newcommand{\fname}[1]{\fprf:#1}
+\newcommand{\flabel}[1]{\savelabel{\fname{#1}}}
+\newcommand{\fref}[1]{\ref{\fname{#1}}}
 \newcommand{\fcite}[1]{Fig.~\fref{#1}}
 
 % For propositions
 \newcommand{\pprf}{prop}
-\newcommand{\plabel}[1]{\label{\pprf:#1}}
-\newcommand{\pref}[1]{\ref{\pprf:#1}}
+\newcommand{\pname}[1]{\pprf:#1}
+\newcommand{\plabel}[1]{\savelabel{\pname{#1}}}
+\newcommand{\pref}[1]{\ref{\pname{#1}}}
 \newcommand{\pcite}[1]{Prop.~\pref{#1}}
+
+% For theorems
+\newcommand{\thprf}{th}
+\newcommand{\thname}[1]{\thprf:#1}
+\newcommand{\thlabel}[1]{\savelabel{\thname{#1}}}
+\newcommand{\thref}[1]{\ref{\thname{#1}}}
+\newcommand{\thcite}[1]{Th.~\thref{#1}}
 
 % For lemmas
 \newcommand{\lprf}{lem}
-\newcommand{\llabel}[1]{\label{\lprf:#1}}
-\newcommand{\lref}[1]{\ref{\lprf:#1}}
+\newcommand{\lname}[1]{\lprf:#1}
+\newcommand{\llabel}[1]{\savelabel{\lname{#1}}}
+\newcommand{\lref}[1]{\ref{\lname{#1}}}
 \newcommand{\lcite}[1]{Lemma~\lref{#1}}
 
 % For sections
 \newcommand{\sprf}{sec}
-\newcommand{\slabel}[1]{\label{\sprf:#1}}
-\newcommand{\sref}[1]{\ref{\sprf:#1}}
+\newcommand{\sname}[1]{\sprf:#1}
+\newcommand{\slabel}[1]{\savelabel{\sname{#1}}}
+\newcommand{\sref}[1]{\ref{\sname{#1}}}
 \newcommand{\scite}[1]{Sec.~\sref{#1}}
 
 % For examples
 \newcommand{\exprf}{ex}
-\newcommand{\exlabel}[1]{\label{\exprf:#1}}
-\newcommand{\exref}[1]{\ref{\exprf:#1}}
+\newcommand{\exname}[1]{\exprf:#1}
+\newcommand{\exlabel}[1]{\savelabel{\exname{#1}}}
+\newcommand{\exref}[1]{\ref{\exname{#1}}}
 \newcommand{\excite}[1]{Ex.~\exref{#1}}
 
 % For assumptions
 \newtheorem{assumption}{Assumption}
 \newcommand{\assprf}{ass}
-\newcommand{\asslabel}[1]{\label{\assprf:#1}}
-\newcommand{\assref}[1]{\ref{\assprf:#1}}
+\newcommand{\assname}[1]{\assprf:#1}
+\newcommand{\asslabel}[1]{\savelabel{\assname{#1}}}
+\newcommand{\assref}[1]{\ref{\assname{#1}}}
 \newcommand{\asscite}[1]{Assumption~\assref{#1}}
 
 % For equations
 \newcommand{\eqprf}{eq}
-\newcommand{\eqlabel}[1]{\label{\eqprf:#1}}
-\newcommand{\eqcite}[1]{Eq.~\eqref{\eqprf:#1}}
+\newcommand{\eqname}[1]{\eqprf:#1}
+\newcommand{\eqlabel}[1]{\savelabel{\eqname{#1}}}
+\renewcommand{\eqref}[1]{(\ref{\eqname{#1}})}
+\newcommand{\eqcite}[1]{Eq.~\eqref{#1}}
 
 %% Tikz definitions
 \usetikzlibrary{shapes.geometric}
