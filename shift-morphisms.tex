@@ -7,6 +7,7 @@ The question that we address in this section is to establish a meaningful \emph{
 The underlying principle for a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ to $c=(R,p^c_1\ccdots p^c_{|c|})$ is that it must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that entails it. Entailment of branches, in turn, is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$ (hence going in the \emph{opposite} direction of $m$) such that there is (recursively, but in the opposite direction) a morphism between the subconditions $c_j$ and $b_i$; however, this sub-morphism can only exist ``modulo" the morphism $v_i$ between their roots. The main task of the next subsection is to make the concept of ``modulo $v_i$" precise.
 
 \subsection{Root shifting}
+\slabel{shift-morphisms}
 
 In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}, which will later turn out to be functors between categories of conditions. For now, we note that the purpose of root shifters is to relate the models of a condition $b$ to those of a condition $c$, given an arrow $v:R^b\to R^c$ between their roots (the existence of which implies that the model sets are typically disjoint). To be more precise, we will require that \emph{every $v$-prefixed model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
 
