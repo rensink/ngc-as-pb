@@ -2,8 +2,8 @@
 \slabel{entailment}
 
 \todo{AR: Section has to be adapted to new structure}
-Given the number of possible forward and backward shifters we identified, there is a lot of choice within the concept of a morphism, possibly making them complex to reason about. However, we now set about showing that, in an important sense, it is enough to consider only direct forward-shift morphisms. To make this statement precise, we introduce the notion of \emph{provable entailment}.
-%
+Given the number of possible forward and backward shifters we identified, there is a lot of choice within the concept of a morphism, possibly making them complex to reason about. However, we now set about showing that, in an important sense, it is enough to consider only direct forward-shift morphisms. To make this statement precise, we introduce the notion of \emph{provable entailment}, which are those entailments that can be established through the existence of only (complete) forward-shift morphisms.
+
 \begin{definition}[provable entailment/equivalence]\dlabel{provable}
 \emph{Provable entailment}, denoted $\pentails$, is the smallest preorder such that for all sb-conditions $b,c$:
 \begin{itemize}[topsep=\smallskipamount]
@@ -13,15 +13,21 @@ Given the number of possible forward and backward shifters we identified, there 
 \emph{Provable equivalence}, denoted $\pequiv$, is defined as ${\pequiv}={\pentails}\cap{\pentailedby}$.
 \end{definition}
 %
-The following is a property that we will need in the proof below.
+The above claim now comes down to the fact that any entailment proved by the existence of a forward or backward morphism, complete or not, is already provable in the sense of $\pentails$, hence using direct forward-shift morphisms only. This is formalised in the final main theorem of the paper
+
+\begin{theorem}[provable entailment]\thlabel{pentails}
+Let $b,c$ be sb-conditions. If there exists an sb-condition morphism $m:b\to c$, then $b\pentails c$; moreover, if $m$ is complete then $c\pentails b$.
+\end{theorem}
 %
-\begin{lemma}\llabel{pequiv}
+The rest of this section is devoted to proving this theorem. For this we need a number of auxiliary properties, starting with the following congruence:
+
+\begin{proposition}\plabel{pequiv congruent}
 Let $b,c$ be sb-conditions with $|b|=|c|$ and $s^b_i=s^c_i$ for all $1\leq i\leq |b|$.
 \begin{enumerate}[topsep=\smallskipamount]
 \item If $b_i\pentails c_i$ for all $i=1,\ldots,|b|$ then $c\pentails b$;
 \item If $b_i\pequiv c_i$ for all $i=1,\ldots,|b|$ then $b\pequiv c$.
 \end{enumerate}
-\end{lemma}
+\end{proposition}
 %
 \begin{proof}\todo{AR: added AC: I'm not convinced... :-( AR: extended}
 Each $b_i\pentails c_i$ follows from the transitive closure of a sequence of primitive steps (i.e., one of the two cases of \dcite{provable}). It therefore suffices to prove that, if \emph{a single} $p_i\pentails c_i$ is due to the existence of either
@@ -49,14 +55,103 @@ For both cases of the proof, let $m_j=\id_{b_j}$ for $j\leq i$, and let
 \end{enumerate}
 \end{proof}
 %
-The above claim about direct forward-shift morphisms being general enough now comes down to the following:
+Next, there is a small but important fact about span source shifters: $\rF v x$ undoes the effect of $\dB v$, and $\dF v$ undoes the effect of $\rB v x$.\todo{AR: This could also be included in the section about span source shifters} The proof is immediate from the construction (see \fcite{sb-shifters}).
 %
-\begin{proposition}[provable entailment]
-Let $b,c$ be sb-conditions. If there exists a morphism $m:b\to c$, then $b\pentails c$; moreover, if $m$ is complete then $c\pentails b$.
-\end{proposition}
+\begin{lemma}\llabel{sb-shifter inverses}
+If $v:A\to B$ is a split epi with section $x$, then $\rF v x;\dB v$ and $\dF v;\rB v x$ are the identity on $B$-sourced spans.
+\end{lemma}
 %
-The reason why this holds is that any (forward- or backward-shift) morphism is itself actually a direct forward-shift morphism between provably equivalent conditions.
+Next, we observe that a pattern shift along an identity morphism is conservative if the mediating morphism $k$ is epi.
+
+\begin{lemma}\llabel{id-pattern shift}
+If the arrow $k$ in the following diagram is epi, then $(\spanof{u_1}{d_1},\spanof{u_2}{d_2})\in \ccP_{\id_P}$.
+\begin{center}
+\begin{tikzpicture}[on grid,baseline=(I1.center)]
+\node (A) {$A$};
+\node (I1) [below left=1 and 1.5 of A] {$I_1$};
+\node (P1) [below=1.5 of I1] {$P$};
+\node (I2) [below right=1 and 1.5 of A] {$I_2$};
+\node (P2) [below=1.5 of I2] {$P$};
+\path
+  (I1) edge[->] node[above left,inner sep=1] {$u_1$} (A)
+  (I1) edge[->] node[left] {$d_1$} (P1)
+  (I2) edge[->] node[above right,inner sep=1] {$u_2$} (A)
+  (I2) edge[->] node[right] {$d_2$} (P2);
+\path[morphism]
+  (P1) edge[->] node[above] {$\id_P$} (P2);
+\path[red,color=red]
+  (I1) edge[->>] node[below] {$k$} (I2);
+\end{tikzpicture}
+\end{center}
+\end{lemma}
 %
+\begin{proof}
+This follows from the fact that the lower square in the diagram is a pushout.\todo{A: Expand?}
+\end{proof}
+%
+Using this, we can observe the following interplay of conservative pattern shifting and various source shifters.
+
+\begin{lemma}\llabel{BF}\todo{AR: statement repaired, proof to be done}
+Let $v:A\to B$ be an arrow.
+\begin{enumerate}[topsep=\smallskipamount]
+\item For any forward span source shifter $\cF$ for $v$ and any $A$-sourced span $s$, $(\dF v(s),\cF(s))\in \ccP_\id$.
+\item For any backward span source shifter $\cB$ for $v$ and any $B$-sourced span $s$, $(\dF v(\cB(s)),s)\in \ccP_\id$.
+\end{enumerate}
+\end{lemma}
+%
+\begin{proof}
+We prove both clauses for elementary source shifters (i.e., of the form $\rF v x$, $\dF v$, $\rB v x$ or $\dB v$); the case for arbitrary source shifters then follows from \asscite{sb-shifters} in combination with \pcite{sb-shifters compose} (clause \ref{pattern-transitive}) and \pcite{pattern shift} (clause \ref{conservative-transitive}). Let $v:A\to B$ be an arrow.
+\begin{enumerate}[topsep=\smallskipamount]
+\item The case of $\cF=\dF v$ is immediate, since $\ccP_\id$ includes the identity over $B$-sourced spans.
+
+Now consider $\cF=\rF v x$ (where $x;v=\id_B$). Let $s=\spanof u d$, $\rF v x=s_1=\spanof{u_1}{d_1}$ and $\dF v(s)=s_2=\spanof{u_2}{d_2}=\spanof{u;v}{d}$. The pair $(\dF v(s),\rF v x(s))$ forms a pair as in \lcite{id-pattern shift}, with $k$ being the pullback of $v$ over $u$.
+
+Now $k=x'$ as in \fcite{sb-source shifters} shows $(s_1,s_2)\in \cP_\id$ according to \eqcite{pattern shift}.
+
+\item First consider $\cB=\rB v x$ where $x;v=\id_B$. From \lcite{sb-shifter inverses} we know that $\dF v(\cB(s))=s$ for all $s$; since $\ccP_\id$ includes the identity over $B$-sourced spans, we are done.
+
+Now consider $\cB=\dB v$. From \lcite{sb-shifter inverses} we know that $\rF v s(\dB v(s))=s$ for all $s$. Given that $(\dB v(s),\dB v(s))\in \ccP_\id$ and that $\rF v x$ preserves $\ccP$, it follows that $(\rF v x(\cB(s)),s)=(\rF v x(\dB v(s)),$
+
+
+This time $\dF v$ does not act as the inverse of $\cB$. Rather, if $s=\spanof{u_1}{d_1}:B\to C$ with interface object $I_1$ and $\dF v(\dB v(s))=\spanof{u_2}{d_2}$ with interface object $I_2$, then the diagram on the left hand side arises:\todo{AC: in the diagram all 1's and 2's are switched, right? Also in the right part that has to be fixed.}
+\begin{center}
+\begin{tikzpicture}[on grid]
+\node (A) {$A$};
+\node (B) [right=2 of A] {$B$};
+\node (I1) [below left=of B] {$I_1$};
+\node (I2) [below right=of B] {$I_2$};
+\node (C) [below right=of I1] {$C$};
+\path
+  (A) edge[->>] node[above] {$v$} (B)
+  (I1) edge[->] node[above left] {$u_1$} (B)
+  (I1) edge[->] node[below left] {$d_1$} (C)
+  (I2) edge[->] node[above right] {$u_2$} (B)
+  (I2) edge[->] node[below right] {$d_2$} (C);
+\path[red,color=red]
+  (I1) edge[->>] node[above] {$k$} (I2);
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[on grid]
+\node (I1) {$I_1$};
+\node (I2) [right=1.5 of I1] {$I_2$};
+\node (C1) [below=of I1] {$C$};
+\node (C2) [below=of I2] {$C$};
+\path
+  (I1) edge[->>] node[above] {$k$} (I2)
+  (I1) edge[->] node[left] {$d_1$} (C1)
+  (C1) edge[->] node[above] {$\id$} (C2)
+  (I1) edge[->] node[right] {$d_1$} (C2);
+\end{tikzpicture}
+\end{center}
+Note that $v$ has to be epi for $\dB v$ to exist, and $k$ is then epi because, in toposes, epis are preserved by pullbacks. The diagram shows $(\dF v(\dB v(s)),s)\in \cP_\id$.
+
+For the pattern shift to be conservative, we need the bottom ``square" (with $\id_C$ as the arrow along the bottom).\todo{AR: not quite done} This square is explicitly drawn on the right hand side. Indeed, the pushout nature follows from the fact that $k$ is epi.\todo{AR: Include the arrows that make up the pushout argument?}
+\qed
+\end{enumerate}
+\end{proof}
+%
+This sets the stage for the following (technical) result, which in turn directly implies \thcite{pentails}.
+
 \begin{lemma}\llabel{sb-forward only}
 For any $m$, let $\bar m$ be derived from $m$ by replacing all branch mappings $o$ (on all levels) by the corresponding identities.
 
@@ -109,59 +204,6 @@ c'''=\;&(B,(s^c_{o(1)},c_{o(1)})\ccdots (s^c_{o(w)},c_{o(w)})\,p^c_{j_1}\ccdots 
 If $m$ is complete, then so is $\bar m$, because in that case $n=0$ (there are no $c$-branches that are not the image of any $b$-branch) and so $\id_{[1,w]}$ is surjective in $\bar m:\dF v(b')\to c'$.
 \end{enumerate}
 \end{proof}
-%
-\begin{lemma}\llabel{BF}\todo{AR: statement repaired, proof to be done}
-Let $v:A\to B$ be an arrow.
-\begin{enumerate}[topsep=\smallskipamount]
-\item For any forward span source shifter $\cF$ for $v$ and any $A$-sourced span $s$, $(\dF v(s),\cF(s))\in \ccP_\id$.
-\item For any backward span source shifter $\cB$ for $v$ and any $B$-sourced span $s$, $(\dF v(\cB(s)),s)\in \ccP_\id$.
-\end{enumerate}
-\end{lemma}
-%
-\begin{proof}
-We prove both clauses for elementary source shifters (i.e., of the form $\rF v x$, $\dF v$, $\rB v x$ or $\dB v$); the case for arbitrary source shifters then follows from \asscite{sb-shifters} in combination with \pcite{sb-shifters compose} (clause \ref{pattern-transitive}) and \pcite{pattern shift} (clause \ref{conservative-transitive}). Let $v:A\to B$ be an arrow.
-\begin{enumerate}[topsep=\smallskipamount]
-\item The case of $\cF=\dF v$ is immediate, since $\ccP_\id$ includes the identity over $B$-sourced spans.
 
-Now consider $\cF=\rF v x$ (where $x;v=\id_B$). Let $s=\spanof u d$, $\rF v x=s_1=\spanof{u_1}{d_1}$ and $\dF v(s)=s_2=\spanof{u_2}{d_2}=\spanof{u;v}{d}$. Now $k=x'$ as in \fcite{sb-source shifters} shows $(s_1,s_2)\in \cP_\id$ according to \eqcite{pattern shift}.
-
-\item First consider $\cB=\rB v x$ where $x;v=\id_B$. Referring to \fcite{sb-source shifters}, it is immediately clear that $\dF v(\cB(s))=s$ for all $s$; since $\ccP_\id$ includes the identity over $B$-sourced spance, we are done.
-
-Now consider $\cB=\dB v$. This time $\dF v$ does not act as the inverse of $\cB$. Rather, if $s=\spanof{u_1}{d_1}:B\to C$ with interface object $I_1$ and $\dF v(\dB v(s))=\spanof{u_2}{d_2}$ with interface object $I_2$, then the diagram on the left hand side arises:\todo{AC: in the diagram all 1's and 2's are switched, right? Also in the right part that has to be fixed.}
-\begin{center}
-\begin{tikzpicture}[on grid]
-\node (A) {$A$};
-\node (B) [right=2 of A] {$B$};
-\node (I1) [below left=of B] {$I_1$};
-\node (I2) [below right=of B] {$I_2$};
-\node (C) [below right=of I1] {$C$};
-\path
-  (A) edge[->>] node[above] {$v$} (B)
-  (I1) edge[->] node[above left] {$u_1$} (B)
-  (I1) edge[->] node[below left] {$d_1$} (C)
-  (I2) edge[->] node[above right] {$u_2$} (B)
-  (I2) edge[->] node[below right] {$d_2$} (C);
-\path[red,color=red]
-  (I1) edge[->>] node[above] {$k$} (I2);
-\end{tikzpicture}
-\qquad
-\begin{tikzpicture}[on grid]
-\node (I1) {$I_1$};
-\node (I2) [right=1.5 of I1] {$I_2$};
-\node (C1) [below=of I1] {$C$};
-\node (C2) [below=of I2] {$C$};
-\path
-  (I1) edge[->>] node[above] {$k$} (I2)
-  (I1) edge[->] node[left] {$d_1$} (C1)
-  (C1) edge[->] node[above] {$\id$} (C2)
-  (I1) edge[->] node[right] {$d_1$} (C2);
-\end{tikzpicture}
-\end{center}
-Note that $v$ has to be epi for $\dB v$ to exist, and $k$ is then epi because, in toposes, epis are preserved by pullbacks. The diagram shows $(\dF v(\dB v(s)),s)\in \cP_\id$.
-
-For the pattern shift to be conservative, we need the bottom ``square" (with $\id_C$ as the arrow along the bottom).\todo{AR: not quite done} This square is explicitly drawn on the right hand side. Indeed, the pushout nature follows from the fact that $k$ is epi.\todo{AR: Include the arrows that make up the pushout argument?}
-\qed
-\end{enumerate}
-\end{proof}
 %
 %Motivated by \pcite{sb-forward only}, from now on we drop the qualifiers ``forward-shift" and ``backward-shift" and just talk about (sb-)morphisms, always meaning those that are based on direct forward shifting.

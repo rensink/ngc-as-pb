@@ -15,21 +15,25 @@
   {\isundefined{\extendedversion}}
   {\setboolean{fest}{true}\setboolean{full}{false}}
   {\setboolean{fest}{false}\setboolean{full}{true}}
-\NewEnviron{fullorname}[1][\lastlabel]{%
-  \iffest
-     Label: #1
-     \global\expandafter\let\csname #1\endcsname\BODY
-%    \expandafter\gdef\csname #1\endcsname{\BODY}
-  \else
-    \BODY
-  \fi
-}
-\renewenvironment{proof}[1][]{%
+
+\renewenvironment{proof}[1][of \lastresult]{%
   \noindent
   \emph{Proof%
   \ifthenelse{\equal{#1}{}}{}{ #1}.}
 }{}
-\newcommand{\displayhere}[1]{\expandafter{\csname#1\endcsname}}
+
+\NewEnviron{fullorname}[1][\lastlabel]{%
+  \iffest
+     \global\expandafter\let\csname #1-lastresult\endcsname\lastresult
+     \global\expandafter\let\csname #1-body\endcsname\BODY
+  \else
+    \BODY
+  \fi
+}
+\newcommand{\displayhere}[1]{
+  \def\lastresult{\csname#1-lastresult\endcsname}
+  \csname#1-body\endcsname
+}
 
 %% Some math definitions
 \newcommand{\tupof}[1]{\langle{#1}\rangle}
@@ -226,28 +230,39 @@
 % For figures
 \newcommand{\fprf}{fig}
 \newcommand{\fname}[1]{\fprf:#1}
-\newcommand{\flabel}[1]{\savelabel{\fname{#1}}}
+\newcommand{\flabel}[1]{%
+  \savelabel{\fname{#1}}%
+}
 \newcommand{\fref}[1]{\ref{\fname{#1}}}
 \newcommand{\fcite}[1]{Fig.~\fref{#1}}
 
 % For propositions
 \newcommand{\pprf}{prop}
 \newcommand{\pname}[1]{\pprf:#1}
-\newcommand{\plabel}[1]{\savelabel{\pname{#1}}}
+\newcommand{\plabel}[1]{%
+  \gdef\lastresult{\pcite{#1}}%
+  \savelabel{\pname{#1}}%
+}
 \newcommand{\pref}[1]{\ref{\pname{#1}}}
 \newcommand{\pcite}[1]{Prop.~\pref{#1}}
 
 % For theorems
 \newcommand{\thprf}{th}
 \newcommand{\thname}[1]{\thprf:#1}
-\newcommand{\thlabel}[1]{\savelabel{\thname{#1}}}
+\newcommand{\thlabel}[1]{%
+  \gdef\lastresult{\thcite{#1}}%
+  \savelabel{\thname{#1}}%
+}
 \newcommand{\thref}[1]{\ref{\thname{#1}}}
 \newcommand{\thcite}[1]{Th.~\thref{#1}}
 
 % For lemmas
 \newcommand{\lprf}{lem}
 \newcommand{\lname}[1]{\lprf:#1}
-\newcommand{\llabel}[1]{\savelabel{\lname{#1}}}
+\newcommand{\llabel}[1]{%
+  \gdef\lastresult{\lcite{#1}}%
+  \savelabel{\lname{#1}}
+}
 \newcommand{\lref}[1]{\ref{\lname{#1}}}
 \newcommand{\lcite}[1]{Lemma~\lref{#1}}
 
