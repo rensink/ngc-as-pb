@@ -1,44 +1,44 @@
 \begin{tikzpicture}[on grid]
   \node[graph] (10) {\onenode{x}};
   \node[left=0 of 10.west,inner sep=0] {$c_1$};
-  \node[graph,below=of 10] (11) {\oneedge{x}{b}{y}}; 
+  \node[graph,below=of 10] (11) {\oneloopleft{x}{b}}; 
   \node[left=0 of 11.west,inner sep=0] {$c_{11}$};
-  \node[graph,below left=1 and 1.1 of 11] (111) {\oneedgeloop{x}{b}{y}{a}};
+  \node[graph,below left=1 and 1.1 of 11] (111) {\looponeedge{x}{b}{a}{y}};
   \node[above right=0 of 111.north west,inner sep=1] {$c_{111}$};
-  \node[graph,below right=1 and 1.1 of 11] (112) {\twoedge{x}{b}{y}{c}{z}};
+  \node[graph,below right=1 and 1.1 of 11] (112) {\looponeedge{x}{b}{c}{y}};
   \node[above left=0 of 112.north east,inner sep=1] {$c_{112}$};
   
   \path (10) edge[->] (11)
         (11) edge[->] (111)
         (11) edge[->] (112);
-  
-  \node[graph,right=3.5 of 10] (20) {\onenode{x}};
+
+  \node[graph] (20) [right=4.5 of 10] {\onenode{x}};
   \node[left=0 of 20.west,inner sep=0] {$c_2$};
-  \node[graph,below left=of 20] (21) {\oneloop{x}{a}}; 
+  \node[graph,below=of 20] (21) {\oneedge{x}{b}{y}}; 
   \node[left=0 of 21.west,inner sep=0] {$c_{21}$};
-  \node[graph,below right=of 20] (22) {\oneedge{x}{b}{y}}; 
-  \node[right=0 of 22.east,inner sep=0] {$c_{21}$};
-  \node[graph,below=1.2 of 22] (221) {\onetwoedge{x}{b}{y}{c}{v}{c}{z}}; 
-  \node[above left=0 of 221.north east,inner sep=1] {$c_{221}$};
-  \node[graph,below=1.2 of 221] (2211) {\twoedge{x}{b}{y}{c}{z}}; 
-  \node[above left=0 of 2211.north east,inner sep=1] {$c_{2211}$};
-
-  \path (20) edge[->] (21)
-        (20) edge[->] (22)
-		(22) edge[->] (221)
-		(221) edge[->] node[left] {\mapping{v&z}} (2211);
-
-  \node[graph] [right=4.5 of 20] (30) {\onenode{x}};
-  \node[left=0 of 30.west,inner sep=0] {$c_3$};
-  \node[graph,below=of 30] (31) {\oneloopleft{x}{b}}; 
-  \node[left=0 of 31.west,inner sep=0] {$c_{31}$};
-  \node[graph,below left=1 and 1.1 of 31] (311) {\looponeedge{x}{b}{a}{y}};
-  \node[above right=0 of 311.north west,inner sep=1] {$c_{311}$};
-  \node[graph,below right=1 and 1.1 of 31] (312) {\looponeedge{x}{b}{c}{y}};
-  \node[above left=0 of 312.north east,inner sep=1] {$c_{312}$};
+  \node[graph,below left=1 and 1.1 of 21] (211) {\oneedgeloop{x}{b}{y}{a}};
+  \node[above right=0 of 211.north west,inner sep=1] {$c_{211}$};
+  \node[graph,below right=1 and 1.1 of 21] (212) {\twoedge{x}{b}{y}{c}{z}};
+  \node[above left=0 of 212.north east,inner sep=1] {$c_{212}$};
   
+  \path (20) edge[->] (21)
+        (21) edge[->] (211)
+        (21) edge[->] (212);
+  
+  \node[graph,right=3.5 of 20] (30) {\onenode{x}};
+  \node[left=0 of 30.west,inner sep=0] {$c_3$};
+  \node[graph,below left=of 30] (31) {\oneloop{x}{a}}; 
+  \node[left=0 of 31.west,inner sep=0] {$c_{31}$};
+  \node[graph,below right=of 30] (32) {\oneedge{x}{b}{y}}; 
+  \node[right=0 of 32.east,inner sep=0] {$c_{31}$};
+  \node[graph,below=1.2 of 32] (321) {\onetwoedge{x}{b}{y}{c}{v}{c}{z}}; 
+  \node[above left=0 of 321.north east,inner sep=1] {$c_{321}$};
+  \node[graph,below=1.2 of 321] (3211) {\twoedge{x}{b}{y}{c}{z}}; 
+  \node[above left=0 of 3211.north east,inner sep=1] {$c_{3211}$};
+
   \path (30) edge[->] (31)
-        (31) edge[->] (311)
-        (31) edge[->] (312);
+        (30) edge[->] (32)
+		(32) edge[->] (321)
+		(321) edge[->] node[left] {\mapping{v&z}} (3211);
 \end{tikzpicture}
 

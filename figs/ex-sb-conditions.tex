@@ -1,12 +1,29 @@
-\begin{tikzpicture}[on grid,scale=.8]
-  \node[graph] (10) {\onenode{x}};
-  \node (phi) [left=of 10] {$c_1:$};
+\begin{tikzpicture}[on grid,node distance=.8 and .7]
+  \node[graph] (00) {\onenode{x}};
+  \node[left=0 of 00.west] {$b_1'$};
+  \node[graph,below=of 00] (I-01) {\twonode{x}{x'}}; 
+  \node[graph,below=of I-01] (01) {\oneedge{x}{b}{x'}}; 
+  \node[graph,below left=of 01] (I-011) {\onenode{x}};
+  \node[graph,below=of I-011] (011) {\oneedge{x}{a}{y}};
+  \node[graph,below right=of 01] (I-012) {\onenode{x'}};
+  \node[graph,below=of I-012] (012) {\oneedge{x'}{c}{z}};
+  
+  \path
+    (I-01) edge[->] (00)
+    (I-01) edge[->] (01)
+	(I-011) edge[->] (01)
+	(I-011) edge[->] (011)
+    (I-012) edge[->] (01)
+    (I-012) edge[->] (012);
+  
+  \node[graph,right=3 of 00] (10) {\onenode{x}};
+  \node[left=0 of 10.west] {$b_1$};
   \node[graph,below=of 10] (I-11) {\onenode{x}}; 
-  \node[graph,below=of I-11] (11) {\oneedge{x}{b}{y}}; 
-  \node[graph,below left=of 11] (I-111) {\onenode{y}};
-  \node[graph,below=of I-111] (111) {\oneloop{y}{a}};
-  \node[graph,below right=of 11] (I-112) {\onenode{y}};
-  \node[graph,below=of I-112] (112) {\oneedge{y}{c}{z}};
+  \node[graph,below=of I-11] (11) {\oneloopleft{x}{b}}; 
+  \node[graph,below left=of 11] (I-111) {\onenode{x}};
+  \node[graph,below=of I-111] (111) {\oneedge{x}{a}{y}};
+  \node[graph,below right=of 11] (I-112) {\onenode{x}};
+  \node[graph,below=of I-112] (112) {\oneedge{x}{c}{z}};
   
   \path
     (I-11) edge[->] (10)
@@ -15,24 +32,41 @@
 	(I-111) edge[->] (111)
     (I-112) edge[->] (11)
     (I-112) edge[->] (112);
+  
+  \node[graph,right=3 of 10] (20) {\onenode{x}};
+  \node[left=0 of 20.west] {$b_2$};
+  \node[graph,below=of 20] (I-21) {\onenode{x}}; 
+  \node[graph,below=of I-21] (21) {\oneedge{x}{b}{y}}; 
+  \node[graph,below left=of 21] (I-211) {\onenode{y}};
+  \node[graph,below=of I-211] (211) {\oneloop{y}{a}};
+  \node[graph,below right=of 21] (I-212) {\onenode{y}};
+  \node[graph,below=of I-212] (212) {\oneedge{y}{c}{z}};
+  
+  \path
+    (I-21) edge[->] (20)
+    (I-21) edge[->] (21)
+	(I-211) edge[->] (21)
+	(I-211) edge[->] (211)
+    (I-212) edge[->] (21)
+    (I-212) edge[->] (212);
 
-  \node[graph,right=4 of 10] (20) {\onenode{x}};
-  \node (psi) [left=of 20] {$c_2:$};
-  \node[graph,below left=of 20] (I-21) {\onenode{x}}; 
-  \node[graph,below=of I-21] (21) {\oneloop{x}{a}}; 
-  \node[graph,below right=of 20] (I-22) {\onenode{x}}; 
-  \node[graph,below=of I-22] (22) {\oneedge{x}{b}{y}}; 
-  \node[graph,below=of 22] (I-221) {\onenode{y}}; 
-  \node[graph,below=of I-221] (221) {\spangraph{v}{c}{y}{c}{z}}; 
-  \node[graph,below=of 221] (I-2211) {\twonode{v}{z}}; 
-  \node[graph,below=of I-2211] (2211) {\onenode z}; 
+  \node[graph,right=3 of 20] (30) {\onenode{x}};
+  \node[left=0 of 30.west] {$b_3$};
+  \node[graph,below left=of 30] (I-31) {\onenode{x}}; 
+  \node[graph,below=of I-31] (31) {\oneloop{x}{a}}; 
+  \node[graph,below right=of 30] (I-32) {\onenode{x}}; 
+  \node[graph,below=of I-32] (32) {\oneedge{x}{b}{y}}; 
+  \node[graph,below=of 32] (I-321) {\onenode{y}}; 
+  \node[graph,below=of I-321] (321) {\spangraph{v}{c}{y}{c}{z}}; 
+  \node[graph,below=of 321] (I-3221) {\twonode{v}{z}}; 
+  \node[graph,below=of I-3221] (3221) {\onenode z}; 
 
-  \path (I-21) edge[->] (20)
-		(I-21) edge[->] (21)
-        (I-22) edge[->] (20)
-		(I-22) edge[->] (22)
-		(I-221) edge[->] (22)
-		(I-221) edge[->] (221)
-		(I-2211) edge[->] (221) 
-		(I-2211) edge[->] node[right] {$v\mapsto z$} (2211);
+  \path (I-31) edge[->] (30)
+		(I-31) edge[->] (31)
+        (I-32) edge[->] (30)
+		(I-32) edge[->] (32)
+		(I-321) edge[->] (32)
+		(I-321) edge[->] (321)
+		(I-3221) edge[->] (321) 
+		(I-3221) edge[->] node[right] {\mapping{v&z}} (3221);
 \end{tikzpicture}

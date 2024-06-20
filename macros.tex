@@ -17,10 +17,13 @@
   {\setboolean{fest}{false}\setboolean{full}{true}}
 
 \renewenvironment{proof}[1][of \lastresult]{%
-  \noindent
+  \begin{trivlist}\item
   \emph{Proof%
   \ifthenelse{\equal{#1}{}}{}{ #1}.}
-}{}
+}{
+  \end{trivlist}%
+  \noindent
+}
 
 \NewEnviron{fullorname}[1][\lastlabel]{%
   \iffest
@@ -120,6 +123,8 @@
 
 \newcommand{\degr}[1]{|{#1}|}
 \newcommand{\ccdots}{{\cdotp\mkern-2mu\cdotp\mkern-2mu\cdotp\mkern1mu}}
+\renewcommand{\to}{\rightarrow}
+\newcommand{\of}{\colon}
 
 % some more
 % renew because \cat define in mypaper.tex referenced by preample.sty 
@@ -137,11 +142,9 @@
 
 \newcommand{\dshift}[2]{#1{\downarrow_{#2}}}
 
-\newcommand{\pb}{\mathord{\downarrow}}
-\newcommand{\po}{\mathord{\uparrow}}
-
 % Letters and variables
 \newcommand{\Lab}{\mathsf{L}}
+\newcommand{\Var}{\mathsf{V}}
 
 \newcommand{\AB}[1]{\mathsf{AB}\if\relax\detokenize{#1}\relax\else(#1)\fi}
 \newcommand{\AC}[1]{\mathsf{AC}\if\relax\detokenize{#1}\relax\else(#1)\fi}
@@ -369,6 +372,7 @@
 \newcommand{\mygraph}[1]{%
   \renewcommand{\gl}[1]{\ensuremath{\scriptstyle{\mathsf{##1}}}}%
   \tikzset{n/.style={inner sep=1pt}}%
+  \tikzset{e/.style={inner sep=1pt,pos=.4}}%
   \begin{tikzpicture}[on grid,scale=.5,inner sep=2pt,baseline=(1.south)]
   \begin{scope}[node distance=8mm]
   #1
@@ -401,7 +405,7 @@
 % #2: loop label
 \newcommand{\oneloop}[2]{\mygraph{
 \node[n] (1) {$#1$};
-\path (1) edge [->,loop right] node {\gl{#2}} ();
+\path[e] (1) edge [->,loop right] node[right=.05] {\gl{#2}} ();
 }}
 
 % One-node graph with loop to the left
@@ -409,7 +413,7 @@
 % #2: loop label
 \newcommand{\oneloopleft}[2]{\mygraph{
 \node[n] (1) {$#1$};
-\path (1) edge [->,loop left] node {\gl{#2}} ();
+\path[e] (1) edge [->,loop left] node[left=.05] {\gl{#2}} ();
 }}
 
 % two-node graph with loop
@@ -420,8 +424,9 @@
 \newcommand{\twoloop}[4]{\mygraph{
 \node[n] (1) {$#1$};
 \node[n] (2) [right=of 1] {$#3$};
-\path (1) edge [->,bend left] node[near start,above] {\gl{#2}} (2)
-      (2) edge [->,bend left] node[near start,below] {\gl{#4}} (1);
+\path[e]
+  (1) edge [->,bend left] node[near start,above] {\gl{#2}} (2)
+  (2) edge [->,bend left] node[near start,below] {\gl{#4}} (1);
 }}
 
 % One-edge graph
@@ -431,7 +436,8 @@
 \newcommand{\oneedge}[3]{\mygraph{
 \node[n] (1) {$#1$};
 \node[n] (2) [right=of 1] {$#3$};
-\path (1) edge[->] node[above] {\gl{#2}} (2);
+\path[e]
+  (1) edge[->] node[above] {\gl{#2}} (2);
 }}
 
 % Edge + loop graph
@@ -442,8 +448,9 @@
 \newcommand{\oneedgeloop}[4]{\mygraph{
 \node[n] (1) {$#1$};
 \node[n] (2) [right=of 1] {$#3$};
-\path (1) edge[->] node[above] {\gl{#2}} (2)
-      (2) edge [->,loop right] node {\gl{#4}} ();
+\path[e]
+  (1) edge[->] node[above] {\gl{#2}} (2)
+  (2) edge [->,loop right] node[right=.05] {\gl{#4}} ();
 }}
 
 % Loop + edge graph
@@ -454,8 +461,9 @@
 \newcommand{\looponeedge}[4]{\mygraph{
 \node[n] (1) {$#1$};
 \node[n] (2) [right=of 1] {$#4$};
-\path (1) edge[->] node[above] {\gl{#3}} (2)
-      (1) edge [->,loop left] node {\gl{#2}} ();
+\path[e]
+  (1) edge[->] node[above] {\gl{#3}} (2)
+  (1) edge [->,loop left] node[left=.05] {\gl{#2}} ();
 }}
 
 % Serial two-edge graph
@@ -468,8 +476,9 @@
 \node[n] (1) {$#1$};
 \node[n] (2) [right=of 1] {$#3$};
 \node[n] (3) [right=of 2] {$#5$};
-\path (1) edge[->] node[above] {\gl{#2}} (2)
-      (2) edge[->] node[above] {\gl{#4}} (3);
+\path[e]
+  (1) edge[->] node[above] {\gl{#2}} (2)
+  (2) edge[->] node[above] {\gl{#4}} (3);
 }}
 
 % One edge followed by a split into two edges
@@ -485,9 +494,10 @@
 \node[n] (2) [right=of 1] {$#3$};
 \node[n] (3) [above right=.3 and 1 of 2] {$#5$};
 \node[n] (4) [below right=.3 and 1 of 2] {$#7$};
-\path (1) edge[->] node[above] {\gl{#2}} (2)
-      (2) edge[->] node[above] {\gl{#4}} (3)
-      (2) edge[->] node[below] {\gl{#6}} (4);
+\path[e]
+  (1) edge[->] node[above] {\gl{#2}} (2)
+  (2) edge[->] node[above] {\gl{#4}} (3)
+  (2) edge[->] node[below] {\gl{#6}} (4);
 }}
 
 % Span graph
@@ -500,8 +510,9 @@
 \node[n] (1) {$#1$};
 \node[n] (2) [right=of 1] {$#3$};
 \node[n] (3) [right=of 2] {$#5$};
-\path (1) edge[<-] node[above] {\gl{#2}} (2)
-      (2) edge[->] node[above] {\gl{#4}} (3);
+\path[e]
+  (1) edge[<-] node[pos=.6,above] {\gl{#2}} (2)
+  (2) edge[->] node[above] {\gl{#4}} (3);
 }}
 
 % Cospan graph
@@ -514,6 +525,7 @@
 \node[n] (1) {$#1$};
 \node[n] (2) [right=of 1] {$#3$};
 \node[n] (3) [right=of 2] {$#5$};
-\path (1) edge[->] node[above] {\gl{#2}} (2)
-      (2) edge[<-] node[above] {\gl{#4}} (3);
+\path[e]
+  (1) edge[->] node[above] {\gl{#2}} (2)
+  (2) edge[<-] node[pos=.6,above] {\gl{#4}} (3);
 }}
