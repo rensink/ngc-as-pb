@@ -336,12 +336,12 @@ If $m$ is complete and $g\sat c$, then let $p^c_j$ be the responsible branch and
 Given the number of possible forward and backward shifters we identified, there is a lot of choice within the concept of a morphism, possibly making them complex to reason about. However, we now set about showing that, in an important sense, it is enough to consider only direct forward-shift morphisms. To make this statement precise, we introduce the notion of \emph{provable entailment}.
 %
 \begin{definition}[provable entailment/equivalence]\dlabel{provable}
-\emph{Provable entailment}, denoted $\pentails$, is the smallest partial order\todo{AC: preorder?} such that for all sb-conditions $b,c$:
+\emph{Provable entailment}, denoted $\pentails$, is the smallest preorder such that for all sb-conditions $b,c$:
 \begin{itemize}[topsep=\smallskipamount]
 \item If there is a direct forward-shift morphism $m:b\to c$, then $b\pentails c$;
 \item If there is a complete direct forward-shift morphism $m:b\to c$, then $c\pentails b$.
 \end{itemize}
-\emph{Provable equivalence}, denoted $\pequiv$, is defined as ${\pequiv}=({\pentails}\cap{\pentailedby})^*$.\todo{AC: is * necessary?}
+\emph{Provable equivalence}, denoted $\pequiv$, is defined as ${\pequiv}=({\pentails}\cap{\pentailedby})^*$.\todo{AC: is * necessary? AR: The alternative is to say that $\pequiv$ is the smallest equivalence subsuming the intersection.}
 \end{definition}
 %
 The following is a property that we will need in the proof below.
@@ -356,7 +356,7 @@ Let $b,c$ be sb-conditions with $|b|=|c|$ and $s^b_i=s^c_i$ for all $1\leq i\leq
 %
 \begin{proof}\todo{AR: added AC: I'm not convinced... :-( AR: extended}
 Each $b_i\pentails c_i$ follows from the transitive closure of a sequence of primitive steps (i.e., one of the two cases of \dcite{provable}). It therefore suffices to prove that, if \emph{a single} $p_i\pentails c_i$ is due to the existence of either
-\begin{enumerate*}[label=(roman*)]
+\begin{enumerate*}[label=(\roman*)]
 \item a forward [backward] shift morphism $m_i:b_i\to c_i$ or
 \item a complete forward [backward] shift morphism $c_i\to b_i$,
 \end{enumerate*}
@@ -372,7 +372,7 @@ For both cases of the proof, let $m_j=\id_{b_j}$ for $j\leq i$, and let
 %
 \[ m = (\id_{[1,w]}((\id_{P^b_1},m_1)\ccdots (\id_{P^b_w},m_w)) \]
 %
-\begin{enumerate}[label=(roman*)]
+\begin{enumerate}[label=(\roman*)]
 \item In this case, each $m_j$ (for $1\leq j\leq w$) is a forward [backward] morphism from $b_j$ to $c_j$; hence $m$ is a morphism from $c$ to $b$.\todo{AR: This uses the ``fact" that identity morphisms are both complete backward and complete backward shift morphisms. Should we state that explicitly?}
 
 \item In this case, each $m_j$ (for $1\leq j\leq w$) is a complete morphism from $c_j$ to $b_j$; hence $m$ is a complete morphism from $c$ to $c$.
@@ -442,7 +442,7 @@ c''=\;&(B,(s^c_{o(1)},c'_{o(1)})\ccdots (s^c_{o(w)},c'_{o(w)})\,p^c_{j_1}\ccdots
 c'''=\;&(B,(s^c_{o(1)},c_{o(1)})\ccdots (s^c_{o(w)},c_{o(w)})\,p^c_{j_1}\ccdots p^c_{j_n}) \enspace.
 \end{align*}
 \begin{itemize}
-\item $c'\pequiv c''$ because the identity morphism $\id_{c'}$ is a direct complete forward-shift morphism from $c'$ to $c''$ due to $(s^c_{o(i)},\dF v(\cB(s^c_{o(i)})))\in \ccP_\id$ \todo{AC: this also looks switched wrt Lemma 4.18.} for all $1\leq i\leq w$ (see \lcite{BF});
+\item $c'\pequiv c''$ because the identity morphism\todo{AR: in fact we're using the mathematical object $\id_{c''}$, but not as an identity morphism - how should we present this?} $\id_{c''}$ is a direct complete forward-shift morphism from $c''$ to $c'$ due to $(\dF v(\cB(s^c_{o(i)})),s^c_{o(i)})\in \ccP_\id$ \todo{AC: this also looks switched wrt Lemma 4.18. AR: yes, but that just means the morphism goes in the opposite direction} for all $1\leq i\leq w$ (see \lcite{BF});
 \item $c''\pequiv c'''$ due to \lcite{pequiv}, given that $c'_{o(w)}\pequiv c_{o(w)}$ for all $1\leq i\leq w$; 
 \item $c'''\pequiv c$ because $m'=(o',(\id_{P^c_1},\id_{c_1})\ccdots (\id_{P^c_{|c|}},\id_{c_{|c|}}))$ with $o'=o^m\cup\setof{(w+i,j_i) \mid 1\leq i\leq n}$ is a direct complete forward-shift morphism from $c'''$ to $c$.
 \qed
@@ -451,16 +451,16 @@ If $m$ is complete, then so is $\bar m$, because in that case $n=0$ (there are n
 \end{enumerate}
 \end{proof}
 %
-\begin{lemma}\llabel{BF}
+\begin{lemma}\llabel{BF}\todo{AR: statement repaired, proof to be done}
 Let $v:A\to B$ be an arrow.
 \begin{enumerate}[topsep=\smallskipamount]
-\item For any forward span source shifter $\cF$ for $v$ and any $A$-sourced span $s$, $(\cF(s),\dF v(s))\in \cP_\id$.
+\item For any forward span source shifter $\cF$ for $v$ and any $A$-sourced span $s$, $(\dF(s),\cF v(s))\in \ccP_\id$.
 \item For any backward span source shifter $\cB$ for $v$ and any $B$-sourced span $s$, $(\dF v(\cB(s)),s)\in \ccP_\id$.
 \end{enumerate}
 \end{lemma}
 %
 \begin{proof}
-We prove both clauses for elementary shifters (i.e., of the form $\rF v x$, $\dF v$, $\rB v x$ or $\dB v$); the case for arbitrary shifters then follows from \asscite{sb-shifters} in combination with \pref{sb-shifters compose} and \pref{pattern shift} (clauses \ref{pattern-transitive} and \ref{conservative-transitive}). Let $v:A\to B$ be an arrow.
+We prove both clauses for elementary shifters (i.e., of the form $\rF v x$, $\dF v$, $\rB v x$ or $\dB v$); the case for arbitrary shifters then follows from \asscite{sb-shifters} in combination with \pcite{sb-shifters compose} (clause \ref{pattern-transitive}) and \pcite{pattern shift} (clause \ref{conservative-transitive}). Let $v:A\to B$ be an arrow.
 \begin{enumerate}[topsep=\smallskipamount]
 \item We only need to show this for $\rF v x$ (where $x;v=\id_B$). Let $s=\spanof u d$, $\rF v x=s_1=\spanof{u_1}{d_1}$ and $\dF v(s)=s_2=\spanof{u_2}{d_2}=\spanof{u;v}{d}$. Now $k=x'$ as in \fcite{sb-source shifters} shows $(s_1,s_2)\in \cP_\id$ according to \eqcite{pattern shift}.
 
