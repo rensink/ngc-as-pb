@@ -129,7 +129,7 @@ This gives rise to the following four candidate shifters for $v:A\to B$ (which s
 \rB v x& : s \mapsto \spanof{x}{\id_B}\spcomp s \text{ where $x;v=\id_A$}
 \end{align*}
 %
-These are visualised in \fcite{sb-source shifters} (in a simplified construction that omits the intermediate steps of the span composition where possible). We call $\dF v$ and $\dB v$ \emph{direct} and $\rF v x$ and $\rB v x$ \emph{retraction-based}. It turns out that, indeed, each of these four options gives rise to a valid shifter, and the direct ones are complete.
+These are visualised in \fcite{sb-source shifters} (in a simplified construction that omits the intermediate steps of the span composition where possible). We call $\dF v$ and $\dB v$ \emph{direct} and $\rF v x$ and $\rB v x$ \emph{split}. It turns out that, indeed, each of these four options gives rise to a valid shifter, and the direct ones are complete.
 %
 \begin{figure}[t]
 \centering
@@ -213,7 +213,7 @@ Let $t:A\to B,v:B\to C$ be arrows; then
 \end{lemma}
 \end{comment}
 %
-We call the span source and root shifters of the shape $\dF v$, $\rF v x$, $\dB v$, $\rB v x$ and $\cI_{A,B}$ \emph{elementary}. It is not the case that every span shifter is elementary; e.g., $\dF{v_1};\rF{v_2}{x_2}$ is in general not equal to $\dF v$ or $\rF v x$ for any $x$. However, for the remainder of this paper we will restrict ourselves to span shifters that are at least \emph{composed} from elementary ones, in the following sense:
+We call the span source and root shifters of the shape $\dF v$, $\rF v x$, $\dB v$, $\rB v x$ and $\cI_{A,B}$ \emph{elementary}. It is not the case that every span shifter is elementary; e.g., $\dF{v_1};\rF{v_2}{x_2}$ is in general not equal to $\dF{v_1;v_2}$ or to $\rF{v_1;v_2} x$ for any $x$. However, for the remainder of this paper we will restrict ourselves to span shifters that are at least \emph{composed} from elementary ones, in the following sense:
 
 \begin{assumption}\asslabel{sb-shifters} Let $\cS$ be a span root shifter for $v$.
 \begin{itemize}[topsep=\smallskipamount]
