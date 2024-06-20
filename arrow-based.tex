@@ -47,19 +47,21 @@ Note that, as a consequence of the inductive nature of \dcite{ab-condition}, eve
 \fcite{ab-conditions} depicts three arrow-based conditions, rooted in the discrete one-node graph \inline{\onenode x}. According
 to the notion of satisfacion introduced below, assuming that we already know the image of $x$ in a graph, the properties can be expressed as follows in FOL:
 \begin{itemize}
-\item $c_1$ encodes $\exists y\st \lb(x,y) \wedge \neg \la(y,y)\wedge \neg \exists z\st \lc(y,z)$ 
-\item $c_2$ encodes $\la(x,x)\vee (\exists y\st \lb(x,y) \wedge \forall v,z\st \lc(y,v)\wedge \lc(y,z) \rightarrow v=z)$
-\item $c_3$ encodes $\lb(x,x)\wedge \nexists y\st(\la(x,y)\vee \lc(x,y))$
+\item $c_1$ is equivalent to $\lb(x,x)\wedge \nexists y\st(\la(x,y)\vee \lc(x,y))$
+\item $c_2$ is equivalent to $\exists y\st \lb(x,y) \wedge \neg \la(y,y)\wedge \neg \exists z\st \lc(y,z)$ 
+\item $c_3$ is equivalent to $\la(x,x)\vee (\exists y\st \lb(x,y) \wedge \forall v,z\st \lc(y,v)\wedge \lc(y,z) \rightarrow v=z)$
 \end{itemize}
+%
+Note that we have used variable names to represent nodes, to make the connection to the corresponding FOL properties more immediately understandable. The arrows are in all cases implied by the graph structure and variable names.
+\qed
+\end{example}
+
 \begin{figure}[t]
-\begin{center}
+\centering
 \input{figs/ex-ab-conditions}
-\end{center}
 \caption{Examples of arrow-based conditions (see \excite{ab-conditions})}
 \flabel{ab-conditions}
 \end{figure}
-Note that we have used variable names to represent nodes, to make the connection to the corresponding FOL properties more immediately understandable. The arrows are in all cases implied by the graph structure and variable names.
-\end{example}
 
 \subsection{Satisfaction}
 
@@ -79,12 +81,12 @@ Based on the notion of satisfaction, we also define \emph{semantic entailment} $
 %
 \begin{align*}
 b \entails c & \text{ if for all arrows $g$: } g\sat b \text{ implies } g\sat c \\
-b \equiv c & \text{ if for all arrows $g$: } g\sat b \text{ if and only if } g\sat c 
+b \equiv c & \text{ if for all arrows $g$: } g\sat b \text{ if and only if } g\sat c \enspace. 
 \end{align*}
 
 \begin{example}\exlabel{ab-satisfaction}
 Let us consider some models for the ab-conditions in \fcite{ab-conditions}.
-\begin{itemize}
+\begin{itemize}[topsep=0pt]
 \item Let $G_1=\myinlinegraph{
 \node (1) {$\bullet$};
 \node (2) [right=of 1] {$\bullet$};
@@ -92,7 +94,7 @@ Let us consider some models for the ab-conditions in \fcite{ab-conditions}.
       (2) edge[bend left=20,->] node[near start,below] {\lb} (1)
 	  (1) edge[loop left,->] node[left] {\lc} (1);
 }$
-and let $g$ be the arrow from the one-node discrete graph \inline{\onenode x} to the left-hand node of $G_1$. It follows that $g\sat c_1$: the witness $h$ (for $c_{11}$) maps $y$ to the right-hand node of $G_1$. $h$ does not satisfy the subconditions of $c_{11}$ because it cannot be extended with either the $\la$-loop specified by $c_{111}$ or the outgoing $\lc$-edge specified by $c_{112}$. Similarly, $g\sat c_2$, but on the other hand $g\nsat c_3$ because there is no witness for $c_{31}$ ($G_1$ does not have the required $\lb$-loop).
+and let $g$ be the arrow from the one-node discrete graph \inline{\onenode x} to the left-hand node of $G_1$. It is clear that $g\nsat c_1$ because there is no witness for $c_{11}$ ($G_1$ does not have the required $\lb$-loop). However, we have $g\sat c_2$: the witness $h$ (for $c_{21}$) maps $y$ to the right-hand node of $G_1$. $h$ does not satisfy the subconditions of $c_{21}$ because it cannot be extended with either the $\la$-loop specified by $c_{211}$\todo{AR: In this discussion we use the $c_{??}$ for both the (sub)conditions and their roots. Alternatively, and more precisely, we could use $R^{c_{??}}$ for the latter. Your preference?} or the outgoing $\lc$-edge specified by $c_{212}$. Similarly, $g\sat c_3$.
 
 \item Let $G_2=\myinlinegraph{
 \node (1) {$\bullet$};
@@ -103,15 +105,16 @@ and let $g$ be the arrow from the one-node discrete graph \inline{\onenode x} to
 	  (1) edge[loop left,->] node[left] {\la} (1)
       (2) edge[->] node[above] {\lc} (3);
 	  }$
-and let $g,g',g''$ be the three arrows from \inline{\onenode x} to $G_2$. We have $g\nsat c_1$, $g'\nsat c_1$ and $g''\nsat c_1$: the first two have witnesses for $c_{11}$ but are ruled out by either $c_{11}$ (in the case of $g$) or $c_{12}$ (in the case of $g'$), whereas the third does not even have a witness for $c_{11}$. Instead, both $g\sat c_2$ (in fact there are two distinct witnesses, one for $c_{21}$ and one for $c_{22}$) and $g'\sat c_2$ (due to $c_{22}$), but again $g''\nsat c_2$. None of the models satisfy $c_3$.
+and let $g,g',g''$ be the three arrows from \inline{\onenode x} to $G_2$. None of these models satisfy $c_1$, for the same reason as above. Moreover, none satisfy $c_2$: though $g$ and $g'$ have witnesses for $c_{21}$, these are ruled out by either $c_{211}$ (in the case of $g$) or $c_{212}$ (in the case of $g'$); $g''$ not even have a witness for $c_{21}$. Instead, both $g\sat c_3$ (in fact there are two distinct witnesses, one for $c_{31}$ and one for $c_{32}$) and $g'\sat c_2$ (due to $c_{32}$); but again $g''\nsat c_3$.
 
-\item If $G_3=\inline{\oneloopleft \bullet b}$, then the only arrow $g$ from \inline{\onenode x} to $G_3$ has $g\sat c_1$, $g\sat c_2$ and $g\sat c_3$. In general, it can be checked that every model of $c_3$ is also a model of $c_2$ and a model of $c_1$, thus $c_3 \entails c_2$ and $c_3 \entails c_1$. Instead, for example, $c_2 \nsat c_1$ as shown by morphism $g$ of the previous point. 
+\item If $G_3=\inline{\oneloopleft \bullet b}$, then the only arrow $g$ from \inline{\onenode x} to $G_3$ has $g\sat c_1$, $g\sat c_2$ and $g\sat c_3$. 
 \end{itemize}
+In general, it can be checked that every model of $c_1$ is also a model of $c_2$ and every model of $c_2$ a model of $c_3$, thus $c_1\entails c_2$ and $c_2 \entails c_3$. On the other hand, $c_2\nsat c_1$ as shown by $g:\inline{\onenode x}\to G_1$, and $c_3 \nsat c_2$ as shown by $g:\inline{\onenode x}\to G_2$.\qed
 \end{example}
 
 \subsection{Connection to first-order logic}
 
-It has been shown (e.g., \cite{Rensink-FOL,Habel-FOL}) that every first-order logic (FOL) formula can be encoded as an arrow-based nested condition over $\Graph$. For the sake of completeness, we summarise the construction here.\todo{AC: not if not full: add precise reference} We restrict to binary predicates, which we take from the set of edge labels $\Lab$.
+It has been shown (e.g., \cite{Rensink-FOL,Habel-FOL}) that every first-order logic (FOL) formula can be encoded as an arrow-based nested condition over $\Graph$ and vice versa. For the sake of completeness, we summarise the connection here. We restrict to binary predicates, which we take from the set of edge labels $\Lab$. For the purpose of this discussion, w.l.o.g.\ we assume that graph nodes are variables, taken from $\Var$.
 
 The syntax of FOL that we will use in the following is given by the grammar
 %
@@ -124,11 +127,19 @@ The syntax of FOL that we will use in the following is given by the grammar
 		\:\mid\: \neg\phi_1
 		\:\mid\: \exists \bar x\st \phi_1 
 		\]
-where the $x_i$ are variables (say from some set $X$), $\bar x\in X^*$ is a finite sequence of variables and $\la$ is a binary predicate. We also use the concept of \emph{free variables} of $\phi$, denoted $\fv(\phi)$, inductively defined in the usual way.\todo{Formulate the connection between FOL and ab-conditions}
+where the $x_i$ are variables (from $\Var$), $\bar x\in \Var^*$ is a finite sequence of variables and $\la$ is a binary predicate. We also use the concept of \emph{free variables} of $\phi$, denoted $\fv(\phi)$, inductively defined in the usual way.
+
+Just as for conditions, the semantics of FOL is defined through a notion of satisfaction; however, the models are not arbitrary arrows in $\Graph$ but \emph{valuations} that map variables to the nodes of a graph. Such a valuation can be seen as an arrow from the discrete graph with node set $X\subseteq \Var$, here denoted $D_X$. Hence, the models of a formula $\phi$ are arrows $v:D_X\to G$ (for some $X\supseteq \fv(\phi)$ and some graph $G$) such that $v\sat\phi$. For an arbitrary graph $A$ with node set $X_A$, let $v_A:D_{X_A}\to A$ map the discrete graph over $X_A$ to $R$.
+
+Theorems 1 and~3 of \cite{Rensink-FOL} state that
+\begin{enumerate*}[label=\emph{(\roman*)}]
+\item for every arrow-based condition $c$ there exists a formula $\phi_c$ such that $g\sat c$ iff $v_R;g\sat \phi_c$ for any arrow $g:R\to G$; and
+
+\item for every FOL-formula $\phi$, there is an arrow-based condition $c_\phi$ with $R^{c_\phi}=D_{\fv(\phi)}$ such that $v\sat \phi$ iff $v\sat c_\phi$ for any valuation $v:D_{\fv(\phi)}\to G$.
+\end{enumerate*}
 
 \iffull
-As for conditions, the semantics of FOL is defined through a notion of satisfaction; however, the models are not arbitrary arrows in $\Graph$ but \emph{valuations} that map the free variables to the nodes of a graph. Such a valuation can be seen as an arrow from the discrete graph with node set $X$, which for the purpose of this discussion we will denote $D_X$. Hence, the models of a formula $\phi$ are arrows $v:D_X\to G$ (for some graph $G$) such that $v\sat\phi$.
-
+\todo[inline]{The story is currently not complete!}
 This means that there is a technical hurdle: the models of a FOL formula are arrows from the discrete graph consisting of its free variables, whereas the models of a nested condition are arrows from their root, which can be an arbitrary graph. To overcome this hurdle, we will introduce the auxiliary notion of a \emph{context} in which a formula is evaluated, essentially consisting of already known facts (reflecting the role of the root object of a condition). In order to define contexts, we first identify a fragment of FOL with a strong relation to graphs.
 
 \begin{itemize}
