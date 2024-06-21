@@ -257,7 +257,7 @@
   \savelabel{\thname{#1}}%
 }
 \newcommand{\thref}[1]{\ref{\thname{#1}}}
-\newcommand{\thcite}[1]{Th.~\thref{#1}}
+\newcommand{\thcite}[1]{Theorem~\thref{#1}}
 
 % For lemmas
 \newcommand{\lprf}{lem}
@@ -274,7 +274,7 @@
 \newcommand{\sname}[1]{\sprf:#1}
 \newcommand{\slabel}[1]{\savelabel{\sname{#1}}}
 \newcommand{\sref}[1]{\ref{\sname{#1}}}
-\newcommand{\scite}[1]{Sec.~\sref{#1}}
+\newcommand{\scite}[1]{Section~\sref{#1}}
 
 % For assumptions
 \newcommand{\aprf}{app}
@@ -326,7 +326,16 @@
    draw=white,
    double=black}}
 \tikzset{morphism/.style={
-   draw=brown!50!black,color=brown!50!black}}
+   color=brown!90!black,
+   draw=brown!90!black,
+}}
+\tikzset{medge/.add style={
+   line width=.8pt,
+   double distance=0.4pt,
+   double=brown!90!black,
+   draw=white,
+   >/.tip={Latex[color=brown!90!black,scale=.5]}
+}}
 \tikzset{over/.style={
    line width=.8pt,
    double distance=0.4pt,

@@ -10,13 +10,7 @@ The underlying principle for a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ 
 \subsection{Root shifting}
 \slabel{shift-morphisms}
 
-In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}%
-\iffest
-. The
-\else
-, which will later\todo{AR: Add link to where this is done?} turn out to be a functor between categories of conditions over different roots. For now, we note that the
-\fi
-purpose of root shifters is to relate the models of a condition $b\in \AC(A)$$ to those of a condition $c\in \AC(B)$, given an arrow $v:A\to B$ between their roots (the existence of which implies that the model sets are typically disjoint). To be more precise, we will require that \emph{every $v$-prefixed model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
+In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}, which will later\todo{AR: Add link to where this is done} turn out to be a functor between categories of conditions over different roots. For now, we note that the purpose of root shifters is to relate the models of a condition $b\in \AC(A)$ to those of a condition $c\in \AC(B)$, given an arrow $v:A\to B$ between their roots (the existence of which implies that the model sets are typically disjoint). To be more precise, we will require that \emph{every $v$-prefixed model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
 
 This can be achieved in essentially two ways, both on the basis of $v$: by constructing $c$ from $b$ (which we will call \emph{forward shifting}) or by constructing $b$ from $c$ (which we will call \emph{backward shifting}).
 
@@ -264,7 +258,7 @@ Suppose (ad absurdum) that $v_i ;h \sat c_{o(i)}$. Then by the induction hypothe
 \end{proof}
 \end{fullorname}
 
-\begin{example}
+\begin{example}\exlabel{ab-morphisms}
 Going back to \fcite{ab-conditions}, though (as noted before) $c_1\entails c_2$, there does not exist a morphism $m\of c_1\to c_2$. A mapping $v_1$ does exist from $c_{21}$ to $c_{11}$; however, no mapping $v_{11}$ can be found to $c_{211}$ from either $c_{111}$ or $c_{112}$, nor a mapping $v_{12}$ to $c_{212}$.
 
 On the other hand, $c_2\entails c_3$ has evidence in the form of a morphism $m\of c_2\to c_3$, with the identity mapping $v_1\of c_{31}$ to $c_{21}$ (in combination with either the forward shifter $\cF_{v_1}^{v_1}$ or the backward shifter $\cB_{v_1}$) and a corresponding sub-morphism $m_1$ with mapping $v_{12}:c_{212}\to c_{321}$ (in combination with the trivial root shifter).

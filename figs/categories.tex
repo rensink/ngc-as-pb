@@ -1,4 +1,5 @@
 \begin{tikzpicture}[on grid,node distance=1.8 and 2.5]
+\renewcommand{\thcite}[1]{Th.~\thref{#1}}
 \node (AC-entails) {$\ABC^{\entails}$};
 \node[below=2 of AC-entails] (SC-entails) {$\SBC^{\entails}$};
 \node[below=of SC-entails] (SC-equiv) {$\SBC^{\equiv}$};
@@ -18,18 +19,18 @@
                    node[left,pos=.65] {(\thcite{ab-to-sb functors})}  (SC-f)
   (SC-fo) edge[->] node[left,pos=.65] {$\cN$}
                    node[left,pos=.35] {(\thcite{ab-to-sb functors})}  (SC-f)
-  (AC-entails.south west) edge[->]
+  (AC-entails.230) edge[->]
                    node (N) {}
                    node[left,pos=.35] {$\cN$}
-                   node[left,pos=.65] {(\thcite{ab-to-sb functors})} (SC-entails.north west)
-  (SC-entails.north east) edge[->] 
+                   node[left,pos=.65] {(\thcite{ab-to-sb functors})} (SC-entails.130)
+  (SC-entails.50) edge[->] 
                    node (A) {}
                    node[right,pos=.65] {$\cA$} 
-                   node[right,pos=.35] {(\thcite{sb-to-ab functor})} (AC-entails.south east)
+                   node[right,pos=.35] {(\thcite{sb-to-ab functor})} (AC-entails.310)
   (SC-equiv) edge[->] (SC-entails)
   (AC-b) edge[->]  node[right,pos=.35] {$\cN$}
                    node[right,pos=.65] {(\thcite{ab-to-sb functors})} (SC-b);
 				   
 \path
-  (A) node {$\cong$} (N);
+  (A) edge[none] node {$\cong$} (N);
 \end{tikzpicture}

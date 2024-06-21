@@ -58,8 +58,8 @@
   \node[graph,below=of I-32] (32) {\oneedge{x}{b}{y}}; 
   \node[graph,below=of 32] (I-321) {\onenode{y}}; 
   \node[graph,below=of I-321] (321) {\spangraph{v}{c}{y}{c}{z}}; 
-  \node[graph,below=of 321] (I-3221) {\twonode{v}{z}}; 
-  \node[graph,below=of I-3221] (3221) {\onenode z}; 
+  \node[graph,below=of 321] (I-3211) {\twonode{v}{z}}; 
+  \node[graph,below=of I-3211] (3211) {\onenode z}; 
 
   \path (I-31) edge[->] (30)
 		(I-31) edge[->] (31)
@@ -67,6 +67,28 @@
 		(I-32) edge[->] (32)
 		(I-321) edge[->] (32)
 		(I-321) edge[->] (321)
-		(I-3221) edge[->] (321) 
-		(I-3221) edge[->] node[right] {\mapping{v&z}} (3221);
+		(I-3211) edge[->] (321) 
+		(I-3211) edge[->] node[right] {\mapping{v&z}} (3211);
+
+  \path
+    ($(10)+(-.2,-4)$) edge[->,bend left=50,dotted] node[below] {$m$} ($(00)+(0,-4)$)
+    ($(10)+(.2,-4)$) edge[->,bend right=50,dotted] node[below] {$m'$} ($(20)+(-.2,-4)$)
+    ($(20)+(.2,-4)$) edge[->,bend right=50,dotted] node[below] {$m''$} ($(30)+(-.2,-4)$);
+	
+  \path[morphism]
+    (01) edge[morphism,->] (11)
+	(111) edge[morphism,bend left=30,->] (011)
+	(112) edge[morphism,bend left=30,->] (012)
+	;
+	
+  \path[morphism]
+    (21) edge[morphism,|->] (11)
+	(111) edge[morphism,bend right=30,->] (211)
+	(112) edge[morphism,bend right=30,->] (212)
+	;
+	
+  \path
+    (32) edge[morphism,bend left=20,->] (21)
+	(212) edge[morphism,bend right=30,->] (321)
+	;
 \end{tikzpicture}

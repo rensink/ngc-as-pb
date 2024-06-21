@@ -37,17 +37,19 @@ In the span $\spanof u d$ of a branch $p=(\spanof u d,c)$, $u$ stands for the \e
    \flabel{sb-satisfaction}}
   [.45\textwidth]
   {\input{figs/sb-satisfaction}}
+\vspace*{-2mm}
 \caption{Visualisations for span-based conditions}
 \end{figure}
 %
-As we will see later,\todo{Add ref to section} we can reconstruct an arrow-based condition from a span-based one.
+As we will see in \sref{categories}, we can reconstruct an arrow-based condition from a span-based one.
 
-As an example of span-based conditions, \fcite{sb-conditions} shows counterparts for the three arrow-based conditions in \fcite{ab-conditions}: both $b_1$ and $b_1'$ are equivalent to $c_1$ (which is rather non-obvious in the case of $b_1'$), whereas $b_2$ is equivalent to $c_2$ and $b_3$ to $c_3$.
+As examples of span-based conditions, \fcite{sb-conditions} shows counterparts for the three arrow-based conditions in \fcite{ab-conditions}: both $b_1$ and $b_1'$ are equivalent to $c_1$ (which is rather non-obvious in the case of $b_1'$), whereas $b_2$ is equivalent to $c_2$ and $b_3$ to $c_3$.
 
 \begin{figure}[t]
 \centering
 \input{figs/ex-sb-conditions}
-\caption{Span-based conditions corresponding to \fcite{ab-conditions}}
+\vspace*{-5mm}
+\caption{Span-based conditions corresponding to \fcite{ab-conditions}. The dotted arrows indicate forward-shift morphisms (see \excite{sb-morphisms}), with component mappings in brown.}
 \flabel{sb-conditions}
 \end{figure}
 
@@ -371,9 +373,13 @@ If $m$ is complete and $g\sat c$, then let $p^c_j$ be the responsible branch and
 \end{proof}
 \end{fullorname}
 %
+\begin{example}\exlabel{sb-morphisms}
+For the span-based conditions in \fcite{sb-conditions}, we have a complete forward-shift morphism $m:b_1\to b_1'$, providing evidence that $b_1\equiv b_1'$; moreover, there are also morphisms $m':b_1\to b_2$ and $m'':b_2\to b_3$. All the required morphism arrows are already shown in the figure. Note that, in \excite{ab-morphisms}, we observed that there does \emph{not} exist an arrow-based morphism from $c_1$ to $c_2$; hence the existence of a span-based morphism between the equivalent $b_1$ and $b_2$ is concrete evidence for our claim, in \scite{categories} below, that the structure of span-based morphisms allows a richer relation between them.\todo{AR: check wording}
+\end{example}
+%
 We now once more return to the level of categories, using the exact same constructions for identity morphisms and morphism composition as in the arrow-based case (see \eqref{morphism composition} and \eqref{id-morphism}).
 \iffull
-To repeat, if $b,c,e$ are sb-conditions and $m:b\to c,n:c\to e$ are sb-morphisms with $|b|=w$:
+To repeat, if $b,c,e$ are sb-conditions and $m\of b\to c,n\of c\to e$ are sb-morphisms with $|b|=w$:
 %
 \begin{align*}
 \id_b & = (\id_{[1,w]},(\id_{P^b_1},\id_{b_1})\cdots
@@ -384,8 +390,8 @@ m;n & = (o^m;o^n, (v^n_{o^m(1)};v^m_1,n_{o^m(1)};m_1)\cdots
 %
 The next lemma lifts \lcite{ab-morphisms compose} to sb-morphisms and extends it with the notion of completeness.
 
-\begin{lemma}\llabel{sb-morphisms compose}
-Let $b,c,e$ be span-based conditions and $m:b\to c,n:c\to e$ span-based condition morphisms.
+\begin{lemma}[identities and composition of sb-morpisms]\llabel{sb-morphisms compose}
+Let $b,c,e$ be span-based conditions and $m\of b\to c,n\of c\to e$ span-based condition morphisms.
 \begin{enumerate}[topsep=\smallskipamount]
 \item $\id_b$ is both a complete forward- and a complete backward-shift morphism from $b$ to $b$;
 \item If $m$ and $n$ are [complete] forward-shift morphisms, then $m;n$ is a [complete] forward-shift morphism from $c$ to $e$;
@@ -393,28 +399,30 @@ Let $b,c,e$ be span-based conditions and $m:b\to c,n:c\to e$ span-based conditio
 \end{enumerate}
 \end{lemma}
 \else
-As in the case of ab-conditions (\lcite{ab-morphisms compose}), identities and morphism composition have the expected properties. In fact, also complete forward-shift morphisms compose, but (surprisingly, at least according to us) backward-shift complete morphisms do not. This gives rise to a statement analogous to \thcite{ab-categories}.
+As in the case of ab-conditions (\lcite{ab-morphisms compose}), identities and morphism composition have the expected properties. In fact, also complete forward-shift morphisms compose, but (surprisingly, at least in our view) backward-shift complete morphisms do not.
 \fi
+We can therefore lift and extend \thcite{ab-categories} to the span-based case.
 
 \begin{theorem}[categories of span-based conditions]\thlabel{sb-categories}
 Consider the following categories having sb-conditions as objects and different arrows: 
-$\SBC^\forw$ with forward-shift morphims, $\SBC^{\back}$ with backward-shift morphisms, $\SBC^{\forw{\circ}}$ with complete forward-shift morphisms, $\SBC^{\entails}$ with the preorder of semantic entailment, and $\SBC^\equiv$ with the preorder (actually, an equivalence) of semantic equivalence. These are well-defined, and there are identity-on-objects functors $\SBC^\forw \to \SBC^{\entails}$, $\SBC^\back \to \SBC^{\entails}$ and $\SBC^{\forw{\circ}} \to \SBC^{\equiv}$.
+$\SBC^\forw$ with forward-shift morphims, $\SBC^{\back}$ with backward-shift morphisms, $\SBC^{\forw{\circ}}$ with complete forward-shift morphisms, $\SBC^{\entails}$ with the preorder of semantic entailment, and $\SBC^\equiv$ with the preorder (actually, equivalence) of semantic equivalence. These are well-defined, and there are identity-on-objects functors $\SBC^\forw \to \SBC^{\entails}$, $\SBC^\back \to \SBC^{\entails}$ and $\SBC^{\forw{\circ}} \to \SBC^{\equiv}$.
 \end{theorem}
 
 \subsection{From arrow-based to span-based and back}
+\slabel{categories}
 
-Span-based conditions are richer in morphisms than arrow-based conditions, but not richer in semantics. In this subsection we show the existence of full and faithful, semantics-preserving functor from the categories of forward- and backward-shift arrow-based conditions to their span-based counterparts, as well as equivalence of the entailment-based categories.
+Span-based conditions are richer in morphisms than arrow-based conditions, but not richer in semantics. In this subsection we show the existence of full and faithful, semantics-preserving functors from the categories of forward- and backward-shift arrow-based conditions to their span-based counterparts, and we also show equivalence of the entailment-based categories.
 
-First, we inductively define the ``natural'' span-based conditon $\cN(c)$ for an arbitrary arrow-based condition $c\in \AC(R),p\in \AB(R)$.
+First, we inductively define the ``natural'' span-based conditon $\cN(c)$ for an arbitrary arrow-based condition $c\in \AC R$ and branch $p\in \AB R$.
 \begin{align*}
 \cN: (R,p_1\ccdots p_w) & \mapsto (R,\cN(p_1)\ccdots \cN(p_w)) \\
       p=(a,c) & \mapsto (\spanof{\id_R}{a},\cN(c)) \enspace.
 \end{align*}
 %
-It follows (by induction) that $\cN(c)\in \SC R$ for all $c\in \AC R$ and $\cN(p)\in \SB R$ for all $p\in \AB R$. In particular, an arrow-based branch $p=(a,c)$ (with root $R$) is translated to a span-based branch in which $R$ is the interface and the span consists of up-arrow $\id_R$ and down-arrow $a$. This transformation fully preserves the (satsfaction-based) semantics of conditions.
+It follows (by induction) that $\cN(c)\in \SC R$ and $\cN(p)\in \SB R$. In particular, an arrow-based branch $p=(a,c)$ (with root $R$) is translated to a span-based branch in which $R$ is the interface and the span consists of up-arrow $\id_R$ and down-arrow $a$.\todo{AR: This just describes the definition in words; omit?} This transformation fully preserves the (satsfaction-based) semantics of conditions.
 
 \begin{proposition}[$\cN$ preserves semantics]\plabel{N preserves semantics}
-For any arrow-based condition $c\in \AC R$, $\cN(c)$ is a span-based condition in $\SC R$ such that $g\sat c$ iff $g\sat\cN(c)$ for any $g\of R\to G$. It follows that, for all $b,c\in \AC R$, $b\entails c$ if and only if $\cN(b)\entails \cN(c)$.
+Let $c\in \AC R$. For all $g\of R\to G$, $g\sat c$ iff $g\sat\cN(c)$. In consequence, for all $b\in \AC R$, $b\entails c$ if and only if $\cN(b)\entails \cN(c)$.
 \end{proposition}
 %
 This is actually a consequence of \pcite{A preserves semantics} in combination with \lcite{N-A} below. Morphisms remain essentially identical under $\cN$:
@@ -430,10 +438,10 @@ $m\of b\to c$ is a forward-shift [backward-shift] ab-condition morphism if and o
 \begin{proof}[sketch]
 There are two things to be shown: namely,
 \begin{enumerate*}[label=\emph{(\roman*)}]
-\item arrow- and span-based forward and backward shifters coincide for spans of the form $\spanof{id}{a}$, and
+\item the action of arrow-based forward and backward shifters on $a$ coincides with that of span-based forward and backward shifters on $\spanof{id}{a}$, and
 \item the commutation condition $a_1=v;a_2$ (for ab-condition morphisms) holds if and only if $(\spanof{\id}{a_1},\spanof{\id}{a_2})\in \cP_v$.
 \end{enumerate*}
-\todo{AR: adapt according to discussion} The latter is immediate. For the former, using $\hat \cS$ to denote span shifters, it is interesting to note that only $\hat B_v^\circ$ and $\hat\cF_v^x$ conserve the property that the left span-leg is the identity; so of the four elementary span shifters, only those two are suitable to support morphisms $\hat b\to \hat c$. Moreover, the required property $\hat\cS(\spanof{\id}{a})=\spanof{id}{\cS(a)}$ is indeed satisfied for both $\cS=\cB_v^\circ$ and $\cS=\cF_v^x$.
+The latter is immediate. For the former, briefly using $\hat \cS$ to denote span shifters, the essential property is that $\hat\cB_v^\circ(\spanof{\id}{a})=\spanof{id}{\cB_v(a)}$ and $\hat\cF_v^x(\spanof{\id}{a})=\spanof{id}{\cF_v^s(a)}$. (Span shifters of the form $\hat\cB_v^x$ or $\hat\cF_v^\circ$ do not preserve the property that the left span-leg is the identity, hence are not suitable to support morphisms from $\cN(b)$ to $\cN(c)$.)
 \qed
 \end{proof}
 %
@@ -443,33 +451,37 @@ Since identities and morphism composition are obviously preserved by $\cN$, we h
 $\cN$ is a faithful functor from $\ABC^\forw$ to $\SBC^\forw$, from $\ABC^\back$ to $\SBC^\back$ and (with the appropriate, obvious mapping on arrows) from $\ABC^{\entails}$ to $\SBC^{\entails}$, which commute with the functors of \thcite{ab-categories} and \thcite{sb-categories}.
 \end{theorem}
 %
-From span-based to arrow-based conditions with forward- or backward-shift morphisms, there does not exist a functor, as the span-based categories are richer in morphisms.\todo{AR: add example and point to it} However, span-based conditions themselves are not richer in semantics than arrow-based ones; in other words, there exists a semantics-preserving mapping from span-based to arrow-based conditions.
+From span-based to arrow-based conditions with forward- or backward-shift morphisms, there does not exist a functor, as the span-based categories are richer in morphisms --- for instance, \fcite{sb-conditions} shows an example morphism $m':b_1\to b_2$, whereas no morphism exists between the equivalent $c_1$ and $c_2$ in \fcite{ab-conditions} (confer Examples \exref{ab-morphisms} and~\exref{sb-morphisms}). However, we now show that span-based conditions themselves are not richer in semantics than arrow-based ones: there does exist a semantics-preserving mapping from $\SC A$ to $\AC A$ for all $A$.
 
-For a span-based branch $p=(s,c)$, let $(d'_s,u'_s)$ be the pushout cospan for $s=\spanof u d$. We inductively define $\cA$ on sb-conditions and sb-branches, as follows:
+Let $(d'_s,u'_s)$ denote the pushout cospan for a span $s=\spanof u d$. We inductively define $\cA$ on sb-conditions and sb-branches, as follows:
 %
 \begin{align*}
 \cA: (R,p_1\ccdots p_w) & \mapsto (R,\cA(p_1)\ccdots \cA(p_w)) \\
      (s,c) & \mapsto (d'_s,\cA(\dF{u'_s}(c))) \enspace.
 \end{align*}
 %
-Note that this acts as the (left) inverse of the action of $\cN$ on objects, due to $d'_s=\id$ and $u'_s=a$ for $s=\spanof{\id}{a}$:
+For instance, taking again the ab-conditions in \fcite{ab-conditions} and their sb-condition counterparts in \fcite{sb-conditions}, it can be checked that $\cA(b_1)=\cA(b'_1)=c_1$, $\cA(b_2)=c_2$ and $\cA(b_3)=c_3$.
+
+$\cA$ acts as the (left) inverse of the action of $\cN$ on objects, due to $d'_s=\id$ and $u'_s=a$ for $s=\spanof{\id}{a}$:
 %
 \begin{lemma}\llabel{N-A}
 For any arrow-based condition $c$, $\cA(\cN(c))=c$.
 \end{lemma}
 %
-The following property is the counterpart of \pcite{N preserves semantics}, and actually implies it, thanks to \lcite{N-A}:
+The following property is the counterpart of \pcite{N preserves semantics}, and actually implies it thanks to \lcite{N-A}:
 %
 \begin{proposition}[$\cA$ preserves semantics]\plabel{A preserves semantics}
-For any span-based condition $c\in \SC R$, $\cA(c)$ is an arrow-based condition in $\AC R$ such that $g\sat c$ iff $g\sat\cA(c)$. It follows that, for all $b,c\in \SC R$, $b\entails c$ if and only if $\cA(b)\entails \cA(c)$.
+If $c\in SC(R)$, then $\cA(c)$ is an arrow-based condition in $\AC R$ such that for all $b\of R\to G$, $g\sat c$ iff $g\sat\cA(c)$. In consequence, for all $b\in \SC R$, $b\entails c$ if and only if $\cA(b)\entails \cA(c)$.
 \end{proposition}
 %
 \begin{proof}[sketch]
-This is shown by induction on the depth of $c$, using $g=d'_s;h$ iff $s\commutes (g,u'_s;h)$ for any model/witness pair $(g,h)$, in combination with the fact that $\dF{u'_s}$ preserves models adding $u'_s$ and reflects models erasing $u'_s$ (\pcite{sb-source shifters}).\qed
+This is shown by induction on the depth of $c$, using that $g=d'_s;h$ iff $s\commutes (g,u'_s;h)$ for any model/witness pair $(g,h)$, in combination with the fact that $\dF{u'_s}$ preserves models adding $u'_s$ and reflects them erasing $u'_s$ (\pcite{sb-source shifters}).\qed
 \end{proof}
 %
+This implies that (as claimed above) span-based conditions are semantically not more expressive than arrow-based categories. The formal statement comes down to an equivalence of the respective categories, also illustrated in \fcite{categories}.
+%
 \begin{theorem}[arrow-based to span-based functor]\thlabel{sb-to-ab functor}
-$\cA$ is a (full and faithful) functor from $\SBC^{\entails}$ to $\ABC^{\entails}$, surjective on objects, which (together with $\cN$) establishes that the categories are equivalent.
+$\cA$ is a (full and faithful) functor from $\SBC^{\entails}$ to $\ABC^{\entails}$, surjective on objects, which (together with its left and right adjoint $\cN$) establishes that the categories are equivalent.
 \end{theorem}
 
 
