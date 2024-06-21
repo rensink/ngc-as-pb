@@ -10,7 +10,11 @@ The underlying principle for a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ 
 \subsection{Root shifting}
 \slabel{shift-morphisms}
 
-In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}, which will later\todo{AR: not yet...\\ AC: For the version to be submitted now I would delete the sentence and add this as future work. Maybe in the weekend we are able to add this result (which does not require too much).} turn out to be functors between categories of conditions. For now, we note that the purpose of root shifters is to relate the models of a condition $b$ to those of a condition $c$, given an arrow $v:R^b\to R^c$ between their roots (the existence of which implies that the model sets are typically disjoint). To be more precise, we will require that \emph{every $v$-prefixed model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
+In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}.
+\iffull
+which will later\todo{AR: not yet...\\ AC: For the version to be submitted now I would delete the sentence and add this as future work. Maybe in the weekend we are able to add this result (which does not require too much).} turn out to be functors between categories of conditions. For now, we note that t
+\fi
+The purpose of root shifters is to relate the models of a condition $b$ to those of a condition $c$, given an arrow $v:R^b\to R^c$ between their roots (the existence of which implies that the model sets are typically disjoint). To be more precise, we will require that \emph{every $v$-prefixed model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
 
 This can be achieved in essentially two ways, on the basis of $v$: by constructing $c$ from $b$ (which we will call \emph{forward shifting}) or by constructing $b$ from $c$ (which we will call \emph{backward shifting}).
 
@@ -243,6 +247,7 @@ The next result states that the existence of a morphism between two conditions $
 Let $b,c \in \AC{R}$  be arrow-based conditions. If $m:b\to c$ is a forward-shift or a backward-shift morphism, then $g\sat b$ implies $g \sat c$ for all arrows $g:R\to G$. 
 \end{proposition}
 %
+\begin{fullorname}
 \begin{proof}
 Let $m = (o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ and assume by induction hypothesis that for all $1\leq j\leq |b|$ the property holds for $m_j$. Let $p^b_i$ be the responsible branch and $h: P^b_i \to G$ the witness for $g\sat b$. 
 Hence we have $(\dagger)\, g=a^b_i;h$ and $(\ddagger)\, h \nsat b_i$.  
@@ -254,7 +259,8 @@ We show that $g \sat c$, with responsible branch $p^c_{o(i)}$ and witness $h$. I
 Suppose (ad absurdum) that $v_i ;h \sat c_{o(i)}$. Then by the induction hypothesis on $m_i$ we also have $v_i ;h \sat \cB_i(b_i)$, and by clause 2 of \pcite{ab-root shifters preserve} we  have $h \sat b_i$, contradicting $(\ddagger)$.
 \qed
 \end{enumerate}
-\end{proof}%
+\end{proof}
+\end{fullorname}
 
 \begin{example}
 Going back to \fcite{ab-conditions}, though (as noted before) $c_1\entails c_2$, there does not exist a morphism $m\of c_1\to c_2$. A mapping $v_1$ does exist from $c_{21}$ to $c_{11}$; however, no mapping $v_{11}$ can be found to $c_{211}$ from either $c_{111}$ or $c_{112}$, nor a mapping $v_{12}$ to $c_{212}$.
@@ -321,10 +327,16 @@ For all $1\leq i\leq w$, we need to show the existence of a forward root shifter
 \end{proof}
 \end{fullorname}
 %
-We now state the first main result, that ab-conditions endowed with either forward or backward morphisms give rise to a category with a functor to $\ABC^{\entails}$
+\iffull
+\begin{proposition}
+For every $R$, $\AC R$ gives rise to categories $\ABC^\forw(R)$ with forward-shift morphisms and $\ABC^\back(R)$ with backward-shift morphisms.\todo{AR: Add to span-based, and add functiorality}
+\end{proposition}
+%
+\fi
+We now state the first main result, that ab-conditions endowed with either forward or backward morphisms give rise to a category with a functor to $\ABC^{\entails}$.
 
 \begin{theorem}[categories of arrow-based conditions]\thlabel{ab-categories}
-Let $\ABC^{\forw}$ be the category having ab-conditions as objects and forward-shift morphims as arrows, and let $\ABC^{\back}$ be the category having the same objects and backward-shift morphisms as arrows. They are well-defined, and there are identity-on-objects functors $\ABC^{\forw} \to \ABC^{\entails}$ and $\ABC^{\back} \to \ABC^{\entails}$
+Let $\ABC^{\forw}$ be the category having ab-conditions as objects and forward-shift morphims as arrows, and let $\ABC^{\back}$ be the category having the same objects and backward-shift morphisms as arrows. They are well-defined, and there are identity-on-objects functors $\ABC^{\forw} \to \ABC^{\entails}$ and $\ABC^{\back} \to \ABC^{\entails}$.
 \end{theorem}
 %
 \emph{Proof sketch.} Composition of morphisms and the fact that all identity morphisms have the correct nature for both categories was shown by \lcite{ab-morphisms compose}.

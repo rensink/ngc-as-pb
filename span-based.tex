@@ -40,9 +40,9 @@ In the span $\spanof u d$ of a branch $p=(\spanof u d,c)$, $u$ stands for the \e
 \caption{Visualisations for span-based conditions}
 \end{figure}
 %
-As we will see later, we can reconstruct an arrow-based condition from a span-based one by taking pushouts over the spans $\spanof{u_i}{d_i}$; the arrows $a_i$ will then correspond to the image of $d_i$ in the pushout cospan.\todo{AR: Add definition or remove sentence, modify description of example accordingly \\ AC: maybe discuss both AB2SB and SB2AB together at the end of the section.} 
+As we will see later,\todo{Add ref to section} we can reconstruct an arrow-based condition from a span-based one.
 
-As an example of span-based conditions, \fcite{sb-conditions} shows counterparts for the three arrow-based conditions in \fcite{ab-conditions}: both $b_1$ and $b_1'$ are equivalent to $c_1$ (which is rather non-obvious in the case of $b_1'$), whereas $b_2$ is equivalent to $c_2$ and $b_3$ to $c_3$.\todo{If we include span-to-arrow conversion, add a sentence here.}
+As an example of span-based conditions, \fcite{sb-conditions} shows counterparts for the three arrow-based conditions in \fcite{ab-conditions}: both $b_1$ and $b_1'$ are equivalent to $c_1$ (which is rather non-obvious in the case of $b_1'$), whereas $b_2$ is equivalent to $c_2$ and $b_3$ to $c_3$.
 
 \begin{figure}[t]
 \centering
@@ -66,9 +66,6 @@ Satisfaction of sb-conditions is then defined as follows:
 \end{definition}
 %
 Note that this is entirely analogous fo \dcite{ab-satisfaction}, especially if we would retrofit the notation $a\commutes (g,h)$ there. Like before, we call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat c$. Satisfaction of sb-conditions is visualised in \fcite{sb-satisfaction}.
-
-\todo{Merge with later subsection} To conclude this section let us observe that there is an obvious embedding of arrow-based conditions into span-based conditions, and that it preserves the models. Simply, given a condition $c \in \AC {R}$, define $\cJ(c)\in \SC R$ inductively by replacing every branch $(a_i,c_i)$ of $c$ with $(\spanof{id_R}{a_i},\cJ(c_i))$. 
-The result is a span based condition, and it is easily shown that for each $g:R \to G$ we have that $g \sat c$ with witness $h$, by \dcite{ab-satisfaction}, if and only if $g \sat \cJ(c)$ with the same witness, by \dcite{sb-satisfaction}. This embedding will be turned into a functor after defining morphisms of span-based conditions.\todo{to be checked.} 
 
 \subsection{Span-based root shifting}
 \slabel{span-based}
@@ -471,8 +468,8 @@ For any span-based condition $c\in \SC R$, $\cA(c)$ is an arrow-based condition 
 This is shown by induction on the depth of $c$, using $g=d'_s;h$ iff $s\commutes (g,u'_s;h)$ for any model/witness pair $(g,h)$, in combination with the fact that $\dF{u'_s}$ preserves models adding $u'_s$ and reflects models erasing $u'_s$ (\pcite{sb-source shifters}).\qed
 \end{proof}
 %
-\begin{theorem}[arrow-based to span-based functors]\thlabel{sb-to-ab functor}
-$\cA$ is a (full and faithful) surjective functor from $\SBC^{\entails}$ to $\ABC^{\entails}$, which together with its inverse $\cN$ establishes that the categories are equivalent.
+\begin{theorem}[arrow-based to span-based functor]\thlabel{sb-to-ab functor}
+$\cA$ is a (full and faithful) functor from $\SBC^{\entails}$ to $\ABC^{\entails}$, surjective on objects, which (together with $\cN$) establishes that the categories are equivalent.
 \end{theorem}
 
 

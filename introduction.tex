@@ -1,5 +1,9 @@
 \section{Introduction}
 
+\begin{quote}\it
+Note to reader: this is the pre-final version of the paper, complete in technical details but missing the final formulation of introduction and conclusion. This version will be replaced by the final one before June 24.
+\end{quote}
+%
 Representing formulas of First-Order Logic (FOL) by graphs or more general graphical structures was explored in various areas of Theoretical Computer Science and Logics along the decades. 
 A canonical example is represented by edge-labelled graphs, that can be regarded as an alternative syntax for formulas of a fragment of FOL including conjunction and existential quantification. 
 
@@ -20,13 +24,17 @@ In the realm of Graph Transformation Systems  (GTSs)
 
  It turned out soon that using GTSs for even simple specifications, more expressive application conditions 
  were needed. 
- In~\cite{NegativeAC} the authors introduced \emph{Negative Application Conditions (NACs)}, allowing to express negation and disjunction, to some extent.  A NAC $N$ is  a finite set of morphisms from $L$, $N = \{n_i: L \to Q_i\}_{i\in[1,k]}$, and a morphism $m: L \to G$ \emph{satisfies} $N$ if for all $i\in[1,k]$ there is no morphism $m_i: N_i \to G$ such that $n_i;m_i = m$. 
+ In~\cite{NegativeAC} the authors introduced \emph{Negative Application Conditions (NACs)}, allowing to express (to some extent) negation and disjunction.  A NAC $N$ is  a finite set of morphisms from $L$, $N = \{n_i: L \to Q_i\}_{i\in[1,k]}$, and a morphism $m: L \to G$ \emph{satisfies} $N$ if for all $i\in[1,k]$ there is no morphism $m_i: N_i \to G$ such that $n_i;m_i = m$. 
  It follows that such a NAC represents a formula of the shape $\exists \overline{x}\,.\, L \wedge \neg (\exists \overline{y}_1\,.\, Q_1 \vee \ldots \vee \exists \overline{y}_n\,.\, Q_n)$, where $L, Q_1, \ldots,Q_n$ are conjunctions describing the structure of the corresponding graphs: as in \cite{Rensink-FOL}, we denote this fragment of FOL by $\exists \neg \exists$.
 
  Note that differently from the existential-conjunctive framework, a formula in $\exists \neg \exists$ is not anymore a graph, but a diagram (a star) in \cat{Graph}, the category of graphs; and satisfaction does not require just the existence of a morphism, but also the non-existence of certain morphisms.
 
  NACs were generalized in~\cite{Rensink-FOL,Habel-FOL} to \emph{Nested Application Condition}, where the structure of a condition is an arbitrary tree rooted at $L$, and satisfaction is defined like for NACs, but iterating furhter. As a consequence it is proved that Nested ACs have the same expressive power of full FOL.\todo{add more references to Nested AC, works by Penneman, Habel, Lambers, Orejas, K\"onig, ... ???}
 
- Despite the fact that NACs first and Nested ACs next were defined as suitable diagrams in the category (of graphs or other structures), we are not aware of any definition of morphism among such application condition. In this paper we address exactly this issue: the main constraint we intend to meet is that the existence of a morphism between two application conditions implies that the first entails the second (thus in the opposite direction with respect to the $\exists\wedge$ fragment)\todo{Say that this can be changed?}. After introducing Nested Application Conditions, that we will call Arrow-Based Conditions, and the notion of satisfaction, we present the original definition of morphisms in Section... \todo{complete summary of paper.}
+ Despite the fact that NACs first and Nested ACs next were defined as suitable diagrams in the category of graphs or other structures, we are not aware of any definition of morphism among such application conditions. In this paper we address exactly this issue: the main constraint we intend to meet is that the existence of a morphism between two application conditions implies that the first entails the second (thus in the opposite direction with respect to the $\exists\wedge$ fragment)\todo{Say that this can be changed?}.
+ 
+\medskip\noindent
+In this paper, we first propose a notion of morphism among Nested ACs which is consistent with the entailment of the corresponding formulas. This lets emerge
+a structural weakness of the original definition of Nested ACs, that we overcome by proposing the original notion of Span-Based Conditions, where Nested ACs embeds. We also introduce morphisms for the latter, obtaining a number of categories suitably related by functors. \todo{Adapt summary of paper.}
  
  

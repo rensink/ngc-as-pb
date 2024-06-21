@@ -18,13 +18,18 @@
                    node[left,pos=.65] {(\thcite{ab-to-sb functors})}  (SC-f)
   (SC-fo) edge[->] node[left,pos=.65] {$\cN$}
                    node[left,pos=.35] {(\thcite{ab-to-sb functors})}  (SC-f)
-  (AC-entails.250) edge[->]
+  (AC-entails.south west) edge[->]
+                   node (N) {}
                    node[left,pos=.35] {$\cN$}
-                   node[left,pos=.65] {(\thcite{ab-to-sb functors})} (SC-entails.110)
-  (SC-entails.70) edge[->] 
+                   node[left,pos=.65] {(\thcite{ab-to-sb functors})} (SC-entails.north west)
+  (SC-entails.north east) edge[->] 
+                   node (A) {}
                    node[right,pos=.65] {$\cA$} 
-                   node[right,pos=.35] {(\thcite{sb-to-ab functor})} (AC-entails.290)
+                   node[right,pos=.35] {(\thcite{sb-to-ab functor})} (AC-entails.south east)
   (SC-equiv) edge[->] (SC-entails)
   (AC-b) edge[->]  node[right,pos=.35] {$\cN$}
                    node[right,pos=.65] {(\thcite{ab-to-sb functors})} (SC-b);
+				   
+\path
+  (A) node {$\cong$} (N);
 \end{tikzpicture}
