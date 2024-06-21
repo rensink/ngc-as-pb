@@ -94,7 +94,7 @@ Let us consider some models for the ab-conditions in \fcite{ab-conditions}.
       (2) edge[bend left=20,->] node[near start,below] {\lb} (1)
 	  (1) edge[loop left,->] node[left] {\lc} (1);
 }$
-and let $g$ be the arrow from the one-node discrete graph \inline{\onenode x} to the left-hand node of $G_1$. It is clear that $g\nsat c_1$ because there is no witness for $c_{11}$ ($G_1$ does not have the required $\lb$-loop). However, we have $g\sat c_2$: the witness $h$ (for $c_{21}$) maps $y$ to the right-hand node of $G_1$. $h$ does not satisfy the subconditions of $c_{21}$ because it cannot be extended with either the $\la$-loop specified by $c_{211}$\todo{AR: In this discussion we use the $c_{??}$ for both the (sub)conditions and their roots. Alternatively, and more precisely, we could use $R^{c_{??}}$ for the latter. Your preference?} or the outgoing $\lc$-edge specified by $c_{212}$. Similarly, $g\sat c_3$.
+and let $g$ be the arrow from the one-node discrete graph \inline{\onenode x} to the left-hand node of $G_1$. It is clear that $g\nsat c_1$ because there is no witness for $c_{11}$ ($G_1$ does not have the required $\lb$-loop). However, we have $g\sat c_2$: the witness $h$ (for $c_{21}$) maps $y$ to the right-hand node of $G_1$. $h$ does not satisfy the subconditions of $c_{21}$ because it cannot be extended with either the $\la$-loop specified by $c_{211}$\todo{AR: In this discussion we use the $c_{??}$ for both the (sub)conditions and their roots. Alternatively, and more precisely, we could use $R^{c_{??}}$ for the latter. Your preference?\\ AC: I would leave as it is.} or the outgoing $\lc$-edge specified by $c_{212}$. Similarly, $g\sat c_3$.
 
 \item Let $G_2=\myinlinegraph{
 \node (1) {$\bullet$};

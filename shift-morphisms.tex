@@ -10,7 +10,7 @@ The underlying principle for a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ 
 \subsection{Root shifting}
 \slabel{shift-morphisms}
 
-In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}, which will later\todo{AR: not yet...} turn out to be functors between categories of conditions. For now, we note that the purpose of root shifters is to relate the models of a condition $b$ to those of a condition $c$, given an arrow $v:R^b\to R^c$ between their roots (the existence of which implies that the model sets are typically disjoint). To be more precise, we will require that \emph{every $v$-prefixed model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
+In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}, which will later\todo{AR: not yet...\\ AC: For the version to be submitted now I would delete the sentence and add this as future work. Maybe in the weekend we are able to add this result (which does not require too much).} turn out to be functors between categories of conditions. For now, we note that the purpose of root shifters is to relate the models of a condition $b$ to those of a condition $c$, given an arrow $v:R^b\to R^c$ between their roots (the existence of which implies that the model sets are typically disjoint). To be more precise, we will require that \emph{every $v$-prefixed model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
 
 This can be achieved in essentially two ways, on the basis of $v$: by constructing $c$ from $b$ (which we will call \emph{forward shifting}) or by constructing $b$ from $c$ (which we will call \emph{backward shifting}).
 
@@ -263,7 +263,7 @@ On the other hand, $c_2\entails c_3$ has evidence in the form of a morphism $m\o
 \qed
 \end{example}
 %
-\pcite{ab-morphisms preserve models} can be phrased more abstractly as the existence of a functor from a category of arrow-based conditions and their (forward-shift or backward-shift) morphims to $\ABC^{\entails}$. An important step to arrive at that result is to show that morphims compose. This, in turn, depends on the preservation of morphisms by root shifters.\todo{AR: This is actually the core of the claimed (but not stated) property that root shifters give rise to functors.}
+\pcite{ab-morphisms preserve models} can be phrased more abstractly as the existence of a functor from a category of arrow-based conditions and their (forward-shift or backward-shift) morphims to $\ABC^{\entails}$. An important step to arrive at that result is to show that morphims compose. This, in turn, depends on the preservation of morphisms by root shifters.\todo{AR: This is actually the core of the claimed (but not stated) property that root shifters give rise to functors.\\ AC: I agree}
 
 \begin{lemma}[root shifters preserves morphisms]\llabel{ab-root shifters preserve morphisms}
 Let $b,c \in  \AC{X}$ and let $\cC$ be a root shifter from $X$ to $Y$ that is defined on $b$ and $c$. If $m:b\to c$, then also $m:\cC(b)\to\cC(c)$. 
