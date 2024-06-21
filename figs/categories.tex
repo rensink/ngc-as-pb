@@ -1,0 +1,30 @@
+\begin{tikzpicture}[on grid,node distance=1.8 and 2.5]
+\node (AC-entails) {$\ABC^{\entails}$};
+\node[below=2 of AC-entails] (SC-entails) {$\SBC^{\entails}$};
+\node[below=of SC-entails] (SC-equiv) {$\SBC^{\equiv}$};
+\node[left=of AC-entails] (AC-f) {$\ABC^\forw$};
+\node[left=of SC-entails] (SC-f) {$\SBC^\forw$};
+\node[left=of SC-equiv] (SC-fo) {$\SBC^{\forw\circ}$};
+\node[right=of AC-entails] (AC-b) {$\ABC^\back$};
+\node[right=of SC-entails] (SC-b) {$\SBC^\back$};
+
+\path
+  (AC-f) edge[->] node[above] {\thcite{ab-categories}} (AC-entails)
+  (AC-b) edge[->] node[above] {\thcite{ab-categories}} (AC-entails)
+  (SC-f) edge[->] node[above] {\thcite{sb-categories}} (SC-entails)
+  (SC-b) edge[->] node[above] {\thcite{sb-categories}} (SC-entails)
+  (SC-fo) edge[->] node[above] {\thcite{sb-categories}} (SC-equiv)
+  (AC-f) edge[->]  node[left,pos=.35] {$\cN$}
+                   node[left,pos=.65] {(\thcite{ab-to-sb functors})}  (SC-f)
+  (SC-fo) edge[->] node[left,pos=.65] {$\cN$}
+                   node[left,pos=.35] {(\thcite{ab-to-sb functors})}  (SC-f)
+  (AC-entails.250) edge[->]
+                   node[left,pos=.35] {$\cN$}
+                   node[left,pos=.65] {(\thcite{ab-to-sb functors})} (SC-entails.110)
+  (SC-entails.70) edge[->] 
+                   node[right,pos=.65] {$\cA$} 
+                   node[right,pos=.35] {(\thcite{sb-to-ab functor})} (AC-entails.290)
+  (SC-equiv) edge[->] (SC-entails)
+  (AC-b) edge[->]  node[right,pos=.35] {$\cN$}
+                   node[right,pos=.65] {(\thcite{ab-to-sb functors})} (SC-b);
+\end{tikzpicture}
