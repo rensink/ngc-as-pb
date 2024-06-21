@@ -406,23 +406,25 @@ $\SBC^\forw$ with forward-shift morphims, $\SBC^{\back}$ with backward-shift mor
 
 \subsection{From arrow-based to span-based and back}
 
-Span-based conditions are richer in morphisms than arrow-based conditions, but not richer in semantics. In this subsection we show the existence of a full, semantics-preserving functor from the categories of forward- and backward-shift arrow-based conditions to their span-based counterparts, as well as equivalence of the entailment-based categories.
+Span-based conditions are richer in morphisms than arrow-based conditions, but not richer in semantics. In this subsection we show the existence of full and faithful, semantics-preserving functor from the categories of forward- and backward-shift arrow-based conditions to their span-based counterparts, as well as equivalence of the entailment-based categories.
 
-First, we inductively define the ``natural'' span-based conditon $\cN(c)$ for an arbitrary arrow-based condition $c$. Let $R\in\bC$.
+First, we inductively define the ``natural'' span-based conditon $\cN(c)$ for an arbitrary arrow-based condition $c\in \AC(R),p\in \AB(R)$.
 \begin{align*}
-\cN: (R,p_1\ccdots p_w) & \mapsto (R,\hat p_1\ccdots \hat p_w) \\
-      p=(a,c) & \mapsto (\spanof{\id_R}{a},\hat c) \enspace.
+\cN: (R,p_1\ccdots p_w) & \mapsto (R,\cN(p_1)\ccdots \cN(p_w)) \\
+      p=(a,c) & \mapsto (\spanof{\id_R}{a},\cN(c)) \enspace.
 \end{align*}
 %
-It follows (by induction) that $\hat c\in \SC R$ for all $c\in \AC R$ and $\hat p\in \SB R$ for all $p\in \AB R$. In particular, an arrow-based branch $p=(a,c)$ (with root $R$) is translated to a span-based branch in which $R$ is the interface and the span consists of up-arrow $\id_R$ and down-arrow $a$. This transformation fully preserves the (satsfaction-based) semantics of conditions.
+It follows (by induction) that $\cN(c)\in \SC R$ for all $c\in \AC R$ and $\cN(p)\in \SB R$ for all $p\in \AB R$. In particular, an arrow-based branch $p=(a,c)$ (with root $R$) is translated to a span-based branch in which $R$ is the interface and the span consists of up-arrow $\id_R$ and down-arrow $a$. This transformation fully preserves the (satsfaction-based) semantics of conditions.
 
 \begin{proposition}[$\cN$ preserves semantics]\plabel{N preserves semantics}
-For any arrow-based condition $c$, $\cN(c)$ is a span-based condition. Moreover, $b\entails c$ if and only if $\cN(b)\entails \cN(c)$.
+For any arrow-based condition $c\in \AC R$, $\cN(c)$ is a span-based condition in $\SC R$ such that $g\sat c$ iff $g\sat\cN(c)$ for any $g\of R\to G$. It follows that, for all $b,c\in \AC R$, $b\entails c$ if and only if $\cN(b)\entails \cN(c)$.
 \end{proposition}
 %
-This is actually a consequence of \pcite{A preserves morpisms} in combination with \lcite{N-A} below. Morphisms remain essentially identical under $\cN$:
-\[ \cN: (o,(v_1,m_1)\ccdots (v_w,m_w)) \mapsto (o,\hat m_1\ccdots \hat m_w) \enspace. \]
-$\cN$ both preserves and reflects morphisms.
+This is actually a consequence of \pcite{A preserves semantics} in combination with \lcite{N-A} below. Morphisms remain essentially identical under $\cN$:
+%
+\[ \cN: (o,(v_1,m_1)\ccdots (v_w,m_w)) \mapsto (o,(v_1,\cN(m_1))\ccdots (v_w,\cN(m_w))) \enspace. \]
+%
+$\cN$ both preserves and reflects morphisms, in the following sense.
 %
 \begin{proposition}
 $m\of b\to c$ is a forward-shift [backward-shift] ab-condition morphism if and only if $\cN(m)\of \cN(b)\to \cN(c)$ is a forward-shift [backward-shift] sb-condition morphism.
@@ -434,43 +436,43 @@ There are two things to be shown: namely,
 \item arrow- and span-based forward and backward shifters coincide for spans of the form $\spanof{id}{a}$, and
 \item the commutation condition $a_1=v;a_2$ (for ab-condition morphisms) holds if and only if $(\spanof{\id}{a_1},\spanof{\id}{a_2})\in \cP_v$.
 \end{enumerate*}
-The latter is immediate. For the former, using $\hat \cS$ to denote span shifters, it is interesting to note that only $\hat B_v$ and $\hat\cF_v^x$ conserve the property that the left span-leg is the identity; so of the four elementary span shifters, only those two are suitable to support morphisms $\hat b\to \hat c$. Moreover, the required properties $\hat\cS(\spanof{\id}{a})=\spanof{id}{\cS(a)}$ are indeed satisfied for both $\cS=\cB_v$ and $\cS=\cF_v^x$.
+\todo{AR: adapt according to discussion} The latter is immediate. For the former, using $\hat \cS$ to denote span shifters, it is interesting to note that only $\hat B_v^\circ$ and $\hat\cF_v^x$ conserve the property that the left span-leg is the identity; so of the four elementary span shifters, only those two are suitable to support morphisms $\hat b\to \hat c$. Moreover, the required property $\hat\cS(\spanof{\id}{a})=\spanof{id}{\cS(a)}$ is indeed satisfied for both $\cS=\cB_v^\circ$ and $\cS=\cF_v^x$.
 \qed
 \end{proof}
 %
-Since identities and morphism composition are obviously preserved by $\cN$, we have
+Since identities and morphism composition are obviously preserved by $\cN$, we have the following result, also illustrated in \fcite{categories}:
 
 \begin{theorem}[arrow-based to span-based functors]\thlabel{ab-to-sb functors}
-$\cN$ is a full and faithful functor from $\ABC^\forw$ to $\SBC^\forw$, from $\ABC^\back$ to $\SBC^\back$ and (with the appropriate, obvious mapping on arrows) from $\ABC^{\entails}$ to $\SBC^{\entails}$, which commute with the functors of \thcite{ab-categories} and \thcite{sb-categories}.
+$\cN$ is a faithful functor from $\ABC^\forw$ to $\SBC^\forw$, from $\ABC^\back$ to $\SBC^\back$ and (with the appropriate, obvious mapping on arrows) from $\ABC^{\entails}$ to $\SBC^{\entails}$, which commute with the functors of \thcite{ab-categories} and \thcite{sb-categories}.
 \end{theorem}
 %
-From span-based to arrow-based conditions with forward- or backward-shift morphisms, there can obviously not exist a functor, as the span-based categories are richer in morphisms. However, span-based conditions themselves are not richer in semantics than arrow-based ones; in other words, there exists a semantics-preserving mapping from span-based to arrow-based categories.
+From span-based to arrow-based conditions with forward- or backward-shift morphisms, there does not exist a functor, as the span-based categories are richer in morphisms.\todo{AR: add example and point to it} However, span-based conditions themselves are not richer in semantics than arrow-based ones; in other words, there exists a semantics-preserving mapping from span-based to arrow-based conditions.
 
-For a span-based branch $p=(s,c)$, let $(d'_s,u'_s)$ be the pushout cospan for $s=\spanof u d$. We recursively define $\cA$ on sb-conditions and sb-branches, as follows:
+For a span-based branch $p=(s,c)$, let $(d'_s,u'_s)$ be the pushout cospan for $s=\spanof u d$. We inductively define $\cA$ on sb-conditions and sb-branches, as follows:
 %
 \begin{align*}
 \cA: (R,p_1\ccdots p_w) & \mapsto (R,\cA(p_1)\ccdots \cA(p_w)) \\
-     (s,c) & \mapsto (d'_s,\dF{u'_s}(\cA(c)) \enspace.
+     (s,c) & \mapsto (d'_s,\cA(\dF{u'_s}(c))) \enspace.
 \end{align*}
 %
-Note that this acts as the (right) inverse of $\cN$, due to $d'_s=\id$ and $u'_s=a$ for $s=\spanof{\id}{a}$:
+Note that this acts as the (left) inverse of the action of $\cN$ on objects, due to $d'_s=\id$ and $u'_s=a$ for $s=\spanof{\id}{a}$:
 %
 \begin{lemma}\llabel{N-A}
-For any arrow-based condition $c$, $\cN(\cA(c))=c$.
+For any arrow-based condition $c$, $\cA(\cN(c))=c$.
 \end{lemma}
 %
-The following is the counterpart of \pcite{N preserves semantics}; in fact, as stated before, \pcite{N preserves semantics} follows from the property below, due to \lcite{N-A}):
+The following property is the counterpart of \pcite{N preserves semantics}, and actually implies it, thanks to \lcite{N-A}:
 %
 \begin{proposition}[$\cA$ preserves semantics]\plabel{A preserves semantics}
-For any span-based condition $c$, $\cA(c)$ is an arrow-based condition. Moreover, $b\entails c$ if and only if $\cA(b)\entails \cA(c)$.
+For any span-based condition $c\in \SC R$, $\cA(c)$ is an arrow-based condition in $\AC R$ such that $g\sat c$ iff $g\sat\cA(c)$. It follows that, for all $b,c\in \SC R$, $b\entails c$ if and only if $\cA(b)\entails \cA(c)$.
 \end{proposition}
 %
 \begin{proof}[sketch]
-The preservation and reflection of entailment is due to the preservation and reflection of models, i.e., $g\sat c$ iff $g\sat\cA(c)$ for any arrow from the root of $c$. This is easily shown by induction on the depth of $c$, using $g=d'_s;h$ iff $s\commutes (g,u'_s;h)$ for any model/witness pair $(g,h)$, in combination with the fact that $\dF{u'_s}$ preserves models adding $u'_s$ and reflects models erasing $u'_s$ (\pcite{sb-shifters}).\qed
+This is shown by induction on the depth of $c$, using $g=d'_s;h$ iff $s\commutes (g,u'_s;h)$ for any model/witness pair $(g,h)$, in combination with the fact that $\dF{u'_s}$ preserves models adding $u'_s$ and reflects models erasing $u'_s$ (\pcite{sb-source shifters}).\qed
 \end{proof}
 %
 \begin{theorem}[arrow-based to span-based functors]\thlabel{sb-to-ab functor}
-$\cA$ is a (full and faithful) functor from $\SBC^{\entails}$ to $\ABC^{\entails}$, which is both left and right adjoint to $\cN$.\todo{AR: do we have an equivalence of categories?}
+$\cA$ is a (full and faithful) surjective functor from $\SBC^{\entails}$ to $\ABC^{\entails}$, which together with its inverse $\cN$ establishes that the categories are equivalent.
 \end{theorem}
 
 

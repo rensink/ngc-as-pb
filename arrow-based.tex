@@ -94,7 +94,7 @@ Let us consider some models for the ab-conditions in \fcite{ab-conditions}.
       (2) edge[bend left=20,->] node[near start,below] {\lb} (1)
 	  (1) edge[loop left,->] node[left] {\lc} (1);
 }$
-and let $g$ be the arrow from the one-node discrete graph \inline{\onenode x} to the left-hand node of $G_1$. It is clear that $g\nsat c_1$ because there is no witness for $c_{11}$ ($G_1$ does not have the required $\lb$-loop). However, we have $g\sat c_2$: the witness $h$ (for $c_{21}$) maps $y$ to the right-hand node of $G_1$. $h$ does not satisfy the subconditions of $c_{21}$ because it cannot be extended with either the $\la$-loop specified by $c_{211}$\todo{AR: In this discussion we use the $c_{??}$ for both the (sub)conditions and their roots. Alternatively, and more precisely, we could use $R^{c_{??}}$ for the latter. Your preference?\\ AC: I would leave as it is.} or the outgoing $\lc$-edge specified by $c_{212}$. Similarly, $g\sat c_3$.
+and let $g$ be the arrow from the one-node discrete graph \inline{\onenode x} to the left-hand node of $G_1$. It is clear that $g\nsat c_1$ because there is no witness for $c_{11}$ ($G_1$ does not have the required $\lb$-loop). However, we have $g\sat c_2$: the witness $h$ (for $c_{21}$) maps $y$ to the right-hand node of $G_1$. $h$ does not satisfy the subconditions of $c_{21}$ because it cannot be extended with either the $\la$-loop specified by $c_{211}$ or the outgoing $\lc$-edge specified by $c_{212}$. Similarly, $g\sat c_3$.
 
 \item Let $G_2=\myinlinegraph{
 \node (1) {$\bullet$};
@@ -116,7 +116,7 @@ In general, it can be checked that every model of $c_1$ is also a model of $c_2$
 
 It has been shown (e.g., \cite{Rensink-FOL,Habel-FOL}) that every first-order logic (FOL) formula can be encoded as an arrow-based nested condition over $\Graph$ and vice versa. For the sake of completeness, we summarise the connection here. We restrict to binary predicates, which we take from the set of edge labels $\Lab$. For the purpose of this discussion, w.l.o.g.\ we assume that graph nodes are variables, taken from $\Var$.
 
-The syntax of FOL that we will use in the following is given by the grammar
+The syntax of FOL that we use is given by the grammar
 %
 \[ \phi \:::=\: \True
         \:\mid\: \False
@@ -127,16 +127,17 @@ The syntax of FOL that we will use in the following is given by the grammar
 		\:\mid\: \neg\phi_1
 		\:\mid\: \exists \bar x\st \phi_1 
 		\]
-where the $x_i$ are variables (from $\Var$), $\bar x\in \Var^*$ is a finite sequence of variables and $\la$ is a binary predicate. We also use the concept of \emph{free variables} of $\phi$, denoted $\fv(\phi)$, inductively defined in the usual way.
+where the $x_i$ are variables (from $\Var$), $\bar x\in \Var^*$ is a finite sequence of distinct variables and $\la$ is a binary predicate. We also use the concept of \emph{free variables} of $\phi$, denoted $\fv(\phi)$, inductively defined in the usual way.
 
-Just as for conditions, the semantics of FOL is defined through a notion of satisfaction; however, the models are not arbitrary arrows in $\Graph$ but \emph{valuations} that map variables to the nodes of a graph. Such a valuation can be seen as an arrow from the discrete graph with node set $X\subseteq \Var$, here denoted $D_X$. Hence, the models of a formula $\phi$ are arrows $v:D_X\to G$ (for some $X\supseteq \fv(\phi)$ and some graph $G$) such that $v\sat\phi$. For an arbitrary graph $A$ with node set $X_A$, let $v_A:D_{X_A}\to A$ map the discrete graph over $X_A$ to $R$.
+Just as for conditions, the semantics of FOL is defined through a notion of satisfaction; however, the models are not arbitrary arrows in $\Graph$ but \emph{valuations} that map variables to the nodes of a graph. Such a valuation can be seen as an arrow from the discrete graph with node set $X\subseteq \Var$, here denoted $D_X$. Hence, the models of a formula $\phi$ are arrows $v:D_X\to G$ (for some $X\supseteq \fv(\phi)$ and some graph $G$) such that $v\sat^\FOL \phi$. For an arbitrary graph $A$ with node set $X_A$, let $v_A:D_{X_A}\to A$ map the discrete graph over $X_A$ to $A$.
 
 Theorems 1 and~3 of \cite{Rensink-FOL} state that
 \begin{enumerate*}[label=\emph{(\roman*)}]
-\item for every arrow-based condition $c$ there exists a formula $\phi_c$ such that $g\sat c$ iff $v_R;g\sat \phi_c$ for any arrow $g:R\to G$; and
+\item for every arrow-based condition $c\in \AC R$ there exists a formula $\phi_c$ with $\fv(\phi_c)=X_R$ such that $g\sat c$ iff $v_R;g\sat^\FOL \phi_c$ for any arrow $g\of R\to G$; and
 
-\item for every FOL-formula $\phi$, there is an arrow-based condition $c_\phi$ with $R^{c_\phi}=D_{\fv(\phi)}$ such that $v\sat \phi$ iff $v\sat c_\phi$ for any valuation $v:D_{\fv(\phi)}\to G$.
+\item for every FOL-formula $\phi$, there is an arrow-based condition $c_\phi$ with $R^{c_\phi}=D_{\fv(\phi)}$ such that $v\sat^\FOL \phi$ iff $v\sat c_\phi$ for any valuation $v\of D_{\fv(\phi)}\to G$.
 \end{enumerate*}
+The constructions of $\phi_c$ and of $c_\phi$ are given in detail in \cite{Rensink-FOL}.
 
 \iffull
 \todo[inline]{The story is currently not complete!}
