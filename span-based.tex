@@ -71,6 +71,7 @@ Note that this is entirely analogous fo \dcite{ab-satisfaction}, especially if w
 The result is a span based condition, and it is easily shown that for each $g:R \to G$ we have that $g \sat c$ with witness $h$, by \dcite{ab-satisfaction}, if and only if $g \sat \cJ(c)$ with the same witness, by \dcite{sb-satisfaction}. This embedding will be turned into a functor after defining morphisms of span-based conditions.\todo{to be checked.} 
 
 \subsection{Span-based root shifting}
+\slabel{span-based}
 
 To define morphisms of sb-conditions, we will go over the same ground as for ab-conditions, but take a slightly more abstract view --- as we did for satisfaction by introducing $\commutes$. Having recognised that the \emph{semantics} of a span in sb-conditions is essentially given by the set of model/witness pairs that it commutes with, we can in general consider relations over spans that either preserve or reflect this semantics, in the sense that if $s_1,s_2$ are related, then either $s_1\commutes (g,h)$ implies $s_2\commutes (g,h)$ (preservation) or $s_2\commutes (g,h)$ implies $s_1\commutes (g,h)$ (reflection). Typically, however, the model/witness pairs are not preserved or reflected precisely, but modulo some arrow that gets added to or erased from the model or witness.
 %
