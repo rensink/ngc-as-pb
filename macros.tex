@@ -37,6 +37,26 @@
   \csname#1-body\endcsname
 }
 
+% Inline enumeration with emphasised bracketed roman labels
+\newenvironment{inumerate}{%
+  \begin{enumerate*}[label=\emph{(\roman*)}]
+}{%
+  \end{enumerate*}
+}
+% Enumeration with small topsep
+\newenvironment{enumerateS}[1][]{%
+  \begin{enumerate}[topsep=\smallskipamount,#1]
+}{%
+  \end{enumerate}
+}
+% Itemize with small topsep
+\newenvironment{itemizeS}[1][]{%
+  \begin{itemize}[topsep=\smallskipamount,#1]
+}{%
+  \end{itemize}
+}
+
+
 %% Some math definitions
 \newcommand{\tupof}[1]{\langle{#1}\rangle}
 \newcommand{\setof}[1]{\{{#1}\}}

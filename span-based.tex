@@ -377,6 +377,13 @@ If $m$ is complete and $g\sat c$, then let $p^c_j$ be the responsible branch and
 For the span-based conditions in \fcite{sb-conditions}, we have a complete forward-shift morphism $m:b_1\to b_1'$, providing evidence that $b_1\equiv b_1'$; moreover, there are also morphisms $m':b_1\to b_2$ and $m'':b_2\to b_3$. All the required morphism arrows are already shown in the figure. Note that, in \excite{ab-morphisms}, we observed that there does \emph{not} exist an arrow-based morphism from $c_1$ to $c_2$; hence the existence of a span-based morphism between the equivalent $b_1$ and $b_2$ is concrete evidence for our claim, in \scite{categories} below, that the structure of span-based morphisms allows a richer relation between them.\todo{AR: check wording}
 \end{example}
 %
+The preservation of morphism by root shifters (\lcite{ab-root shifters preserve morphisms}) also holds in the span-based case (for essentially the same reason, viz. \eqcite{span shifters are functors}):
+%
+\begin{lemma}[span root shifters preserves morphisms]
+             \llabel{sb-root shifters preserve morphisms}
+Let $b,c \in  \AC{X}$ and let $\cC$ be a span root shifter from $X$ to $Y$ that is defined on $b$ and $c$. If $m:b\to c$, then also $m:\cC(b)\to\cC(c)$. 
+\end{lemma}
+%
 We now once more return to the level of categories, using the exact same constructions for identity morphisms and morphism composition as in the arrow-based case (see \eqref{morphism composition} and \eqref{id-morphism}).
 \iffull
 To repeat, if $b,c,e$ are sb-conditions and $m\of b\to c,n\of c\to e$ are sb-morphisms with $|b|=w$:
