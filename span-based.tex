@@ -414,6 +414,12 @@ We can therefore lift and extend \thcite{ab-categories} to the span-based case.
 Consider the following categories having sb-conditions as objects and different arrows: 
 $\SBC^\forw$ with forward-shift morphims, $\SBC^{\back}$ with backward-shift morphisms, $\SBC^{\forw{\circ}}$ with complete forward-shift morphisms, $\SBC^{\entails}$ with the preorder of semantic entailment, and $\SBC^\equiv$ with the preorder (actually, equivalence) of semantic equivalence. These are well-defined, and there are identity-on-objects functors $\SBC^\forw \to \SBC^{\entails}$, $\SBC^\back \to \SBC^{\entails}$ and $\SBC^{\forw{\circ}} \to \SBC^{\equiv}$.
 \end{theorem}
+%
+We end our presentation of sb-condition morphisms with the functoriality of span root shifters, lifting \pcite{ab-shifters are functors} to the span-based case.
+
+\begin{proposition}[span source shifters yield functors]\plabel{sb-shifters are functors}
+For any pair of objects $X,Y$ and any span source shifter from $X$ to $Y$, the span root shifter $\bar\cS$ is a functor from $\SBC^\forw(X)$ to $\SBC^\forw(Y)$ and from $\SBC^\back(X)$ to $\SBC^\back(Y)$.
+\end{proposition}
 
 \subsection{From arrow-based to span-based and back}
 \slabel{categories}

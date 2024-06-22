@@ -370,15 +370,8 @@ Indeed, $b\entails c$ because $z$ can be instantiated with the value of $y$. The
 \qed
 \end{example}
 %
-\begin{comment}
-Further comparing the two notions of morphism, note that split epis are epi in any category, but not vice versa: for example, in \cat{Graph} there are epis which do not have a section (an example being $t'$ in \fcite{epi-no-retraction}). Therefore, asking for the existence of a section is a stronger condition than being an epi, suggesting that every retraction-based morphism may be epi-based, but certainly not vice versa. However, this also fails to be the case, for two reasons:
-%
-\begin{itemize}
-\item The existence of a section (in retraction-based morphisms) is only required when the source condition has branches, whereas our definition of epi-based morphism asks for all arrows to be epi.
-\item The commutativity requirement for epi-based morphisms is stronger than the one for retraction-based morphisms: if there is a section $s_i: R_c \to R_b$ for $t$, then \eqcite{simple ab-morphism} implies \eqcite{ab-morphism} but not the other way around.
-\end{itemize}
-%
-While the discrepancy in the first bullet could be resolved by only requiring those arrows in an epi-based morphism to be epi that start in a condition with sub-branches (this does not invalidate the proof of \pcite{epi-based implies entailment}), the second is more fundamental. Fur instance, in \excite{retraction-not-epi}, no epi-based morphism $m:c_1\to c_2$ exists, even under this relaxed condition.
+As a final observation, given the fact that root shifters preserve morphisms (\lcite{ab-root shifters preserve morphisms}, those that are total are also functorial. ($\ABC^{\mathsf x}(X)$ demotes $\ABC^{\mathsf x}$ restricted to conditions rooted in $X$.
 
-There is no unequivocal evidence which one of these is the ``best" or ``most useful". For example, when instantiating arrow-based conditions in the category of cospans (as advocated by \cite{bchk:conditional-reactive-systems}), the notion of retraction-based morphism is all but useless, because in that category, only trivial cospans (in which both legs are epi) can be retractions. On the other hand, when we move to span-based conditions in the sequel, it will turn out out that retraction-based morphisms extend naturally whereas epi-based morphisms do not.
-\end{comment}
+\begin{proposition}[source shifters yield functors]\plabel{ab-shifters are functors}
+For any pair of objects $X,Y$ and any source shifter from $X$ to $Y$, the root shifter $\bar\cS$ is a functor from $\ABC^\forw(X)$ to $\ABC^\forw(Y)$ and from $\ABC^\back(X)$ to $\ABC^\back(Y)$.
+\end{proposition}
