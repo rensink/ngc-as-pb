@@ -110,10 +110,10 @@ A backward span source shifter is called \emph{complete} if it also preserves mo
 \end{itemize}
 \end{definition}
 %
-Since span source shifters from $X$ are, just as in the arrow-based case, completely determined by $\cS(\id_X)$ (due to \eqref{span shifters are functors}), we can enumerate the choices of forward and backward shifters for $v$ that are generally available (without having additional information about $v$).
+Since span source shifters from $X$ are, just as in the arrow-based case, completely determined by $\cS(\id_X)$ (due to \eqref{span shifters are functors}), we can enumerate the choices of forward and backward shifters for $v$ that are available in general, i.e., without having additional information about $v$.
 %
 \begin{description}
-\item[Forward shifting.] For $\cS$ to be a forward span source shifter for $v:A\to B$, there must be a span $t=\cS(\id_A):B\to A$, which automatically determines $\cS(s)=t\spcomp s$ for all $s:A\to C$. There are essentially two options: $t=\spanof{v}{\id_B}$ or $t=\spanof{\id_A}{x}$ for some section $x$ of $v$, i.e., such that $x;v=\id_B$.
+\item[Forward shifting.] For $\cS$ to be a forward span source shifter for $v:A\to B$, there must be a span $t=\cS(\id_A):B\to A$, which automatically determines $\cS(s)=t\spcomp s$ for all $s:A\to C$. Without additional information about $v$, there are essentially two options for $t$: $t=\spanof{v}{\id_B}$ or $t=\spanof{\id_A}{x}$ for some section $x$ of $v$, i.e., such that $x;v=\id_B$.
 % We denote the resulting span source shifters by $\cF_v^\circ$ and $\cF_v^x$, respectively.
 
 \item[Backward shifting.] For $\cS$ to be a backward span source shifter for $v:A\to B$, there must be a span $t=\cS(\id_B):A\to B$, which automatically determines $\cS(s)=t \spcomp s$ for all $s:B\to C$. Again, there are essentially two options: $t=\spanof{\id_A}{v}$, or $t=\spanof{x}{\id_B}$ for some section $x$ of $v$, i.e., such that $x;v=\id_A$.
@@ -129,7 +129,7 @@ This gives rise to the following four candidate shifters for $v:A\to B$ (which s
 \rB v x& : s \mapsto \spanof{x}{\id_B}\spcomp s \text{ where $x;v=\id_A$}
 \end{align*}
 %
-These are visualised in \fcite{sb-source shifters} (in a simplified construction that omits the intermediate steps of the span composition where possible). We call $\dF v$ and $\dB v$ \emph{direct} and $\rF v x$ and $\rB v x$ \emph{split}. It turns out that, indeed, each of these four options gives rise to a valid shifter, and the direct ones are complete.
+These are visualised in \fcite{sb-source shifters} (in a simplified construction that omits the intermediate steps of the span composition where possible). We call $\dF v$ and $\dB v$ \emph{direct} and $\rF v x$ and $\rB v x$ \emph{split}. It turns out that, indeed, each of these four options gives rise to a valid shifter; moreover, the direct ones are complete.
 %
 \begin{figure}[t]
 \centering
