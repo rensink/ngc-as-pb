@@ -10,7 +10,7 @@ The underlying principle for a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ 
 \subsection{Root shifting}
 \slabel{shift-morphisms}
 
-In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}, which will later\todo{AR: Add link to where this is done} turn out to be a functor between categories of conditions over different roots. For now, we note that the purpose of root shifters is to relate the models of a condition $b\in \AC(A)$ to those of a condition $c\in \AC(B)$, given an arrow $v:A\to B$ between their roots (the existence of which implies that the model sets are typically disjoint). To be more precise, we will require that \emph{every $v$-prefixed model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
+In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}, which will later\todo{AR: Add link to where this is done} turn out to be a functor between categories of conditions over different roots. For now, we note that the purpose of root shifters is to relate the models of a condition $b\in \AC A$ to those of a condition $c\in \AC B$, given an arrow $v:A\to B$ between their roots (the existence of which implies that the model sets are typically disjoint). To be more precise, we will require that \emph{every $v$-prefixed model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
 
 This can be achieved in essentially two ways, both on the basis of $v$: by constructing $c$ from $b$ (which we will call \emph{forward shifting}) or by constructing $b$ from $c$ (which we will call \emph{backward shifting}).
 
@@ -267,7 +267,7 @@ On the other hand, $c_2\entails c_3$ has evidence in the form of a morphism $m\o
 %
 \pcite{ab-morphisms preserve models} can be phrased more abstractly as the existence of a functor from a category of arrow-based conditions and their (forward-shift or backward-shift) morphims to $\ABC^{\entails}$. An important step to arrive at that result is to show that morphims compose. This, in turn, depends on the preservation of morphisms by root shifters.
 
-\begin{lemma}[root shifters preserves morphisms]
+\begin{lemma}[root shifters preserve morphisms]
              \llabel{ab-root shifters preserve morphisms}
 Let $b,c \in  \AC{X}$ and let $\cC$ be a root shifter from $X$ to $Y$ that is defined on $b$ and $c$. If $m:b\to c$, then also $m:\cC(b)\to\cC(c)$. 
 \end{lemma}
@@ -334,6 +334,8 @@ We now state the first main result, that ab-conditions endowed with either forwa
 
 \begin{theorem}[categories of arrow-based conditions]\thlabel{ab-categories}
 Let $\ABC^{\forw}$ be the category having ab-conditions as objects and forward-shift morphims as arrows, and let $\ABC^{\back}$ be the category having the same objects and backward-shift morphisms as arrows. They are well-defined, and there are identity-on-objects functors $\ABC^{\forw} \to \ABC^{\entails}$ and $\ABC^{\back} \to \ABC^{\entails}$.
+
+\todo{AR: Added to ease the definition of the indexed categories.}Each of these categories $\ABC^{\mathsf x}$ actually consists of disjoint full subcategories $\ABC^{\mathsf x}(X)$ of $X$-rooted conditions.
 \end{theorem}
 %
 \emph{Proof sketch.} Composition of morphisms and the fact that all identity morphisms have the correct nature for both categories was shown by \lcite{ab-morphisms compose}.
@@ -370,8 +372,10 @@ Indeed, $b\entails c$ because $z$ can be instantiated with the value of $y$. The
 \qed
 \end{example}
 %
-As a final observation, given the fact that root shifters preserve morphisms (\lcite{ab-root shifters preserve morphisms}, those that are total are also functorial. ($\ABC^{\mathsf x}(X)$ demotes $\ABC^{\mathsf x}$ restricted to conditions rooted in $X$.
+As a final observation, we can characterise the relation between shifters and conditions as a special construction called an \emph{indexed category}. For this purpose, let $\bC^\shift$ denote the category with objects from $\bC$ (which can be any presheaf topos) and arrows $\cS\of X\to Y$ whenever $\cS$ is a source shifter from $Y$ to $X$.
 
-\begin{proposition}[source shifters yield functors]\plabel{ab-shifters are functors}
-For any pair of objects $X,Y$ and any source shifter from $X$ to $Y$, the root shifter $\bar\cS$ is a functor from $\ABC^\forw(X)$ to $\ABC^\forw(Y)$ and from $\ABC^\back(X)$ to $\ABC^\back(Y)$.
+Moreover, for every $\bC^\shift$-object $X$ let $\ACx^\forw(X)=\ABC^\forw(X)$, and for every $\bC^\shift$-arrow $\cS\of X\to Y$ let $\ACx^\forw(\cS)$ be the functor that maps every $c\in \AC Y$ to $\bar\cS(c)\in \AC X$ and every forward-shift $m\of b\to c$ (for $b,c\in \AC Y$) to $m\of \bar\cS(b)\to \bar\cS(c)$. Define $\ACx^\back$ analogously for backward-shift morphisms.
+
+\begin{proposition}
+$\bC^\shift$ is a well-defined category, and for all $\cS\of X\to Y$, $\ACx^\forw(\cS)$ and $\ACx^\back(\cS)$ are well-defined functors from $\ABC^\forw(Y)$ to $\ABC^\forw(X)$ and from $\ABC^\back(Y)$ to $\ABC^\back(X)$, respectively. Moreover, $\ABx^\forw$ and $\ACx^\back$ are functors from $(\bC^\shift)^\op$ to $\Cat$, establishing $\bC^\shift$-indexed categories.
 \end{proposition}
