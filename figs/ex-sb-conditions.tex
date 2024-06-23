@@ -76,19 +76,19 @@
     ($(20)+(.2,-4)$) edge[->,bend right=50,dotted] node[below] {$m''$} ($(30)+(-.2,-4)$);
 	
   \path[morphism]
-    (01) edge[morphism,->] (11)
-	(111) edge[morphism,bend left=30,->] (011)
-	(112) edge[morphism,bend left=30,->] (012)
+    (01) edge[medge,->] (11)
+	(111) edge[medge,bend left=30,->] (011)
+	(112) edge[medge,bend left=30,->] (012)
 	;
 	
   \path[morphism]
-    (21) edge[morphism,->] (11)
-	(111) edge[morphism,bend right=30,->] (211)
-	(112) edge[morphism,bend right=30,->] (212)
+    (21) edge[medge,->] (11)
+	(111) edge[medge,bend right=30,->] (211)
+	(112) edge[medge,bend right=30,->] (212)
 	;
 	
-  \path
-    (32) edge[morphism,bend left=20,->] (21)
-	(212) edge[morphism,bend right=30,->] (321)
+  \path[morphism]
+    (32) edge[medge,bend left=20,->] (21)
+	(212) edge[medge,bend right=30,->] (321)
 	;
 \end{tikzpicture}
