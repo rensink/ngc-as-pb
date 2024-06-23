@@ -1,6 +1,6 @@
-\paragraph{Future work}
+\paragraph{Future work.}
 
-We see the results of this paper as providing only a start for the study into span-based conditions, giving rise to many natural follow-up questions. We name a few that have occurred to us.
+We see the results of this paper as providing only a start for the study into span-based conditions, giving rise to many natural follow-up questions. Some of those arise in the context of related work and were already discussed above; here are a few more.
 %
 \begin{itemize}
 \item Is there any independent characterisation of the fragment of entailment that is explained by span-based condition morphisms? Do forward-shift and backward-shift morphisms explain disctinct fragments as they do in the arrow-based case?
@@ -8,15 +8,7 @@ We see the results of this paper as providing only a start for the study into sp
 
 \item There are many syntactically different (but semantically equivalent) span-based representations for the same property. For instance, it can be shown that replacing any span by another with the same pushout gives rise to an equivalent condition. Is there a useful normal form for span-based conditions, preferably such that, if a morphism exists between two conditions, one also exists between their normal forms?
 %(Our first investigation into this question has not been encouraging; for instance, restricting spans to monic up-arrows, though not reducing expressive power, does limit the existence of morphisms and hence reduces the explainable fragment of entailment. Alternatively, replacing the spans by cospans carrying the same information, thus getting rid of the irrelevant syntactical differences caused by pushout-equivalent spans, seems to break a number of necessary compositionality properties.)
-
-\item Do span-based conditions form an algebra for the constructions of FOL, given suitably defined operators?
+%
+%\item Do span-based conditions form an algebra for the constructions of FOL, given suitably defined operators?
 %(Here we are quite hopeful: for instance, we believe that conjunction corresponds to the product and disjunction to the coproduct in our (forward-shift) category of span-based conditions, whereas negation is captured by ``pushing down'' a condition along an identity span. As for existential quantification, we would like to show that this is left-adjoint to the shift operator, as in the case of cospan-based conditions \cite{Konig}.\todo{was it left-or right-adjoint? Insert correct citation.})
-\end{itemize}
-%
-Given the related-work discussion above, there are also some connections to be investigated further.
-%
-\begin{itemize}
-\item By equipping conditions with suitable interfaces in the style of \cite{Bonchi}, enrich their algebraic structure, possibly identifying a suitable cartesian bicategory. This could provide the third structure (the combinatorial one) which together with the logical and the algebraic/categorical one presented in \cite{DBLP:journals/corr/abs-2404-18795} could lift to full FOL the triangular correspondence presented in \cite{DBLP:conf/csl/BonchiSS18} for the existential-conjunctive fragment.
-\item Re-investigate the related work on cospan-based conditions in the light of our categories.
-\item In his work on Existential Graphs~\cite{roberts1973-the-existential-graphs-of-charles-s.-peirce}, Charles S. Peirce proposed a graphical representation of full FOL, equipped with some kinds of graph manipulations which represent sound deductions. The notion of graph is not formalized in a standard algebraic way, but certainly it would be interesting to try to equip them with a categorical structure as done for conditions in this paper.  
 \end{itemize}
