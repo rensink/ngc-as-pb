@@ -1,5 +1,5 @@
-\subsection{Related work}
-\slabel{related}
+
+\paragraph{Related work.}
 
 In his work on Existential Graphs~\cite{roberts1973-the-existential-graphs-of-charles-s.-peirce}, Charles S. Peirce proposed a graphical representation of full FOL, equipped with some kinds of graph manipulations which represent sound deductions. Even if equally expressive, comparing Existential Graphs with Nested Conditions looks difficult, because the former are not formalized in a standard algebraic/categorical way.
 
@@ -8,7 +8,7 @@ Bonchi et.al.~\cite{DBLP:conf/csl/BonchiSS18} have enriched the correspondence b
 
 The operation of shifting a condition along an arrow has been exploited for cospan-based conditions in~\cite{bchk:conditional-reactive-systems} to compute weakest preconditions and strongest postconditions for graph transformation systems. This operation, similarly to our notion of shifter, defines a functor between catergories of conditions that is shown to have both left and right adjoints, corresponding to a form of existential and universal quantification.  We intend to define logical operations on span-based conditions, and to explore whether the adjunction results still hold.
 
-In~\cite{bchk:conditional-reactive-systems,sksclo:coinductive-techniques-for-satisfiability} nested conditions are defined over an arbitrary category $\bC$, which allows to instantiate the framework beyond presheaf toposes: for example, they consider the category of graphs and injective morphisms, or the category of left-linear cospans of an adhesive category. We intend to explore to what extend our assumptions on category $\bC$ can be relaxed in order to be able to apply our results to other settings.
+In~\cite{bchk:conditional-reactive-systems,sksclo:coinductive-techniques-for-satisfiability} nested conditions are defined over an arbitrary category $\bC$, which allows to instantiate the framework beyond presheaf toposes: for example, they consider the category of graphs and injective morphisms, or the category of left-linear cospans of an adhesive category. We intend to explore to what extent our assumptions on category $\bC$ can be relaxed in order to be able to apply our results to other settings.
 
 Some papers~\cite{lo:tableau-graph-properties,slo:model-generation,sksclo:coinductive-techniques-for-satisfiability} address the problem of (semi-)deciding satisfiability of nested conditions, by resorting to tableau-based techniques inspired by those of FOL. The proposed algorithms are also able to generare finite models if a formula has one.
 It would be interesting to explore if passing from arrow-based to span-based conditions can have an impact on  the complexitiy of proofs, and if morphisms among conditions could allow to relate different tableau based proofs.
