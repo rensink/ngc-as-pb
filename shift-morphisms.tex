@@ -10,7 +10,7 @@ The underlying principle for a morphism $m$ from $b=(R,p^b_1\ccdots p^c_{|b|})$ 
 \subsection{Root shifting}
 \slabel{shift-morphisms}
 
-In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}, which will later\todo{AR: Add link to where this is done} turn out to be a functor between categories of conditions over different roots. For now, we note that the purpose of root shifters is to relate the models of a condition $b\in \AC A$ to those of a condition $c\in \AC B$, given an arrow $v:A\to B$ between their roots (the existence of which implies that the model sets are typically disjoint). To be more precise, we will require that \emph{every $v$-prefixed model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
+In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}, which will later turn out to be a functor between categories of conditions over different roots. For now, we note that the purpose of root shifters is to relate the models of a condition $b\in \AC A$ to those of a condition $c\in \AC B$, given an arrow $v:A\to B$ between their roots (the existence of which implies that the model sets are typically disjoint). To be more precise, we will require that \emph{every $v$-prefixed model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
 
 This can be achieved in essentially two ways, both on the basis of $v$: by constructing $c$ from $b$ (which we will call \emph{forward shifting}) or by constructing $b$ from $c$ (which we will call \emph{backward shifting}).
 
@@ -335,8 +335,6 @@ We now state the first main result, that ab-conditions endowed with either forwa
 
 \begin{theorem}[categories of arrow-based conditions]\thlabel{ab-categories}
 Let $\ABC^{\forw}$ be the category having ab-conditions as objects and forward-shift morphims as arrows, and let $\ABC^{\back}$ be the category having the same objects and backward-shift morphisms as arrows. They are well-defined, and there are identity-on-objects functors $\ABC^{\forw} \to \ABC^{\entails}$ and $\ABC^{\back} \to \ABC^{\entails}$.
-
-\todo{AR: Added to ease the definition of the indexed categories.}Each of these categories $\ABC^{\mathsf x}$ actually consists of disjoint full subcategories $\ABC^{\mathsf x}(X)$ of $X$-rooted conditions.
 \end{theorem}
 %
 \emph{Proof sketch.} Composition of morphisms and the fact that all identity morphisms have the correct nature for both categories was shown by \lcite{ab-morphisms compose}.
