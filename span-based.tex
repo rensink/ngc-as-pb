@@ -374,15 +374,8 @@ If $m$ is complete and $g\sat c$, then let $p^c_j$ be the responsible branch and
 \end{fullorname}
 %
 \begin{example}\exlabel{sb-morphisms}
-For the span-based conditions in \fcite{sb-conditions}, we have a complete forward-shift morphism $m:b_1\to b_1'$, providing evidence that $b_1\equiv b_1'$; moreover, there are also morphisms $m':b_1\to b_2$ and $m'':b_2\to b_3$. All the required morphism arrows are already shown in the figure. Note that, in \excite{ab-morphisms}, we observed that there does \emph{not} exist an arrow-based morphism from $c_1$ to $c_2$; hence the existence of a span-based morphism between the equivalent $b_1$ and $b_2$ is concrete evidence for our claim, in \scite{categories} below, that the structure of span-based morphisms allows a richer relation between them.\todo{AR: check wording}
+For the span-based conditions in \fcite{sb-conditions}, we have a complete forward-shift morphism $m:b_1\to b_1'$, providing evidence that $b_1\equiv b_1'$; moreover, there are also morphisms $m':b_1\to b_2$ and $m'':b_2\to b_3$. All the required morphism arrows are already shown in the figure. Note that, in \excite{ab-morphisms}, we observed that there does \emph{not} exist an arrow-based morphism from $c_1$ to $c_2$; hence the existence of a span-based morphism between the equivalent $b_1$ and $b_2$ is concrete evidence for our claim, in \scite{categories} below, that the structure of span-based conditions allows more morhpisms between them.
 \end{example}
-%
-The preservation of morphism by root shifters (\lcite{ab-root shifters preserve morphisms}) also holds in the span-based case (for essentially the same reason, viz. \eqcite{span shifters are functors}):
-%
-\begin{lemma}[span root shifters preserves morphisms]
-             \llabel{sb-root shifters preserve morphisms}
-Let $b,c \in  \AC{X}$ and let $\cC$ be a span root shifter from $X$ to $Y$ that is defined on $b$ and $c$. If $m:b\to c$, then also $m:\cC(b)\to\cC(c)$. 
-\end{lemma}
 %
 We now once more return to the level of categories, using the exact same constructions for identity morphisms and morphism composition as in the arrow-based case (see \eqref{morphism composition} and \eqref{id-morphism}).
 \iffull
@@ -424,18 +417,18 @@ For any pair of objects $X,Y$ and any span source shifter from $X$ to $Y$, the s
 \subsection{From arrow-based to span-based and back}
 \slabel{categories}
 
-Span-based conditions are richer in morphisms than arrow-based conditions, but not richer in semantics. In this subsection we show the existence of full and faithful, semantics-preserving functors from the categories of forward- and backward-shift arrow-based conditions to their span-based counterparts, and we also show equivalence of the entailment-based categories.
+Span-based conditions are richer in morphisms than arrow-based conditions, but not richer in semantics. In this subsection we show the existence of faithful, semantics-preserving functors from the categories of forward- and backward-shift arrow-based conditions to their span-based counterparts, and we also show equivalence of the entailment-based categories.
 
-First, we inductively define the ``natural'' span-based conditon $\cN(c)$ for an arbitrary arrow-based condition $c\in \AC R$ and branch $p\in \AB R$.
+First, we inductively define the ``natural'' span-based conditon $\cN(c)$ for an arbitrary arrow-based condition $c\in \AC R$ and $\cN(p)$ for a branch $p\in \AB R$.
 \begin{align*}
-\cN: (R,p_1\ccdots p_w) & \mapsto (R,\cN(p_1)\ccdots \cN(p_w)) \\
+\cN: c = (R,p_1\ccdots p_w) & \mapsto (R,\cN(p_1)\ccdots \cN(p_w)) \\
       p=(a,c) & \mapsto (\spanof{\id_R}{a},\cN(c)) \enspace.
 \end{align*}
 %
-It follows (by induction) that $\cN(c)\in \SC R$ and $\cN(p)\in \SB R$. In particular, an arrow-based branch $p=(a,c)$ (with root $R$) is translated to a span-based branch in which $R$ is the interface and the span consists of up-arrow $\id_R$ and down-arrow $a$.\todo{AR: This just describes the definition in words; omit?} This transformation fully preserves the (satsfaction-based) semantics of conditions.
+It follows (by induction) that $\cN(c)\in \SC R$ and $\cN(p)\in \SB R$. This transformation fully preserves the (satsfaction-based) semantics of conditions.
 
 \begin{proposition}[$\cN$ preserves semantics]\plabel{N preserves semantics}
-Let $c\in \AC R$. For all $g\of R\to G$, $g\sat c$ iff $g\sat\cN(c)$. In consequence, for all $b\in \AC R$, $b\entails c$ if and only if $\cN(b)\entails \cN(c)$.
+Let $c\in \AC R$. For all $g\of R\to G$, $g\sat c$ iff $g\sat\cN(c)$. As a consequence, for all $b\in \AC R$, $b\entails c$ if and only if $\cN(b)\entails \cN(c)$.
 \end{proposition}
 %
 This is actually a consequence of \pcite{A preserves semantics} in combination with \lcite{N-A} below. Morphisms remain essentially identical under $\cN$:
