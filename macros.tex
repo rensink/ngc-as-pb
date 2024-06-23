@@ -156,8 +156,8 @@
 \newcommand{\Ishift}{\mathbin{\nearrow_{\!\!\mathsf i}}}
 \newcommand{\Ibshift}{\mathbin{\swarrow_{\!\!\mathsf i}}}
 
-\newcommand{\shift}[2]{#1\Rshift #2}
-\newcommand{\bshift}[2]{#1\Rbshift #2}
+%\newcommand{\shift}[2]{#1\Rshift #2}
+%\newcommand{\bshift}[2]{#1\Rbshift #2}
 
 \newcommand{\dshift}[2]{#1{\downarrow_{#2}}}
 
@@ -166,11 +166,16 @@
 \newcommand{\Var}{\mathsf{V}}
 \newcommand{\FOL}{\mathsf{FOL}}
 
-\newcommand{\AB}[1]{\mathsf{AB}\if\relax\detokenize{#1}\relax\else(#1)\fi}
-\newcommand{\AC}[1]{\mathsf{AC}\if\relax\detokenize{#1}\relax\else(#1)\fi}
+\newcommand{\ABx}{\mathsf{AB}}
+\newcommand{\ACx}{\mathsf{AC}}
+\newcommand{\SBx}{\mathsf{SB}}
+\newcommand{\SCx}{\mathsf{SC}}
 
-\newcommand{\SB}[1]{\mathsf{SB}\if\relax\detokenize{#1}\relax\else(#1)\fi}
-\newcommand{\SC}[1]{\mathsf{SC}\if\relax\detokenize{#1}\relax\else(#1)\fi}
+\newcommand{\AB}[1]{\ABx\if\relax\detokenize{#1}\relax\else(#1)\fi}
+\newcommand{\AC}[1]{\ACx\if\relax\detokenize{#1}\relax\else(#1)\fi}
+
+\newcommand{\SB}[1]{\SBx\if\relax\detokenize{#1}\relax\else(#1)\fi}
+\newcommand{\SC}[1]{\SCx\if\relax\detokenize{#1}\relax\else(#1)\fi}
 
 \newcommand{\bC}{\mathbf{C}}
 \newcommand{\bAC}{\mathbf{AC}}
@@ -204,6 +209,8 @@
 
 \newcommand{\forw}{{\mathsf{f}}}
 \newcommand{\back}{{\mathsf{b}}}
+\newcommand{\shift}{{\mathsf{sh}}}
+\newcommand{\op}{{\mathit{op}}}
 
 % \newcommand{\ABC}{\cat{AB-Cond}}
 \newcommand{\ABC}{\mathbf{AC}}
@@ -214,6 +221,7 @@
 \newcommand{\Hyper}{\cat{Hyper}}
 \newcommand{\Graph}{\cat{Graph}}
 \newcommand{\Cospan}{\cat{Cospan}}
+\newcommand{\Cat}{\mathbf{Cat}}
 \newcommand{\SpanC}{\cat{Span}(\cat{C})}
 
 
