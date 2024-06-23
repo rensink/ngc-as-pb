@@ -188,8 +188,9 @@ For zero-width conditions, both clauses are vacuously true. In the remainder ass
 %
 Source and root shifters compose, in the following way.
 %
-\begin{proposition}[shifters compose]\plabel{ab-shifters compose}
+\begin{proposition}[identities and composition of shifters]\plabel{ab-shifters compose}
 \begin{enumerate}[topsep=\smallskipamount]
+\item For every $X$, the identity function on $X$-sourced arrows, denoted $\cI_X$ and called the identity shifter, is a source shifter that is forward and backward for $\id_X$.
 \item If $\cU$ is a source [root] shifter from $X$ to $Y$ and $\cV$ a source [root] shifter from $Y$ to $Z$, then $\cU;\cV$ (understood as partial function composition) is a source [root] shifter from $X$ to $Z$. 
 \item If $\cU$ and $\cV$ are forward source [root] shifters for $u: X\to Y$ and $v: Y \to Z$, respectively, then $\cU;\cV$ is a forward source [root] shifter for $u;v$.
 \item Dually, if $\cU$ and $\cV$ are backward source [root] shifters for $u: Y\to X$ and $v: Z \to Y$, respectively, then $\cU;\cV$ is a backward source [root] shifter for $v;u$.
@@ -372,10 +373,12 @@ Indeed, $b\entails c$ because $z$ can be instantiated with the value of $y$. The
 \qed
 \end{example}
 %
-As a final observation, we can characterise the relation between shifters and conditions as a special construction called an \emph{indexed category}. For this purpose, let $\bC^\shift$ denote the category with objects from $\bC$ (which can be any presheaf topos) and arrows $\cS\of X\to Y$ whenever $\cS$ is a source shifter from $Y$ to $X$.
+As a final observation, we can characterise the relation between shifters and conditions as \emph{indexed categories}. For this purpose, let $\bC^\ashift$ denote the category with objects from $\bC$ (which can be any presheaf topos) and arrows $\cS\of X\to Y$ whenever $\cS$ is an (arrow-based) source shifter from $Y$ to $X$. Identity and composition are defined as in \pcite{ab-shifters compose}.
 
-Moreover, for every $\bC^\shift$-object $X$ let $\ACx^\forw(X)=\ABC^\forw(X)$, and for every $\bC^\shift$-arrow $\cS\of X\to Y$ let $\ACx^\forw(\cS)$ be the functor that maps every $c\in \AC Y$ to $\bar\cS(c)\in \AC X$ and every forward-shift $m\of b\to c$ (for $b,c\in \AC Y$) to $m\of \bar\cS(b)\to \bar\cS(c)$. Define $\ACx^\back$ analogously for backward-shift morphisms.
+Moreover, for every $\bC^\ashift$-object $X$ let $\ACx^\forw(X)=\ABC^\forw(X)$, and for every $\bC^\ashift$-arrow $\cS\of X\to Y$ let $\ACx^\forw(\cS)$ be the functor that maps every $c\in \AC Y$ to $\bar\cS(c)\in \AC X$ and every forward-shift $m\of b\to c$ (for $b,c\in \AC Y$) to $m\of \bar\cS(b)\to \bar\cS(c)$. Define $\ACx^\back$ analogously for backward-shift morphisms.
 
-\begin{proposition}[$\bC^\shift$-indexed categories]\plabel{ab indexed}
-$\bC^\shift$ is a well-defined category, and for all $\cS\of X\to Y$, $\ACx^\forw(\cS)$ and $\ACx^\back(\cS)$ are well-defined functors from $\ABC^\forw(Y)$ to $\ABC^\forw(X)$ and from $\ABC^\back(Y)$ to $\ABC^\back(X)$, respectively. Moreover, $\ABx^\forw$ and $\ACx^\back$ are functors from $(\bC^\shift)^\op$ to $\Cat$, establishing $\bC^\shift$-indexed categories.
+\begin{proposition}[$\bC^\ashift$-indexed categories]\plabel{ab indexed}
+$\ACx^\forw$ and $\ACx^\back$ are functors from $(\bC^\ashift)^\op$ to $\Cat$, establishing $\bC^\ashift$-indexed categories.
 \end{proposition}
+%
+Note that this is only correct because (implicitly) $\bC^\ashift$ is a well-defined category, and for all $\cS\of X\to Y$, $\ACx^\forw(\cS)$ and $\ACx^\back(\cS)$ are well-defined functors from $\ABC^\forw(Y)$ to $\ABC^\forw(X)$ and from $\ABC^\back(Y)$ to $\ABC^\back(X)$, respectively.

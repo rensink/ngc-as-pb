@@ -69,8 +69,8 @@ Satisfaction of sb-conditions is then defined as follows:
 %
 Note that this is entirely analogous fo \dcite{ab-satisfaction}, especially if we would retrofit the notation $a\commutes (g,h)$ there. Like before, we call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat c$. Satisfaction of sb-conditions is visualised in \fcite{sb-satisfaction}.
 
-\subsection{Span-based root shifting}
-\slabel{span-based}
+\section{Span-based morphisms}
+\slabel{sb-morphisms}
 
 To define morphisms of sb-conditions, we will go over the same ground as for ab-conditions, but take a slightly more abstract view --- as we did for satisfaction by introducing $\commutes$. Having recognised that the \emph{semantics} of a span in sb-conditions is essentially given by the set of model/witness pairs that it commutes with, we can in general consider relations over spans that either preserve or reflect this semantics, in the sense that if $s_1,s_2$ are related, then either $s_1\commutes (g,h)$ implies $s_2\commutes (g,h)$ (preservation) or $s_2\commutes (g,h)$ implies $s_1\commutes (g,h)$ (reflection). Typically, however, the model/witness pairs are not preserved or reflected precisely, but modulo some arrow that gets added to or erased from the model or witness.
 %
@@ -172,7 +172,7 @@ The step from span source shifters to span root shifters is completely identical
 The trivial root shifter $\cI_{A,B}$ is both a complete forward span root shifter and a complete backward span root shifter for any arrow $v:A\to B$. 
 \end{proposition}
 %
-Span root shifters satisfy the analogous properties of arrow root shifters formulated in Propositions \pref{ab-root shifters preserve} (model preservation) and \pref{ab-shifters compose} (composition), both extended with the case of complete shifters. 
+Span root shifters satisfy the analogous properties of arrow root shifters formulated in Propositions \pref{ab-root shifters preserve} (model preservation) and \pref{ab-shifters compose} (identities composition), both extended with the case of complete shifters. 
 \iffull
 As the proofs are essentially identical, we omit them here. 
 \fi
@@ -221,8 +221,6 @@ We call the span source and root shifters of the shape $\dF v$, $\rF v x$, $\dB 
 \item If $\cS$ is a backward shifter, then $\cS = \cS_1;\cdots;\cS_n$ where each $\cS_i$ is an elementary backward shifter for some $v_i$ such that $v=v_n;\cdots;v_1$. If, moreover, $\cS$ is complete then all $\cS_i$ are complete --- in which case either $\cS$ is trivial or $\cS_i=\dB{v_i}$ for all $i$ and $\cS=\dB v$.
 \end{itemize}
 \end{assumption}
-%
-\subsection{Span-based morphisms}
 
 A final change with respect to the arrow-based case is that we also abstract the commutation condition in \dcite{ab-morphism} by relying instead on a family of \emph{pattern shift relations} --- which in a sense complement the role of root shifters.
 %
@@ -408,13 +406,13 @@ Consider the following categories having sb-conditions as objects and different 
 $\SBC^\forw$ with forward-shift morphims, $\SBC^{\back}$ with backward-shift morphisms, $\SBC^{\forw{\circ}}$ with complete forward-shift morphisms, $\SBC^{\entails}$ with the preorder of semantic entailment, and $\SBC^\equiv$ with the preorder (actually, equivalence) of semantic equivalence. These are well-defined, and there are identity-on-objects functors $\SBC^\forw \to \SBC^{\entails}$, $\SBC^\back \to \SBC^{\entails}$ and $\SBC^{\forw{\circ}} \to \SBC^{\equiv}$.
 \end{theorem}
 %
-We end our presentation of sb-condition morphisms with the functoriality of span root shifters, lifting \pcite{ab-shifters are functors} to the span-based case.
+We end our presentation of sb-conditions by again establishing two indexed categories, now based on the category of span source shifters $\bC^\sshift$, lifting \pcite{ab indexed} to the span-based case.
 
-\begin{proposition}[span source shifters yield functors]\plabel{sb-shifters are functors}
-For any pair of objects $X,Y$ and any span source shifter from $X$ to $Y$, the span root shifter $\bar\cS$ is a functor from $\SBC^\forw(X)$ to $\SBC^\forw(Y)$ and from $\SBC^\back(X)$ to $\SBC^\back(Y)$.
+\begin{proposition}[$\bC^\sshift$-indexed categories]\plabel{sb indexed}
+There are functors $\SCx^\forw$ and $\SCx^\back$ from $(\bC^\sshift)^\op$ to $\Cat$, establishing $\bC^\sshift$-indexed categories.
 \end{proposition}
 
-\subsection{From arrow-based to span-based and back}
+\section{From arrow-based to span-based and back}
 \slabel{categories}
 
 Span-based conditions are richer in morphisms than arrow-based conditions, but not richer in semantics. In this subsection we show the existence of faithful, semantics-preserving functors from the categories of forward- and backward-shift arrow-based conditions to their span-based counterparts, and we also show equivalence of the entailment-based categories.
