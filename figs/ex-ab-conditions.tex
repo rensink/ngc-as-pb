@@ -12,7 +12,7 @@
         (11) edge[->] (111)
         (11) edge[->] (112);
 
-  \node[graph] (20) [right=4.5 of 10] {\onenode{x}};
+  \node[graph] (20) [right=4.2 of 10] {\onenode{x}};
   \node[left=0 of 20.west,inner sep=0] {$c_2$};
   \node[graph,below=of 20] (21) {\oneedge{x}{b}{y}}; 
   \node[left=0 of 21.west,inner sep=0] {$c_{21}$};
@@ -25,12 +25,12 @@
         (21) edge[->] (211)
         (21) edge[->] (212);
   
-  \node[graph,right=3.5 of 20] (30) {\onenode{x}};
+  \node[graph,right=4 of 20] (30) {\onenode{x}};
   \node[left=0 of 30.west,inner sep=0] {$c_3$};
   \node[graph,below left=of 30] (31) {\oneloop{x}{a}}; 
   \node[left=0 of 31.west,inner sep=0] {$c_{31}$};
   \node[graph,below right=of 30] (32) {\oneedge{x}{b}{y}}; 
-  \node[right=0 of 32.east,inner sep=0] {$c_{31}$};
+  \node[right=0 of 32.east,inner sep=0] {$c_{32}$};
   \node[graph,below=1.2 of 32] (321) {\onetwoedge{x}{b}{y}{c}{v}{c}{z}}; 
   \node[above left=0 of 321.north east,inner sep=1] {$c_{321}$};
   \node[graph,below=1.2 of 321] (3211) {\twoedge{x}{b}{y}{c}{z}}; 
