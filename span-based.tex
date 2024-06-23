@@ -415,7 +415,7 @@ There are functors $\SCx^\forw$ and $\SCx^\back$ from $(\bC^\sshift)^\op$ to $\C
 \section{From arrow-based to span-based and back}
 \slabel{categories}
 
-Span-based conditions are richer in morphisms than arrow-based conditions, but not richer in semantics. In this subsection we show the existence of faithful, semantics-preserving functors from the categories of forward- and backward-shift arrow-based conditions to their span-based counterparts, and we also show equivalence of the entailment-based categories.
+Span-based conditions are richer in morphisms than arrow-based conditions, but semantically equivalent. In this subsection we show the existence of faithful, semantics-preserving functors from the categories of forward- and backward-shift arrow-based conditions to their span-based counterparts, and we also show equivalence of the entailment-based categories.
 
 First, we inductively define the ``natural'' span-based conditon $\cN(c)$ for an arbitrary arrow-based condition $c\in \AC R$ and $\cN(p)$ for a branch $p\in \AB R$.
 \begin{align*}
@@ -429,7 +429,7 @@ It follows (by induction) that $\cN(c)\in \SC R$ and $\cN(p)\in \SB R$. This tra
 Let $c\in \AC R$. For all $g\of R\to G$, $g\sat c$ iff $g\sat\cN(c)$. As a consequence, for all $b\in \AC R$, $b\entails c$ if and only if $\cN(b)\entails \cN(c)$.
 \end{proposition}
 %
-This is actually a consequence of \pcite{A preserves semantics} in combination with \lcite{N-A} below. Morphisms remain essentially identical under $\cN$:
+This is actually implied by \pcite{A preserves semantics} in combination with \lcite{N-A} below. Morphisms remain essentially identical under $\cN$:
 %
 \[ \cN: (o,(v_1,m_1)\ccdots (v_w,m_w)) \mapsto (o,(v_1,\cN(m_1))\ccdots (v_w,\cN(m_w))) \enspace. \]
 %
@@ -452,10 +452,10 @@ The latter is immediate. For the former, briefly using $\hat \cS$ to denote span
 Since identities and morphism composition are obviously preserved by $\cN$, we have the following result, also illustrated in \fcite{categories}:
 
 \begin{theorem}[arrow-based to span-based functors]\thlabel{ab-to-sb functors}
-$\cN$ is a faithful functor from $\ABC^\forw$ to $\SBC^\forw$, from $\ABC^\back$ to $\SBC^\back$ and (with the appropriate, obvious mapping on arrows) from $\ABC^{\entails}$ to $\SBC^{\entails}$, which commute with the functors of \thcite{ab-categories} and \thcite{sb-categories}.
+$\cN$ is a faithful functor from $\ABC^\forw$ to $\SBC^\forw$, from $\ABC^\back$ to $\SBC^\back$ and (with the appropriate, obvious mapping of arrows) from $\ABC^{\entails}$ to $\SBC^{\entails}$, which commute with the functors of \thcite{ab-categories} and \thcite{sb-categories}.
 \end{theorem}
 %
-From span-based to arrow-based conditions with forward- or backward-shift morphisms, there does not exist a functor, as the span-based categories are richer in morphisms --- for instance, \fcite{sb-conditions} shows an example morphism $m':b_1\to b_2$, whereas no morphism exists between the equivalent $c_1$ and $c_2$ in \fcite{ab-conditions} (confer Examples \exref{ab-morphisms} and~\exref{sb-morphisms}). However, we now show that span-based conditions themselves are not richer in semantics than arrow-based ones: there does exist a semantics-preserving mapping from $\SC A$ to $\AC A$ for all $A$.
+From span-based to arrow-based conditions with forward- or backward-shift morphisms, there does not exist a functor, as the span-based categories are richer in morphisms --- for instance, \fcite{sb-conditions} shows an example sban-based morphism $m':b_1\to b_2$, whereas no arrow-based morphism exists between the equivalent $c_1$ and $c_2$ in \fcite{ab-conditions} (confer Examples \exref{ab-morphisms} and~\exref{sb-morphisms}). However, we now show that span-based conditions themselves are semantically not more expressive than arrow-based ones: there does exist a semantics-preserving mapping from $\SC A$ to $\AC A$ for all $A$.
 
 Let $(d'_s,u'_s)$ denote the pushout cospan for a span $s=\spanof u d$. We inductively define $\cA$ on sb-conditions and sb-branches, as follows:
 %
@@ -479,7 +479,7 @@ If $c\in SC(R)$, then $\cA(c)$ is an arrow-based condition in $\AC R$ such that 
 \end{proposition}
 %
 \begin{proof}[sketch]
-This is shown by induction on the depth of $c$, using that $g=d'_s;h$ iff $s\commutes (g,u'_s;h)$ for any model/witness pair $(g,h)$, in combination with the fact that $\dF{u'_s}$ preserves models adding $u'_s$ and reflects them erasing $u'_s$ (\pcite{sb-source shifters}).\qed
+By induction on the depth of $c$, using that $g=d'_s;h$ iff $s\commutes (g,u'_s;h)$ for any model/witness pair $(g,h)$, in combination with the fact that $\dF{u'_s}$ preserves models adding $u'_s$ and reflects them erasing $u'_s$ (\pcite{sb-source shifters}).\qed
 \end{proof}
 %
 This implies that (as claimed above) span-based conditions are semantically not more expressive than arrow-based categories. The formal statement comes down to an equivalence of the respective categories, also illustrated in \fcite{categories}.

@@ -10,7 +10,7 @@ Along the paper examples and intuitions will be based on $\cat{Graph}$, the cate
         (1) edge[bend right=20,->] (2);
 }$. Furthermore, presheaf toposes are closed under the construction of slice and functor categories, thus they include labeled/typed (hyper)graphs (see Sec.~5 of~\cite{AzziCR19}). 
 
-Assuming that \cat{C} is a presheaf topos ensures several properties we need in the constructions of this paper: in particular, that all limits and colimits exist (and can be computed pointwise), and also that epis are stable under pullback. Furthermore, \cat{C} is \emph{adhesive}~\cite{ls:adhesive-journal}, enjoying several properties exploited in the algebraic theory of graph rewriting, where the results of this paper have potential interesting application.\footnote{Note however that requiring \cat{C} to be just adhesive would not suffice: for example, we need arbitrary pushouts, while adhesivity only guarantees pushouts along monos.}
+Assuming that \cat{C} is a presheaf topos ensures several properties we need in the constructions of this paper: in particular, that all limits and colimits exist (and can be computed pointwise), and also that epis are stable under pullback. Furthermore, \cat{C} is \emph{adhesive}~\cite{ls:adhesive-journal}, enjoying several properties exploited in the algebraic theory of graph rewriting, where the results of this paper have potential interesting applications.\footnote{Note that requiring \cat{C} to be just adhesive would not suffice: for example, we need arbitrary pushouts, while adhesivity only guarantees pushouts along monos.}
 
 \medskip\noindent
 Arrow-based conditions are inductively defined as follows:
@@ -52,10 +52,10 @@ to the notion of satisfacion introduced below, assuming that we already know the
 \item $c_3$ is equivalent to $\la(x,x)\vee (\exists y\st \lb(x,y) \wedge \forall v,z\st \lc(y,v)\wedge \lc(y,z) \rightarrow v=z)$
 \end{itemize}
 %
-Note that we have used variable names to represent nodes, to make the connection to the corresponding FOL properties more immediately understandable. The arrows are in all cases implied by the graph structure and variable names.
+Note that we have used variable names to represent nodes, to make the connection to the corresponding FOL properties more understandable. The arrows are in all cases implied by the graph structure and variable names.
 \qed
 \end{example}
-
+%
 \begin{figure}[t]
 \centering
 \input{figs/ex-ab-conditions}
