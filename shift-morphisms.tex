@@ -14,7 +14,7 @@ In order to relate conditions at different roots, we introduce a special kind of
 
 This can be achieved in essentially two ways, both on the basis of $v$: by constructing $c$ from $b$ (which we will call \emph{forward shifting}) or by constructing $b$ from $c$ (which we will call \emph{backward shifting}).
 
-We will first define how to shift arrows (where it is called source shifting) and then extend this in a natural way to conditions (where it is called root shifting).
+We will first define how to shift arrows (where it is called \emph{source} shifting) and then extend this in a natural way to conditions (where it is called \emph{root} shifting).
 
 \begin{definition}[source shifter]\dlabel{ab-source shifter}
 \begin{itemize}[topsep=\smallskipamount]
@@ -24,7 +24,7 @@ We will first define how to shift arrows (where it is called source shifting) an
 \cS(a;t) = \cS(a);t \enspace.
 \end{equation}
 %
-\item Now let $v\of A\to B$ an arrow. A \emph{forward source shifter $\cS$ for $v$} is a source shifter from $A$ to $B$ such that for all $a\of A\to C$, $g\of B\to G$ and $h\of C\to G$:
+\item Now let $v\of A\to B$ be an arrow. A \emph{forward source shifter $\cS$ for $v$} is a source shifter from $A$ to $B$ such that for all $a\of A\to C$, $g\of B\to G$ and $h\of C\to G$:
 %
 \begin{equation}\eqlabel{forward condition}
 v;g = a;h \text{ implies } g = \cS(a);h \enspace.
@@ -38,7 +38,9 @@ v;g = \cS(a);h \text{ implies } g = a;h \enspace.
 \end{itemize}
 \end{definition}
 %
-If $\cS$ is known to be a forward shifter, we sometimes use $\cF$ to denote it; similarly, we use $\cB$ to denote backward shifters. Condition \eqref{shifters are functors} is actually quite strong, since it holds for any arrow $a$ and $t$, in particular also for the case that $a=\id_X$ (and hence $Y=X$). This leads to the following observation.
+If $\cS$ is known to be a forward shifter, we sometimes use $\cF$ to denote it; similarly, we use $\cB$ to denote backward shifters. Condition \eqref{shifters are functors} is actually quite strong, since it holds for any arrow $a$ and $t$. In particular, for $t = id_Y$ ($\cS(a;id_Y) = \cS(a);id_Y$)  it implies that $\cS$ preserves the target, and for $a = id_X$ ($\cS(id_X;t) = \cS(id_X);t$) it leads to the following observation.
+
+% In particular also for the case that $a=\id_X$ (and hence $Y=X$). This leads to the following observation.
 %
 \begin{lemma}\llabel{ab-source shifters}
 Let $\cS$ be a mapping from $X$-sourced to $Y$-sourced arrows, and let $v\of Y\to X$ be an arrow. The following statements are equivalent:
@@ -121,7 +123,7 @@ It follows that $v$ has precisely one forward source shifter for every section $
 \begin{figure}
 \centering
 \input{figs/ex-ab-shifters}
-\caption{Forward source shifters $\cF_v^{s_1}$ and $\cF_v^{s_2}$ and backward source shifter $\cB_v$ for an arrow $v:A\to B$. (All arrows $a$ are the identity on nodes.)}
+\caption{Forward source shifters $\cF_v^{s_1}$ and $\cF_v^{s_2}$ and backward source shifter $\cB_v$ for an arrow $v:A\to B$. (All morphisms $a$ are the identity on nodes.)}
 \flabel{ex-ab-shifters}
 \end{figure}
 
@@ -233,7 +235,7 @@ We use the same notational conventions as for conditions: $m$ has width $|m|$ an
 \begin{figure}[t]
 \centering
 \input{figs/shifted-morphisms}
-\caption{Visualiation of forward-shift and backward-shift morphisms}
+\caption{Visualisation of forward-shift and backward-shift morphisms $m:b \to c$}
 \flabel{shifted-morphism}
 \end{figure}
 %
@@ -260,13 +262,14 @@ Suppose (ad absurdum) that $v_i ;h \sat c_{o(i)}$. Then by the induction hypothe
 \end{fullorname}
 
 \begin{example}\exlabel{ab-morphisms}
-Going back to \fcite{ab-conditions}, though (as noted before) $c_1\entails c_2$, there does not exist a morphism $m\of c_1\to c_2$. A mapping $v_1$ does exist from $c_{21}$ to $c_{11}$; however, no mapping $v_{11}$ can be found to $c_{211}$ from either $c_{111}$ or $c_{112}$, nor a mapping $v_{12}$ to $c_{212}$.
+Going back to \fcite{ab-conditions}, though (as noted before) $c_1\entails c_2$, there does not exist a morphism $m\of c_1\to c_2$. A mapping $v_1$ does exist from $c_{21}$ to $c_{11}$; however, no mapping $v_{11}$ can be found to $c_{211}$ from either $c_{111}$ or $c_{112}$. 
+%, nor a mapping $v_{12}$ to $c_{212}$.
 
-On the other hand, $c_2\entails c_3$ has evidence in the form of a morphism $m\of c_2\to c_3$, with the identity mapping $v_1\of c_{31}$ to $c_{21}$ (in combination with either the forward shifter $\cF_{v_1}^{v_1}$ or the backward shifter $\cB_{v_1}$) and a corresponding sub-morphism $m_1$ with mapping $v_{12}:c_{212}\to c_{321}$ (in combination with the trivial root shifter).
+On the other hand, $c_2\entails c_3$ has evidence in the form of a morphism $m\of c_2\to c_3$, with the identity mapping $v_1\of c_{32} \to c_{21}$ (in combination with either the forward shifter $\cF_{v_1}^{v_1}$ or the backward shifter $\cB_{v_1}$) and a corresponding sub-morphism $m_1$ with mapping $v_{12}:c_{212}\to c_{321}$ (in combination with the trivial root shifter).
 \qed
 \end{example}
 %
-\pcite{ab-morphisms preserve models} can be phrased more abstractly as the existence of a functor from a category of arrow-based conditions and their (forward-shift or backward-shift) morphims to $\ABC^{\entails}$. An important step to arrive at that result is to show that morphims compose. This, in turn, depends on the preservation of morphisms by root shifters.
+\pcite{ab-morphisms preserve models} can be phrased more abstractly as the existence of a functor from a category of arrow-based conditions and their (forward-shift or backward-shift) morphisms to $\ABC^{\entails}$. An important step to arrive at that result is to show that morphisms compose. This, in turn, depends on the preservation of morphisms by root shifters.
 
 \begin{lemma}[root shifters preserve morphisms]
              \llabel{ab-root shifters preserve morphisms}
@@ -298,8 +301,8 @@ Identities are morphisms, and morphism composition is well-defined.
 Let $b,c,e$ be ab-conditions and $m\of b\to c, n\of c\to e$ ab-condition morphisms.
 \begin{enumerate}[topsep=\smallskipamount]
 \item $\id_b$ is both a forward- and a backward-shift morphism from $b$ to $b$;
-\item If $m$ and $n$ are forward-shift morphisms, then $m;n$ is a forward-shift morphism from $c$ to $e$;
-\item If $m$ and $n$ are backward-shift morphisms, then $m;n$ is a backward-shift morphism from $c$ to $e$.
+\item If $m$ and $n$ are forward-shift morphisms, then $m;n$ is a forward-shift morphism from $b$ to $e$;
+\item If $m$ and $n$ are backward-shift morphisms, then $m;n$ is a backward-shift morphism from $b$ to $e$.
 \end{enumerate}
 \end{lemma}
 %
@@ -334,10 +337,10 @@ For every $R$, $\AC R$ gives rise to categories $\ABC^\forw(R)$ with forward-shi
 We now state the first main result, that ab-conditions endowed with either forward or backward morphisms give rise to a category with a functor to $\ABC^{\entails}$.
 
 \begin{theorem}[categories of arrow-based conditions]\thlabel{ab-categories}
-Let $\ABC^{\forw}$ be the category having ab-conditions as objects and forward-shift morphims as arrows, and let $\ABC^{\back}$ be the category having the same objects and backward-shift morphisms as arrows. They are well-defined, and there are identity-on-objects functors $\ABC^{\forw} \to \ABC^{\entails}$ and $\ABC^{\back} \to \ABC^{\entails}$.
+Let $\ABC^{\forw}$ be the category having ab-conditions as objects and forward-shift morphisms as arrows, and let $\ABC^{\back}$ be the category having the same objects and backward-shift morphisms as arrows. They are well-defined, and there are identity-on-objects functors $\ABC^{\forw} \to \ABC^{\entails}$ and $\ABC^{\back} \to \ABC^{\entails}$.
 \end{theorem}
 %
-\emph{Proof sketch.} Composition of morphisms and the fact that all identity morphisms have the correct nature for both categories was shown by \lcite{ab-morphisms compose}.
+\emph{Proof sketch.} Composition of morphisms and the fact that all identity morphisms have the correct nature for both categories is shown by \lcite{ab-morphisms compose}.
 Moreover, identity morphisms and morphism composition satisfy the unit and associativity laws. The existence of the two identity-on-object functors follows from \pcite{ab-morphisms preserve models}.
 \qed 
 
@@ -347,14 +350,14 @@ Even though both forward- and backward-shift morphisms preserve models, they are
 \begin{figure}[t]
 \centering
 \subcaptionbox
-  {A forward-shift morphism without a backward-shift one
+  {A forward-shift morphism $m \of b \to c$ without a backward-shift one
    \flabel{forward-no-backward}
   }
   [.45\textwidth]
   {\input{figs/ex-forward-no-backward}}
   \qquad
 \subcaptionbox
-  {A backward-shift morphism without a forward-shift one
+  {A backward-shift morphism $m \of b \to c$ without a forward-shift one
    \flabel{backward-no-forward}
   }
   [.45\textwidth]
@@ -364,16 +367,16 @@ Even though both forward- and backward-shift morphisms preserve models, they are
 \end{figure}
 %
 \begin{example}[forward versus backward root shifters]\exlabel{forward vs backward}
-\fcite{forward-no-backward} shows a forward-shift morphism where there is no backward-shift one. Both are evaluated in a context where we know $\la(x,z)$. In that context, $b$ is equivalent to the property $\neg \lb(z,x)$, and $c$ is equivalent to $\exists y\st \la(x,y) \wedge \neg \lb(z,x)$. Indeed, an intuitive explanation of $b\entails c$ is that $y$ can be instantiated with the value of $z$. The figure shows $\cF_{m_1}^s(a^c_{11})$ (for one of the sections $s$ of $m_1$), which acts as the identity on node and edges.
+\fcite{forward-no-backward} shows a forward-shift morphism $m \of b \to c$ where there is no backward-shift one. Both conditions are evaluated in a context where we know $\la(x,z)$. In that context, $b$ is equivalent to the property $\neg \lb(z,x)$, and $c$ is equivalent to $\exists y\st \la(x,y) \wedge \neg \lb(z,x)$. Indeed, an intuitive explanation of $b\entails c$ is that $y$ can be instantiated with the value of $z$. The figure shows $\cF_{m_1}^s(a^c_{11})$ (for a section $s$ of $m_1$), which acts as the identity on node and edges.
 
-\fcite{backward-no-forward} shows a backward-shift morphism where there is no forward-shift one. Both are evaluated in a context where we know $\la(x,y)$. In that context, $b$ is equivalent to $\lb(y,y) \wedge \nexists z\st \lc(z,x)$ and $c$ is equivalent to $\exists z.\lb(z,z) \wedge \neg(y=z \wedge \lc(y,x))$.
+\fcite{backward-no-forward} shows a backward-shift morphism $m \of b \to c$ where there is no forward-shift one. Both conditions are evaluated in a context where we know $\la(x,y)$. In that context, $b$ is equivalent to $\lb(y,y) \wedge \nexists z\st \lc(z,x)$ and $c$ is equivalent to $\exists z.\lb(z,z) \wedge \neg(y=z \wedge \lc(y,x))$.
 Indeed, $b\entails c$ because $z$ can be instantiated with the value of $y$. The figure shows $\cB_{m_1}(a^c_{11})$.
 \qed
 \end{example}
 %
 As a final observation, we can characterise the relation between shifters and conditions as \emph{indexed categories}. For this purpose, let $\bC^\ashift$ denote the category with objects from $\bC$ (which can be any presheaf topos) and arrows $\cS\of X\to Y$ whenever $\cS$ is an (arrow-based) source shifter from $Y$ to $X$. Identity and composition are defined as in \pcite{ab-shifters compose}.
 
-Moreover, for every $\bC^\ashift$-object $X$ let $\ACx^\forw(X)=\ABC^\forw(X)$, and for every $\bC^\ashift$-arrow $\cS\of X\to Y$ let $\ACx^\forw(\cS)$ be the functor that maps every $c\in \AC Y$ to $\bar\cS(c)\in \AC X$ and every forward-shift $m\of b\to c$ (for $b,c\in \AC Y$) to $m\of \bar\cS(b)\to \bar\cS(c)$. Define $\ACx^\back$ analogously for backward-shift morphisms.
+Moreover, for every $\bC^\ashift$-object $X$ let $\ACx^\forw(X)=\ABC^\forw(X)$ (the full subcategory of $\ABC^\forw$ containing only conditions rooted at $X$), and for every $\bC^\ashift$-arrow $\cS\of X\to Y$ let $\ACx^\forw(\cS)$ be the functor that maps every $c\in \AC Y$ to $\bar\cS(c)\in \AC X$ and every forward-shift $m\of b\to c$ (for $b,c\in \AC Y$) to $m\of \bar\cS(b)\to \bar\cS(c)$. Define $\ACx^\back$ analogously for backward-shift morphisms.
 
 \begin{proposition}[$\bC^\ashift$-indexed categories]\plabel{ab indexed}
 $\ACx^\forw$ and $\ACx^\back$ are functors from $(\bC^\ashift)^\op$ to $\Cat$, establishing $\bC^\ashift$-indexed categories.
