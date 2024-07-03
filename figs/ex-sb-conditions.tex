@@ -71,9 +71,9 @@
 		(I-3211) edge[->] node[right] {\mapping{v&z}} (3211);
 
   \path
-    ($(10)+(-.2,-4)$) edge[->,bend left=50,dotted] node[below] {$m$} ($(00)+(0,-4)$)
-    ($(10)+(.2,-4)$) edge[->,bend right=50,dotted] node[below] {$m'$} ($(20)+(-.2,-4)$)
-    ($(20)+(.2,-4)$) edge[->,bend right=50,dotted] node[below] {$m''$} ($(30)+(-.2,-4)$);
+    ($(10)+(-.2,-4)$) edge[<-,bend left=50,dotted] node[below] {$m$} ($(00)+(0,-4)$)
+    ($(10)+(.2,-4)$) edge[<-,bend right=50,dotted] node[below] {$m'$} ($(20)+(-.2,-4)$)
+    ($(20)+(.2,-4)$) edge[<-,bend right=50,dotted] node[below] {$m''$} ($(30)+(-.2,-4)$);
 	
   \path[morphism]
     (01) edge[medge,->] (11)

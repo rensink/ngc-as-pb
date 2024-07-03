@@ -136,9 +136,13 @@
 \newcommand{\entails}{\models}
 \newcommand{\nentails}{\not\models}
 
-\newcommand{\pentails}{\models^{\mathsf p}}
-\newcommand{\pentailedby}{\Relbar\joinrel\mathrel{|}^{\mathsf p}}
-\newcommand{\pequiv}{\equiv^{\mathsf p}}
+\newcommand{\pentapex}{\mathsf f}
+% \newcommand{\pentails}{\models^{\mathsf p}}
+% \newcommand{\pentailedby}{\Relbar\joinrel\mathrel{|}^{\mathsf p}}
+% \newcommand{\pequiv}{\equiv^{\mathsf p}}
+\newcommand{\pentails}{\models^{\pentapex}}
+\newcommand{\pentailedby}{\Relbar\joinrel\mathrel{|}^{\pentapex}}
+\newcommand{\pequiv}{\equiv^{\pentapex}}
 
 \newcommand{\degr}[1]{|{#1}|}
 \newcommand{\ccdots}{{\cdotp\mkern-2mu\cdotp\mkern-2mu\cdotp\mkern1mu}}
@@ -228,6 +232,8 @@
 
 \newcommand{\False}{\textbf{false}}
 \newcommand{\True}{\textbf{true}}
+
+\newcommand{\fprovable}{{$\cF$-provable}}
 
 % Alignment macro, see https://www.math.lsu.edu/~aperlis/publications/mathclap/perlis_mathclap_24Jun2003.pdf
 \def\clap#1{\hbox to 0pt{\hss#1\hss}}

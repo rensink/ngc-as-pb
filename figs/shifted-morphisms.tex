@@ -21,7 +21,7 @@
 
 \path [->,bend left=80,below,dotted]
       (ci) edge[looseness=2.1] node {$\cF_i$} (Ci)
-      (Ci) edge[looseness=2.3] node {$m_i$} (bi)
+      (bi) edge[looseness=2.3,bend right=80] node {$m_i$} (Ci)
 	  ;
 \end{tikzpicture}
 %
@@ -50,6 +50,6 @@
 
 \path [->,bend left=80,below,dotted]
       (bi) edge[looseness=2.2,bend right=80] node {$\cB_i$} (Ci)
-      (ci) edge[looseness=2.1] node {$m_i$} (Ci)
+      (Ci) edge[looseness=2.1,bend right=80] node {$m_i$} (ci)
 	  ;
 \end{tikzpicture}

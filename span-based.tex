@@ -1,9 +1,9 @@
 \section{Span-based conditions}
 \slabel{sb-conditions}
 
-The peculiar definition of morphisms of ab-conditions just introduced, with arrows changing direction at each layer in order to ensure the preservation of models, clashes with a structural property of arrow-based conditions. Indeed, the pattern of each subcondition must contain a (homomorphic) copy of the parent pattern, because a branch consists of an arrow of $\cat{C}$ from the latter to the former. Thus if a morphism maps, say, the pattern $P^b$ of (a subcondition of) $b$ to a pattern $P^c$ of $c$, at the next layer (the copy of) $P^c$ must be mapped backwards to (the copy) of $P^b$. The consequence is that morphisms fail to exist even in very simple situations. An example is given by \excite{ab-morphisms}, where we have seen that $c_1\entails c_2$ (see \fcite{ab-conditions}) but there is no morphism providing evidence for this.
+The peculiar definition of morphisms of ab-conditions just introduced, with arrows changing direction at each layer in order to ensure the preservation of models, clashes with a structural property of arrow-based conditions. Indeed, the pattern of each subcondition must contain a (homomorphic) copy of the parent pattern, because a branch consists of an arrow of $\cat{C}$ from the latter to the former. Thus if a morphism maps, say, the pattern $P^c$ of (a subcondition of) $c$ to a pattern $P^b$ of $b$, at the next layer (the copy of) $P^b$ must be mapped backwards to (the copy) of $P^c$. The consequence is that morphisms fail to exist even in very simple situations. An example is given by \excite{ab-morphisms}, where we have seen that $c_1\entails c_2$ (see \fcite{ab-conditions}) but there is no morphism providing evidence for this.
   
-Inspired by these observation, we present the second main contribution of this paper: an original definition of nested conditions where the duplication of structure just described does not occur, because at each level we can specify only the \emph{additional} structure (and how it is connected). This is achieved by replacing the branch arrows $a^c_i$ of a condition $c$ by \emph{spans}.
+Inspired by these observation, we present the second main contribution of this paper: an original definition of nested conditions where the duplication of structure just described does not occur, because at each level we can specify only the \emph{additional} structure, and how it is connected. This is achieved by replacing the branch arrows $a^c_i$ of a condition $c$ by \emph{spans}.
 
 % We now present the main idea of this paper, inspired by on the observation that arrow-based conditions over graphs contain a lot of duplication: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} structure (and how it is connected). This is achieved by replacing the branch arrows $a^c_i$ of a condition $c$ by \emph{spans}.\footnote{We discuss and contrast an alternative way to resolve the same issue, using \emph{cospans} rather than spans, later in this paper.}\todo{AC: Remove the footnote and add a sentence in the future work section.}
 
@@ -337,12 +337,12 @@ For the analogy with the arrow-based case, let $\cA_v=\setof{(a_1,a_2)\mid a_2=a
 Using pattern shift, we define morphisms over sb-conditions as follows.
 %
 \begin{definition}[span-based (complete) condition morphism]\dlabel{sb-morphism}
-  Given two sb-conditions $b,c$, a \emph{forward-shift [backward-shift] sb-morphism} $m:b\to c$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
+  Given two sb-conditions $c,b$, a \emph{forward-shift [backward-shift] sb-morphism} $m:c\to b$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
   \begin{itemize}[topsep=\smallskipamount]
   \item $o:[1,|b|]\to [1,|c|]$ is a function from $b$'s branches to $c$'s branches;
   \item for all $1\leq i\leq |b|$, $v_i:P^c_{o(i)}\to P^b_i$ is a arrow from the pattern of $p^c_{o(i)}$ to that of $p^b_i$ such that $(s^c_{o(i)},s^b_i)\in \cP_{v_i}$;
-  \item \emph{Forward shift:} for all $1\leq i\leq |b|$, there is a forward root shifter $\cF_i$ for $v_i$ such that $m_i:\cF_i(c_{o(i)})\to b_i$ is a forward-shift morphism;
-  \item \emph{Backward shift:} for all $1\leq i\leq |b|$, there is a backward root shifter $\cB_i$ for $v_i$ such that $m_i:c_{o(i)}\to \cB(b_i)$ is a backward-shift morphism.
+  \item \emph{Forward shift:} for all $1\leq i\leq |b|$, there is a forward root shifter $\cF_i$ for $v_i$ such that $m_i:b_i \to \cF_i(c_{o(i)})$ is a forward-shift morphism;
+  \item \emph{Backward shift:} for all $1\leq i\leq |b|$, there is a backward root shifter $\cB_i$ for $v_i$ such that $m_i:\cB(b_i) \to  c_{o(i)}$ is a backward-shift morphism.
   \end{itemize}
   The morphism $m$ is called \emph{direct} if all $\cF_i$ [$\cB_i$] and $m_i$ are direct, and is called \emph{complete} if $o$ is surjective and for all $1\leq i\leq |b|$, $(s^c_{o(i)},s^b_i)\in \ccP_{v_i}$, $\cF_i$ [$\cB_i$] is complete and $m_i$ is complete.
 \end{definition}
@@ -353,49 +353,54 @@ Just as for the arrow-based case, one of the most essential properties of span-b
 
 \begin{proposition}[sb-condition morphisms preserve models]
                    \plabel{sb-morphisms preserve models}
-Let $b,c \in \SC{R}$ be span-based conditions. If $m:b\to c$ is an sb-morphism, then $g\sat b$ implies $g \sat c$ for all arrows $g:R\to G$. Moreover, if $m$ is complete, then also $g\sat c$ implies $g\sat b$ for all $g$.
+Let $c,b \in \SC{R}$ be span-based conditions. If $m:c\to b$ is an sb-morphism, then $g\sat b$ implies $g \sat c$ for all arrows $g:R\to G$. Moreover, if $m$ is complete, then also $g\sat c$ implies $g\sat b$ for all $g$.
 \end{proposition}
 %
 \begin{fullorname}
 \begin{proof}
-By induction on the depth of $m$. If $m:b\to c$ is an sb-morphism and $g\sat b$, then let $p^b_i$ be the responsible branch and $h$ the witness such that $\spanof{u^b_i}{d^b_i}\commutes (g,h)$ and $h\nsat b_i$, and let $j=o(i)$. Since $(s^c_j,s^b_i)\in \cP_{v_i}$, it follows by \pcite{pattern shift}.\ref{pattern-preserves} that $\spanof{u^c_j}{d^c_j}\commutes (g,v_i;h)$. Now assume (ad absurdum) that $v_i;h\sat c_j$. This will lead to a contradiction, hence $g\sat c$ with responsible branch $p^c_j$ and witness $v_i;h$.
+By induction on the depth of $m$. If $m:c\to b$ is an sb-morphism and $g\sat b$, then let $p^b_i$ be the responsible branch and $h$ the witness such that $\spanof{u^b_i}{d^b_i}\commutes (g,h)$ and $h\nsat b_i$, and let $j=o(i)$. Since $(s^c_j,s^b_i)\in \cP_{v_i}$, it follows by \pcite{pattern shift}.\ref{pattern-preserves} that $\spanof{u^c_j}{d^c_j}\commutes (g,v_i;h)$. Now assume (ad absurdum) that $v_i;h\sat c_j$. This will lead to a contradiction, hence $g\sat c$ with responsible branch $p^c_j$ and witness $v_i;h$.
 \begin{itemize}[topsep=\smallskipamount]
-\item For the forward-shift case, due to \pref{sb-shifters preserve} it follows that $h\sat \cF_i(c_j)$, and hence by the induction hypothesis the existence of $m_i:\cF_i(c_j)\to b_i$ implies $h\sat b_i$, contradicting the above.
+\item For the forward-shift case, due to \pref{sb-shifters preserve} it follows that $h\sat \cF_i(c_j)$, and hence by the induction hypothesis the existence of $m_i:b_i \to \cF_i(c_j)$ implies $h\sat b_i$, contradicting the above.
 
-\item For the backward-shift case, by the induction hypothesis the existence of $m_i:c_j\to \cB_i(b_i)$ implies $v_i;h\sat \cB_i(b_i)$, and hence due to \pref{sb-shifters preserve} it follows that $h\sat b_i$, contradicting the above.
+\item For the backward-shift case, by the induction hypothesis the existence of $m_i:\cB_i(b_i)\to c_j$ implies $v_i;h\sat \cB_i(b_i)$, and hence due to \pref{sb-shifters preserve} it follows that $h\sat b_i$, contradicting the above.
 \end{itemize}
 If $m$ is complete and $g\sat c$, then let $p^c_j$ be the responsible branch and $h$ the witness such that $\spanof{u^c_j}{d^c_j}\commutes (g,h)$ and $h\nsat c_j$. Let $i$ be such that $j=o(i)$ (which exists because $o$ is surjective). Since $(s^c_j,s^b_i)\in \ccP_{v_i}$, it follows by \pcite{pattern shift}.\ref{conservative-reflects} that $\spanof{u^b_i}{d^b_i}\commutes (g,h')$ for some $h'$ such that $h=v_i;h'$. Now assume (ad absurdum) that $h'\sat b_i$. This will lead to a contradiction, hence $g\sat b$ with responsible branch $p^b_i$ and witness $h'$.
 \begin{itemize}[topsep=\smallskipamount]
-\item For the forward-shift case: by the induction hypothesis, the existence of the complete $m_i:\cF_i(c_j)\to b_i$ implies $h'\sat \cF_i(c_j)$. Since $\cF_i$ is complete, due to \pref{sb-shifters preserve} it follows that $h=v_i;h'\sat c_j$, contradicting the above.
-\item For the backward-shift case, since $\cB_i$ is complete, due to \pref{sb-shifters preserve} it follows that $h=v_i;h'\sat \cB_i(b_i)$, and hence by the induction hypothesis the existence of the complete $m_i:c_j\to \cB_i(b_i)$ implies $h\sat c_j$, contradicting the above.
+\item For the forward-shift case: by the induction hypothesis, the existence of the complete $m_i:b_i \to \cF_i(c_j)$ implies $h'\sat \cF_i(c_j)$. Since $\cF_i$ is complete, due to \pref{sb-shifters preserve} it follows that $h=v_i;h'\sat c_j$, contradicting the above.
+\item For the backward-shift case, since $\cB_i$ is complete, due to \pref{sb-shifters preserve} it follows that $h=v_i;h'\sat \cB_i(b_i)$, and hence by the induction hypothesis the existence of the complete $m_i:\cB_i(b_i)\to c_j$ implies $h\sat c_j$, contradicting the above.
 \qed
 \end{itemize}
 \end{proof}
 \end{fullorname}
 %
 \begin{example}\exlabel{sb-morphisms}
-For the span-based conditions in \fcite{sb-conditions}, we have a complete forward-shift morphism $m:b_1\to b_1'$, providing evidence that $b_1\equiv b_1'$; moreover, there are also morphisms $m':b_1\to b_2$ and $m'':b_2\to b_3$. All the required morphism arrows are already shown in the figure. Note that, in \excite{ab-morphisms}, we observed that there does \emph{not} exist an arrow-based morphism from $c_1$ to $c_2$; hence the existence of a span-based morphism between the equivalent $b_1$ and $b_2$ is concrete evidence for our claim, in \scite{categories} below, that the structure of span-based conditions allows more morhpisms between them.
+For the span-based conditions in \fcite{sb-conditions}, we have a complete forward-shift morphism $m:b_1'\to b_1$, providing evidence that $b_1\equiv b_1'$; moreover, there are also morphisms $m':b_2\to b_1$ and $m'':b_3\to b_2$. All the required morphism arrows are already shown in the figure. Note that, in \excite{ab-morphisms}, we observed that there does \emph{not} exist an arrow-based morphism from $c_2$ to $c_1$; hence the existence of a span-based morphism between the equivalent $b_2$ and $b_1$ is concrete evidence for our claim, in \scite{categories} below, that the structure of span-based conditions allows more morphisms between them.
 \end{example}
 %
 We now once more return to the level of categories, using the exact same constructions for identity morphisms and morphism composition as in the arrow-based case (see \eqref{morphism composition} and \eqref{id-morphism}).
 \iffull
-To repeat, if $b,c,e$ are sb-conditions and $m\of b\to c,n\of c\to e$ are sb-morphisms with $|b|=w$:
+To repeat, if $e,c,c$ are sb-conditions and $m\of e\to c,n\of c\to b$ are sb-morphisms with $|b|=w$:
 %
 \begin{align*}
 \id_b & = (\id_{[1,w]},(\id_{P^b_1},\id_{b_1})\cdots
                        (\id_{P^b_w},\id_{b_w})) \\
-m;n & = (o^m;o^n, (v^n_{o^m(1)};v^m_1,n_{o^m(1)};m_1)\cdots
-                  (v^n_{o^m(w)};v^m_w,n_{o^m(w)};m_w)) \enspace.
+m;n & =
+   (o^n;o^m,(v^m_{o^n(1)};v^n_1,n_1;m_{o^n(1)})\cdots 
+              (v^m_{o^n(w)};v^n_w,n_w;m_{o^n(w)}))
+%               \\
+% m;n & = (o^m;o^n, (v^n_{o^m(1)};v^m_1,n_{o^m(1)};m_1)\cdots
+%                   (v^n_{o^m(w)};v^m_w,n_{o^m(w)};m_w)) 
+\enspace.
 \end{align*}
 %
 The next lemma lifts \lcite{ab-morphisms compose} to sb-morphisms and extends it with the notion of completeness.
 
 \begin{lemma}[identities and composition of sb-morpisms]\llabel{sb-morphisms compose}
-Let $b,c,e$ be span-based conditions and $m\of b\to c,n\of c\to e$ span-based condition morphisms.
+Let $e,c,b$ be span-based conditions and $m\of e\to c,n\of c\to b$ span-based condition morphisms.
 \begin{enumerate}[topsep=\smallskipamount]
 \item $\id_b$ is both a complete forward- and a complete backward-shift morphism from $b$ to $b$;
-\item If $m$ and $n$ are [complete] forward-shift morphisms, then $m;n$ is a [complete] forward-shift morphism from $c$ to $e$;
-\item If $m$ and $n$ are backward-shift morphisms, then $m;n$ is a backward-shift morphism from $c$ to $e$.
+\item If $m$ and $n$ are [complete] forward-shift morphisms, then $m;n$ is a [complete] forward-shift morphism from $e$ to $c$;
+\item If $m$ and $n$ are backward-shift morphisms, then $m;n$ is a backward-shift morphism from $e$ to $c$.
 \end{enumerate}
 \end{lemma}
 \else
@@ -405,7 +410,7 @@ We can therefore lift and extend \thcite{ab-categories} to the span-based case.
 
 \begin{theorem}[categories of span-based conditions]\thlabel{sb-categories}
 Consider the following categories having sb-conditions as objects and different arrows: 
-$\SBC^\forw$ with forward-shift morphisms, $\SBC^{\back}$ with backward-shift morphisms, $\SBC^{\forw{\circ}}$ with complete forward-shift morphisms, $\SBC^{\entails}$ with the preorder of semantic entailment, and $\SBC^\equiv$ with the preorder (actually, equivalence) of semantic equivalence. These are well-defined, and there are identity-on-objects functors $\SBC^\forw \to \SBC^{\entails}$, $\SBC^\back \to \SBC^{\entails}$ and $\SBC^{\forw{\circ}} \to \SBC^{\equiv}$.
+$\SBC^\forw$ with forward-shift morphisms, $\SBC^{\back}$ with backward-shift morphisms, $\SBC^{\forw{\circ}}$ with complete forward-shift morphisms, $\SBC^{\entails}$ with the preorder of semantic entailment ($c \leq b$ iff $b\entails c$), and $\SBC^\equiv$ with the preorder (actually, equivalence) of semantic equivalence. These are well-defined, and there are identity-on-objects functors $\SBC^\forw \to \SBC^{\entails}$, $\SBC^\back \to \SBC^{\entails}$ and $\SBC^{\forw{\circ}} \to \SBC^{\equiv}$.
 \end{theorem}
 %
 We end our presentation of sb-conditions by again establishing two indexed categories, now based on the category of span source shifters $\bC^\sshift$, lifting \pcite{ab indexed} to the span-based case.
@@ -425,7 +430,7 @@ First, we inductively define the ``natural'' span-based conditon $\cN(c)$ for an
       p=(a,c) & \mapsto (\spanof{\id_R}{a},\cN(c)) \enspace.
 \end{align*}
 %
-It follows (by induction) that $\cN(c)\in \SC R$ and $\cN(p)\in \SB R$. This transformation fully preserves the (satsfaction-based) semantics of conditions.
+It follows (by induction) that $\cN(c)\in \SC R$ and $\cN(p)\in \SB R$. This transformation fully preserves the (satisfaction-based) semantics of conditions.
 
 \begin{proposition}[$\cN$ preserves semantics]\plabel{N preserves semantics}
 Let $c\in \AC R$. For all $g\of R\to G$, $g\sat c$ iff $g\sat\cN(c)$. As a consequence, for all $b\in \AC R$, $b\entails c$ if and only if $\cN(b)\entails \cN(c)$.
@@ -438,7 +443,7 @@ This is actually implied by \pcite{A preserves semantics} in combination with \l
 $\cN$ both preserves and reflects morphisms, in the following sense.
 %
 \begin{proposition}
-$m\of b\to c$ is a forward-shift [backward-shift] ab-condition morphism if and only if $\cN(m)\of \cN(b)\to \cN(c)$ is a forward-shift [backward-shift] sb-condition morphism.
+$m\of c\to b$ is a forward-shift [backward-shift] ab-condition morphism if and only if $\cN(m)\of \cN(c)\to \cN(b)$ is a forward-shift [backward-shift] sb-condition morphism.
 \end{proposition}
 %
 \begin{proof}[sketch]
@@ -447,7 +452,7 @@ There are two things to be shown: namely,
 \item the action of arrow-based forward and backward shifters on $a$ coincides with that of span-based forward and backward shifters on $\spanof{id}{a}$, and
 \item the commutation condition $a_1=v;a_2$ (for ab-condition morphisms) holds if and only if $(\spanof{\id}{a_1},\spanof{\id}{a_2})\in \cP_v$.
 \end{enumerate*}
-The latter is immediate. For the former, briefly using $\hat \cS$ to denote span shifters, the essential property is that $\hat\cB_v^\circ(\spanof{\id}{a})=\spanof{id}{\cB_v(a)}$ and $\hat\cF_v^s(\spanof{\id}{a})=\spanof{id}{\cF_v^s(a)}$. (Span shifters of the form $\hat\cB_v^x$ or $\hat\cF_v^\circ$ do not preserve the property that the left span-leg is the identity, hence are not suitable to support morphisms from $\cN(b)$ to $\cN(c)$.)
+The latter is immediate. For the former, briefly using $\hat \cS$ to denote span shifters, the essential property is that $\hat\cB_v^\circ(\spanof{\id}{a})=\spanof{id}{\cB_v(a)}$ and $\hat\cF_v^s(\spanof{\id}{a})=\spanof{id}{\cF_v^s(a)}$. (Span shifters of the form $\hat\cB_v^x$ or $\hat\cF_v^\circ$ do not preserve the property that the left span-leg is the identity, hence are not suitable to support morphisms from $\cN(c)$ to $\cN(b)$.)
 \qed
 \end{proof}
 %
@@ -457,7 +462,7 @@ Since identities and morphism composition are obviously preserved by $\cN$, we h
 $\cN$ is a faithful functor from $\ABC^\forw$ to $\SBC^\forw$, from $\ABC^\back$ to $\SBC^\back$ and (with the appropriate, obvious mapping of arrows) from $\ABC^{\entails}$ to $\SBC^{\entails}$, which commute with the functors of \thcite{ab-categories} and \thcite{sb-categories}.
 \end{theorem}
 %
-From span-based to arrow-based conditions with forward- or backward-shift morphisms, there does not exist a functor, as the span-based categories are richer in morphisms --- for instance, \fcite{sb-conditions} shows an example span-based morphism $m':b_1\to b_2$, whereas no arrow-based morphism exists between the equivalent $c_1$ and $c_2$ in \fcite{ab-conditions} (confer Examples \exref{ab-morphisms} and~\exref{sb-morphisms}). However, we now show that span-based conditions themselves are semantically not more expressive than arrow-based ones: there does exist a semantics-preserving mapping from $\SC A$ to $\AC A$ for all $A$.
+From span-based to arrow-based conditions with forward- or backward-shift morphisms, there does not exist a functor, as the span-based categories are richer in morphisms --- for instance, \fcite{sb-conditions} shows an example span-based morphism $m':b_2\to b_1$, whereas no arrow-based morphism exists between the equivalent $c_2$ and $c_1$ in \fcite{ab-conditions} (confer Examples \exref{ab-morphisms} and~\exref{sb-morphisms}). However, we now show that span-based conditions themselves are semantically not more expressive than arrow-based ones: there does exist a semantics-preserving mapping from $\SC A$ to $\AC A$ for all $A$.
 
 Let $(d'_s,u'_s)$ denote the pushout cospan for a span $s=\spanof u d$. We inductively define $\cA$ on sb-conditions and sb-branches, as follows:
 %
@@ -477,7 +482,7 @@ For any arrow-based condition $c$, $\cA(\cN(c))=c$.
 The following property is the counterpart of \pcite{N preserves semantics}, and actually implies it thanks to \lcite{N-A}:
 %
 \begin{proposition}[$\cA$ preserves semantics]\plabel{A preserves semantics}
-If $c\in SC(R)$, then $\cA(c)$ is an arrow-based condition in $\AC R$ such that for all $b\of R\to G$, $g\sat c$ iff $g\sat\cA(c)$. In consequence, for all $b\in \SC R$, $b\entails c$ if and only if $\cA(b)\entails \cA(c)$.
+If $c\in \SC R$, then $\cA(c)$ is an arrow-based condition in $\AC R$ such that for all $g\of R\to G$, $g\sat c$ iff $g\sat\cA(c)$. In consequence, for all $b\in \SC R$, $b\entails c$ if and only if $\cA(b)\entails \cA(c)$.
 \end{proposition}
 %
 \begin{proof}[sketch]
