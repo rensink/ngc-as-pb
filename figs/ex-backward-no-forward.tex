@@ -1,6 +1,6 @@
 \begin{tikzpicture}[on grid]
   \node[graph] (R) {\oneedge x a y};
-  \node[graph,below right=1.5 and 1.5 of R] (20) {\mygraph{
+  \node[graph,below left=1.5 and 1.5 of R] (20) {\mygraph{
     \node[n] (1) {$x$};
     \node[n] (2) [right=of 1] {$y$};
     \node[n] (3) [right=.5 of 2] {$z$};
@@ -15,10 +15,10 @@
           (2) edge[loop right,->] node[right] {\lb} (2);
     }};
 
-  \path (R) edge[->] node[above right,inner sep=0] {$a^c_1$} (20)
-        (20) edge[->] node[right] {$a^c_{11}$} (21);
+  \path (R) edge[->] node[above left,inner sep=0] {$a^c_1$} (20)
+        (20) edge[->] node[left] {$a^c_{11}$} (21);
   
-  \node[graph,below left=1.5 and 1.5 of R] (10) {\mygraph{
+  \node[graph,below right=1.5 and 1.5 of R] (10) {\mygraph{
     \node[n] (1) {$x$};
     \node[n] (2) [right=of 1] {$y$};
     \path (1) edge[->] node[above] {\la} (2)
@@ -33,13 +33,13 @@
           (2) edge[loop right,->] node[right] {\lb} (2);
     }}; 
 
-  \path (R) edge[->] node[above left,inner sep=0] {$a^b_1$} (10)
-        (10) edge[->] node[left] {$a^b_{11}$} (11);
+  \path (R) edge[->] node[above right,inner sep=0] {$a^b_1$} (10)
+        (10) edge[->] node[right] {$a^b_{11}$} (11);
 
   \path[morphism]
         (20) edge[->] node[above] {$m_1$} (10)
         (11) edge[->] node[below] {$m_{11}$} (21);
 		
 \path[red,color=red]
-  (20.south west) edge[->] node[above left,inner sep=0pt] {$\cB_{m_1}(a^b_{11})$} (11.north east);
+  (20.south east) edge[->] node[above right,inner sep=0pt] {$\cB_{m_1}(a^b_{11})$} (11.north west);
 \end{tikzpicture}

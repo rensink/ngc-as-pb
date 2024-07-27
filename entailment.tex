@@ -24,16 +24,16 @@ Let $b,c$ be sb-conditions with $|b|=|c|$ and $s^b_i=s^c_i$ for all $1\leq i\leq
 \end{enumerateS}
 \end{proposition}
 %
-\begin{proof}\todo{AR: added AC: I'm not convinced... :-( AR: extended AC:OK}
-Each $b_i\pentails c_i$ follows from the transitive closure of a sequence of primitive steps (i.e., one of the two cases of \dcite{provable}). It therefore suffices to prove that, if \emph{a single} $p_i\pentails c_i$ is due to the existence of either\todo{AC: delete `backward' everywhere if not needed.}
+\begin{proof}
+Each $b_i\pentails c_i$ follows from the transitive closure of a sequence of primitive steps (i.e., one of the two cases of \dcite{provable}). It therefore suffices to prove that, if \emph{a single} $p_i\pentails c_i$ is due to the existence of either\todo{AC: delete `backward' everywhere if not needed. AR: Done}
 \begin{inumerate}
-\item a forward [backward] shift morphism $m_i:c_i\to b_i$ or
-\item a complete forward [backward] shift morphism $m_i:b_i\to c_i$,
+\item a forward shift morphism $m_i:c_i\to b_i$ or
+\item a complete forward shift morphism $m_i:b_i\to c_i$,
 \end{inumerate}
 whereas $b_j=c_j$ for all $j\neq i$, then there exists either
 \begin{inumerate}
-\item a forward [backward] shift morphism $m:b\to c$ or 
-\item a complete forward [backward] shift morphism $m:c\to b$,
+\item a forward shift morphism $m:b\to c$ or 
+\item a complete forward shift morphism $m:c\to b$,
 \end{inumerate}
 implying, in both cases, $c\pentails b$.
 
@@ -47,12 +47,12 @@ Note that, due to \lcite{sb-morphisms compose},
 \else
 Note that 
 \fi
-identity morphisms are both complete forward-shift and complete backward-shift morphisms.
+identity morphisms are complete forward-shift morphisms.
 %
 \begin{enumerate}[label=\emph{(\roman*)}]
-\item In this case, each $m_j$ (for $1\leq j\leq w$) is a forward [backward] morphism from $c_j$ to $b_j$; hence $m$ is a morphism from $b$ to $c$.
+\item In this case, each $m_j$ (for $1\leq j\leq w$) is a forward morphism from $c_j$ to $b_j$; hence $m$ is a morphism from $b$ to $c$.
 
-\item In this case, each $m_j$ (for $1\leq j\leq w$) is a complete forward [backward] morphism from $b_j$ to $c_j$; hence $m$ is a complete morphism from $c$ to $b$.
+\item In this case, each $m_j$ (for $1\leq j\leq w$) is a complete forward morphism from $b_j$ to $c_j$; hence $m$ is a complete morphism from $c$ to $b$.
 \qed
 \end{enumerate}
 \end{proof}
@@ -108,6 +108,9 @@ Let $b\in \SC A,c\in \SC B$ be sb-conditions, and let $v:A\to B$.
   (I2) edge[->] node[right] {$d''$} (C2)
   (B2) edge[->,bend right] node[above,very near start] {$x$} (A)
   (I2) edge[->,bend right] node[above,very near start] {$x'$} (I);
+  
+\path (I2) edge[-{Straight Barb[black,length=5pt,width=10pt]},white] +(-3mm,5mm);
+  
 \path[red,color=red]
   (I2) edge[->] node[below] {$x'$} (I1);
 \end{tikzpicture}
@@ -169,7 +172,7 @@ If the diagram below commutes and the arrow $k$ is epi, then $(\spanof{u_1}{d_1}
 \end{lemma}
 %
 \begin{proof}
-This follows immediately from the fact that the epi nature of $k$ causes the lower square in the diagram to be a pushout.\todo{A: Expand?}\qed
+This follows immediately from the fact that the epi nature of $k$ causes the lower square in the diagram to be a pushout.\qed
 \end{proof}
 %
 Using this, we can observe the following interplay of conservative pattern shifting and complete span source shifters.
@@ -197,7 +200,7 @@ For an arbitrary [complete] $\cB$, \asscite{sb-shifters} implies $\cB=\dB\id;\cB
 We now show that backward-shift morphisms are likewise redundant for {\fprovable} entailment. However, the precise formulation is quite a bit more involved than for the previous case: it is not the case that there exists a forward-shift morphisms wherever there exists a backward-shift one, merely that this holds \emph{modulo {\fprovable} equivalence}.
 
 \begin{lemma}\llabel{backward redundant}
-Let $b\in \SB A$ and $c\in \SB B$ and let $v\of A\to B$ be an arrow. For any [complete] backward root shifter $\cB$ for $v$ and any [complete] backward-shift morphism from $m\of \cB(c)\to b$, there are sb-conditions  $c'\pequiv c$ and $b'\pequiv b$ with a direct [complete] forward-shift morphism $\bar m\of c' \to \dF v(b')$.
+Let $b\in \SB A$ and $c\in \SB B$ and let $v\of A\to B$ be an arrow. For any [complete] backward root shifter $\cB$ for $v$ and any [complete] backward-shift morphism $m\of \cB(c)\to b$, there are sb-conditions  $c'\pequiv c$ and $b'\pequiv b$ with a direct [complete] forward-shift morphism $\bar m\of c' \to \dF v(b')$.
 \end{lemma}
 %
 \begin{proof}
@@ -231,7 +234,7 @@ c''=\;&(B,(s^c_{o(1)},c'_{o(1)})\ccdots (s^c_{o(w)},c'_{o(w)})\,p^c_{j_1}\ccdots
 c'''=\;&(B,(s^c_{o(1)},c_{o(1)})\ccdots (s^c_{o(w)},c_{o(w)})\,p^c_{j_1}\ccdots p^c_{j_n}) \enspace.
 \end{align*}
 \begin{itemize}
-\item $c'\pequiv c''$ because $\id_{c''}$ is a direct complete forward-shift morphism from $c'$ to $c''$ due to $(\dF v(\cB(s^c_{o(i)})),s^c_{o(i)})\in \ccP_\id$.\footnote{Note that this reuses the mathematical object $\id_{c''}$, not in its role as identity morphism $c''\to c''$ but to relate $c'$ to $c''$.}\todo{AR: does the footnote make sense?} \todo{AC: this also looks switched wrt Lemma 4.18. AR: yes, but that just means the morphism goes in the opposite direction AC: OK} for all $1\leq i\leq w$ (see \lcite{BF});
+\item $c'\pequiv c''$ because $\id_{c''}$ is a direct complete forward-shift morphism from $c'$ to $c''$ due to $(\dF v(\cB(s^c_{o(i)})),s^c_{o(i)})\in \ccP_\id$.\footnote{Note that this reuses the mathematical object $\id_{c''}$, not in its role as identity morphism $c''\to c''$ but to relate $c'$ to $c''$.}\todo{AR: does the footnote make sense?} for all $1\leq i\leq w$ (see \lcite{BF});
 
 \item $c''\pequiv c'''$ due to \pcite{pequiv congruent}, given that $c'_{o(w)}\pequiv c_{o(w)}$ for all $1\leq i\leq w$; 
 

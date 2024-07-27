@@ -5,7 +5,7 @@ The notion of \emph{morphism} of nested conditions has not received much attenti
 
 The question that we address in this section is to establish a meaningful \emph{structural} notion of condition morphism. That is, given the fact that an ab-condition is essentially a diagram in the category $\bC$, a structural morphism from $b$ to $c$ consists of arrows between objects of $b$ and objects of $c$ satisfying certain commutativity conditions. For morphisms to be meaningful, they should certainly only exist where there is entailment; in other words, we require there to be a functor to $\ABC^{\entails}$. As we will see, this requirement implies that it is not enough to consider only arrows from objects of $b$ \emph{to} objects of $c$, since in our definition of satisfaction, the direction of entailment flips at every subsequent nesting level. We also observe that the existence of a functor to $\ABC^{\entails}$ means that we only consider morphisms between conditions with the same root.
 
-The underlying principle for a morphism $m$ from $c=(R,p^c_1\ccdots p^c_{|c|})$  to $b=(R,p^b_1\ccdots p^c_{|b|})$  is that it must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that entails it. Entailment of branches, in turn, is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$  such that there is (recursively, but in the opposite direction with respect to $m$) a morphism between the subconditions $b_i$ and $c_j$; however, this sub-morphism can only exist ``modulo" the morphism $v_i$ between their roots. The task of the next subsection is to make the concept of ``modulo $v_i$" precise.
+The underlying principle for a morphism $m$ from $c=(R,p^c_1\ccdots p^c_{|c|})$  to $b=(R,p^b_1\ccdots p^c_{|b|})$  is that it must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that it entails. Entailment of $p^c_j$ by $p^b_i$ is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$  such that there is (recursively, but in the opposite direction with respect to $m$) a morphism between the subconditions $b_i$ and $c_j$; however, this sub-morphism can only exist ``modulo" the morphism $v_i$ between their roots. The task of the next subsection is to make the concept of ``modulo $v_i$" precise.
 
 \subsection{Root shifting}
 \slabel{shift-morphisms}
@@ -282,7 +282,7 @@ If $\cC$ is trivial, the result is immediate. Otherwise, assume $m = (o,(v_1,m_1
 \end{proof}
 \end{fullorname}
 %
-Composition of ab-condition morphisms can be defined inductively, and is independent of their forward or backward nature. We also (inductively) define arrow-based identity morphisms. Let $e,c,b$ be ab-conditions and $m:e\to c,n:c\to b$ ab-morphisms, with $|b|=w$.\todo{AC: to be checked carefully}
+Composition of ab-condition morphisms can be defined inductively, and is independent of their forward or backward nature. We also (inductively) define arrow-based identity morphisms. Let $e,c,b$ be ab-conditions and $m:e\to c,n:c\to b$ ab-morphisms, with $|b|=w$.\todo{AC: to be checked carefully. AR: I believe it's OK}
 %
 \begin{eqnarray}
 \id_b & =
@@ -373,7 +373,7 @@ Even though both forward- and backward-shift morphisms preserve models, they are
 \fcite{forward-no-backward} shows a forward-shift morphism $m \of c \to b$ where there is no backward-shift one. Both conditions are evaluated in a context where we know $\la(x,z)$. In that context,  $c$ is equivalent to $\exists y\st \la(x,y) \wedge \neg \lb(z,x)$, and $b$ is equivalent to the property $\neg \lb(z,x)$. Indeed, an intuitive explanation of $b\entails c$ is that $y$ can be instantiated with the value of $z$. The figure shows $\cF_{m_1}^s(a^c_{11})$ (for a section $s$ of $m_1$), which acts as the identity on node and edges.
 
 \fcite{backward-no-forward} shows a backward-shift morphism $m \of c \to b$ where there is no forward-shift one. Both conditions are evaluated in a context where we know $\la(x,y)$. In that context, $c$ is equivalent to $\exists z.\lb(z,z) \wedge \neg(y=z \wedge \lc(y,x))$ and $b$ is equivalent to $\lb(y,y) \wedge \nexists z\st \lc(z,x)$.
-Indeed, $b\entails c$ because $z$ can be instantiated with the value of $y$. The figure shows $\cB_{m_1}(a^c_{11})$.
+Indeed, $b\entails c$ because $z$ can be instantiated with the value of $y$. The figure shows $\cB_{m_1}(a^b_{11})$.
 \qed
 \end{example}
 %

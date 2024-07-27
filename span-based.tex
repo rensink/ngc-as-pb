@@ -3,9 +3,7 @@
 
 The peculiar definition of morphisms of ab-conditions just introduced, with arrows changing direction at each layer in order to ensure the preservation of models, clashes with a structural property of arrow-based conditions. Indeed, the pattern of each subcondition must contain a (homomorphic) copy of the parent pattern, because a branch consists of an arrow of $\cat{C}$ from the latter to the former. Thus if a morphism maps, say, the pattern $P^c$ of (a subcondition of) $c$ to a pattern $P^b$ of $b$, at the next layer (the copy of) $P^b$ must be mapped backwards to (the copy) of $P^c$. The consequence is that morphisms fail to exist even in very simple situations. An example is given by \excite{ab-morphisms}, where we have seen that $c_1\entails c_2$ (see \fcite{ab-conditions}) but there is no morphism providing evidence for this.
   
-Inspired by these observation, we present the second main contribution of this paper: an original definition of nested conditions where the duplication of structure just described does not occur, because at each level we can specify only the \emph{additional} structure, and how it is connected. This is achieved by replacing the branch arrows $a^c_i$ of a condition $c$ by \emph{spans}.
-
-% We now present the main idea of this paper, inspired by on the observation that arrow-based conditions over graphs contain a lot of duplication: the children of a node essentially contain all the structure of that (parent) node, and add some constraints on top of it. It turns out to be possible to avoid this duplication by only specifying the \emph{additional} structure (and how it is connected). This is achieved by replacing the branch arrows $a^c_i$ of a condition $c$ by \emph{spans}.\footnote{We discuss and contrast an alternative way to resolve the same issue, using \emph{cospans} rather than spans, later in this paper.}\todo{AC: Remove the footnote and add a sentence in the future work section.}
+Inspired by this observation, we present the second main contribution of this paper: an original definition of nested conditions where the duplication of structure just described does not occur, because at each level we need to specify only the \emph{additional} structure, and how it is connected. This is achieved by replacing the branch arrows $a^c_i$ of a condition $c$ by \emph{spans}.
 
 A span $s = (f: I \to A, g:I \to B)$ over \cat{C}, which we will denote $\spanof f g$, is a pair of arrows of \cat{C} having the same source. Objects $A$ and $B$ are the \emph{source} and \emph{target} of $s$, respectively, while $I$ is its \emph{interface}; we sometimes write $s:A\to B$. Spans can be composed: if the target of $\spanof u d$ is equal to the source of $\spanof v w$, then $\spanof u d \spcomp \spanof v w=\spanof{v';u}{d';w}$ where $\spanof {v'}{d'}$ is the pullback span of $(d,v)$. The result is defined, because \cat{C} has all pullbacks, but non-deterministic in general because pullbacks are defined up to iso. The standard solution would be to consider spans up to isomorphism of their interface (yielding category {\SpanC} having the same objects of \cat{C} and equivalence classes of spans as arrows), but to avoid further technicalities we will gloss over this throughout the paper.
 
@@ -72,7 +70,7 @@ Note that this is entirely analogous to \dcite{ab-satisfaction}, especially if w
 \section{Span-based morphisms}
 \slabel{sb-morphisms}
 
-To define morphisms of sb-conditions, we will go over the same ground as for ab-conditions, but take a slightly more abstract view --- as we did for satisfaction by introducing $\commutes$. Having recognised that the \emph{semantics} of a span in sb-conditions is essentially given by the set of model/witness pairs that it commutes with, we can in general consider relations over spans that either preserve or reflect this semantics, in the sense that if $s_1,s_2$ are related, then either $s_1\commutes (g,h)$ implies $s_2\commutes (g,h)$ (preservation) or $s_2\commutes (g,h)$ implies $s_1\commutes (g,h)$ (reflection). Typically, however, the model/witness pairs are not preserved or reflected precisely, but modulo some arrow that gets added to or erased from the model or witness.
+To define morphisms of sb-conditions, we will go over the same ground as for ab-conditions, but take a slightly more abstract view --- as we did for satisfaction by introducing $\commutes$. Having recognised that the \emph{semantics} of a span in sb-conditions is essentially given by the set of model/witness pairs that it commutes with, we can in general consider relations over spans that either preserve or reflect this semantics, in the sense that if $s_1,s_2$ are related, then either $s_1\commutes (g,h)$ implies $s_2\commutes (g,h)$ (preservation) or $s_2\commutes (g,h)$ implies $s_1\commutes (g,h)$ (reflection). Typically, however, the model/witness pairs are not preserved or reflected precisely, but modulo some arrow that gets added to or erased from the model.
 %
 \begin{itemize}
 \item $(s_1,s_2)$ preserves models adding $v$ if $s_1\commutes (g,h)$ implies $s_2\commutes (v;g,h)$;
@@ -349,7 +347,7 @@ Using pattern shift, we define morphisms over sb-conditions as follows.
 %
 Note that, by \asscite{sb-shifters}, only direct (forward or backward) span root shifters are complete, hence also only direct sb-morphisms can be complete.
 
-Just as for the arrow-based case, one of the most essential properties of span-based condition morphisms is that they preserve models. In addition, complete span-based condition morphisms also reflect models. The following lifts \pcite{ab-morphisms preserve models} to sb-conditions, and extends it with the case for completeness.
+Just as for the arrow-based case, one of the most essential properties of span-based condition morphisms is that they reflect models. In addition, complete span-based condition morphisms also preserve models. The following lifts \pcite{ab-morphisms preserve models} to sb-conditions, and extends it with the case for completeness.
 
 \begin{proposition}[sb-condition morphisms preserve models]
                    \plabel{sb-morphisms preserve models}
@@ -404,7 +402,7 @@ Let $e,c,b$ be span-based conditions and $m\of e\to c,n\of c\to b$ span-based co
 \end{enumerate}
 \end{lemma}
 \else
-As in the case of ab-conditions (\lcite{ab-morphisms compose}), identities and morphism composition have the expected properties. In fact, also complete forward-shift morphisms compose, but (surprisingly, at least in our view) backward-shift complete morphisms do not.
+As in the case of ab-conditions (\lcite{ab-morphisms compose}), identities and morphism composition have the expected properties. In fact, also complete forward-shift morphisms compose, but (surprisingly, at least in our view) complete backward-shift morphisms do not.
 \fi
 We can therefore lift and extend \thcite{ab-categories} to the span-based case.
 
