@@ -1,7 +1,7 @@
 \section{{\fprovable} entailment}
 \slabel{entailment}
 
-Because in this section we reason a lot with span shifters, it is convenient to introduce the notation $\cI_{\id_A}$ for the identity over $A$-sourced spans and observe that $\cI_{\id_A}$ is the only forward span source shifter as well as the only backward span source shifter for $\id$, and that it is complete. This is extended to span root shifters, non-ambiguously overloading the notation of the trivial root shifter $\cI_{A,B}$.
+Because in this section we reason a lot with span shifters, it is convenient to introduce the notation $\cI_{\id_A}$ for the identity over  $\cat{C^{sp}}(A,\_)$ and observe that $\cI_{\id_A}$ is the only forward span source shifter as well as the only backward span source shifter for $\id_A$, and that it is complete. This is extended to span root shifters, non-ambiguously overloading the notation of the trivial root shifter $\cI_{A,B}$.
 
 Given the number of possible forward and backward shifters we identified, there is a lot of choice within the concept of a span-based condition morphism, possibly making them complex to reason about. However, we now set about showing that, in an important sense, it is enough to consider only direct forward-shift morphisms. To make this claim precise, we introduce the notion of \emph{{\fprovable} entailment}, which are those entailments that can be established through the existence of \emph{only direct (complete) forward-shift morphisms}.
 
@@ -178,13 +178,13 @@ This follows immediately from the fact that the epi nature of $k$ causes the low
 Using this, we can observe the following interplay of conservative pattern shifting and complete span source shifters.
 
 \begin{lemma}\llabel{BF}
-Let $v:A\to B$ be an arrow. For any backward span source shifter $\cB$ for $v$ and any $B$-sourced span $s$, $(\dF v(\cB(s)),s)\in \ccP_\id$.
+Let $v:A\to B$ be an arrow. For any backward span source shifter $\cB$ for $v$ and any span $s$ with source $B$, $(\dF v(\cB(s)),s)\in \ccP_\id$.
 \end{lemma}
 %
 \begin{proof}
 Let $v:A\to B$ be an arrow. We first prove this for elementary backward span source shifters.
 \begin{itemizeS}
-\item $\cB=\rB v x$ where $x;v=\id_B$. From \lcite{sb-shifter inverses} we know that $\dF v(\cB(s))=s$ for all $s$; since $\ccP_\id$ includes the identity over $B$-sourced spans, we are done.
+\item $\cB=\rB v x$ where $x;v=\id_B$. From \lcite{sb-shifter inverses} we know that $\dF v(\cB(s))=s$ for all $s$; since $\ccP_\id$ includes the identity over $\cat{C^{sp}}(B,\_)$, we are done.
 
 \item $\cB=\dB v$. Let $s=\spanof{u_2}{d_2}:B\to P$ have interface object $I_2$ and let $\dF v(\dB v(s))=\spanof{u_1}{d_1}$ have interface object $I_1$; then the diagram in \lcite{id-pattern shift} arises, with $k$ being the pullback of $v$ over $u_2$. In particular, $k$ is epi because $v$ is epi and (in toposes) the property of being epi is stable under pullback. It follows that $(\dF v(\dB v(s)),s)\in \ccP_\id$.
 \end{itemizeS}

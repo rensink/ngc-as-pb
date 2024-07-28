@@ -82,11 +82,11 @@ To define morphisms of sb-conditions, we will go over the same ground as for ab-
 The above is defined on individual pairs. For a relation $\cR$ over spans, we say that $\cR$ preserves [reflects] models adding [erasing] $v$ if it consists of pairs that do so.
 
 \begin{definition}[span source shifters]\dlabel{sb-shifters}
-Let $X,Y$ be objects.
+Let us denote by $\cat{C^{sp}}(A,\_)$ the collection of all spans of \cat{C} with source $A$. Let $X,Y$ be objects of \cat{C}. 
 \begin{itemize}[topsep=\smallskipamount]
-\item A \emph{span source shifter} $\cS$ from $X$ to $Y$ is a function from $X$-sourced spans to $Y$-sourced spans 
+\item A \emph{span source shifter} $\cS$ from $X$ to $Y$ is a target-preserving mapping $\cS \of \cat{C^{sp}}(X,\_) \to \cat{C^{sp}}(Y, \_)$
 %having the same target, say $Z$, 
-such that for all spans $s:X\to Y,t:Y\to Z$:
+such that for all spans $s:X\to Z,t:Z\to U$:
 %
 \begin{equation}\eqlabel{span shifters are functors}
 \cS(s \spcomp t) = \cS(s)\spcomp t \enspace.

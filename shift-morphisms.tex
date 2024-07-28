@@ -18,7 +18,9 @@ We will first define how to shift arrows (where it is called \emph{source} shift
 
 \begin{definition}[source shifter]\dlabel{ab-source shifter}
 \begin{itemize}[topsep=\smallskipamount]
-\item Let $X,Y$ be objects. A \emph{source shifter} $\cS$ from $X$ to $Y$ is a function from $X$-sourced to $Y$-sourced arrows, such that for all arrows $a\of X\to Y, t\of Y\to Z$:
+\item Let us denote by $\cat{C}(A,\_)$ the set of arrows of \cat{C} with source $A$. Let $X,Y$ be objects of $\cat{C}$. A \emph{source shifter} $\cS$ from $X$ to $Y$ is a target-preserving mapping $\cS \of \cat{C}(X,\_) \to \cat{C}(Y, \_)$\footnote{That is, if $f\of X \to Z$ for some $Z$, then $\cS(f)\of Y \to Z$. More formally, such a target-preserving mapping can be defined as a family of functions $\left\{\cS_Z : \cat{C}(X, Z) \to \cat{C}(Y, Z)\right\}_{Z\in |\cat{C}|}$.} such that for all arrows $a\of X\to Z, t\of Z\to U$:
+
+% family of functions $\left\{\cS_Z : \cat{C}(X, Z) \to \cat{C}(Y, Z)\right\}_{Z\in |\cat{C}|}$ such that for all arrows $a\of X\to Y, t\of Y\to Z$:\footnote{In the following we will omit the subscript of $\cS$, which is simply the target object of its argument.}
 %
 \begin{equation}\eqlabel{shifters are functors}
 \cS(a;t) = \cS(a);t \enspace.
@@ -38,12 +40,14 @@ v;g = \cS(a);h \text{ implies } g = a;h \enspace.
 \end{itemize}
 \end{definition}
 %
-If $\cS$ is known to be a forward shifter, we sometimes use $\cF$ to denote it; similarly, we use $\cB$ to denote backward shifters. Condition \eqref{shifters are functors} is actually quite strong, since it holds for any arrow $a$ and $t$. In particular, for $t = id_Y$ ($\cS(a;id_Y) = \cS(a);id_Y$)  it implies that $\cS$ preserves the target, and for $a = id_X$ ($\cS(id_X;t) = \cS(id_X);t$) it leads to the following observation.
+If $\cS$ is known to be a forward shifter, we sometimes use $\cF$ to denote it; similarly, we use $\cB$ to denote backward shifters. 
+% Condition \eqref{shifters are functors} is actually quite strong, since it holds for any arrow $a$ and $t$. In particular, for $t = id_Y$ ($\cS(a;id_Y) = \cS(a);id_Y$)  it implies that $\cS$ preserves the target, and for $a = id_X$ ($\cS(id_X;t) = \cS(id_X);t$) it leads to the following observation.
+Condition \eqref{shifters are functors} is actually quite strong: for $a = id_X$ it implies $\cS(id_X;t) = \cS(id_X);t$,  leading to the following observation.
 
 % In particular also for the case that $a=\id_X$ (and hence $Y=X$). This leads to the following observation.
 %
 \begin{lemma}\llabel{ab-source shifters}
-Let $\cS$ be a mapping from $X$-sourced to $Y$-sourced arrows, and let $v\of Y\to X$ be an arrow. The following statements are equivalent:
+Let $\cS \of \cat{C}(X,\_) \to \cat{C}(Y, \_)$  be a target-preserving mapping, and let $v\of Y\to X$ be an arrow. The following statements are equivalent:
 \begin{enumerate}[topsep=\smallskipamount,label=(\alph*),ref=(\alph{enumi})]
 \item\label{shifter-1} $\cS(a)=v;a$ for all $a\of X\to Z$;
 \item\label{shifter-2} $\cS$ is a source shifter from $X$ to $Y$ such that $\cS(\id_X)=v$.
@@ -76,7 +80,7 @@ Let $v\of A\to B$ be an arrow.
 \begin{enumerate}[label=(\alph*),ref=\theenumi(\theenumii)]
 \item\label{forward-1} $\cS$ is a forward source shifter for $v$;
 \item\label{forward-2} $\cS$ is a source shifter from $A$ to $B$ such that $\cS(v)=\id_B$;
-\item\label{forward-3} $\cS$ is a mapping from $A$-sourced to $B$-sourced arrows such that $s=\cS(\id_A)$ is a section of $v$ and $\cS(a)=s;a$ for all $a\of A\to C$.
+\item\label{forward-3} $\cS \of \cat{C}(A,\_) \to \cat{C}(B, \_)$ is a target-preserving mapping such that $s=\cS(\id_A)$ is a section of $v$ and $\cS(a)=s;a$ for all $a\of A\to C$.
 \end{enumerate}
 \item If $\cS$ is a source shifter such that $\cS(\id_B)=v$, then $\cS$ is a backward source shifter for $v$ if and only if $v$ is epi.
 \end{enumerate}
@@ -94,7 +98,7 @@ Assume that \ref{forward-1} holds. By definition, $\cS$ is a source shifter from
 
 \item \emph{\ref{forward-2} implies \ref{forward-3}.}
 %
-Assume that \ref{forward-2} holds. By definition, $\cS$ is a mapping from $A$-sourced arrows to $B$-sourced arrows; moreover, if $s=\cS(\id_A)$ then $s;v=\cS(\id_A);v=\cS(\id_A;v)=\cS(v)=\id_B$, proving that $s$ is a section of $v$. Moreover, $\cS(a)=\cS(\id_A;a)=\cS(\id_A);a=s;a$.
+Assume that \ref{forward-2} holds. By definition, $\cS \of \cat{C}(A,\_) \to \cat{C}(B, \_)$  is a target-preserving mapping; moreover, if $s=\cS(\id_A)$ then $s;v=\cS(\id_A);v=\cS(\id_A;v)=\cS(v)=\id_B$, proving that $s$ is a section of $v$. Moreover, $\cS(a)=\cS(\id_A;a)=\cS(\id_A);a=s;a$.
 
 \item \emph{\ref{forward-3} implies \ref{forward-1}.}
 %
@@ -136,7 +140,7 @@ Source shifting is extended in a straightforward manner to conditions, where it 
 \begin{definition}[root shifter]\dlabel{ab-root shifter}
 Let $X,Y$ be objects and $v\of A\to B$ an arrow.
 \begin{itemize}[topsep=\smallskipamount]
-\item A \emph{root shifter} $\cS$ from $X$ to $Y$ is a partial function from $\AC X$ to $\AC Y$ such that either $\cC=\bar\cS$ for some source shifter from $X$ to $Y$, or $\cC=\cI_{X,Y}$.
+\item A \emph{root shifter} $\cC$ from $X$ to $Y$ is a partial function from $\AC X$ to $\AC Y$ such that either $\cC=\bar\cS$ for some source shifter from $X$ to $Y$, or $\cC=\cI_{X,Y}$.
 
 \item A \emph{forward root shifter} $\cC$ for $v$ is a root shifter from $A$ to $B$ such that either $\cC=\bar\cF$ for some forward source shifter $\cF$, or $\cC=\cI_{A,B}$.
 
@@ -144,7 +148,7 @@ Let $X,Y$ be objects and $v\of A\to B$ an arrow.
 \end{itemize}
 \end{definition}
 %
-It should be noted that \emph{all} root shifters $\bar\cS$ with $\cS$ a source shifter from $X$ to $Y$ behave as $\cI_{X,Y}$ on zero-width conditions; however, $\cI_{X,Y}$ is a root shifter for \emph{any} $v$, whereas, as we have seen in \dcite{ab-source shifter}, forward and backward source shifters only exist for certain $v$. This makes it useful to distinguish this special case.
+It should be noted that \emph{all} root shifters $\bar\cS$ with $\cS$ a source shifter from $X$ to $Y$ behave like $\cI_{X,Y}$ on zero-width conditions; however, $\cI_{X,Y}$ is a root shifter for \emph{any} $v$, whereas, as we have seen in \dcite{ab-source shifter}, forward and backward source shifters only exist for certain $v$. This justifies the introduction of $\cI_{X,Y}$ as a  distinguished root shifter.
 
 \begin{fullorname}[\lname{ab-root shifter}]
 The following fact, which follows from \lcite{ab-source shifters} for source shifters, will be very useful in reasoning about root shifters.
@@ -154,7 +158,7 @@ Let $X,Y$ be objects. For any non-trivial root shifter $\cC$ from $X$ to $Y$, th
 \end{lemma}
 %
 \begin{proof}
-If $\cC$ is non-trivial, then $\cC=\bar\cS$ for some source shifter. Let $v=\cS(\id_X)$; then \lcite{ab-source shifters} implies $\cS(a)=v;a$ for any $A$-sourced $a$.\qed
+If $\cC$ is non-trivial, then $\cC=\bar\cS$ for some source shifter. Let $v=\cS(\id_X)$; then \lcite{ab-source shifters} implies $\cS(a)=v;a$ for any $a$ with source $A$.\qed
 \end{proof}
 \end{fullorname}
 %
@@ -192,7 +196,7 @@ Source and root shifters compose, in the following way.
 %
 \begin{proposition}[identities and composition of shifters]\plabel{ab-shifters compose}
 \begin{enumerate}[topsep=\smallskipamount]
-\item For every $X$, the identity function on $X$-sourced arrows, denoted $\cI_X$ and called the identity shifter, is a source shifter that is forward and backward for $\id_X$.
+\item For every $X$, the identity function on $\cat{C}(X,\_)$, denoted $\cI_X$ and called the identity shifter, is a source shifter that is forward and backward for $\id_X$.
 \item If $\cU$ is a source [root] shifter from $X$ to $Y$ and $\cV$ a source [root] shifter from $Y$ to $Z$, then $\cU;\cV$ (understood as partial function composition) is a source [root] shifter from $X$ to $Z$. 
 \item If $\cU$ and $\cV$ are forward source [root] shifters for $u: X\to Y$ and $v: Y \to Z$, respectively, then $\cU;\cV$ is a forward source [root] shifter for $u;v$.
 \item Dually, if $\cU$ and $\cV$ are backward source [root] shifters for $u: Y\to X$ and $v: Z \to Y$, respectively, then $\cU;\cV$ is a backward source [root] shifter for $v;u$.
@@ -282,7 +286,7 @@ If $\cC$ is trivial, the result is immediate. Otherwise, assume $m = (o,(v_1,m_1
 \end{proof}
 \end{fullorname}
 %
-Composition of ab-condition morphisms can be defined inductively, and is independent of their forward or backward nature. We also (inductively) define arrow-based identity morphisms. Let $e,c,b$ be ab-conditions and $m:e\to c,n:c\to b$ ab-morphisms, with $|b|=w$.\todo{AC: to be checked carefully. AR: I believe it's OK}
+Composition of ab-condition morphisms can be defined inductively, and is independent of their forward or backward nature. We also (inductively) define arrow-based identity morphisms. Let $e,c,b$ be ab-conditions and $m:e\to c,n:c\to b$ ab-morphisms, with $|b|=w$.
 %
 \begin{eqnarray}
 \id_b & =
@@ -313,7 +317,7 @@ Let $e,c,b$ be ab-conditions and $m\of e\to c, n\of c\to b$ ab-condition morphis
 Let $w=|b|$.
 %
 \begin{enumerate}[topsep=\smallskipamount]
-\item By induction on the depth of $b$. For all $1\leq i\leq w$, $a^b_i;\id_{P^b_i}=a^b_i$. Note that $\rF{\id}{\id}$ and $\cB_\id$ (with $\id=\id_{P^b_i}$) are, respectively, forward and backward root shifters, both acting as the identity on $P^b_i$-sourced arrows; hence (by the induction hypothesis) $\id_{b_i}$ is both a forward-shift morphism from $b_i$ to $\rF\id\id(b_i)$ and a backward-shift morphism from  $\cB_\id(b_i)$ to $b_i$.
+\item By induction on the depth of $b$. For all $1\leq i\leq w$, $a^b_i;\id_{P^b_i}=a^b_i$. Note that $\rF{\id}{\id}$ and $\cB_\id$ (with $\id=\id_{P^b_i}$) are, respectively, forward and backward root shifters, both acting as the identity on arrows with source $P^b_i$; hence (by the induction hypothesis) $\id_{b_i}$ is both a forward-shift morphism from $b_i$ to $\rF\id\id(b_i)$ and a backward-shift morphism from  $\cB_\id(b_i)$ to $b_i$.
 \end{enumerate}
 %
 The other two clauses are proved by induction on the depth of $m$ and $n$. Let $o=o^n;o^m$ and for all $1\leq i\leq w$ let $v_i=v^m_{o^n(i)};v^n_i$. Note that $o$ is a function from $[1,w]$ to $[1,|e|]$ and all $v_i$ are arrows from $P^e_{o(i)}$ to $P^b_i$ as required.

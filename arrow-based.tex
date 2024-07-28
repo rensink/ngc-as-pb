@@ -8,7 +8,7 @@ Along the paper examples and intuitions will be based on $\cat{Graph}$, the cate
   \node (2) [right=of 1] {$\bullet$};
   \path (1) edge[bend left=20,->] (2)
         (1) edge[bend right=20,->] (2);
-}$. Furthermore, presheaf toposes are closed under the construction of slice and functor categories, thus they include labeled/typed (hyper)graphs (see Sec.~5 of~\cite{AzziCR19}). 
+}$. Furthermore, presheaf toposes are closed under the construction of slice and functor categories, thus they include labeled/typed (hyper)graphs (see Sec.~5 of~\cite{AzziCR19}). We will denote the collection of objects of $\cat{C}$ by $|\cat{C}|$, and for $A,B \in |\cat{C}|$ we denote by $\cat{C}(A,B)$ the (hom)set of arrows from $A$ to $B$.  
 
 Assuming that \cat{C} is a presheaf topos ensures several properties we need in the constructions of this paper: in particular, that all limits and colimits exist (and can be computed pointwise), and also that epis are stable under pullback. Furthermore, \cat{C} is \emph{adhesive}~\cite{ls:adhesive-journal}, enjoying several properties exploited in the algebraic theory of graph rewriting, where the results of this paper have potential interesting applications.\footnote{Note that requiring \cat{C} to be just adhesive would not suffice: for example, we need arbitrary pushouts, while adhesivity only guarantees pushouts along monos.}
 
@@ -18,7 +18,7 @@ Arrow-based conditions are inductively defined as follows:
 \begin{definition}[arrow-based condition]\dlabel{ab-condition}
   Let $R$ be any object of $\bC$. $\AC R$ (the set of \emph{arrow-based conditions} over $R$) and $\AB R$ (the set of \emph{arrow-based branches} over $R$) are the smallest sets such that
   \begin{itemize}
-  \item $c\in \AC R$ if $c=(R,p_1\ccdots p_w)$ is a pair with $p_i\in \AB R$ for all $1\leq i\leq w$;
+  \item $c\in \AC R$ if $c=(R,p_1\ccdots p_w)$ is a pair with $p_i\in \AB R$ for all $1\leq i\leq w$, where $w \geq 0$;
   \item $p\in \AB R$ if $p=(a,c)$ where $a: R\to P$ is an arrow of $\bC$ and $c\in \AC P$.
   \end{itemize}
 \end{definition}
@@ -77,7 +77,7 @@ A condition expresses a property of arrows from its root to an arbitrary object.
 %
 If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} for $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p_i$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
 
-Based on the notion of satisfaction, we also define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalence} $b\equiv c$ on conditions (over the same root):
+Based on the notion of satisfaction, for ab-conditions $b$ and $c$ (over the same root) we also define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalence} $b\equiv c$:
 %
 \begin{align*}
 b \entails c & \text{ if for all arrows $g$: } g\sat b \text{ implies } g\sat c \\
@@ -105,7 +105,7 @@ and let $g$ be the morphism from the one-node discrete graph \inline{\onenode x}
 	  (1) edge[loop left,->] node[left] {\la} (1)
       (2) edge[->] node[above] {\lc} (3);
 	  }$
-and let $g,g',g''$ be the three morphisms from \inline{\onenode x} to $G_2$. None of these models satisfy $c_1$, for the same reason as above. Moreover, none satisfy $c_2$: though $g$ and $g'$ have witnesses for $c_{21}$, these are ruled out by either $c_{211}$ (in the case of $g$) or $c_{212}$ (in the case of $g'$); $g''$ not even has a witness for $c_{21}$. Instead, both $g\sat c_3$ (in fact there are two distinct witnesses, one for $c_{31}$ and one for $c_{32}$) and $g'\sat c_3$ (due to $c_{32}$); but again $g''\nsat c_3$.
+and let $g,g',g''$ be the morphisms from \inline{\onenode x} to $G_2$ mapping \inline{\onenode x} to the left, mid and right node of $G_2$, respectively. None of these models satisfy $c_1$, for the same reason as above. Moreover, none satisfy $c_2$: though $g$ and $g'$ have witnesses for $c_{21}$, these are ruled out by either $c_{212}$ (in the case of $g$) or $c_{211}$ (in the case of $g'$); $g''$ not even has a witness for $c_{21}$. Instead, both $g\sat c_3$ (in fact there are two distinct witnesses, one for $c_{31}$ and one for $c_{32}$) and $g'\sat c_3$ (due to $c_{32}$); but again $g''\nsat c_3$.
 
 \item If $G_3=\inline{\oneloopleft \bullet b}$, then the only morphism $g$ from \inline{\onenode x} to $G_3$ has $g\sat c_1$, $g\sat c_2$ and $g\sat c_3$. 
 \end{itemize}
