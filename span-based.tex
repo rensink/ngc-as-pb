@@ -349,7 +349,7 @@ Note that, by \asscite{sb-shifters}, only direct (forward or backward) span root
 
 Just as for the arrow-based case, one of the most essential properties of span-based condition morphisms is that they reflect models. In addition, complete span-based condition morphisms also preserve models. The following lifts \pcite{ab-morphisms preserve models} to sb-conditions, and extends it with the case for completeness.
 
-\begin{proposition}[sb-condition morphisms preserve models]
+\begin{proposition}[sb-condition morphisms reflect models]
                    \plabel{sb-morphisms preserve models}
 Let $c,b \in \SC{R}$ be span-based conditions. If $m:c\to b$ is an sb-morphism, then $g\sat b$ implies $g \sat c$ for all arrows $g:R\to G$. Moreover, if $m$ is complete, then also $g\sat c$ implies $g\sat b$ for all $g$.
 \end{proposition}
@@ -408,13 +408,13 @@ We can therefore lift and extend \thcite{ab-categories} to the span-based case.
 
 \begin{theorem}[categories of span-based conditions]\thlabel{sb-categories}
 Consider the following categories having sb-conditions as objects and different arrows: 
-$\SBC^\forw$ with forward-shift morphisms, $\SBC^{\back}$ with backward-shift morphisms, $\SBC^{\forw{\circ}}$ with complete forward-shift morphisms, $\SBC^{\entails}$ with the preorder of semantic entailment ($c \leq b$ iff $b\entails c$), and $\SBC^\equiv$ with the preorder (actually, equivalence) of semantic equivalence. These are well-defined, and there are identity-on-objects functors $\SBC^\forw \to \SBC^{\entails}$, $\SBC^\back \to \SBC^{\entails}$ and $\SBC^{\forw{\circ}} \to \SBC^{\equiv}$.
+$\SBC^\forw$ with forward-shift morphisms, $\SBC^{\back}$ with backward-shift morphisms, $\SBC^{\forw{\circ}}$ with complete forward-shift morphisms, $\SBC^{\entails}$ with the preorder of semantic entailment ($c \leq b$ iff $c\entails b$), and $\SBC^\equiv$ with the preorder (actually, equivalence) of semantic equivalence. These are well-defined, and there are identity-on-objects functors $\op{(\SBC^\forw)} \to \SBC^{\entails}$, $\op{(\SBC^\back)} \to \SBC^{\entails}$ and $\op{(\SBC^{\forw{\circ}})} \to \SBC^{\equiv}$.
 \end{theorem}
 %
 We end our presentation of sb-conditions by again establishing two indexed categories, now based on the category of span source shifters $\bC^\sshift$, lifting \pcite{ab indexed} to the span-based case.
 
 \begin{proposition}[$\bC^\sshift$-indexed categories]\plabel{sb indexed}
-There are functors $\SCx^\forw$ and $\SCx^\back$ from $(\bC^\sshift)^\op$ to $\Cat$, establishing $\bC^\sshift$-indexed categories.
+There are functors $\SCx^\forw$ and $\SCx^\back$ from $\op{(\bC^\sshift)}$ to $\Cat$, establishing $\bC^\sshift$-indexed categories.
 \end{proposition}
 
 \section{From arrow-based to span-based and back}
@@ -422,7 +422,7 @@ There are functors $\SCx^\forw$ and $\SCx^\back$ from $(\bC^\sshift)^\op$ to $\C
 
 Span-based conditions are richer in morphisms than arrow-based conditions, but semantically equivalent. In this subsection we show the existence of faithful, semantics-preserving functors from the categories of forward- and backward-shift arrow-based conditions to their span-based counterparts, and we also show equivalence of the entailment-based categories.
 
-First, we inductively define the ``natural'' span-based conditon $\cN(c)$ for an arbitrary arrow-based condition $c\in \AC R$ and $\cN(p)$ for a branch $p\in \AB R$.
+First, we inductively define the ``natural'' span-based conditon $\cN(c)$ for an arbitrary arrow-based condition $c\in \AC R$ and $\cN(p)$ for a branch $p\in \AB R$. 
 \begin{align*}
 \cN: c = (R,p_1\ccdots p_w) & \mapsto (R,\cN(p_1)\ccdots \cN(p_w)) \\
       p=(a,c) & \mapsto (\spanof{\id_R}{a},\cN(c)) \enspace.

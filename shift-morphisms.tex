@@ -1,9 +1,9 @@
 \section{Morphisms of arrow-based conditions}
 \slabel{ab-morphisms}
 
-The notion of \emph{morphism} of nested conditions has not received much attention in the literature. When considered at all, such as in \cite{bchk:conditional-reactive-systems,sksclo:coinductive-techniques-for-satisfiability}, they are essentially based on the semantics in terms of satisfaction. Indeed, entailment establishes a preorder over conditions. Let us denote the resulting category $\ABC^{\entails}$, where if $c$ and $b$ are ab-conditions, $c \leq b$ iff $b \entails c$.\footnote{Note that $c \leq b$ implies that $c$ and $b$ have the same root.} 
+The notion of \emph{morphism} of nested conditions has not received much attention in the literature. When considered at all, such as in \cite{bchk:conditional-reactive-systems,sksclo:coinductive-techniques-for-satisfiability}, they are essentially based on the semantics in terms of satisfaction. Indeed, entailment establishes a preorder over conditions. Let us denote the resulting category $\ABC^{\entails}$, where if $c$ and $b$ are ab-conditions, $c \leq b$ iff $c \entails b$.\footnote{Note that $c \leq b$ implies that $c$ and $b$ have the same root.} 
 
-The question that we address in this section is to establish a meaningful \emph{structural} notion of condition morphism. That is, given the fact that an ab-condition is essentially a diagram in the category $\bC$, a structural morphism from $b$ to $c$ consists of arrows between objects of $b$ and objects of $c$ satisfying certain commutativity conditions. For morphisms to be meaningful, they should certainly only exist where there is entailment; in other words, we require there to be a functor to $\ABC^{\entails}$. As we will see, this requirement implies that it is not enough to consider only arrows from objects of $b$ \emph{to} objects of $c$, since in our definition of satisfaction, the direction of entailment flips at every subsequent nesting level. We also observe that the existence of a functor to $\ABC^{\entails}$ means that we only consider morphisms between conditions with the same root.
+The question that we address in this section is to establish a meaningful \emph{structural} notion of condition morphism. That is, given the fact that an ab-condition is essentially a diagram in the category $\bC$, a structural morphism from $b$ to $c$ consists of arrows between objects of $b$ and objects of $c$ satisfying certain commutativity conditions. For morphisms to be meaningful,  they should certainly only exist where there is entailment: indeed, we require there to be a \emph{contravariant} functor to $\ABC^{\entails}$, meaning that if there is a structural morphism $b \to c$, then $c \entails b$.\footnote{This is consistent with the case of the $\exists$-fragment sketched in the Introduction.} As we will see, this requirement implies that it is not enough to consider only arrows from objects of $b$ \emph{to} objects of $c$, since in our definition of satisfaction, the direction of entailment flips at every subsequent nesting level. We also observe that the existence of a (contravariant) functor to $\ABC^{\entails}$ means that we only consider morphisms between conditions with the same root.
 
 The underlying principle for a morphism $m$ from $c=(R,p^c_1\ccdots p^c_{|c|})$  to $b=(R,p^b_1\ccdots p^c_{|b|})$  is that it must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that it entails. Entailment of $p^c_j$ by $p^b_i$ is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$  such that there is (recursively, but in the opposite direction with respect to $m$) a morphism between the subconditions $b_i$ and $c_j$; however, this sub-morphism can only exist ``modulo" the morphism $v_i$ between their roots. The task of the next subsection is to make the concept of ``modulo $v_i$" precise.
 
@@ -18,8 +18,8 @@ We will first define how to shift arrows (where it is called \emph{source} shift
 
 \begin{definition}[source shifter]\dlabel{ab-source shifter}
 \begin{itemize}[topsep=\smallskipamount]
-\item Let us denote by $\cat{C}(A,\_)$ the set of arrows of \cat{C} with source $A$. Let $X,Y$ be objects of $\cat{C}$. A \emph{source shifter} $\cS$ from $X$ to $Y$ is a target-preserving mapping $\cS \of \cat{C}(X,\_) \to \cat{C}(Y, \_)$\footnote{That is, if $f\of X \to Z$ for some $Z$, then $\cS(f)\of Y \to Z$. More formally, such a target-preserving mapping can be defined as a family of functions $\left\{\cS_Z : \cat{C}(X, Z) \to \cat{C}(Y, Z)\right\}_{Z\in |\cat{C}|}$.} such that for all arrows $a\of X\to Z, t\of Z\to U$:
-
+\item Let us denote by $\cat{C}(A,\_)$ the set of arrows of \cat{C} with source $A$. Let $X,Y$ be objects of $\cat{C}$. A \emph{source shifter} $\cS$ from $X$ to $Y$ is a target-preserving mapping $\cS \of \cat{C}(X,\_) \to \cat{C}(Y, \_)$\footnote{That is, if $f\of X \to Z$ for some $Z$, then $\cS(f)\of Y \to Z$. More formally, $\cS$  can be defined as a family of functions $\cS = \left\{\cS_Z : \cat{C}(X, Z) \to \cat{C}(Y, Z)\right\}_{Z\in |\cat{C}|}$.} such that for all arrows $a\of X\to Z, t\of Z\to U$:
+%
 % family of functions $\left\{\cS_Z : \cat{C}(X, Z) \to \cat{C}(Y, Z)\right\}_{Z\in |\cat{C}|}$ such that for all arrows $a\of X\to Y, t\of Y\to Z$:\footnote{In the following we will omit the subscript of $\cS$, which is simply the target object of its argument.}
 %
 \begin{equation}\eqlabel{shifters are functors}
@@ -245,7 +245,7 @@ We use the same notational conventions as for conditions: $m$ has width $|m|$ an
 %
 The next result states that the existence of a morphism between two conditions $m: c \to b$ provides evidence that $b\entails c$.
 
-\begin{proposition}[ab-condition morphisms preserve models]
+\begin{proposition}[ab-condition morphisms reflect models]
   \plabel{ab-morphisms preserve models}
 Let $c,b \in \AC{R}$  be arrow-based conditions. If $m:c\to b$ is a forward-shift or a backward-shift morphism, then $g\sat b$ implies $g \sat c$ for all arrows $g:R\to G$. 
 \end{proposition}
@@ -273,7 +273,7 @@ On the other hand, $c_2\entails c_3$ has evidence in the form of a morphism $m\o
 \qed
 \end{example}
 %
-\pcite{ab-morphisms preserve models} can be phrased more abstractly as the existence of a functor from a category of arrow-based conditions and their (forward-shift or backward-shift) morphisms to $\ABC^{\entails}$. An important step to arrive at that result is to show that morphisms compose. This, in turn, depends on the preservation of morphisms by root shifters.
+\pcite{ab-morphisms preserve models} can be phrased more abstractly as the existence of a contravariant functor from a category of arrow-based conditions and their (forward-shift or backward-shift) morphisms to $\ABC^{\entails}$. An important step to arrive at that result is to show that morphisms compose. This, in turn, depends on the preservation of morphisms by root shifters.
 
 \begin{lemma}[root shifters preserve morphisms]
              \llabel{ab-root shifters preserve morphisms}
@@ -282,7 +282,7 @@ Let $c,b \in  \AC{X}$ and let $\cC$ be a root shifter from $X$ to $Y$ that is de
 %
 \begin{fullorname}
 \begin{proof}
-If $\cC$ is trivial, the result is immediate. Otherwise, assume $m = (o,(v_1,m_1)\cdots(v_{|b|},m_{|b|}))$ and let $t$ be as in \lcite{ab-root shifters}. The only new proof obligation for $m$ to be an ab-morphism from $c$ to $b$ is that, for all $1\leq i\leq |b|$, $t;a^c_{o(i)};v_i=t;a^b_i$. This follows immediately from $a^c_{o(i)};v_i=a^b_i$.\qed
+If $\cC$ is trivial, the result is immediate. Otherwise, assume $m = (o,(v_1,m_1)\cdots(v_{|b|},m_{|b|}))$ and let $v$ be as in \lcite{ab-root shifters}. The only new proof obligation for $m$ to be an ab-morphism from $c$ to $b$ is that, for all $1\leq i\leq |b|$, $v;a^c_{o(i)};v_i=v;a^b_i$. This follows immediately from $a^c_{o(i)};v_i=a^b_i$.\qed
 \end{proof}
 \end{fullorname}
 %
@@ -337,14 +337,14 @@ For all $1\leq i\leq w$, we need to show the existence of a forward root shifter
 %\todo{***AC: arrived till here in changing direction to condition morphisms}
 \iffull
 \begin{proposition}
-For every $R$, $\AC R$ gives rise to categories $\ABC^\forw(R)$ with forward-shift morphisms and $\ABC^\back(R)$ with backward-shift morphisms.\todo{AR: Add to span-based, and add functiorality. AC: This is already done, right?}
+For every $R$, $\AC R$ gives rise to categories $\ABC^\forw(R)$ with forward-shift morphisms and $\ABC^\back(R)$ with backward-shift morphisms.
 \end{proposition}
 %
 \fi
-We now state the first main result, that ab-conditions endowed with either forward or backward morphisms give rise to a category with a functor to $\ABC^{\entails}$.
+We now state the first main result: ab-conditions endowed with either forward or backward morphisms give rise to a category with a contravariant functor to $\ABC^{\entails}$.
 
 \begin{theorem}[categories of arrow-based conditions]\thlabel{ab-categories}
-Let $\ABC^{\forw}$ be the category having ab-conditions as objects and forward-shift morphisms as arrows, and let $\ABC^{\back}$ be the category having the same objects and backward-shift morphisms as arrows. They are well-defined, and there are identity-on-objects functors $\ABC^{\forw} \to \ABC^{\entails}$ and $\ABC^{\back} \to \ABC^{\entails}$.
+Let $\ABC^{\forw}$ be the category having ab-conditions as objects and forward-shift morphisms as arrows, and let $\ABC^{\back}$ be the category having the same objects and backward-shift morphisms as arrows. They are well-defined, and there are identity-on-objects functors $\op{(\ABC^{\forw})} \to \ABC^{\entails}$ and $\op{(\ABC^{\back})} \to \ABC^{\entails}$.
 \end{theorem}
 %
 \emph{Proof sketch.} Composition of morphisms and the fact that all identity morphisms have the correct nature for both categories is shown by \lcite{ab-morphisms compose}.
@@ -386,7 +386,7 @@ As a final observation, we can characterise the relation between shifters and co
 Moreover, for every $\bC^\ashift$-object $X$ let $\ACx^\forw(X)=\ABC^\forw(X)$ (the full subcategory of $\ABC^\forw$ containing only conditions rooted at $X$), and for every $\bC^\ashift$-arrow $\cS\of X\to Y$ let $\ACx^\forw(\cS)$ be the functor that maps every $c\in \AC Y$ to $\bar\cS(c)\in \AC X$ and every forward-shift morphism $m\of c\to b$ (for $c,b\in \AC Y$) to $m\of \bar\cS(c)\to \bar\cS(b)$. Define $\ACx^\back$ analogously for backward-shift morphisms.
 
 \begin{proposition}[$\bC^\ashift$-indexed categories]\plabel{ab indexed}
-$\ACx^\forw$ and $\ACx^\back$ are functors from $(\bC^\ashift)^\op$ to $\Cat$, establishing $\bC^\ashift$-indexed categories.
+$\ACx^\forw$ and $\ACx^\back$ are functors from $\op{(\bC^\ashift)}$ to $\Cat$, establishing $\bC^\ashift$-indexed categories.
 \end{proposition}
 %
 Note that this is only correct because (implicitly) $\bC^\ashift$ is a well-defined category, and for all $\cS\of X\to Y$, $\ACx^\forw(\cS)$ and $\ACx^\back(\cS)$ are well-defined functors from $\ABC^\forw(Y)$ to $\ABC^\forw(X)$ and from $\ABC^\back(Y)$ to $\ABC^\back(X)$, respectively.
