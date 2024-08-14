@@ -113,20 +113,20 @@ A backward span source shifter is called \emph{complete} if it also preserves mo
 Since span source shifters from $X$ are, just as in the arrow-based case, completely determined by $\cS(\id_X)$ (due to \eqref{span shifters are functors}), we can enumerate the choices of forward and backward shifters for $v$ that are available in general, i.e., without having additional information about $v$.
 %
 \begin{description}
-\item[Forward shifting.] For $\cS$ to be a forward span source shifter for $v:A\to B$, there must be a span $t=\cS(\id_A):B\to A$, which automatically determines $\cS(s)=t\spcomp s$ for all $s:A\to C$. Without additional information about $v$, there are essentially two options for $t$: $t=\spanof{v}{\id_B}$ or $t=\spanof{\id_A}{x}$ for some section $x$ of $v$, i.e., such that $x;v=\id_B$.
+\item[Forward shifting.] For $\cS$ to be a forward span source shifter for $v:A\to B$, there must be a span $t=\cS(\id_A):B\to A$, which automatically determines $\cS(s)=t\spcomp s$ for all $s:A\to C$. Without additional information about $v$, there are essentially two options for $t$: $t=\spanof{v}{\id_A}$ or $t=\spanof{\id_B}{x}$ for some section $x$ of $v$, i.e., such that $x;v=\id_B$.
 % We denote the resulting span source shifters by $\cF_v^\circ$ and $\cF_v^x$, respectively.
 
-\item[Backward shifting.] For $\cS$ to be a backward span source shifter for $v:A\to B$, there must be a span $t=\cS(\id_B):A\to B$, which automatically determines $\cS(s)=t \spcomp s$ for all $s:B\to C$. Again, there are essentially two options: $t=\spanof{\id_A}{v}$, or $t=\spanof{x}{\id_B}$ for some section $x$ of $v$, i.e., such that $x;v=\id_A$.
+\item[Backward shifting.] For $\cS$ to be a backward span source shifter for $v:A\to B$, there must be a span $t=\cS(\id_B):A\to B$, which automatically determines $\cS(s)=t \spcomp s$ for all $s:B\to C$. Again, there are essentially two options: $t=\spanof{\id_A}{v}$, or $t=\spanof{x}{\id_B}$ for some section $x$ of $v$, i.e., such that $x;v=\id_B$.
 % We denote the resulting span source shifters by $\cB_v^\circ$ and $\cB_v^x$, respectively.
 \end{description}
 %
 This gives rise to the following four candidate shifters for $v:A\to B$ (which still have to be shown to satisfy the conditions of \dcite{sb-shifters}):
 %
 \begin{align*}
-\dF v & : s \mapsto \spanof{v}{\id_B}\spcomp s \\
-\rF v x& : s \mapsto \spanof{\id_A}{x}\spcomp s \text{ where $x;v=\id_B$} \\
+\dF v & : s \mapsto \spanof{v}{\id_A}\spcomp s \\
+\rF v x& : s \mapsto \spanof{\id_B}{x}\spcomp s \text{ where $x;v=\id_B$} \\
 \dB v& : s \mapsto \spanof{\id_A}{v}\spcomp s \\
-\rB v x& : s \mapsto \spanof{x}{\id_B}\spcomp s \text{ where $x;v=\id_A$}
+\rB v x& : s \mapsto \spanof{x}{\id_B}\spcomp s \text{ where $x;v=\id_B$}
 \end{align*}
 %
 These are visualised in \fcite{sb-source shifters} (in a simplified construction that omits the intermediate steps of the span composition where possible). We call $\dF v$ and $\dB v$ \emph{direct} and $\rF v x$ and $\rB v x$ \emph{split}. It turns out that, indeed, each of these four options gives rise to a valid shifter; moreover, the direct ones are complete.
@@ -146,7 +146,7 @@ These are visualised in \fcite{sb-source shifters} (in a simplified construction
 \end{proposition}
 %
 \iffest
-The proof (in \acite{proofs}) can be constructed directly from the diagrams in \fcite{sb-source shifters}.
+The proof (in Appendix A of~\cite{RensinkCorradini-JPK2024-full}) can be constructed directly from the diagrams in \fcite{sb-source shifters}.
 \fi
 \begin{fullorname}
 \begin{proof}
@@ -187,10 +187,10 @@ Let $v:A\to B$.
 %
 Forward and backward shifters again compose, also for complete ones.
 \iffest
-The precise statement is given in \pcite{sb-shifters compose}.
+The precise statement is given in Prop.~A.2 of~\cite{RensinkCorradini-JPK2024-full}.
 \fi
 
-\begin{fullorname}[\pname{sb-shifters compose}]
+\begin{fullorname}[\pname{sb-shifters compose}] 
 \begin{proposition}[span shifters compose]\plabel{sb-shifters compose}
 \begin{enumerate}[topsep=\smallskipamount]
 \item If $\cU$ is a span source [root] shifter from $X$ to $Y$ and $\cV$ a span source [root] shifter from $Y$ to $Z$, then $\cU;\cV$ (understood as partial function composition) is a span source [root] shifter from $X$ to $Z$. 
@@ -253,7 +253,7 @@ The following lists some essential properties of pattern shifting.
 Let $v:P_1\to P_2$ be an arrow, and let $(s_1,s_2)\in \cP_v$.
 \begin{enumerate}[topsep=\smallskipamount]
 \item\label{pattern-preserves} For all arrows $g,h$, if $s_2\commutes (g,h)$ then $s_1\commutes (g,v;h)$;
-\item\label{pattern-transitive} For all arrows $t:P_2\to P_3$, if $(s_2,s_3)\in \cP_t$ than  $(s_1,s_3)\in \cP_{v;t}$;
+\item\label{pattern-transitive} For all arrows $t:P_2\to P_3$, if $(s_2,s_3)\in \cP_t$ then  $(s_1,s_3)\in \cP_{v;t}$;
 \item\label{pattern-congruence} For all spans $s$, if $s\spcomp s_1$ and $s \spcomp s_2$ are defined then $(s\spcomp s_1,s \spcomp s_2)\in \cP_v$.
 \end{enumerate}
 If $(s_1,s_2)\in \ccP_v$, then in addition:

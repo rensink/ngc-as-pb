@@ -5,7 +5,7 @@ The notion of \emph{morphism} of nested conditions has not received much attenti
 
 The question that we address in this section is to establish a meaningful \emph{structural} notion of condition morphism. That is, given the fact that an ab-condition is essentially a diagram in the category $\bC$, a structural morphism from $b$ to $c$ consists of arrows between objects of $b$ and objects of $c$ satisfying certain commutativity conditions. For morphisms to be meaningful,  they should certainly only exist where there is entailment: indeed, we require there to be a \emph{contravariant} functor to $\ABC^{\entails}$, meaning that if there is a structural morphism $b \to c$, then $c \entails b$.\footnote{This is consistent with the case of the $\exists$-fragment sketched in the Introduction.} As we will see, this requirement implies that it is not enough to consider only arrows from objects of $b$ \emph{to} objects of $c$, since in our definition of satisfaction, the direction of entailment flips at every subsequent nesting level. We also observe that the existence of a (contravariant) functor to $\ABC^{\entails}$ means that we only consider morphisms between conditions with the same root.
 
-The underlying principle for a morphism $m$ from $c=(R,p^c_1\ccdots p^c_{|c|})$  to $b=(R,p^b_1\ccdots p^c_{|b|})$  is that it must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that it entails. Entailment of $p^c_j$ by $p^b_i$ is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$  such that there is (recursively, but in the opposite direction with respect to $m$) a morphism between the subconditions $b_i$ and $c_j$; however, this sub-morphism can only exist ``modulo" the morphism $v_i$ between their roots. The task of the next subsection is to make the concept of ``modulo $v_i$" precise.
+The underlying principle for a morphism $m$ from $c=(R,p^c_1\ccdots p^c_{|c|})$  to $b=(R,p^b_1\ccdots p^b_{|b|})$  is that it must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that it entails. Entailment of $p^c_j$ by $p^b_i$ is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$  such that there is (recursively, but in the opposite direction with respect to $m$) a morphism between the subconditions $b_i$ and $c_j$; however, this sub-morphism can only exist ``modulo" the morphism $v_i$ between their roots. The task of the next subsection is to make the concept of ``modulo $v_i$" precise.
 
 \subsection{Root shifting}
 \slabel{shift-morphisms}
@@ -131,7 +131,7 @@ It follows that $v$ has precisely one forward source shifter for every section $
 \flabel{ex-ab-shifters}
 \end{figure}
 
-Source shifting is extended in a straightforward manner to conditions, where it is called \emph{root shifting}. To root-shift a condition, we only have to source-shift the arrows of its branches: the subconditions remain the same. This also means that for zero-width conditions, there is essentially nothing to be done. Hence we can either extend a source shifter $\cS$ from $X$ to $Y$ to a mapping $\bar\cS\of \AC X\to \AC Y$ over conditions of arbitrary width, or use the special \emph{trivial} root shifter $\cI_{X,Y}$ for zero-width conditions, defined as follows:
+Source shifting is extended in a straightforward manner to conditions, where it is called \emph{root shifting}. To root-shift a condition, we only have to source-shift the arrows of its branches: the subconditions remain the same. This also means that for zero-width conditions, there is essentially nothing to be done. Hence we can either extend a source shifter $\cS$ from $X$ to $Y$ to a mapping $\bar\cS\of \AC X\to \AC Y$ over conditions of arbitrary width, or use the special \emph{trivial} root shifter $\cI_{X,Y}$ for zero-width conditions, where $\bar\cS$ and $\cI_{X,Y}$ are defined as follows:
 \[\begin{array}{rrl}
 \bar\cS: & c & \mapsto (Y,(\cS(a^c_1),c_1)\ccdots (\cS(a^c_{|w|}),c_{|w|})) \\
 \cI_{X,Y}: & (X,\epsilon) & \mapsto (Y,\epsilon) \enspace.
@@ -148,7 +148,7 @@ Let $X,Y$ be objects and $v\of A\to B$ an arrow.
 \end{itemize}
 \end{definition}
 %
-It should be noted that \emph{all} root shifters $\bar\cS$ with $\cS$ a source shifter from $X$ to $Y$ behave like $\cI_{X,Y}$ on zero-width conditions; however, $\cI_{X,Y}$ is a root shifter for \emph{any} $v$, whereas, as we have seen in \dcite{ab-source shifter}, forward and backward source shifters only exist for certain $v$. This justifies the introduction of $\cI_{X,Y}$ as a  distinguished root shifter.
+It should be noted that \emph{all} root shifters $\bar\cS$ with $\cS$ a source shifter from $X$ to $Y$ behave like $\cI_{X,Y}$ on zero-width conditions; however, $\cI_{X,Y}$ is a root shifter for any pair of objects $(X,Y)$, whereas, as we have seen in \dcite{ab-source shifter}, forward and backward source shifters only exist for certain arrows $v\of X \to Y$. This justifies the introduction of $\cI_{X,Y}$ as a  distinguished root shifter.
 
 \begin{fullorname}[\lname{ab-root shifter}]
 The following fact, which follows from \lcite{ab-source shifters} for source shifters, will be very useful in reasoning about root shifters.
@@ -286,7 +286,7 @@ If $\cC$ is trivial, the result is immediate. Otherwise, assume $m = (o,(v_1,m_1
 \end{proof}
 \end{fullorname}
 %
-Composition of ab-condition morphisms can be defined inductively, and is independent of their forward or backward nature. We also (inductively) define arrow-based identity morphisms. Let $e,c,b$ be ab-conditions and $m:e\to c,n:c\to b$ ab-morphisms, with $|b|=w$.
+Composition of ab-condition morphisms can be defined inductively, and is independent of their forward or backward nature. We also (inductively) define arrow-based identity morphisms. Let $e,c,b$ be ab-conditions and $m:e\to c,n:c\to b$ ab-morphisms, with $|b|=w$. Then $\id_b$ and $m;n$ are defined as follows: 
 %
 \begin{eqnarray}
 \id_b & =
@@ -344,7 +344,7 @@ For every $R$, $\AC R$ gives rise to categories $\ABC^\forw(R)$ with forward-shi
 We now state the first main result: ab-conditions endowed with either forward or backward morphisms give rise to a category with a contravariant functor to $\ABC^{\entails}$.
 
 \begin{theorem}[categories of arrow-based conditions]\thlabel{ab-categories}
-Let $\ABC^{\forw}$ be the category having ab-conditions as objects and forward-shift morphisms as arrows, and let $\ABC^{\back}$ be the category having the same objects and backward-shift morphisms as arrows. They are well-defined, and there are identity-on-objects functors $\op{(\ABC^{\forw})} \to \ABC^{\entails}$ and $\op{(\ABC^{\back})} \to \ABC^{\entails}$.
+Let $\ABC^{\forw}$ be the category having ab-conditions as objects and forward-shift morphisms as arrows, and let $\ABC^{\back}$ be the category having the same objects and backward-shift morphisms as arrows. Both categories are well-defined, and there are identity-on-objects functors $\op{(\ABC^{\forw})} \to \ABC^{\entails}$ and $\op{(\ABC^{\back})} \to \ABC^{\entails}$.
 \end{theorem}
 %
 \emph{Proof sketch.} Composition of morphisms and the fact that all identity morphisms have the correct nature for both categories is shown by \lcite{ab-morphisms compose}.
@@ -374,10 +374,14 @@ Even though both forward- and backward-shift morphisms preserve models, they are
 \end{figure}
 %
 \begin{example}[forward versus backward root shifters]\exlabel{forward vs backward}
-\fcite{forward-no-backward} shows a forward-shift morphism $m \of c \to b$ where there is no backward-shift one. Both conditions are evaluated in a context where we know $\la(x,z)$. In that context,  $c$ is equivalent to $\exists y\st \la(x,y) \wedge \neg \lb(z,x)$, and $b$ is equivalent to the property $\neg \lb(z,x)$. Indeed, an intuitive explanation of $b\entails c$ is that $y$ can be instantiated with the value of $z$. The figure shows $\cF_{m_1}^s(a^c_{11})$ (for a section $s$ of $m_1$), which acts as the identity on node and edges.
+\fcite{forward-no-backward} shows a forward-shift morphism $m \of c \to b$. 
+% where there is no backward-shift one. 
+Both conditions are evaluated in a context where we know $\la(x,z)$. In that context,  $c$ is equivalent to $\exists y\st \la(x,y) \wedge \neg \lb(z,x)$, and $b$ is equivalent to the property $\neg \lb(z,x)$. Intuitively, $b\entails c$ holds because $y$ can be instantiated with $z$. The figure shows $\cF_{m_1}^s(a^c_{11})$ (for a section $s$ of $m_1$), which acts as the identity on node and edges. Note that there is no backward-shift morphism $m'\of c \to b$ because $\cB_{m_1}(a^b_{11}) ; m_{11} = m_1; a^b_{11} ; m_{11} \not = a^c_{11}$.
 
-\fcite{backward-no-forward} shows a backward-shift morphism $m \of c \to b$ where there is no forward-shift one. Both conditions are evaluated in a context where we know $\la(x,y)$. In that context, $c$ is equivalent to $\exists z.\lb(z,z) \wedge \neg(y=z \wedge \lc(y,x))$ and $b$ is equivalent to $\lb(y,y) \wedge \nexists z\st \lc(z,x)$.
-Indeed, $b\entails c$ because $z$ can be instantiated with the value of $y$. The figure shows $\cB_{m_1}(a^b_{11})$.
+\fcite{backward-no-forward} shows a backward-shift morphism $m \of c \to b$. 
+% where there is no forward-shift one.
+Both conditions are evaluated in a context where we know $\la(x,y)$. In that context, $c$ is equivalent to $\exists z.\lb(z,z) \wedge \neg(y=z \wedge \lc(y,x))$ and $b$ is equivalent to $\lb(y,y) \wedge \nexists z\st \lc(z,x)$.
+Indeed, $b\entails c$ because $z$ can be instantiated with the value of $y$. The figure shows $\cB_{m_1}(a^b_{11})$. Note that there cannot be a forward-shift morphism $m'\of c \to b$ because $m_1$ is not split epi.
 \qed
 \end{example}
 %
