@@ -1,0 +1,79 @@
+\section{Examples}
+
+Examples of entailment that we are able to show on the basis of the existence of a morphism are:
+%
+\begin{enumerate}
+\item\exlabel{no pullback} $\phi\equiv \exists y\st a(x,y)$ entails $\psi\equiv \exists z,y\st a(z,y)$. Note the discrepancy of the free variables. The decomposed condition for $\psi$ must have $x$ in its root for a morphism to exist; however, the interface ``loses'' that $x$. Here's a visualisation of $C_\phi$ and $C_\psi$ as well as a morphism from the first to the second:
+
+%  \begin{figure}
+%    \centering
+  \begin{center}
+    \input{figs/ex-no-pullback}
+  \end{center}
+%    \caption{Illustration of \excite{no pullback}}
+%      \flabel{no pullback}
+%  \end{figure}
+  
+  \item\exlabel{non-trivial} $\psi\equiv \exists x\st a(x,y) \wedge \neg (\exists z\st b(y,z) \vee x=y)$ and $\psi\equiv \neg \exists x,z\st c(x,y)\wedge b(y,z)$. Here's a visualisation of $C_\phi$ and $C_\psi$ as well as a morphism from the first to the second:
+%See \fcite{non-trivial} for a visualiation.
+  
+%  \begin{figure}
+%    \centering
+    \input{figs/ex-non-trivial}
+%    \caption{Illustration of \excite{non-trivial}}
+%      \flabel{non-trivial}
+%  \end{figure}
+
+  \item\exlabel{k not unique} $\phi\equiv x=y\wedge a(x,y)\wedge \neg \exists z\st b(y,z)$ and $\psi\equiv \neg\exists z\st b(x,z)\wedge b(y,z)$. The mediating arrow $k$ on the second (negated) level is not unique in this case; i.e., there exists more than one morphism from $C_\phi$ to $C_\psi$. This is essentially because in $\phi$ we know $x=y$, and hence these get merged into a single variable that can be mapped to either $x$ or $y$ in $\psi$. Here's a visualisation of $C_\phi$ and $C_\psi$ as well as a morphism from the first to the second:
+ %See \fcite{k not unique} for a visualiation.
+  
+ % \begin{figure}
+ %   \centering
+  \begin{center}
+    \input{figs/ex-k-not-unique}
+  \end{center}
+ %   \caption{Illustration of \excite{k not unique}}
+ %   \flabel{k not unique}
+ % \end{figure}
+%
+%% \item\exlabel{k unique} $\phi\equiv y\wedge \neg\exists z\st b(x,z)$ and $\psi\equiv x=y\wedge a(x,y)\wedge \neg \exists z\st b(y,z)$. This is a slight variation on \excite{k not unique} where, in this case, the mediating arrow $k$ \emph{is} unique: it must map the merged variable of $\psi$ to $x$ in $\phi$, because otherwise $b(x,z)$ (in $\psi$) has no image in $\phi$. See \fcite{k unique} for a visualiation.
+%
+%%   \begin{figure}
+%%     \centering
+%%     \input{figs/ex-k-unique}
+%%     \caption{Illustration of \excite{k unique}}
+%%     \flabel{k unique}
+%%   \end{figure}
+\end{enumerate}
+%
+An example of an interesting non-entailment for which a morphism fails to exist (as it should) is
+%
+\begin{enumerate}[resume]
+\item\exlabel{non-entailment} $\phi=\exists x\st \neg\exists y\st a(x,y)$ and $\psi=\neg\exists z,y\st  a(z,y)$. Here's a visualisation of $C_\phi$ and $C_\psi$:
+%See \fcite{non-entailment} for a visualiation.
+  
+%  \begin{figure}
+  %    \centering
+  \begin{center}
+    \input{figs/ex-non-entailment}
+  \end{center}
+%    \caption{Illustration of \excite{non-entailment}}
+%    \flabel{non-entailment}
+%  \end{figure}
+\end{enumerate}
+%
+An example of an entailment for which we do not have a morphism is
+%
+\begin{enumerate}[resume]
+\item\exlabel{no-morphism} $\phi\equiv \neg a(x,x)$ and $\psi\equiv \neg\exists y\st a(x,y)$. Here's a visualisation of $C_\phi$ and $C_\psi$:
+%See \fcite{no-morphism} for a visualiation.
+
+%  \begin{figure}
+  %   \centering
+  \begin{center}
+    \input{figs/ex-no-morphism}
+  \end{center}
+%    \caption{Illustration of \excite{no-morphism}}
+%    \flabel{no-morphism}
+%  \end{figure}
+\end{enumerate}

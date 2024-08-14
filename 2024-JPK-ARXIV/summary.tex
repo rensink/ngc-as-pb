@@ -1,0 +1,17 @@
+The main contributions of this paper are the following:
+
+\begin{itemize}
+\item Starting with the existing notion of nested conditions (which we call \emph{arrow-based} to contrast them with a variant developed in the paper), we define structural morphisms that provide evidence for (i.e., ``explain") entailment between conditions. In doing so, we find that there are two independent variants, called forward-shift and backward-shift, that explain different fragments of entailment (\dcite{ab-morphism} and \excite{forward vs backward}).
+
+\item This gives rise to functors from the categories of nested conditions with (forward-shift or backward-shift) morphisms to the preorder of entailment over the same conditions (\thcite{ab-categories}).
+
+\item Observing that there actually exist far fewer morphisms than one would like (relatively few cases of entailment are explained by the existence of morphisms), and suspecting that this is a consequence of redundancy within the structure of nested conditions, we define \emph{span-based} nested conditions in which such redundancy can be avoided (\dcite{sb-condition}).
+
+\item Forward- and backward-shift morphisms are lifted to span-based conditions (\dcite{sb-morphism}), leading again to categories with functors to the preorder of entailment (\thcite{sb-categories}). Moreover, we also characterise \emph{complete} span-based morphisms that in fact imply equivalence of, and not just entailment between, their source and target conditions.
+
+\item There is a faithful embedding of arrow-based conditions (with backward-shift and forward-shift morphisms) into span-based ones, and span-based conditions indeed explain a larger fragment of entailment. However, under the preorder of entailment the two categories are equivalent, meaning that span-based conditions are themselves not more expressive than arrow-based ones (\thcite{sb-to-ab functor}).
+\end{itemize}
+%
+Besides these main contributions, there are numerous smaller ones, among which are the (admittedly rather technical) existence of indexed categories based on the concept of \emph{shifter} (Props.\ \pref{ab indexed} and \pref{sb indexed}). This is closely related to the notion of shifting in the existing theory of nested conditions (see below).
+
+All investigations in this paper assume a base category that is a presheaf topos, which includes the case of edge-labelled graphs that is used for all the examples (and from which we derive our intuitions). The main results are visualised in \fcite{categories}.

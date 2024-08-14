@@ -1,0 +1,26 @@
+\begin{tikzpicture}[on grid]
+  \node (b) {$b$};
+  \node[graph,below=.5 of b] (bI0) {\onenode x};
+  \node[graph,below=of bI1] (bP1) {\oneedge xay};
+  \node[graph,below=of bP1] (bI1) {\twonode xy};
+  \node[graph,below left=of bI1] (bP11) {\looptwonode xby};
+  \node[graph,below left=of bP11] (bI11) {\onenode{}};
+  \node[graph,below right=of bI1] (bP12) {\onenodeoneedge};
+  \node[graph,below left=of bP12] (bI12) {\onenode{}};
+
+  \path (b0) edge[->] (b1)
+        (b1) edge[->] (b11)
+        (b1) edge[->] (b12);
+  
+  \node (c) [right=3 of b] {$c$};
+  \node[graph,below=.5 of c] (c0) {\onenode x};
+  \node[graph,below=of c0] (c1) {\onenode x};
+  \node[graph,below=of c1] (c11) {\oneloop xb};
+
+  \path (c0) edge[->] (c1)
+        (c1) edge[->] (c11);
+
+  \path (b0) edge[->] (c0)
+        (c1) edge[->] (b1)
+        (b11) edge[->,bend right,dotted] (c11);
+\end{tikzpicture}

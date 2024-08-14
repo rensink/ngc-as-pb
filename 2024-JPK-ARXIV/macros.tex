@@ -1,0 +1,576 @@
+%% Additional packages
+\usepackage[inline]{enumitem}
+\usepackage{mathdots}
+\usepackage{mathtools}
+\usepackage{comment}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{ifthen}
+\usepackage{environ}
+%\usepackage[svgnames]{xcolor}
+
+\newboolean{fest}
+\newboolean{full}
+\ifthenelse
+  {\isundefined{\extendedversion}}
+  {\setboolean{fest}{true}\setboolean{full}{false}}
+  {\setboolean{fest}{false}\setboolean{full}{true}}
+
+\renewenvironment{proof}[1][of \lastresult]{%
+  \begin{trivlist}\item
+  \emph{Proof%
+  \ifthenelse{\equal{#1}{}}{}{ #1}.}
+}{
+  \end{trivlist}
+}
+
+\NewEnviron{fullorname}[1][\lastlabel]{%
+  \iffest
+     \global\expandafter\let\csname #1-lastresult\endcsname\lastresult
+     \global\expandafter\let\csname #1-body\endcsname\BODY
+  \else
+    \BODY
+  \fi
+}
+\newcommand{\displayhere}[1]{
+  \def\lastresult{\csname#1-lastresult\endcsname}
+  \csname#1-body\endcsname
+}
+
+% Inline enumeration with emphasised bracketed roman labels
+\newenvironment{inumerate}{%
+  \begin{enumerate*}[label=\emph{(\roman*)}]
+}{%
+  \end{enumerate*}
+}
+% Enumeration with small topsep
+\newenvironment{enumerateS}[1][]{%
+  \begin{enumerate}[topsep=\smallskipamount,#1]
+}{%
+  \end{enumerate}
+}
+% Itemize with small topsep
+\newenvironment{itemizeS}[1][]{%
+  \begin{itemize}[topsep=\smallskipamount,#1]
+}{%
+  \end{itemize}
+}
+
+
+%% Some math definitions
+\newcommand{\tupof}[1]{\langle{#1}\rangle}
+\newcommand{\setof}[1]{\{{#1}\}}
+% span <a,b> cospan >a,b<
+%\newcommand{\spanof}[2]{\tupof{{#1},{#2}}}
+%\newcommand{\cospanof}[2]{\rangle{#1},{#2}\langle}
+% span <a|b> cospan >a|b<
+%\newcommand{\spanof}[2]{\tupof{{#1}|{#2}}}
+%\newcommand{\cospanof}[2]{\rangle{#1}|{#2}\langle}
+% span a<>b cospan a><b
+%\newcommand{\spanof}[2]{{#1}\lrangle{#2}}
+%\newcommand{\cospanof}[2]{{#1}\rlangle{#2}}
+% span a<>b cospan a><b, using diamond and times symbols
+%\newcommand{\spanof}[2]{{#1}{\mathsmaller\diamond}{#2}}
+%\newcommand{\cospanof}[2]{{#1}{\mskip-1mu\mathsmaller\times\mskip-1mu}{#2}}
+% span <|a,b|> and cospan |>a,b<|
+\newcommand{\spanof}[2]{\lmangle{#1},{#2}\mrangle}
+\newcommand{\cospanof}[2]{\mrangle{#1},{#2}\lmangle}
+
+% span composition
+%\newcommand{\spcomp}{\bbsemicolon}
+\newcommand{\spcomp}{\fatsemi}
+% \newcommand{\spcomp}{;}
+
+
+
+% skip distance before langle or after rangle
+\newcommand{\angleskip}{%
+\mathchoice{\mskip-1mu}%
+           {\mskip-1mu}%
+           {\mskip-1.1mu}%
+           {\mskip-1.2mu}%
+}
+% skip distance between angle and mid symbol
+\newcommand{\anglemidskip}{%
+\mathchoice{\mskip-3.8mu}%
+           {\mskip-3.8mu}%
+           {\mskip-4.1mu}%
+           {\mskip-4.6mu}%
+}
+% langle followed by adjacent rangle
+\newcommand{\lrangle}{{%
+\angleskip
+\langle
+\mathchoice{\mskip-2.65mu}%
+           {\mskip-2.65mu}%
+           {\mskip-3.1mu}%
+           {\mskip-3.65mu}%
+\rangle
+\angleskip
+}}
+% rangle followed by adjacent langle
+\newcommand{\rlangle}{{%
+\angleskip
+\rangle
+\mathchoice{\mskip-4.5mu}%
+           {\mskip-4.5mu}%
+           {\mskip-5mu}%
+           {\mskip-5.3mu}%
+\langle
+\angleskip
+}}
+% langle followed by adjacent mid
+\newcommand{\lmangle}{{\langle\anglemidskip|}}
+% mid followed by adjacent rangle
+\newcommand{\mrangle}{{|\anglemidskip\rangle}}
+
+\newcommand{\commutes}{\circlearrowleft}
+
+\newcommand{\st}{.\;}
+\newcommand{\id}{\mathit{id}}
+\newcommand{\depth}{\mathit{dp}}
+\newcommand{\fv}{\mathit{fv}}
+
+\newcommand{\sat}{\models}
+\newcommand{\nsat}{\not\models}
+\newcommand{\entails}{\models}
+\newcommand{\nentails}{\not\models}
+
+\newcommand{\pentapex}{\mathsf f}
+% \newcommand{\pentails}{\models^{\mathsf p}}
+% \newcommand{\pentailedby}{\Relbar\joinrel\mathrel{|}^{\mathsf p}}
+% \newcommand{\pequiv}{\equiv^{\mathsf p}}
+\newcommand{\pentails}{\models^{\pentapex}}
+\newcommand{\pentailedby}{\Relbar\joinrel\mathrel{|}^{\pentapex}}
+\newcommand{\pequiv}{\equiv^{\pentapex}}
+
+\newcommand{\degr}[1]{|{#1}|}
+\newcommand{\ccdots}{{\cdotp\mkern-2mu\cdotp\mkern-2mu\cdotp\mkern1mu}}
+\renewcommand{\to}{\rightarrow}
+\newcommand{\of}{\colon}
+
+% some more
+% renew because \cat define in mypaper.tex referenced by preample.sty 
+\renewcommand{\cat}[1]{\ensuremath{\mathbf{#1}}}
+%\newcommand{\shift}[2]{(#1{\uparrow} #2)}
+%\newcommand{\bshift}[2]{(#1{\downarrow} #2)}
+
+\newcommand{\Rshift}{\mathbin{\nearrow_{\!\!\!\mathsf r}}}
+\newcommand{\Rbshift}{\mathbin{\swarrow_{\!\!\!\mathsf r}}}
+\newcommand{\Ishift}{\mathbin{\nearrow_{\!\!\mathsf i}}}
+\newcommand{\Ibshift}{\mathbin{\swarrow_{\!\!\mathsf i}}}
+
+%\newcommand{\shift}[2]{#1\Rshift #2}
+%\newcommand{\bshift}[2]{#1\Rbshift #2}
+
+\newcommand{\dshift}[2]{#1{\downarrow_{#2}}}
+
+% Letters and variables
+\newcommand{\Lab}{\mathsf{L}}
+\newcommand{\Var}{\mathsf{V}}
+\newcommand{\FOL}{\mathsf{FOL}}
+
+\newcommand{\ABx}{\mathsf{AB}}
+\newcommand{\ACx}{\mathsf{AC}}
+\newcommand{\SBx}{\mathsf{SB}}
+\newcommand{\SCx}{\mathsf{SC}}
+
+\newcommand{\AB}[1]{\ABx\if\relax\detokenize{#1}\relax\else(#1)\fi}
+\newcommand{\AC}[1]{\ACx\if\relax\detokenize{#1}\relax\else(#1)\fi}
+
+\newcommand{\SB}[1]{\SBx\if\relax\detokenize{#1}\relax\else(#1)\fi}
+\newcommand{\SC}[1]{\SCx\if\relax\detokenize{#1}\relax\else(#1)\fi}
+
+\newcommand{\bC}{\mathbf{C}}
+\newcommand{\bAC}{\mathbf{AC}}
+
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\ccA}{\cA^\circ}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cM}{\mathcal{S}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cP}{\mathcal{P}}
+\renewcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+
+% Direct forward-shifting
+\newcommand{\dF}[1]{\cF^\circ_{#1}}
+% Retraction-based forward-shifting
+\newcommand{\rF}[2]{\cF^{#2}_{#1}}
+% Direct backward-shifting
+\newcommand{\dB}[1]{\cB^\circ_{#1}}
+% Retraction-based backward-shifting
+\newcommand{\rB}[2]{\cB^{#2}_{#1}}
+\newcommand{\ccP}{\cP^\circ}
+
+\newcommand{\forw}{{\mathsf{f}}}
+\newcommand{\back}{{\mathsf{b}}}
+\newcommand{\ashift}{{\mathsf{ash}}}
+\newcommand{\sshift}{{\mathsf{ssh}}}
+%\newcommand{\op}{{\mathit{op}}}
+\newcommand{\op}[1]{{#1}^{\mathrm{op}}}
+
+% \newcommand{\ABC}{\cat{AB-Cond}}
+\newcommand{\ABC}{\mathbf{AC}}
+\newcommand{\SBC}{\mathbf{SC}}
+
+\newcommand{\Hom}{\mathrm{Hom}}
+
+\newcommand{\Hyper}{\cat{Hyper}}
+\newcommand{\Graph}{\cat{Graph}}
+\newcommand{\Cospan}{\cat{Cospan}}
+\newcommand{\Cat}{\mathbf{Cat}}
+\newcommand{\SpanC}{\cat{Span}(\cat{C})}
+
+
+\newcommand{\False}{\textbf{false}}
+\newcommand{\True}{\textbf{true}}
+
+\newcommand{\fprovable}{{$\cF$-provable}}
+
+% Alignment macro, see https://www.math.lsu.edu/~aperlis/publications/mathclap/perlis_mathclap_24Jun2003.pdf
+\def\clap#1{\hbox to 0pt{\hss#1\hss}}
+
+% Graph labels = binary relations
+% Graph label font
+\newcommand{\gl}[1]{\mathsf{#1}}
+
+\newcommand{\la}{\gl{a}}
+\newcommand{\lb}{\gl{b}}
+\newcommand{\lc}{\gl{c}}
+\newcommand{\ld}{\gl{d}}
+
+\newcommand{\mapping}[1]{%
+  \scalebox{.7}{$\begin{array}{@{}r@{\mapsto}l@{}}
+  #1
+  \end{array}$}
+}
+
+% Auxiliary labelling macros
+\newcommand{\savelabel}[1]{%
+  \label{#1}%
+  \gdef\lastlabel{#1}%
+}
+% For definitions
+\newcommand{\dprf}{def}
+\newcommand{\dname}[1]{\dprf:#1}
+\newcommand{\dlabel}[1]{\savelabel{\dname{#1}}}
+\newcommand{\dref}[1]{\ref{\dname{#1}}}
+\newcommand{\dcite}[1]{Def.~\dref{#1}}
+
+% For figures
+\newcommand{\fprf}{fig}
+\newcommand{\fname}[1]{\fprf:#1}
+\newcommand{\flabel}[1]{%
+  \savelabel{\fname{#1}}%
+}
+\newcommand{\fref}[1]{\ref{\fname{#1}}}
+\newcommand{\fcite}[1]{Fig.~\fref{#1}}
+
+% For propositions
+\newcommand{\pprf}{prop}
+\newcommand{\pname}[1]{\pprf:#1}
+\newcommand{\plabel}[1]{%
+  \gdef\lastresult{\pcite{#1}}%
+  \savelabel{\pname{#1}}%
+}
+\newcommand{\pref}[1]{\ref{\pname{#1}}}
+\newcommand{\pcite}[1]{Prop.~\pref{#1}}
+
+% For theorems
+\newcommand{\thprf}{th}
+\newcommand{\thname}[1]{\thprf:#1}
+\newcommand{\thlabel}[1]{%
+  \gdef\lastresult{\thcite{#1}}%
+  \savelabel{\thname{#1}}%
+}
+\newcommand{\thref}[1]{\ref{\thname{#1}}}
+\newcommand{\thcite}[1]{Theorem~\thref{#1}}
+
+% For lemmas
+\newcommand{\lprf}{lem}
+\newcommand{\lname}[1]{\lprf:#1}
+\newcommand{\llabel}[1]{%
+  \gdef\lastresult{\lcite{#1}}%
+  \savelabel{\lname{#1}}
+}
+\newcommand{\lref}[1]{\ref{\lname{#1}}}
+\newcommand{\lcite}[1]{Lemma~\lref{#1}}
+
+% For sections
+\newcommand{\sprf}{sec}
+\newcommand{\sname}[1]{\sprf:#1}
+\newcommand{\slabel}[1]{\savelabel{\sname{#1}}}
+\newcommand{\sref}[1]{\ref{\sname{#1}}}
+\newcommand{\scite}[1]{Section~\sref{#1}}
+
+% For appendices
+\newcommand{\aprf}{app}
+\newcommand{\aname}[1]{\aprf:#1}
+\newcommand{\alabel}[1]{\savelabel{\aname{#1}}}
+\newcommand{\aref}[1]{\ref{\aname{#1}}}
+\newcommand{\acite}[1]{App.~\aref{#1}}
+
+% For examples
+\newcommand{\exprf}{ex}
+\newcommand{\exname}[1]{\exprf:#1}
+\newcommand{\exlabel}[1]{\savelabel{\exname{#1}}}
+\newcommand{\exref}[1]{\ref{\exname{#1}}}
+\newcommand{\excite}[1]{Ex.~\exref{#1}}
+
+% For assumptions
+\newtheorem{assumption}[definition]{Assumption}
+\newcommand{\assprf}{ass}
+\newcommand{\assname}[1]{\assprf:#1}
+\newcommand{\asslabel}[1]{\savelabel{\assname{#1}}}
+\newcommand{\assref}[1]{\ref{\assname{#1}}}
+\newcommand{\asscite}[1]{Assumption~\assref{#1}}
+
+% For equations
+\newcommand{\eqprf}{eq}
+\newcommand{\eqname}[1]{\eqprf:#1}
+\newcommand{\eqlabel}[1]{\savelabel{\eqname{#1}}}
+\renewcommand{\eqref}[1]{(\ref{\eqname{#1}})}
+\newcommand{\eqcite}[1]{Eq.~\eqref{#1}}
+
+%% Tikz definitions
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+
+\tikzset{>=latex}
+\tikzset{triangle/.style=
+  {isosceles triangle,
+   draw,
+   shape border rotate=90,
+   isosceles triangle stretches=true,
+   anchor=top corner,
+   minimum width=15mm,
+   minimum height=15mm}}
+\tikzset{graph/.style={
+   inner sep=1pt,
+   line width=3pt,
+   draw=white,
+   double=black}}
+\tikzset{morphism/.style={
+   color=brown!90!black,
+   draw=brown!90!black,
+}}
+\tikzset{medge/.style={
+   line width=.8pt,
+   double distance=0.4pt,
+   double=brown!90!black,
+   draw=white,
+   >/.tip={Latex[color=brown!90!black,scale=.5]}
+}}
+\tikzset{over/.style={
+   line width=.8pt,
+   double distance=0.4pt,
+   double=black,
+   draw=white,
+   arrows={|-|},
+   >/.tip={Latex[color=black,scale=.5]}
+}}
+\tikzset{allcolor/.style= {
+   draw={#1},
+   text={#1},
+   >/.tip={latex[color={#1}]}
+}}
+
+\tikzset{|/.tip={Bar[black,width=.4pt,line width=2pt]}}
+\tikzset{cross/.style={
+   preaction={draw=white,line width=2pt}
+}}
+
+% #1 - colour (optional)
+% #2 - name of top node
+% #3 - height
+% #4 - offset of right bottom point
+% #5 - (bottom) width
+% #6 - label
+\newcommand{\tri}[6][black]{
+  \path [fill=#1!10,draw=#1,opacity=.5]
+        (#2)
+		coordinate (#2-top)
+		-- +($(#4,-#3)$)
+		coordinate (#2-right)
+		-- +($(#4,-#3)-(#5,0)$)
+		coordinate (#2-left)
+		-- (#2);
+  \path (#2)
+        edge[draw=none]
+		node[near end,text=#1] (#2-label) {#6}
+		+($(#4,-#3)-(#5/2,0)$);
+}
+
+\newcommand{\darker}[1]{#1!50!black}
+
+\newcommand{\mygraph}[1]{%
+  \renewcommand{\gl}[1]{\ensuremath{\scriptstyle{\mathsf{##1}}}}%
+  \tikzset{n/.style={inner sep=1pt}}%
+  \tikzset{e/.style={inner sep=1pt,pos=.4}}%
+  \begin{tikzpicture}[on grid,scale=.5,inner sep=2pt,baseline=(1.south)]
+  \begin{scope}[node distance=8mm]
+  #1
+  \end{scope}
+  \end{tikzpicture}%
+}
+\newcommand{\inline}[1]{%
+  \setlength{\fboxsep}{0pt}%
+  \fbox{#1}%
+}
+\newcommand{\myinlinegraph}[1]{%
+  \inline{\mygraph{#1}}%
+}
+
+% Discrete one-node graph
+% #1: node
+\newcommand{\onenode}[1]{\mygraph{
+\node[n] (1) {$#1$};
+}}
+
+% Discrete two-node graph
+% #1: node
+\newcommand{\twonode}[2]{\mygraph{
+\node[n] (1) {$#1$};
+\node[n] (2) [right=.5 of 1] {$#2$};
+}}
+
+% One-node graph with loop
+% #1: node
+% #2: loop label
+\newcommand{\oneloop}[2]{\mygraph{
+\node[n] (1) {$#1$};
+\path[e] (1) edge [->,loop right] node[right=.05] {\gl{#2}} ();
+}}
+
+% One-node graph with loop to the left
+% #1: node
+% #2: loop label
+\newcommand{\oneloopleft}[2]{\mygraph{
+\node[n] (1) {$#1$};
+\path[e] (1) edge [->,loop left] node[left=.05] {\gl{#2}} ();
+}}
+
+% two-node graph with loop
+% #1: first node
+% #2: right-pointing edge
+% #1: second node
+% #2: left-pointing edge
+\newcommand{\twoloop}[4]{\mygraph{
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#3$};
+\path[e]
+  (1) edge [->,bend left] node[near start,above] {\gl{#2}} (2)
+  (2) edge [->,bend left] node[near start,below] {\gl{#4}} (1);
+}}
+
+% One-edge graph
+% #1: source node
+% #2: edge label
+% #3: target node
+\newcommand{\oneedge}[3]{\mygraph{
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#3$};
+\path[e]
+  (1) edge[->] node[above] {\gl{#2}} (2);
+}}
+
+% Edge + loop graph
+% #1: source node
+% #2: edge label
+% #3: target node
+% #4: loop label
+\newcommand{\oneedgeloop}[4]{\mygraph{
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#3$};
+\path[e]
+  (1) edge[->] node[above] {\gl{#2}} (2)
+  (2) edge [->,loop right] node[right=.05] {\gl{#4}} ();
+}}
+
+% Loop + edge graph
+% #1: source node
+% #2: loop label
+% #3: edge label
+% #4: target node
+\newcommand{\looponeedge}[4]{\mygraph{
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#4$};
+\path[e]
+  (1) edge[->] node[above] {\gl{#3}} (2)
+  (1) edge [->,loop left] node[left=.05] {\gl{#2}} ();
+}}
+
+% Serial two-edge graph
+% #1: first node
+% #2: first edge label
+% #3: middle node
+% #4: second edge label
+% #5: third node
+\newcommand{\twoedge}[5]{\mygraph{
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#3$};
+\node[n] (3) [right=of 2] {$#5$};
+\path[e]
+  (1) edge[->] node[above] {\gl{#2}} (2)
+  (2) edge[->] node[above] {\gl{#4}} (3);
+}}
+
+% One edge followed by a split into two edges
+% #1: first node
+% #2: first edge label
+% #3: middle node
+% #4: second edge label
+% #5: upper right node
+% #6: third edge label
+% #7: lower right node
+\newcommand{\onetwoedge}[7]{\mygraph{
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#3$};
+\node[n] (3) [above right=.3 and 1 of 2] {$#5$};
+\node[n] (4) [below right=.3 and 1 of 2] {$#7$};
+\path[e]
+  (1) edge[->] node[above] {\gl{#2}} (2)
+  (2) edge[->] node[above] {\gl{#4}} (3)
+  (2) edge[->] node[below] {\gl{#6}} (4);
+}}
+
+% Span graph
+% #1: first node
+% #2: first edge label
+% #3: joint target node
+% #4: second edge label
+% #5: third node
+\newcommand{\spangraph}[5]{\mygraph{
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#3$};
+\node[n] (3) [right=of 2] {$#5$};
+\path[e]
+  (1) edge[<-] node[pos=.6,above] {\gl{#2}} (2)
+  (2) edge[->] node[above] {\gl{#4}} (3);
+}}
+
+% Cospan graph
+% #1: first node
+% #2: first edge label
+% #3: joint target node
+% #4: second edge label
+% #5: third node
+\newcommand{\cospangraph}[5]{\mygraph{
+\node[n] (1) {$#1$};
+\node[n] (2) [right=of 1] {$#3$};
+\node[n] (3) [right=of 2] {$#5$};
+\path[e]
+  (1) edge[->] node[above] {\gl{#2}} (2)
+  (2) edge[<-] node[pos=.6,above] {\gl{#4}} (3);
+}}

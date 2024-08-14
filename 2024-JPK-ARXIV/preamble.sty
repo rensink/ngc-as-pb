@@ -1,0 +1,196 @@
+\usepackage{latexsym,graphicx,mypaper,url,amssymb}
+\usepackage[curve,frame,cmtip,line,rotate,matrix,v2]{xy}
+%\usepackage{hyperref} 
+
+\usepackage{stmaryrd, bbold}
+
+\DeclareSymbolFont{bbsymbol}{U}{bbold}{m}{n}
+\DeclareMathSymbol{\bbsemicolon}{\mathbin}{bbsymbol}{"3B}
+
+
+%\newcommand{\note}[1]{\emph{#1}}
+% \usepackage[disable,%
+% textsize=tiny]{todonotes}
+\usepackage[textsize=tiny]{todonotes}
+\newcommand{\HGraphCat}{\ensuremath{\cat{HGraph_{\Sigma}}}}
+\newcommand{\Pos}{{\pnat^*}}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\pnat}{\nat_{>0}}
+\newcommand{\ldot}{\,.\,}
+%AC from Tobias....
+
+\newdir{|>}{*\txt{\ensuremath{\triangleright\,}}}
+\newdir{<|}{*\txt{\ensuremath{\,\triangleleft}}}
+\newdir{||--}{*\txt{\scalebox{1.3}{\dir^{|-}}}}
+\newdir{|-=}{*\txt{\scalebox{1.3}{\dir^{|-}\dir^{<}}}} 
+\newdir{|=-}{*\txt{{\scalebox{1.3}{\dir^{|-}\rotatebox{90}{\dir_{<}}}}}}
+\newdir{|-==}{*\txt{\scalebox{1.3}{\dir^{|-}\dir_{<}}}}
+\newdir{|==-}{*\txt{{\scalebox{1.3}{\dir^{|-}\rotatebox{90}{\dir^{<}}}}}}
+\newdir{|-='}{*\txt{\scalebox{1.3}{\dir^{|-}\dir_{<}}}}
+\newdir{|=-'}{*\txt{\scalebox{1.3}{\dir_{|-}\dir_{<}}}}
+\newcommand{\pbcxy}[2][]%
+{\save#1%!L(0.5)
+  *!/#2+1.4pc/#2:(1,-1)@^{||--}\restore}
+%% \save   : ok save something
+%% *       : the current position ...
+%% !/ v /       : shifted by vector v wher v = 
+%% #2#1pc  : dirction and 
+\newcommand{\pbcs}[1]%
+{\save*!/#1+1.4pc/#1:(-1,1)@^{||--}\restore}
+
+
+\newcommand{\poc}[2][]%
+{\save#1%!L(0.5)
+  *!/#2-1.4pc/#2:(-1,1)@^{||--}\restore}
+%{\save!L(0.5)#1*!/#2 1.4pc/#2:(-1,1)@^{||--}\restore}
+\newcommand{\gpbc}[2][]%
+{\save#1%!L(0.5)
+  *!/#2+1.4pc/#2:(1,-1)@^{|-=}\restore}
+\newcommand{\pbcg}[2][]%
+{\save#1%!L(0.5)
+  *!/#2+1.4pc/#2:(1,-1)@^{|=-}\restore}
+\newcommand{\lpbc}[2][]%
+{\save#1%!L(0.5)
+  *!/#2+1.4pc/#2:(1,-1)@^{|-==}\restore}
+\newcommand{\pbcl}[2][]%
+{\save#1%!L(0.5)
+  *!/#2+1.4pc/#2:(1,-1)@^{|==-}\restore}
+
+
+\newtheorem{observation}{Observation}{\itshape}{\rmfamily}
+\newtheorem{fact}{Fact}{\itshape}{\rmfamily}
+
+\usepackage{tikzit}
+\input{hypergraph.tikzdefs}
+\input{hypergraph.tikzstyles}
+
+\renewcommand{\abb}[3]{% {FIGNAME}{FACTOR}{CAPTION}
+    \begin{figure}
+    \centerline{
+      \includegraphics*[scale = #2]{figs/#1.pdf}
+    }
+    \caption{#3}
+    \label{fig:#1}
+    \end{figure}
+}
+
+\newcommand{\scirc}{\circ_{\!s}}
+
+\newcommand{\urlink}[1]{\url{#1}} %{\htmladdnormallink{\url{#1}}{#1}}
+\newcommand{\link}[2]{#1}  %{\htmladdnormallink{#1}{#2}}
+
+\sloppy
+\frenchspacing
+
+\newcommand{\lgts}{{lgts}}
+\newcommand{\graph}{{\mathcal Graph}}
+\newcommand{\dpo}{\mathbf{DPO}}
+\newcommand{\dpb}{\mathbf{DPB}}
+\newcommand{\mspan}{\mathbf{MSpan}}
+\newcommand{\sys}{\mathbf{Sys}}
+\newcommand{\rsys}{\mathbf{RSys}}
+\newcommand{\ssys}{\mathbf{SSys}}
+\newcommand{\srsys}{\mathbf{SRSys}}
+
+\newcommand{\transi}{\mbox{\it trs}}
+\newcommand{\trafoi}{\mbox{\it trf}}
+
+%\newcommand{\tsys}{\mathbf{TSys}}
+\newcommand{\inv}[1]{\ [#1\>\ } 
+\newcommand{\greco}{\mathbf{Com}}
+\newcommand{\gremod}{\mathbf{Mod}}
+\newcommand{\frob}{\mbox{frob}}
+
+\newcommand{\PhiTo}{/ \hspace{-123pt} \Longrightarrow}
+
+\makeatletter
+\def \rightarrowfill{\m@th\mathord{\smash-}\mkern-6mu%
+  \cleaders\hbox{$\mkern-2mu\mathord{\smash-}\mkern-2mu$}\hfill
+  \mkern-6mu\mathord\rightarrow}
+\makeatother
+\makeatletter
+\def \Rightarrowfill{\m@th\mathord{\smash-}\mkern-6mu%
+  \cleaders\hbox{$\mkern-2mu\mathord{\smash-}\mkern-2mu$}\hfill
+  \mkern-6mu\mathord\Rightarrow}
+\makeatother
+\makeatletter
+\def \mapstofill{\m@th\mathord{\smash-}\mkern-6mu%
+  \cleaders\hbox{$\mkern-2mu\mathord{\smash-}\mkern-2mu$}\hfill
+  \mkern-6mu\mathord\longmapsto}
+\makeatother
+
+\def \overunderstackrel#1#2#3{\mathrel{\mathop{#1}\limits^{#2}_{#3}}}
+\def \overstackrel#1#2{\mathrel{\mathop{#1}\limits^{#2}}}
+\def \understackrel#1#2{\mathrel{\mathop{#1}\limits_{#2}}}
+\def\dlarrow#1#2{\overunderstackrel{\rightarrowfill}{#1}{#2}}
+
+\def\ctrans#1#2{\overunderstackrel{\Longrightarrow}{#1}{#2}}
+
+\usepackage{graphicx} % provides "\rotatebox" and "\reflectbox" macros
+\newcommand\rotpi{\rotatebox[origin=c]{180}{$\pi$}}
+\newcommand\copi{\reflectbox{\rotpi}}
+
+\newcommand\Nabla{\rotatebox[origin=c]{180}{$\Delta$}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Only typesets second parameter if first is non-empty
+% \ifnonempty{text}{usage of text}
+\newcommand{\ifnonempty}[2]{\ifthenelse{\equal{#1}{}}{}{#2}}
+
+% Counter for margin or in-text comments
+\newcounter{comCounter}[section]
+
+% Author prefix
+% \by{Author} typesets \textbf{Author: }
+% \by{} is empty
+\newcommand{\by}[1]{\ifnonempty{#1}{\textbf{#1:}}}
+
+% Margin comment
+% \margincomment[Author]{text} puts "Author: text" in margin
+% \margincomment{text} just puts "text" in margin
+\newcommand{\margincomment}[2][]{%
+  \stepcounter{comCounter}%
+  $^{\thecomCounter}$
+  \marginpar{\scriptsize\by{#1}$^{\thecomCounter}$ #2}%
+}
+
+% Macro to make all comments invisible
+\newcommand{\commentsoff}{%
+  \renewcommand{\margincomment}[2][]{\relax}%
+  \let\textcomment\comment%
+  \let\endtextcomment\endcomment%
+}
+
+% Other comment-related macros
+\setlength{\marginparsep}{2.5mm}
+\setlength{\marginparwidth}{3.3cm}
+\newcommand{\comE}[1]{
+    \normalfont
+    \small{\thecomCounter})
+    #1				
+}
+
+\newcommand{\com}[1]{%
+    \stepcounter{comCounter}$^{\thecomCounter)}$
+    \marginpar[\flushleft \comE{#1}]{		
+        \flushleft
+        \comE{#1}
+    }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\newcommand\ctile[2]\mathrel{\mathop{\Rightarrow}^{\mathrm{#1}}_{\mathrm{#2}}}
+
+%\newcommand\ctile[2]
+%	{\overset#1
+%		{\underset{#2}
+%		\Longrightarrow}}
+
+
+%\underset{F}{\longleftarrow
+
+%\input{links}

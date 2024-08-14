@@ -1,0 +1,14 @@
+\begin{tikzpicture}[on grid]
+\node (A) {$A$};
+\node (B2) [right=2.5 of A] {$B$};
+\node (B) [right=3.5 of A,blue] {$B$};
+\node (C) [below=2 of A] {$C$};
+\node (D) [below=2 of B] {$D$};
+
+\path (A) edge[->] node[above] {$v$} (B2)
+      (A) edge[->] node[pos=.4,left] {$a$} (C)
+	  (A) edge[->] node[pos=.4,left=.2] {$a;t$} (D)
+	  (C) edge[->] node[below] {$t$} (D)
+	  (B) edge[->,blue] node[left,inner sep=1] {$\forw\cS(a;t)$} (D)
+	  (B) edge[->,blue] node[pos=.2,left=.2] {$\forw\cS(a)$} (C);
+\end{tikzpicture}

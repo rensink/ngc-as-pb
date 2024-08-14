@@ -1,0 +1,383 @@
+\section{Morphisms of arrow-based conditions}
+\slabel{ab-morphisms}
+
+The notion of \emph{morphism} of nested conditions has not received much attention in the literature. When considered at all, such as in \cite{bchk:conditional-reactive-systems,sksclo:coinductive-techniques-for-satisfiability}, they are essentially based on the semantics in terms of satisfaction. Indeed, entailment establishes a preorder over conditions. Let us denote the resulting category $\ABC^{\entails}$, where if $c$ and $b$ are ab-conditions, $c \leq b$ iff $c \entails b$.\footnote{Note that $c \leq b$ implies that $c$ and $b$ have the same root.} 
+
+The question that we address in this section is to establish a meaningful \emph{structural} notion of condition morphism. That is, given the fact that an ab-condition is essentially a diagram in the category $\bC$, a structural morphism from $b$ to $c$ consists of arrows between objects of $b$ and objects of $c$ satisfying certain commutativity conditions. For morphisms to be meaningful,  they should certainly only exist where there is entailment: indeed, we require there to be a \emph{contravariant} functor to $\ABC^{\entails}$, meaning that if there is a structural morphism $b \to c$, then $c \entails b$.\footnote{This is consistent with the case of the $\exists$-fragment sketched in the Introduction.} As we will see, this requirement implies that it is not enough to consider only arrows from objects of $b$ \emph{to} objects of $c$, since in our definition of satisfaction, the direction of entailment flips at every subsequent nesting level. We also observe that the existence of a (contravariant) functor to $\ABC^{\entails}$ means that we only consider morphisms between conditions with the same root.
+
+The underlying principle for a morphism $m$ from $c=(R,p^c_1\ccdots p^c_{|c|})$  to $b=(R,p^b_1\ccdots p^b_{|b|})$  is that it must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that it entails. Entailment of $p^c_j$ by $p^b_i$ is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$  such that there is (recursively, but in the opposite direction with respect to $m$) a morphism between the subconditions $b_i$ and $c_j$; however, this sub-morphism can only exist ``modulo" the morphism $v_i$ between their roots. The task of the next subsection is to make the concept of ``modulo $v_i$" precise.
+
+\subsection{Root shifting}
+\slabel{shift-morphisms}
+
+In order to relate conditions at different roots, we introduce a special kind of mapping called a \emph{root shifter}, which will later turn out to be a functor between categories of conditions over different roots. For now, we note that the purpose of root shifters is to relate the models of a condition $b\in \AC A$ to those of a condition $c\in \AC B$, given an arrow $v:A\to B$ between their roots (the existence of which implies that the model sets are typically disjoint). To be more precise, we will require that \emph{every $v$-prefixed model of $b$ induces a model for $c$}: that is, if $v;g$ is a model of $b$, then $g$ is a model of $c$.
+
+This can be achieved in essentially two ways, both on the basis of $v$: by constructing $c$ from $b$ (which we will call \emph{forward shifting}) or by constructing $b$ from $c$ (which we will call \emph{backward shifting}).
+
+We will first define how to shift arrows (where it is called \emph{source} shifting) and then extend this in a natural way to conditions (where it is called \emph{root} shifting).
+
+\begin{definition}[source shifter]\dlabel{ab-source shifter}
+\begin{itemize}[topsep=\smallskipamount]
+\item Let us denote by $\cat{C}(A,\_)$ the set of arrows of \cat{C} with source $A$. Let $X,Y$ be objects of $\cat{C}$. A \emph{source shifter} $\cS$ from $X$ to $Y$ is a target-preserving mapping $\cS \of \cat{C}(X,\_) \to \cat{C}(Y, \_)$\footnote{That is, if $f\of X \to Z$ for some $Z$, then $\cS(f)\of Y \to Z$. More formally, $\cS$  can be defined as a family of functions $\cS = \left\{\cS_Z : \cat{C}(X, Z) \to \cat{C}(Y, Z)\right\}_{Z\in |\cat{C}|}$.} such that for all arrows $a\of X\to Z, t\of Z\to U$:
+\begin{equation}\eqlabel{shifters are functors}
+\cS(a;t) = \cS(a);t \enspace.
+\end{equation}
+%
+\item Now let $v\of A\to B$ be an arrow. A \emph{forward source shifter $\cS$ for $v$} is a source shifter from $A$ to $B$ such that for all $a\of A\to C$, $g\of B\to G$ and $h\of C\to G$:
+%
+\begin{equation}\eqlabel{forward condition}
+v;g = a;h \text{ implies } g = \cS(a);h \enspace.
+\end{equation}
+%
+\item A \emph{backward source shifter $\cS$ for $v$} is a source shifter from $B$ to $A$ such that for all $a\of B\to C$, $g\of B\to G$ and $h\of C\to G$:
+%
+\begin{equation}\eqlabel{backward condition}
+v;g = \cS(a);h \text{ implies } g = a;h \enspace.
+\end{equation}
+\end{itemize}
+\end{definition}
+%
+If $\cS$ is known to be a forward shifter, we sometimes use $\cF$ to denote it; similarly, we use $\cB$ to denote backward shifters. 
+% Condition \eqref{shifters are functors} is actually quite strong, since it holds for any arrow $a$ and $t$. In particular, for $t = id_Y$ ($\cS(a;id_Y) = \cS(a);id_Y$)  it implies that $\cS$ preserves the target, and for $a = id_X$ ($\cS(id_X;t) = \cS(id_X);t$) it leads to the following observation.
+Condition \eqref{shifters are functors} is actually quite strong: for $a = id_X$ it implies $\cS(id_X;t) = \cS(id_X);t$,  leading to the following observation.
+
+% In particular also for the case that $a=\id_X$ (and hence $Y=X$). This leads to the following observation.
+%
+\begin{lemma}\llabel{ab-source shifters}
+Let $\cS \of \cat{C}(X,\_) \to \cat{C}(Y, \_)$  be a target-preserving mapping, and let $v\of Y\to X$ be an arrow. The following statements are equivalent:
+\begin{enumerate}[topsep=\smallskipamount,label=(\alph*),ref=(\alph{enumi})]
+\item\label{shifter-1} $\cS(a)=v;a$ for all $a\of X\to Z$;
+\item\label{shifter-2} $\cS$ is a source shifter from $X$ to $Y$ such that $\cS(\id_X)=v$.
+\end{enumerate}
+\end{lemma}
+%
+\begin{fullorname}
+\begin{proof}
+\begin{itemize}[topsep=\smallskipamount]
+\item \emph{\ref{shifter-1} implies \ref{shifter-2}.}
+%
+Assume that \ref{shifter-1} holds. To show that  $\cS$ is a source shifter, note that  \eqcite{shifters are functors} holds by $\cS(a;t)=v;a;t=\cS(a);t$. Furthermore, $\cS(\id_X)=v;\id_X=v$.
+
+\item \emph{\ref{shifter-2} implies \ref{shifter-1}.}
+%
+Assume that \ref{shifter-2} holds. Let $a:X\to Z$; by \eqref{shifters are functors}, it follows that $\cS(a)=\cS(\id_X;a)=\cS(\id_X);a=v;a$.\qed
+\end{itemize}
+\end{proof}
+\end{fullorname}
+%
+Knowing that source shifters from $X$ are entirely determined by $\cS(\id_X)$ gives us a basis for their construction. Before that, let us introduce some categorical terminology. An arrow $r: A \to B$ is a \emph{split epi(morphism)} if there is an arrow $m:B\to A$ such that $m;r = id_B$. In this case, arrow $m$ which satisfies the dual condition is a 
+\emph{split mono(morphism)}. We also say that $r$ is a \emph{retraction} of $m$, and that $m$ is a \emph{section} of $r$.
+
+The following proposition characterises the (forward and backward) root shifters that exist in general.
+%
+\begin{proposition}[known source shifters]\plabel{ab-source shifters}
+Let $v\of A\to B$ be an arrow.
+\begin{enumerate}[topsep=\smallskipamount]
+\item The following three statements are equivalent.
+\begin{enumerate}[label=(\alph*),ref=\theenumi(\theenumii)]
+\item\label{forward-1} $\cS$ is a forward source shifter for $v$;
+\item\label{forward-2} $\cS$ is a source shifter from $A$ to $B$ such that $\cS(v)=\id_B$;
+\item\label{forward-3} $\cS \of \cat{C}(A,\_) \to \cat{C}(B, \_)$ is a target-preserving mapping such that $s=\cS(\id_A)$ is a section of $v$ and $\cS(a)=s;a$ for all $a\of A\to C$.
+\end{enumerate}
+\item If $\cS$ is a source shifter such that $\cS(\id_B)=v$, then $\cS$ is a backward source shifter for $v$ if and only if $v$ is epi.
+\end{enumerate}
+\end{proposition}
+%
+\begin{fullorname}
+\begin{proof}
+\begin{enumerate}[topsep=\smallskipamount]
+\item
+We show $\ref{forward-1} \Rightarrow \ref{forward-2} \Rightarrow \ref{forward-3} \Rightarrow \ref{forward-1}$.
+\begin{itemize}
+\item \emph{\ref{forward-1} implies \ref{forward-2}.}
+%
+Assume that \ref{forward-1} holds. By definition, $\cS$ is a source shifter from $A$ to $B$. Now consider \eqref{forward condition} with $a=v$ and $g=h=\id_B$: then $v;g=a;h$, hence $\id_B=g = \cS(a);h=\cS(a)$.
+
+\item \emph{\ref{forward-2} implies \ref{forward-3}.}
+%
+Assume that \ref{forward-2} holds. By definition, $\cS \of \cat{C}(A,\_) \to \cat{C}(B, \_)$  is a target-preserving mapping; moreover, if $s=\cS(\id_A)$ then $s;v=\cS(\id_A);v=\cS(\id_A;v)=\cS(v)=\id_B$, proving that $s$ is a section of $v$. Moreover, $\cS(a)=\cS(\id_A;a)=\cS(\id_A);a=s;a$.
+
+\item \emph{\ref{forward-3} implies \ref{forward-1}.}
+%
+Assume that \ref{forward-3} holds. To show \eqref{shifters are functors}, note that $\cS(a;t)=s;a;t=\cS(a);t$. To show \eqref{forward condition}, consider $a,g,h$ such that $v;g=a;h$; then $g=\id_A;g=s;v;g=s;a;h = \cS(a);h$.
+\end{itemize}
+
+\item Assume that $\cS$ is a source shifter such that $\cS(\id_B)=v$.
+\begin{itemize}
+\item \emph{$v$ epi implies that $\cS$ is a backward source shifter for $v$.} To show \eqref{backward condition}, let $a,g,h$ be such that $v;g=\cS(a);h=v;a;h$; then $g=a;h$ because $v$ is epi.
+
+\item \emph{$\cS$ a backward source shifter for $v$ implies that $v$ is epi.} Let $g,h:B\to C$ be such that $v;g=v;h$, and let $a=\id_B$; then $v;g=\cS(a);h$, hence \eqref{backward condition} implies $g=a;h=\id_B;h=h$. It follows that $v$ is epi.\qed
+\end{itemize}
+\end{enumerate}
+\end{proof}
+\end{fullorname}
+%
+It follows that $v$ has precisely one forward source shifter for every section $s$ of $v$ (meaning, among other things, that $v$ must be a split epi --- hence a fortiori an epi --- to have any forward shifter at all). As for backward source shifters, if $\cS(\id_B)=v$ (which is in general the only known arrow from $A$ to $B$), then $v$ has a backward source shifter if and only if $v$ is epi. We denote these source shifters by $\cF_v^s$ and $\cB_v$, respectively. Their working is visualised in \fcite{ab-source shifters}. \fcite{ex-ab-shifters} shows some examples.
+
+\begin{figure}[t]
+\centering
+\input{ab-source-shifting}
+\caption{Forward and backward source shifting for $v:A\to B$}
+\flabel{ab-source shifters}
+\end{figure}
+
+\begin{figure}
+\centering
+\input{ex-ab-shifters}
+\caption{Forward source shifters $\cF_v^{s_1}$ and $\cF_v^{s_2}$ and backward source shifter $\cB_v$ for an arrow $v:A\to B$. (All morphisms $a$ are the identity on nodes.)}
+\flabel{ex-ab-shifters}
+\end{figure}
+
+Source shifting is extended in a straightforward manner to conditions, where it is called \emph{root shifting}. To root-shift a condition, we only have to source-shift the arrows of its branches: the subconditions remain the same. This also means that for zero-width conditions, there is essentially nothing to be done. Hence we can either extend a source shifter $\cS$ from $X$ to $Y$ to a mapping $\bar\cS\of \AC X\to \AC Y$ over conditions of arbitrary width, or use the special \emph{trivial} root shifter $\cI_{X,Y}$ for zero-width conditions, where $\bar\cS$ and $\cI_{X,Y}$ are defined as follows:
+\[\begin{array}{rrl}
+\bar\cS: & c & \mapsto (Y,(\cS(a^c_1),c_1)\ccdots (\cS(a^c_{|w|}),c_{|w|})) \\
+\cI_{X,Y}: & (X,\epsilon) & \mapsto (Y,\epsilon) \enspace.
+\end{array}\]
+
+\begin{definition}[root shifter]\dlabel{ab-root shifter}
+Let $X,Y$ be objects and $v\of A\to B$ an arrow.
+\begin{itemize}[topsep=\smallskipamount]
+\item A \emph{root shifter} $\cC$ from $X$ to $Y$ is a partial function from $\AC X$ to $\AC Y$ such that either $\cC=\bar\cS$ for some source shifter from $X$ to $Y$, or $\cC=\cI_{X,Y}$.
+
+\item A \emph{forward root shifter} $\cC$ for $v$ is a root shifter from $A$ to $B$ such that either $\cC=\bar\cF$ for some forward source shifter $\cF$, or $\cC=\cI_{A,B}$.
+
+\item A \emph{backward root shifter} $\cC$ for $v$ is a root shifter from $B$ to $A$ such that either $\cC=\bar\cB$ for some backward source shifter $\cB$, or $\cC=\cI_{B,A}$.
+\end{itemize}
+\end{definition}
+%
+It should be noted that \emph{all} root shifters $\bar\cS$ with $\cS$ a source shifter from $X$ to $Y$ behave like $\cI_{X,Y}$ on zero-width conditions; however, $\cI_{X,Y}$ is a root shifter for any pair of objects $(X,Y)$, whereas, as we have seen in \dcite{ab-source shifter}, forward and backward source shifters only exist for certain arrows $v\of X \to Y$. This justifies the introduction of $\cI_{X,Y}$ as a  distinguished root shifter.
+
+\begin{fullorname}[\lname{ab-root shifter}]
+The following fact, which follows from \lcite{ab-source shifters} for source shifters, will be very useful in reasoning about root shifters.
+%
+\begin{lemma}[root shifter property]\llabel{ab-root shifters}
+Let $X,Y$ be objects. For any non-trivial root shifter $\cC$ from $X$ to $Y$, there is an arrow $v:Y\to X$ such that, for all $c\in \AC X$ on which $\cC$ is defined, $\cC(c)= (Y,(v;a^c_1,c_1)\ccdots (v;a^c_{|c|},c_{|c|}))$.
+\end{lemma}
+%
+\begin{proof}
+If $\cC$ is non-trivial, then $\cC=\bar\cS$ for some source shifter. Let $v=\cS(\id_X)$; then \lcite{ab-source shifters} implies $\cS(a)=v;a$ for any $a$ with source $A$.\qed
+\end{proof}
+\end{fullorname}
+%
+By ignoring from now on the notational distinction between $\cS$ and $\bar\cS$, we reuse $\cF$ and $\cB$ to range over forward and backward root shifters. The action of a root shifter is visualised in \fcite{root shifting}.
+%
+\begin{figure}[t]
+\centering
+\input{root-shifting.tex}
+\caption{Root shifting using a source shifter $\cS$: green is shifted to blue}
+\flabel{root shifting}
+\end{figure}
+%
+The following is the crucial preservation property of root shifters:
+%
+\begin{proposition}[root shifters preserve models]\plabel{ab-root shifters preserve}
+Let $v:A\to B$.
+\begin{enumerate}[topsep=\smallskipamount]
+\item If $c\in \AC A$ and $\cF$ is a forward root shifter for $v$ that is defined on $c$, then $v;g\sat c$ implies $g\sat \cF(c)$.
+\item If $c\in \AC B$ and $\cB$ is a backward root shifter for $v$ that is defined on $c$, then $v;g\sat \cB(c)$ implies $g\sat c$.
+\end{enumerate}
+\end{proposition}
+%
+\begin{fullorname}
+\begin{proof}
+For zero-width conditions, both clauses are vacuously true. In the remainder assume $|c|>0$ (and hence the root shifters are non-trivial). Let $v:A\to B$.
+\begin{enumerate}
+\item Let $b=\cF(c)$; then $a^b_i=\cF(a^c_i)$ for all $1\leq i\leq |c|$. Assume $v;g\sat c$ due to responsible branch $p^c_i$ and witness $h$; i.e., $v;g=a^c_i;h$. \eqcite{forward condition} then implies $g=\cF(a);h$, hence $p^b_i$ is a responsible branch and $h$ a witness for $g\sat b$.
+\item Let $b=\cB(c)$; then $a^b_i=\cB(a^c_i)$ for all $1\leq i\leq |c|$. Assume $v;g\sat b$ due to responsible branch $p^b_i$ and witness $h$; i.e., $v;g=\cB(a^c_i);h$. \eqcite{backward condition} then implies $g=a;h$, hence $p^c_i$ is a responsible branch and $h$ a witness for $g\sat c$.
+\qed
+\end{enumerate}
+\end{proof}
+\end{fullorname}
+%
+Source and root shifters compose, in the following way.
+%
+\begin{proposition}[identities and composition of shifters]\plabel{ab-shifters compose}
+\begin{enumerate}[topsep=\smallskipamount]
+\item For every $X$, the identity function on $\cat{C}(X,\_)$, denoted $\cI_X$ and called the identity shifter, is a source shifter that is forward and backward for $\id_X$.
+\item If $\cU$ is a source [root] shifter from $X$ to $Y$ and $\cV$ a source [root] shifter from $Y$ to $Z$, then $\cU;\cV$ (understood as partial function composition) is a source [root] shifter from $X$ to $Z$. 
+\item If $\cU$ and $\cV$ are forward source [root] shifters for $u: X\to Y$ and $v: Y \to Z$, respectively, then $\cU;\cV$ is a forward source [root] shifter for $u;v$.
+\item Dually, if $\cU$ and $\cV$ are backward source [root] shifters for $u: Y\to X$ and $v: Z \to Y$, respectively, then $\cU;\cV$ is a backward source [root] shifter for $v;u$.
+\end{enumerate}
+\end{proposition}
+
+\begin{fullorname}
+\begin{proof}
+We first prove the case for source shifters.
+\begin{enumerate}
+\item To prove \eqcite{shifters are functors} for $\cU;\cV$ consider:
+\[ (\cU;\cV)(a;t) = \cV(\cU(a;t))= \cV(\cU(a);t)=\cV(\cU(a));t=(\cU;\cV)(a);t \enspace. \]
+
+\item In case $\cU$ and $\cV$ are forward, to prove \eqcite{forward condition} assume $u;v;g=a;h$. By applying \eqcite{forward condition} for $\cU$ and $\cV$ it follows that $v;g=\cU(a);h$ and hence $g=\cV(\cU(a));h=(\cU;\cV)(a)$.
+
+\item In case $\cU$ and $\cV$ are backward, to prove \eqcite{backward condition} for $\cU;\cV$ assume $v;u;g=(\cU;\cV)(a);h=\cV(\cU(a));h$. By applying \eqcite{backward condition} for $\cV$ and $\cU$ it follows that $u;g=\cU(a);h$ and hence $g=a;h$.
+\end{enumerate}
+%
+Now assume $\cU$ and $\cV$ are root shifters. If both are non-trivial, then so is $\cU;\cV$ and the result follows by a straightforward pointwise argument. If, on the other hand, either $\cU$ or $\cV$ is trivial, then in fact so is $\cU;\cV$, which immediately establishes the result.
+\qed
+\end{proof}
+\end{fullorname}
+
+\subsection{Structural morphisms}
+
+The following defines structural morphisms, based on root shifters, over ab-conditions with the same root.
+
+\begin{definition}[arrow-based condition morphism]\dlabel{ab-morphism}
+  Let $c,b \in \AC{R}$. A \emph{forward-shift [backward-shift] condition morphism} $m: c \to b$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
+  \begin{itemize}[topsep=\smallskipamount]
+  \item $o:[1,|b|]\to[1,|c|]$ is a function from $b$'s branches to $c$'s branches;
+  \item for all $1\leq i\leq |b|$, $v_i:P^c_{o(i)}\to P^b_i$ is an arrow from the pattern of $p^c_{o(i)}$ to that of $p^b_i$ such that $a^c_{o(i)};v_i=a^b_i$;
+  \item\emph{Forward shift}: for all $1\leq i\leq |b|$, there is a forward root shifter $\cF_i$ for $v_i$ such that $m_i:b_i \to \cF_i(c_{o(i)})$ is a forward-shift morphism.
+  \item\emph{Backward shift}: for all $1\leq i\leq |b|$, there is a backward root shifter $\cB_i$ for $v_i$ such that $m_i:\cB_i(b_i) \to c_{o(i)}$ is a backward-shift morphism.
+  \end{itemize}
+\end{definition}
+%
+We use the same notational conventions as for conditions: $m$ has width $|m|$ and depth $\depth(m)$, and the components of a morphism $m$ are denoted $o^m$, $v^m_i$ and $m_i$ for all $1\leq i\leq |m|$. \fcite{shifted-morphism} visualises the principle of forward- and backward-shift morphisms.
+%
+\begin{figure}[t]
+\centering
+\input{shifted-morphisms}
+\caption{Visualisation of forward-shift and backward-shift morphisms $m:c \to b$}
+\flabel{shifted-morphism}
+\end{figure}
+%
+The next result states that the existence of a morphism between two conditions $m: c \to b$ provides evidence that $b\entails c$.
+
+\begin{proposition}[ab-condition morphisms reflect models]
+  \plabel{ab-morphisms preserve models}
+Let $c,b \in \AC{R}$  be arrow-based conditions. If $m:c\to b$ is a forward-shift or a backward-shift morphism, then $g\sat b$ implies $g \sat c$ for all arrows $g:R\to G$. 
+\end{proposition}
+%
+\begin{fullorname}
+\begin{proof}
+Let $m = (o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ and assume by induction hypothesis that for all $1\leq j\leq |b|$ the property holds for $m_j$. Let $p^b_i$ be the responsible branch and $h: P^b_i \to G$ the witness for $g\sat b$. 
+Hence we have $(\dagger)\, g=a^b_i;h$ and $(\ddagger)\, h \nsat b_i$.  
+We show that $g \sat c$, with responsible branch $p^c_{o(i)}$ and witness $h$. In fact, we immediately have  $a^c_{o(i)}; v_i ;h = a^b_i ; h \stackrel{(\dagger)}{=} g$. It remains to show that $v_i ;h \nsat c_{o(i)}$, for which we consider separately the two cases.
+\begin{enumerate}
+\item Let $m$ be a forward-shift morphism. Then for all $1\leq j\leq |b|$ we have that   $m_j:b_j \to \cF_j(c_{o(j)})$ is a forward-shift morphism, where $\cF_j$ is a forward root shifter for $v_j$. If (ad absurdum) $v_i ;h \sat c_{o(i)}$, by clause 1 of \pcite{ab-root shifters preserve} we would have $h \sat \cF_i(c_{o(i)})$, and by induction hypothesis on $m_i$ also $h \sat b_i$, contradicting $(\ddagger)$.
+
+\item Let $m$ be a backward-shift morphism. Then for all $1\leq j\leq |b|$ we have that  $m_j:\cB_j(b_j) \to c_{o(j)}$ is a backward-shift morphism, where $\cB_j$ is a backward root shifter of width $|b_j|$.
+Suppose (ad absurdum) that $v_i ;h \sat c_{o(i)}$. Then by the induction hypothesis on $m_i$ we also have $v_i ;h \sat \cB_i(b_i)$, and by clause 2 of \pcite{ab-root shifters preserve} we  have $h \sat b_i$, contradicting $(\ddagger)$.
+\qed
+\end{enumerate}
+\end{proof}
+\end{fullorname}
+
+\begin{example}\exlabel{ab-morphisms}
+Going back to \fcite{ab-conditions}, though (as noted before) $c_1\entails c_2$, there does not exist a morphism $m\of c_2\to c_1$. A mapping $v_1$ does exist from $c_{21}$ to $c_{11}$; however, no mapping $v_{11}$ can be found to $c_{211}$ from either $c_{111}$ or $c_{112}$. 
+
+On the other hand, $c_2\entails c_3$ has evidence in the form of a morphism $m\of c_3\to c_2$, with the identity mapping $v_1\of c_{32} \to c_{21}$ (in combination with either the forward shifter $\cF_{v_1}^{v_1}$ or the backward shifter $\cB_{v_1}$) and a corresponding sub-morphism $m_1$ with mapping $v_{12}:c_{212}\to c_{321}$ (in combination with the trivial root shifter).
+\qed
+\end{example}
+%
+\pcite{ab-morphisms preserve models} can be phrased more abstractly as the existence of a contravariant functor from a category of arrow-based conditions and their (forward-shift or backward-shift) morphisms to $\ABC^{\entails}$. An important step to arrive at that result is to show that morphisms compose. This, in turn, depends on the preservation of morphisms by root shifters.
+
+\begin{lemma}[root shifters preserve morphisms]
+             \llabel{ab-root shifters preserve morphisms}
+Let $c,b \in  \AC{X}$ and let $\cC$ be a root shifter from $X$ to $Y$ that is defined on $c$ and $b$. If $m:c\to b$, then also $m:\cC(c)\to\cC(b)$. 
+\end{lemma}
+%
+\begin{fullorname}
+\begin{proof}
+If $\cC$ is trivial, the result is immediate. Otherwise, assume $m = (o,(v_1,m_1)\cdots(v_{|b|},m_{|b|}))$ and let $v$ be as in \lcite{ab-root shifters}. The only new proof obligation for $m$ to be an ab-morphism from $c$ to $b$ is that, for all $1\leq i\leq |b|$, $v;a^c_{o(i)};v_i=v;a^b_i$. This follows immediately from $a^c_{o(i)};v_i=a^b_i$.\qed
+\end{proof}
+\end{fullorname}
+%
+Composition of ab-condition morphisms can be defined inductively, and is independent of their forward or backward nature. We also (inductively) define arrow-based identity morphisms. Let $e,c,b$ be ab-conditions and $m:e\to c,n:c\to b$ ab-morphisms, with $|b|=w$. Then $\id_b$ and $m;n$ are defined as follows: 
+%
+\begin{eqnarray}
+\id_b & =
+  & (\id_{[1,w]},(\id_{P^b_1},\id_{b_1})\cdots 
+                 (\id_{P^b_w},\id_{b_w}))
+  \eqlabel{id-morphism} \\
+m;n & =
+  & (o^n;o^m,(v^m_{o^n(1)};v^n_1,n_1;m_{o^n(1)})\cdots 
+              (v^m_{o^n(w)};v^n_w,n_w;m_{o^n(w)})) \enspace.
+%               & (o^m;o^n,(v^n_{o^m(1)};v^m_1,n_{o^m(1)};m_1)\cdots 
+%               (v^n_{o^m(w)};v^m_w,n_{o^m(w)};m_w)) \enspace.
+ \eqlabel{morphism composition}
+\end{eqnarray}
+%
+Identities are morphisms, and morphism composition is well-defined.
+
+\begin{lemma}[identities and composition of ab-morphisms]\llabel{ab-morphisms compose}
+Let $e,c,b$ be ab-conditions and $m\of e\to c, n\of c\to b$ ab-condition morphisms.
+\begin{enumerate}[topsep=\smallskipamount]
+\item $\id_b$ is both a forward- and a backward-shift morphism from $b$ to $b$;
+\item If $m$ and $n$ are forward-shift morphisms, then $m;n$ is a forward-shift morphism from $e$ to $b$;
+\item If $m$ and $n$ are backward-shift morphisms, then $m;n$ is a backward-shift morphism from $e$ to $b$.
+\end{enumerate}
+\end{lemma}
+%
+\begin{fullorname}
+\begin{proof}
+Let $w=|b|$.
+%
+\begin{enumerate}[topsep=\smallskipamount]
+\item By induction on the depth of $b$. For all $1\leq i\leq w$, $a^b_i;\id_{P^b_i}=a^b_i$. Note that $\rF{\id}{\id}$ and $\cB_\id$ (with $\id=\id_{P^b_i}$) are, respectively, forward and backward root shifters, both acting as the identity on arrows with source $P^b_i$; hence (by the induction hypothesis) $\id_{b_i}$ is both a forward-shift morphism from $b_i$ to $\rF\id\id(b_i)$ and a backward-shift morphism from  $\cB_\id(b_i)$ to $b_i$.
+\end{enumerate}
+%
+The other two clauses are proved by induction on the depth of $m$ and $n$. Let $o=o^n;o^m$ and for all $1\leq i\leq w$ let $v_i=v^m_{o^n(i)};v^n_i$. Note that $o$ is a function from $[1,w]$ to $[1,|e|]$ and all $v_i$ are arrows from $P^e_{o(i)}$ to $P^b_i$ as required.
+%
+\begin{enumerate}[resume]
+\item For all $1\leq i\leq |b|$ and $1\leq j\leq |c|$, let $\cF^n_i$ and $\cF^m_j$ be the foward root shifters for $v^n_i$ and $v^m_j$, respectively, guaranteed by the fact that $m$ and $n$ are forward-shift morphisms, i.e., such that $n_i:b_i \to \cF^n_i(c_{o^n(i)})$ and $m_j:c_j \to \cF^m_j(e_{o^m(j)})$ are forward-shift morphisms.
+
+\smallskip
+For all $1\leq i\leq w$, we need to show the existence of a forward root shifter $\cF_i$ for $v_i$ such that $n_i;m_{o^n(i)}$ is a morphism from $b_i$ to $\cF_i(e_{o(i)})$. Let $j=o^n(i)$ (hence $o^m(j)=o(i)$) and let $\cF_i=\cF^m_j;\cF^n_i$. By \pcite{ab-shifters compose}, $\cF_i$ is a forward root shifter for $v^m_j;v^n_i=v_i$. By definition, $m_j$ is a forward-shift morphism from $c_j$ to $\cF^m_j(e_{o^m(j)})$ and hence by \lcite{ab-root shifters preserve morphisms} (applying $\cF^n_i$) also a forward-shift morphism from $\cF^n_i(c_j)$ to $\cF^n_i(\cF^m_j(e_{o^m(j)}))$. Again by definition, $n_i$ is a forward-shift morphism from $b_i$ to $\cF^n_i(c_j)$. By the induction hypothesis, therefore, $n_i;m_j$ is a forward-shift morphism from  $b_i$ to $\cF_i(e_{o(i)})$.
+
+\item Mutatis mutandis.
+\qed
+\end{enumerate}
+\end{proof}
+\end{fullorname}
+%
+We now state the first main result: ab-conditions endowed with either forward or backward morphisms give rise to a category with a contravariant functor to $\ABC^{\entails}$.
+
+\begin{theorem}[categories of arrow-based conditions]\thlabel{ab-categories}
+Let $\ABC^{\forw}$ be the category having ab-conditions as objects and forward-shift morphisms as arrows, and let $\ABC^{\back}$ be the category having the same objects and backward-shift morphisms as arrows. Both categories are well-defined, and there are identity-on-objects functors $\op{(\ABC^{\forw})} \to \ABC^{\entails}$ and $\op{(\ABC^{\back})} \to \ABC^{\entails}$.
+\end{theorem}
+%
+\emph{Proof sketch.} Composition of morphisms and the fact that all identity morphisms have the correct nature for both categories is shown by \lcite{ab-morphisms compose}.
+Moreover, identity morphisms and morphism composition satisfy the unit and associativity laws. The existence of the two identity-on-object functors follows from \pcite{ab-morphisms preserve models}.
+\qed 
+
+\medskip\noindent
+Even though both forward- and backward-shift morphisms preserve models, they are incomparable: if two conditions are related by one kind of morphisms they are not necessarily related by the other kind. In other words, if we consider the existence of a morphism as providing evidence for entailment, then these two types of morphism are complementary, as the following example shows.
+%
+\begin{figure}[t]
+\centering
+\subcaptionbox
+  {A forward-shift morphism $m \of c \to b$ without a backward-shift one
+   \flabel{forward-no-backward}
+  }
+  [.45\textwidth]
+  {\input{ex-forward-no-backward}}
+  \qquad
+\subcaptionbox
+  {A backward-shift morphism $m \of c \to b$ without a forward-shift one
+   \flabel{backward-no-forward}
+  }
+  [.45\textwidth]
+  {\input{ex-backward-no-forward}}
+\caption{Forward-shift versus backward-shift morphisms}
+\flabel{forward vs backward}
+\end{figure}
+%
+\begin{example}[forward versus backward root shifters]\exlabel{forward vs backward}
+\fcite{forward-no-backward} shows a forward-shift morphism $m \of c \to b$. 
+Both conditions are evaluated in a context where we know $\la(x,z)$. In that context,  $c$ is equivalent to $\exists y\st \la(x,y) \wedge \neg \lb(z,x)$, and $b$ is equivalent to the property $\neg \lb(z,x)$. Intuitively, $b\entails c$ holds because $y$ can be instantiated with $z$. The figure shows $\cF_{m_1}^s(a^c_{11})$ (for a section $s$ of $m_1$), which acts as the identity on node and edges. Note that there is no backward-shift morphism $m'\of c \to b$ because $\cB_{m_1}(a^b_{11}) ; m_{11} = m_1; a^b_{11} ; m_{11} \not = a^c_{11}$.
+
+\fcite{backward-no-forward} shows a backward-shift morphism $m \of c \to b$. 
+Both conditions are evaluated in a context where we know $\la(x,y)$. In that context, $c$ is equivalent to $\exists z.\lb(z,z) \wedge \neg(y=z \wedge \lc(y,x))$ and $b$ is equivalent to $\lb(y,y) \wedge \nexists z\st \lc(z,x)$.
+Indeed, $b\entails c$ because $z$ can be instantiated with the value of $y$. The figure shows $\cB_{m_1}(a^b_{11})$. Note that there cannot be a forward-shift morphism $m'\of c \to b$ because $m_1$ is not split epi.
+\qed
+\end{example}
+%
+As a final observation, we can characterise the relation between shifters and conditions as \emph{indexed categories}. For this purpose, let $\bC^\ashift$ denote the category with objects from $\bC$ (which as usual can be any presheaf topos) and arrows $\cS\of X\to Y$ whenever $\cS$ is an (arrow-based) source shifter from $Y$ to $X$. Identity and composition are defined as in \pcite{ab-shifters compose}.
+
+Moreover, for every $\bC^\ashift$-object $X$ let $\ACx^\forw(X)=\ABC^\forw(X)$ (the full subcategory of $\ABC^\forw$ containing only conditions rooted at $X$), and for every $\bC^\ashift$-arrow $\cS\of X\to Y$ let $\ACx^\forw(\cS)$ be the functor that maps every $c\in \AC Y$ to $\bar\cS(c)\in \AC X$ and every forward-shift morphism $m\of c\to b$ (for $c,b\in \AC Y$) to $m\of \bar\cS(c)\to \bar\cS(b)$. Define $\ACx^\back$ analogously for backward-shift morphisms.
+
+\begin{proposition}[$\bC^\ashift$-indexed categories]\plabel{ab indexed}
+$\ACx^\forw$ and $\ACx^\back$ are functors from $\op{(\bC^\ashift)}$ to $\Cat$, establishing $\bC^\ashift$-indexed categories.
+\end{proposition}
+%
+Note that this is only correct because (implicitly) $\bC^\ashift$ is a well-defined category, and for all $\cS\of X\to Y$, $\ACx^\forw(\cS)$ and $\ACx^\back(\cS)$ are well-defined functors from $\ABC^\forw(Y)$ to $\ABC^\forw(X)$ and from $\ABC^\back(Y)$ to $\ABC^\back(X)$, respectively.

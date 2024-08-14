@@ -1,0 +1,12 @@
+\begin{tikzpicture}[on grid]
+  \node (R) {$R$};
+  \tri{R}{2.8}{1.3}{2.6}{}
+  \node (Pi) [below=1.5 of R] {$P_i$};
+  \tri{Pi}{1.2}{.6}{1.2}{$c_i$}
+  \node (G) [right=2 of R] {$G$};
+
+  \path (R) edge[->] node[above] {$g$} (G)
+        (R) edge[->] node[left,near end] {$a_i$} (Pi)
+        (Pi) edge[->,bend right] node[pos=0.2,below right] (h) {$h$} (G)
+        (h) edge[draw=none] node[sloped,allow upside down] {$\nsat$} (Pi-label);
+\end{tikzpicture}

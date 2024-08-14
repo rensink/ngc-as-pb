@@ -1,0 +1,55 @@
+\begin{tikzpicture}[on grid]
+\node (R) {$R$};
+\tri[green]{R}{3.2}{-.5}{2.5}{}
+\node [below left=2.8 and 2.3 of R,text=\darker{green}] {$c$};
+\node (Pci) [below left=1.6 and 1.0 of R] {};
+\path [allcolor={\darker{green}}] (R) edge[->] node[left] {$a^c_{o(i)}$} (Pci);
+\tri[green]{Pci}{1.5}{.2}{1.4}{}
+\node (ci) [below left=.8 and .25 of Pci,text=\darker{green}] {$c_{o(i)}$};
+
+\tri[blue]{R}{3.2}{3.0}{2.5}{}
+\node [below right=2.8 and 2.3 of R,text=blue] {$b$};
+\node (Pbi) [below right=1.6 and 1.0 of R] {};
+\path [allcolor=blue] (R) edge[->] node[right] {$a^b_i$} (Pbi);
+\tri[blue]{Pbi}{1.5}{1.2}{1.4}{}
+\node (bi) [below right=.8 and .25 of Pbi,text=blue] {$b_i$};
+
+\path (Pci) edge[->] node[above] {$v_i$} (Pbi);
+
+\tri[red]{Pbi}{1.5}{-1.8}{1.4}{}
+\node [left=1.3 of bi,red,inner sep=1pt] (Bi) {$\cF_i(c_{o(i)})$};
+
+\path [->,bend left=80,below,dotted]
+      (bi) edge[looseness=2.1] node {$m_i$} (Bi)
+      (ci) edge[looseness=2.2,bend right=80] node {$\cF_i$} (Bi)
+	  ;
+\end{tikzpicture}
+%
+%\quad
+%
+\begin{tikzpicture}[on grid]
+\node (R) {$R$};
+\tri[green]{R}{3.2}{-.5}{2.5}{}
+\node [below left=2.8 and 2.3 of R,text=\darker{green}] {$c$};
+\node (Pci) [below left=1.6 and 1.0 of R] {};
+\path [allcolor={\darker{green}}] (R) edge[->] node[left] {$a^c_{o(i)}$} (Pci);
+\tri[green]{Pci}{1.5}{.2}{1.4}{}
+\node (ci) [below left=.8 and .25 of Pci,text=\darker{green}] {$c_{o(i)}$};
+
+\tri[blue]{R}{3.2}{3.0}{2.5}{}
+\node [below right=2.8 and 2.3 of R,text=blue] {$b$};
+\node (Pbi) [below right=1.6 and 1.0 of R] {};
+\path [allcolor=blue] (R) edge[->] node[right] {$a^b_i$} (Pbi);
+\tri[blue]{Pbi}{1.5}{1.2}{1.4}{}
+\node (bi) [below right=.8 and .25 of Pbi,text=blue] {$b_i$};
+
+\path (Pci) edge[->] node[above] {$v_i$} (Pbi);
+
+\tri[red]{Pci}{1.5}{3.2}{1.4}{}
+\node [left=1.2 of bi,red,inner sep=1pt] (Bi) {$\cB_i(b_i)$};
+
+\path [->,bend left=80,below,dotted]
+      (bi) edge[looseness=2.2,bend left=80] node {$\cB_i$} (Bi)
+      (Bi) edge[looseness=2.0,bend left=80] node {$m_i$} (ci)
+	  ;
+\end{tikzpicture}

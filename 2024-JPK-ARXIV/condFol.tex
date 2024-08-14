@@ -1,0 +1,27 @@
+\documentclass[svgnames,envcountsame,envcountsect,envcountreset]{llncs}
+\usepackage{preamble} 
+\input{macros}
+\pagestyle{plain}
+%
+\begin{document} 
+% 
+\input{title}
+\input{introduction}
+\input{arrow-based}
+\input{shift-morphisms}
+\input{span-based}
+\iffull
+\input{entailment} 
+\fi
+\input{conclusion} 
+%
+\bibliographystyle{splncs03}
+\bibliography{references.bib}
+
+\iffest
+\appendix
+\input{proofs}
+\fi
+\end{document}
+\typeout{get arXiv to do 4 passes: Label(s) may have changed. Rerun}
+

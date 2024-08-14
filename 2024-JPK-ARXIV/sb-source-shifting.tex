@@ -1,0 +1,67 @@
+\begin{tikzpicture}[on grid]
+  \node (F) {$\cF_v^\circ$};
+  \node (A) [below left=.7 and .75 of F] {$A$};
+  \node (B) [right=1.5 of A] {$B$};
+  \node (I) [below=1.5 of A] {};
+  \node (C) [below=1.5 of I] {$C$};
+
+  \path (A) edge[->] node[above] {$v$} (B)
+        (I) edge[->] node[left] {$u$} (A) 
+        (I) edge[->] node[left] {$d$} node[right] {$d'$} (C)
+		(I) edge[->] node [right] {$u'$} (B);
+\end{tikzpicture}
+\quad
+\begin{tikzpicture}[on grid]
+  \node (F) {$\cF_v^x$};
+  \node (A) [below left=.7 and .75 of F] {$A$};
+  \node (B) [right=1.5 of A] {$B$};
+  \node (I) [below=1.5 of A] {};
+  \node (C) [below=1.5 of I] {$C$};
+  \node (B2) [below=1 of B] {$B$};
+  \node (I2) [below=1.5 of B2] {};
+  
+  \path (A) edge[->] node[above] {$v$} (B)
+        (I) edge[->] node[left] {$u$} (A) 
+        (I) edge[->] node[left] {$d$} (C)
+		(B2) edge[->] node[right] {$\id_B$} (B)
+		(B2) edge[->] node[below] {$x$} (A)
+		(I2) edge[->] node[right] {$u'$} (B2)
+		(I2) edge[->] node[below] {$x'$} (I)
+		(I2) edge[->] node[below] {$d'$} (C);
+
+  \path	(I2) edge[-{Straight Barb[black,length=5pt,width=10pt]},white] +(-3mm,6mm);
+\end{tikzpicture}
+\quad
+\begin{tikzpicture}[on grid]
+  \node (F) {$\cB_v^\circ$};
+  \node (A) [below left=.7 and .75 of F] {$A$};
+  \node (B) [right=1.5 of A] {$B$};
+  \node (I) [below=1.5 of B] {};
+  \node (C) [below=1.5 of I] {$C$};
+  \node (I2) [below=1.5 of A] {};
+  
+  \path (A) edge[->>] node[above] {$v$} (B)
+        (I) edge[->] node[right] {$u$} (B) 
+        (I) edge[->] node[right] {$d$} (C)
+		(I2) edge[->>] node[above] {$v'$} (I)
+		(I2) edge[->] node[left] {$u'$} (A)
+		(I2) edge[->] node[below left] {$d'$} (C);
+
+  \path	(I2) edge[-{Straight Barb[black,length=5pt,width=10pt]},white] +(+3mm,3mm);
+\end{tikzpicture}
+\quad
+\begin{tikzpicture}[on grid]
+  \node (F) {$\cB_v^x$};
+  \node (A) [below left=.7 and .75 of F] {$A$};
+  \node (B) [right=1.5 of A] {$B$};
+  \node (B2) [below=of B] {$B$};
+  \node (I) [below=of B2] {};
+  \node (C) [below=of I] {$C$};
+  
+  \path (A) edge[->] node[above] {$v$} (B)
+        (I) edge[->] node[right] {$u$} (B2) 
+        (I) edge[->] node[right] {$d$} node[left] {$d'$} (C)
+		(B2) edge[->] node[right] {$\id_B$} (B)
+		(B2) edge[->] node[below] {$x$} (A)
+		(I) edge[->,bend left] node[below left] {$u'$} (A);
+\end{tikzpicture}
