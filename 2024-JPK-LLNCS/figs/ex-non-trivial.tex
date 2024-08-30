@@ -1,0 +1,36 @@
+\begin{tikzpicture}[node distance=.8]
+  \node (phi) {$\phi\equiv \exists x\st a(x,y) \wedge \neg (\exists z\st b(y,z) \vee x=y)$};
+  \node[graph,below=.3 of phi] (10) {\onenode{y}};
+  \node[graph,below=of 10] (10I) {\onenode{y}};
+  \node[graph,below=of 10I] (11) {\oneedge{x}{a}{y}}; 
+  \node[graph,below left=.8 and .5 of 11] (111I) {\onenode{y}};
+  \node[graph,below=of 111I] (121) {\oneedge{y}{b}{z}};
+  \node[graph,below right=.8 and .5 of 11] (112I) {\twonode{x}{y}};
+  \node[graph,below=of 112I] (122) {\onenode{\bullet}};
+  
+  \path (10I) edge[left hook->] (10)
+        (10I) edge[->] (11)
+        (111I) edge[left hook->] (11)
+        (111I) edge[->] (121)
+        (112I) edge[left hook->] (11)
+        (112I) edge[->] (122);
+  
+  \node (psi) [right=1 of phi] {$\psi\equiv \neg \exists x,z\st c(x,y)\wedge b(y,z)$};
+  \node[graph,below=.3 of psi] (20) {\onenode{y}};
+  \node[graph,below=of 20] (20I) {\onenode{y}};
+  \node[graph,below=of 20I] (21) {\vphantom{\oneedge{x}{a}{y}}\onenode{y}}; 
+  \node[graph,below=of 21] (21I) {\onenode{y}}; 
+  \node[graph,below=of 21I] (22) {\twoedge{x}{c}{y}{b}{z}}; 
+
+  \path (20I) edge[left hook->] (20)
+        (20I) edge[->] (21)
+        (21I) edge[left hook->] (21)
+        (21I) edge[->] (22);
+
+  \path (10) edge[->] (20)
+        (20I) edge[->] (10I)
+        (21) edge[->] (11)
+        (111I) edge[->,bend right=10] (21I)
+        (121) edge[->,bend right=10] (22);
+\end{tikzpicture}
+

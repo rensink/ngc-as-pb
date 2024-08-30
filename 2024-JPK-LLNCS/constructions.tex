@@ -1,0 +1,169 @@
+\section{Constructions on span-based conditions}
+
+
+% \subsection{Interface enrichment: A satisfaction invariant trasformation}
+
+\begin{itemize}
+  \item Shift of span-based conditions along an arrow $\shift{c}{f}$
+  \item Back-shift of condition along an arrow $\bshift{c}{f}$, performing pullbacks of interfaces. 
+  \item Back-shift preserves satisfaction 
+  \item Prof: shift preserves and reflects satisfaction
+  \item Interface enlargement: given  branch $p$ and interface decomposition $u = k;u'$, we build branch with up-arrow $u'$ taking the pushout for the down arrow, and shiting the subconditions.
+  \item Proposition: Interface enlargement preserves and reflects satisfaction.
+  \item Interface reduction: take subinterface $I' \subseteq I$ and look for POC of $\subseteq ; d$. If it exists, back-shift all subconditions. 
+  \item ``Perfect'' interface reduction: when $I'$ is the minimal one such that all subconditions back-shift identically. This guarantees existence of morphism from the original to the new one. 
+\end{itemize}  
+
+\subsection{Root shift}
+
+The category of span-based conditions and their morphisms provides a framework 
+where one could define several constructions on conditions, typically described using categorical construction. Some of such constructions are presented in this section, and for each of them we explore whether it preserves and/or reflects satisfaction. All along the section, ``condition'' means by default ``span-based condition'', and similar for morphisms. 
+
+\begin{definition}[shifting a condition root along an arrow]
+    Let $c = (A,p_1\ccdots p_w)$ be a condition over $A$ and $f: A \to B$ an arrow. Then $c\Rshift f$, the \emph{root-shift of $c$ along $f$}, is the condition over $B$ defined as:
+    \begin{itemize}
+        \item $c \Rshift f = (B, p_1\Rshift f\cdots p_w\Rshift f)$
+        \item $p_i \Rshift f = (u_i;f,d_i,c_i)$ for all $1\leq i\leq w$.
+     \end{itemize}
+\end{definition}
+%
+Because there is an obvious complete morphism from $c$ to $c\Rshift f$ (with $f$ as its top arrow and identities everywhere else), it follows immediately that shifting preserves and reflects satisfaction in the following sense:
+%
+\begin{equation}
+    \label{eq:shiftPresReflSat}
+    f;g \sat c \quad \iff\quad  g \sat \shift{c}{f}
+\end{equation} 
+%
+Because of this property, we can reformulate the satisfaction preservation (and reflection) by morphisms (\pcite{sb-morphism preserves satisfaction}) in a more compact way:
+%
+\begin{align}
+  \mbox{if $m:b \to c$ is a morphism then } &
+    c \Rshift t^m \entails c \\
+  \mbox{if $m:b \to c$ is a complete morphism then } &
+    c \Rshift t^m \equiv c
+\end{align}
+%
+Furthermore, it also follows that the root right-shift preserves entailment:
+%
+\[ b\entails c \qquad\text{implies}\qquad b\Rshift f\entails c\Rshift f \enspace. \]
+%
+Note that shifting a condition only affects the upper leg of the top level spans, which are composed with $f$. A condition root can also be shifted \emph{backwards} along an arrow. In this case the interfaces of the branches are affected, by not their subconditions.  
+
+\begin{definition}[back-shifting a condition along an arrow]
+    Let $c = (B,p_1\ccdots p_w)$ be a condition over $B$ and $f: A \to B$ be an arrow. Then $c\Rbshift f$, the \emph{root back-shift of $c$ along $f$} is the condition over $A$ defined as:
+    \begin{itemize}
+    \item $\bshift{c}{f} = (A, p_1\Rbshift f\cdots p_w\Rbshift f)$;
+    \item $p_i\Rbshift f = (u'_i,f'_i;d_i,c_i) \mbox{ where } (u'_i,f'_i) \mbox{ is a pullback of } (f,u_i)$ for all $1\leq i\leq w$.
+    \item $p_i\Rbshift f = (u_i\pb f,(f\pb u_i);d_i,c_i)$ for all $1\leq i\leq w$.\todo{Using special notation for pullback arrows}
+    \end{itemize}
+\end{definition}
+%
+\fcite{Rshift} provides a visualisation of the root shift and back-shift for a single branch.
+
+\begin{figure}
+\centering
+\input{figs/Rshift}
+\caption{Pictorial representation of root shift and backshift for a single-branch condition $c=(A,(u,d,c'))$, for arrows $f:A\to B$ and $g:C\to A$, respectively}
+\flabel{Rshift}
+\end{figure}
+
+Back-shifting a condition preserves satisfaction, but in general does not reflect it.
+
+\begin{proposition}[back-shifting preserves satisfaction]
+\dlabel{bshift_preserves_sat}
+\begin{equation}
+    c \entails \bshift{c}{f} \Rshift f \enspace.
+\end{equation}    
+\end{proposition}
+
+\begin{proof} \emph{(sketch)} Note that back-shifting preserves the conditions of the branches of $c$. Then the witness for $g \sat c$ is also a witness for $f;g \sat \bshift{c}{f}$. The resulting diagram is easily shown to commute because a pullback commutes.\qed
+\end{proof}
+%
+In general the converse implication does not hold.\todo{AC: example where $A = \varnothing$. Then $\bshift{c}{f}$ quantifies existentially all free variables of $c$} However, there are some cases where it does.
+
+\begin{align}
+  \label{eq:bshiftPresSat}
+  \mbox{if $f'_i$ is epi for each $(u'_i,f'_i;d_i,c_i)$ in $\bshift{c}{f}$ then } &
+    \bshift{c}{f} \Rshift f \entails c \\
+  \mbox{if $f\pb u_i$ is epi for each $1\leq i\leq |c|$ then } &
+    \bshift{c}{f} \Rshift f \entails c \\
+  \mbox{if $f;e=\id$ for some $e$ then } &
+    \bshift{c}{f} \Rshift f \entails c
+\end{align}
+%
+In categories like \cat{Set}, \cat{Graph} and presheaf toposes in general, where pullbacks are constructed pointwise, it is sufficient that $f$ is epi to ensure \eqref{eq:bshiftPresSat}.
+
+First shifting forward and then back gives rise to an equivalent (though not identical) condition:
+%
+\begin{equation}
+\eqlabel{Rshift-Rbshift}
+(c\Rshift f)\Rbshift f \equiv c \enspace.
+\end{equation}
+%
+We defer the proof because this will turn out to be a consequence of a more precise characterisation of $(c\Rshift f)\Rbshift f$, explored below (see \lref{Rshift-Rbshift-Ibshift}).
+
+Finally, both root shift and root backward shift satisfy some natural (and expected) properties (note that these hold up to equality\footnote{more precisely, up to isomorphism} and not merely up to semantic equivalence):
+%
+\begin{align}
+c\Rshift \id & = c \\
+c\Rshift (f;g) & = c\Rshift f\Rshift g \\
+c\Rbshift \id & = c \\
+c\Rbshift (f;g) & = c\Rbshift g\Rbshift f
+\end{align}
+
+\subsection{Interface shift}
+
+Rather than changing the root of a condition, we can change one of its (first-level) interfaces. Since the interfaces are branch-specific, it actually is more appropriate to define the interface shift as an operation over branches.
+
+In this case we start with the back-shift, since for interfaces that is the easier direction.
+
+\begin{definition}[interface back-shift]
+    Let $p=(u,d,c)$ be a branch over $R$ and $f: J \to I$ an arrow. Then $p\Ibshift f$, the \emph{interface backshift of $p$ along $f$}, is defined as:
+     \[ p \Ibshift f = (f;u,f;d,c) \enspace. \]
+    Now let $c=(R,p_1\ccdots p_w)$ be a condition and for all $1\leq i\leq w$ let $f_i:J_i\to I_i$ be an arrow. Then $c\Ibshift (f_1\ccdots f_w)$, the \emph{interface backshift of $c$}, is defined as:
+	\[ c \Ibshift (e_1\ccdots e_w) = (R,(p_1\Ibshift f_1)\cdots (p_w\Ibshift f_w)) \enspace. \]
+\end{definition}
+%
+Again we state a number of preservation properties. In the remainder of this subsection, we equate a branch $p$ over $R$ with the single-branch condition $(R,p)$.
+%
+\begin{align}
+\eqlabel{Ibshift-preserves}
+p & \entails p\Ibshift f \\
+\eqlabel{Ibshift-reflects}
+p\Ibshift f & \entails p \qquad\text{ if $f$ is epi}
+\end{align}
+%
+Using the interface backshift, we can also give a more precise characterisation of the root shift followed by the root backshift, as follows:
+%
+\begin{lemma}\llabel{Rshift-Rbshift-Ibshift}
+Let $c=(A,p_1\ccdots p_w)$ be a condition and $f:A\to B$ an arrow. The following property holds:
+\[ c\Rshift f\Rbshift f=c\Ibshift (e_1\ccdots e_w) \]
+where $e_i$ for all $1\leq i\leq w$ is the unique arrow such that $e_i;((u_i;f)\pb f)=u$ and $e_i;(f\pb (u_i;f))=\id$.
+\end{lemma}
+%
+Since all $e_i$ are epi (they are retractions by $e_i;(f\pb (u_i;f))=\id$), \eqcite{Ibshift-reflects} implies $c\Ibshift  (e_1\ccdots e_w)\entails c$, proving \eqcite{Rshift-Rbshift}.
+
+\begin{definition}[interface forward shift]
+    Let $p=(u,d,c)$ be a branch over $R$ and $f: I\to J$ an arrow. Then $c\Ishift f$, the (forward) \emph{interface shift of $p$ along $f$}, is the branch over $S$ (the pushout opbject of the span $(u,f)$) defined as:
+     \[ p \Ishift f = (u\po f,d\po f,c\Rshift (f\po d)) \enspace. \]
+    Now let $c=(R,p_1\ccdots p_w)$ be a condition and for all $1\leq i\leq w$ let $f_i:I_i\to J_i$ be an arrow. Then $c\Ishift (f_1\ccdots f_w)$, the (forward) \emph{interface shift of $c$}, is defined as:
+	\[ c \Ishift (e_1\ccdots e_w) = (R,(p_1\Ishift f_1)\cdots (p_w\Ishift f_w)) \enspace. \]
+\end{definition}
+%
+\fcite{Ishift} provides a visualisation of the interface back- and forward shift for a single branch.
+
+\begin{figure}
+\centering
+\input{figs/Ishift}
+\caption{Pictorial representation of interface back- and forward shift for a branch $(u,d,c)$, along arrows $f:J\to I$ and $g:I\to K$}
+\flabel{Ishift}
+\end{figure}
+%
+Interestingly, interface shift essentially does not change the semantics of a condition. This is stated by the following properties (of which \eqcite{Ishift-Rbshift} actually follows from \eqcite{Ishift} in combination with \eqcite{Rshift-Rbshift}).
+%
+\begin{align}
+\eqlabel{Ishift}
+p\Ishift f & \equiv p\Rshift (f\po u) \\
+\eqlabel{Ishift-Rbshift}
+p\Ishift f \Rbshift (f\po u) & \equiv p
+\end{align}

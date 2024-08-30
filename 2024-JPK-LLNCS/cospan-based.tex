@@ -1,0 +1,30 @@
+\section{Cospan conditions}
+
+\begin{itemize}
+\item Cospan conditions are arrow-based conditions in the category of cospans over some category --- for instance, $\Graph$ or $\Hyper$.
+
+\item Over cospan conditions, epi-based morphisms seem to be quite reasonable, because (I believe) every cospan whose right leg is mono is itself epi when considered as an arrow in the cospan category. This means morphisms only cannot split variables, which seems hardly a restriction
+
+\item Nevertheless, there are fewer (epi-based) morphisms over cospan conditions than one would wish, for the same reason as before. An example is given below.
+\end{itemize}
+
+\begin{example}\exlabel{no-cospan-morphism}
+\fcite{no-cospan-morphism} shows two conditions $b,c$ such that $b\entails c$.
+\begin{itemize}
+\item $b$ encodes the property $\exists y\st \la(x,y) \wedge \neg \lb(x,x) \wedge \neg \exists z\sl \lc(y,z)$
+\item $c$ encodes the property $\neg\lb(x,x)$.
+\end{itemize}
+The conditions are structurally very similar, and one would like to be able to ``explain" the entailment through the existence of a morphism from $b$ to $c$. However, such a morphism does not exist, essentially because the variable $y$, which does not occur in $c$, has to be kept around on the lower level of $b$.
+\end{example}
+
+\begin{figure}\flabel{no-cospan-morphism}
+\centering
+\subcaptionbox
+  {Arrow-based condition in $\Graph$}
+  {\input{figs/ex-no-cospan-morphism-ab}}
+\subcaptionbox
+  {Arrow-based condition in $\Cospan(\Graph)$}
+  {}%\input{figs/ex-no-cospan-morphism-ab}}
+
+\caption{Two arrow-based conditions with an entailment relation but no morphism}
+\end{figure}

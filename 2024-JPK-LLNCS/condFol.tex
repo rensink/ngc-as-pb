@@ -1,0 +1,32 @@
+\documentclass[svgnames,envcountsame,envcountsect,envcountreset]{llncs}
+\usepackage{preamble} 
+% \let\extendedversion\relax % uncomment for extended version - AC
+\input{macros}
+\pagestyle{plain}
+%
+\begin{document} 
+% 
+\input{title}
+\input{introduction}
+% \input{outline}
+\input{arrow-based}
+\input{shift-morphisms}
+%\input{cospan-based}
+\input{span-based}
+\iffull
+\input{entailment}
+\fi
+\input{conclusion}
+%\input{constructions}
+%\input{examples}
+%\input{algebra}
+%
+\bibliographystyle{splncs03}
+\bibliography{references.bib}
+
+% Proofs omitted from Festschrift
+% \iffest
+% \appendix
+% \input{proofs}
+% \fi
+\end{document}

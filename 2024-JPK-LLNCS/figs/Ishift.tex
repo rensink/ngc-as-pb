@@ -1,0 +1,47 @@
+\begin{tikzpicture}[on grid]
+  \node (p3) {$p$};
+  \node (A3) [below=of p3] {$A$};
+  \node (I3) [below=of A3] {$I$};
+  \node (R3) [below=of I3] {$R$};
+  \node (c3) [triangle,below=.15 of R3.center] {$c$};
+
+  \path (I3) edge[->] node[left] {$u$} (A3)
+        (I3) edge[->] node[left] {$d$} (R3);
+
+  \node (p4) [right=2.5 of p3] {$p\Ibshift f$};
+  \node (A4) [below=of p4] {$A$};
+  \node (I4) [below=of A4] {$J$};
+  \node (R4) [below=of I4] {$R$};
+  \node (c4) [triangle,below=.15 of R4.center] {$c$};
+
+  \path (I4) edge[->] node[right] {$f;u$} (A4)
+        (I4) edge[->] node[right] {$f;d$} (R4);
+
+  \path (A3) edge[<->] node[above] {$\id$} (A4)
+        (I3) edge[<-] node[above] {$f$} (I4)
+        (R3) edge[<->] node[above] {$\id$} (R4);
+
+  \node (p1) [right=4 of p4] {$p$};
+  \node (A1) [below=of p1] {$A$};
+  \node (I1) [below=of A1] {$I$};
+  \node (R1) [below=of I1] {$R$};
+  \node (c1) [triangle,below=.15 of R1.center] {$c$};
+
+  \path (I1) edge[->] node[left] {$u$} (A1)
+        (I1) edge[->] node[left] {$d$} (R1);
+
+  \node (p2) [right=2.5 of p1] {$p\Ishift g$};
+  \node (A2) [below=of p2] {$A'$};
+  \node (I2) [below=of A2] {$K$};
+  \node (R2) [below=of I2] {$R'$};
+  \node (c2) [triangle,minimum width=18mm,inner sep=0pt,below=.15 of R2.center] {$c\Rshift g''$};
+
+  \path (I2) edge[->] node[right] {$u'$} (A2)
+        (I2) edge[->] node[right] {$d'$} (R2);
+
+  \path (A1) edge[->] node[above] {$g'$} (A2)
+        (I1) edge[->] node[above] {$g$} (I2)
+        (R1) edge[->] node[above] {$g''$} (R2)
+		(A2) edge[-{Straight Barb[black,length=5pt,width=10pt]},white] +(-4mm,-4mm)
+		(R2) edge[-{Straight Barb[black,length=5pt,width=10pt]},white] +(-4mm,4mm);
+\end{tikzpicture}

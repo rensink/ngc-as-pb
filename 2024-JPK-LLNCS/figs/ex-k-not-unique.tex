@@ -1,0 +1,32 @@
+\begin{tikzpicture}[node distance=.8]
+  \node (phi) {$\phi\equiv x=y\wedge a(x,y)\wedge \neg \exists z\st b(y,z)$};
+  \node[graph,below=.3 of phi] (10) {\twonode{x}{y}};
+  \node[graph,below=of 10] (10I) {\twonode{x}{y}};
+  \node[graph,below=of 10I] (11) {\oneloop{y}{a}};
+  \node[graph,below=of 11] (11I) {\onenode{y}};
+  \node[graph,below=of 11I] (12) {\oneedge{y}{b}{z}}; 
+
+  \path (10I) edge[left hook->] (10)
+        (10I) edge[->] (11)
+        (11I) edge[left hook->] (11)
+        (11I) edge[->] (12);
+  
+  \node (psi) [right=1 of phi] {$\psi\equiv \neg\exists z\st b(x,z)\wedge b(y,z)$};
+  \node[graph,below=.3 of psi] (20) {\twonode{x}{y}};
+  \node[graph,below=of 20] (20I) {\twonode{x}{y}};
+  \node[graph,below=of 20I] (21) {\twonode{x}{y}}; 
+  \node[graph,below=of 21] (21I) {\twonode{x}{y}};
+  \node[graph,below=of 21I] (22) {\cospangraph{x}{b}{z}{b}{y}}; 
+
+  \path (20I) edge[left hook->] (20)
+        (20I) edge[->] (21)
+        (21I) edge[left hook->] (21)
+        (21I) edge[->] (22);
+
+  \path (10) edge[->] (20)
+        (20I) edge[->] (10I)
+        (21) edge[->] (11)
+        (11I) edge[->] (21I)
+        (12) edge[->] (22);
+\end{tikzpicture}
+

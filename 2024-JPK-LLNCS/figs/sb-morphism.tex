@@ -1,0 +1,39 @@
+\begin{tikzpicture}[>=latex,on grid]
+  \node (Rb) {$R^b$};
+  \node (I1) [below left=1.5 and 1 of Rb] {$I^b_1$};
+  \node (R1) [below=1.5 of I1] {$R^b_1$};
+  \node (b1) [triangle,below=.2 of R1.center] {$b_1$};
+  \node [below=1 of Rb] {$\cdots$};
+  \node (In) [below right=1.5 and 1 of Rb] {$I^b_n$};
+  \node (Rn) [below=1.5 of In] {$R^b_n$};
+  \node (bn) [triangle,below=.2 of Rn.center] {$b_n$};
+
+  \path (I1) edge[->] node[left] {$u^b_1$} (Rb)
+        (I1) edge[->] node[left] {$d^b_1$} (R1)
+		(In) edge[->] node[right] {$u^b_n$} (Rb)
+        (In) edge[->] node[right,near end] {$d^b_n$} (Rn);
+
+  \node (Rc) [right=7 of Rb] {$R^c$};
+  \node [below left=1 and 1.5 of Rc] {$\cdots$};
+  \node (Ji) [below left=1.5 and 1 of Rc] {$I^c_{o(1)}$};
+  \node (Ri) [below=1.5 of Ji] {$R^c_{o(1)}$};
+  \node (ci) [triangle,below=.2 of Ri.center] {$c_{o(1)}$};
+  \node [below=1 of Rc] {$\cdots$};
+  \node (Jj) [below right=1.5 and 1 of Rc] {$I^c_{o(w)}$};
+  \node (Rj) [below=1.5 of Jj] {$R^c_{o(w)}$};
+  \node (cj) [triangle,below=.2 of Rj.center] {$c_{o(w)}$};
+  \node [below right=1 and 1.5 of Rc] {$\cdots$};
+
+  \path (Ji) edge[->] node[left] {$u^c_{o(1)}$} (Rc)
+        (Ji) edge[->] node[left,near end] {$d^c_{o(1)}$} (Ri)
+		(Jj) edge[->] node[right] {$u^c_{o(w)}$} (Rc)
+        (Jj) edge[->] node[right] {$d^c_{o(w)}$} (Rj);
+
+  \path (Rb) edge[->] node[above] {$t$} (Rc)
+        (Ji) edge[over,|->,dashed,bend left=20] node[above,very near start] {$k_1$} (I1)
+        (Ri) edge[over,|->,bend left=20] node[above,very near start] {$t_1$} (R1)
+        (ci) edge[over,|->,bend left=20] node[above,very near start] {$m_1$} (b1)
+        (Jj) edge[over,|->,dashed,bend left=20] node[below,very near start] {$k_n$} (In)
+        (Rj) edge[over,|->,bend left=20] node[below,very near start] {$t_n$} (Rn)
+        (cj) edge[over,|->,bend left=20] node[below,very near start] {$m_n$} (bn);
+\end{tikzpicture}

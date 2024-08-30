@@ -1,0 +1,255 @@
+\section{{\fprovable} entailment}
+\slabel{entailment}
+
+Because in this section we reason a lot with span shifters, it is convenient to introduce the notation $\cI_{\id_A}$ for the identity over  $\cat{C^{sp}}(A,\_)$ and observe that $\cI_{\id_A}$ is the only forward span source shifter as well as the only backward span source shifter for $\id_A$, and that it is complete. This is extended to span root shifters, non-ambiguously overloading the notation of the trivial root shifter $\cI_{A,B}$.
+
+Given the number of possible forward and backward shifters we identified, there is a lot of choice within the concept of a span-based condition morphism, possibly making them complex to reason about. However, we now set about showing that, in an important sense, it is enough to consider only direct forward-shift morphisms. To make this claim precise, we introduce the notion of \emph{{\fprovable} entailment}, which are those entailments that can be established through the existence of \emph{only direct (complete) forward-shift morphisms}.
+
+\begin{definition}[{\fprovable} entailment/equivalence]\dlabel{provable}
+\emph{{\fprovable} entailment}, denoted $\pentails$, is the smallest preorder such that for all sb-conditions $b,c$:
+\begin{itemizeS}
+\item If there is a direct forward-shift morphism $m:c\to b$, then $b\pentails c$;
+\item If there is a complete direct forward-shift morphism $m:c\to b$, then $c\pentails b$.
+\end{itemizeS}
+\emph{{\fprovable} equivalence}, denoted $\pequiv$, is defined as ${\pequiv}={\pentails}\cap{\pentailedby}$.
+\end{definition}
+%
+The construction of nested conditions inverts {\fprovable} entailment, in the following sense.
+
+\begin{proposition}\plabel{pequiv congruent}
+Let $b,c$ be sb-conditions with $|b|=|c|$ and $s^b_i=s^c_i$ for all $1\leq i\leq |b|$.
+\begin{enumerateS}
+\item If $b_i\pentails c_i$ for all $i=1,\ldots,|b|$ then $c\pentails b$;
+\item If $b_i\pequiv c_i$ for all $i=1,\ldots,|b|$ then $b\pequiv c$.
+\end{enumerateS}
+\end{proposition}
+%
+\begin{proof}
+Each $b_i\pentails c_i$ follows from the transitive closure of a sequence of primitive steps (i.e., one of the two cases of \dcite{provable}). It therefore suffices to prove that, if \emph{a single} $p_i\pentails c_i$ is due to the existence of either\todo{AC: delete `backward' everywhere if not needed. AR: Done}
+\begin{inumerate}
+\item a forward shift morphism $m_i:c_i\to b_i$ or
+\item a complete forward shift morphism $m_i:b_i\to c_i$,
+\end{inumerate}
+whereas $b_j=c_j$ for all $j\neq i$, then there exists either
+\begin{inumerate}
+\item a forward shift morphism $m:b\to c$ or 
+\item a complete forward shift morphism $m:c\to b$,
+\end{inumerate}
+implying, in both cases, $c\pentails b$.
+
+\smallskip
+For both cases of the proof, let $w=|b|$, let $m_j=\id_{b_j}$ for $j\leq i$, and let
+%
+\[ m = (\id_{[1,w]},((\id_{P^b_1},m_1)\ccdots (\id_{P^b_w},m_w)) \]
+%
+\iffull
+Note that, due to \lcite{sb-morphisms compose},
+\else
+Note that 
+\fi
+identity morphisms are complete forward-shift morphisms.
+%
+\begin{enumerate}[label=\emph{(\roman*)}]
+\item In this case, each $m_j$ (for $1\leq j\leq w$) is a forward morphism from $c_j$ to $b_j$; hence $m$ is a morphism from $b$ to $c$.
+
+\item In this case, each $m_j$ (for $1\leq j\leq w$) is a complete forward morphism from $b_j$ to $c_j$; hence $m$ is a complete morphism from $c$ to $b$.
+\qed
+\end{enumerate}
+\end{proof}
+%
+The claim at the start of this section comes down to the property that any entailment ``proved" by the existence of a forward or backward morphism, complete or not, is already {\fprovable} in the sense of $\pentails$, hence using direct forward-shift morphisms only. This is formalised in the final main theorem of the paper.
+
+\begin{theorem}[{\fprovable} entailment]\thlabel{pentails}
+Let $b,c$ be sb-conditions. If there exists an sb-condition morphism $m:c\to b$, then $b\pentails c$; moreover, if $m$ is complete then $c\pentails b$.
+\end{theorem}
+%
+The rest of this section is devoted to proving this theorem. This consists of showing that
+\begin{inumerate}
+\item the use of split forward shifters in forward-shift morphisms does not enhance proving power, and 
+\item backward-shift morphisms do not enhance proving power.
+\end{inumerate}
+%
+The first of these cases is a consequence of the following. (The property we will eventually use is clause~\ref{any->s implies direct->s}; the first two are stepping stones.)
+
+\begin{lemma}\llabel{split forward redundant}
+Let $b\in \SC A,c\in \SC B$ be sb-conditions, and let $v:A\to B$.
+\begin{enumerate}[topsep=\smallskipamount]
+\item\label{direct->split} If $v$ is a split epi with section $x$, then there is a direct forward-shift morphism $m: \rF v x(b) \to \dF v(b)$.
+\item\label{direct->any} For any [complete] forward shifter $\cF$ for $v$, there is a direct [complete] forward-shift morphism $m^\cF:\cF(b) \to \dF v(b)$.
+\item\label{any->s implies direct->s} For any [complete] forward shifter $\cF$ for $v$ and any [complete] forward-shift morphism $m:c \to \cF(b)$, there is a direct [complete] forward-shift morphism $n:c \to \dF v(b)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\begin{enumerate}[topsep=\smallskipamount]
+\item Let us start by considering an arbitrary branch $p_i$ of $b$ with span $s_i$, and let $s_i=\spanof{u}{d}\of A\to P$. By construction, $\dF v(s_i)=\spanof{u'}{d'}$ with $u'=u;v$ and $d'=d$, whereas $\rF v x(s_i)=\spanof{u''}{d''}$ where $(u'',x')$ is the pullback span for $(x,u)$ and $d''=x';d$. These form a diagram of the following shape:
+\begin{center}
+\begin{tikzpicture}[on grid]
+\node (A) {$A$};
+\node (I) [below=1.8 of A] {$I$};
+\node (C) [below=1.5 of I] {$P$};
+\node (B1) [right=2 of A] {$B$};
+\node (I1) [below=1.8 of B1] {$I$};
+\node (C1) [below=1.5 of I1] {$P$};
+\node (B2) [right=2 of B1] {$B$};
+\node (I2) [below=1.8 of B2] {$I'$};
+\node (C2) [below=1.5 of I2] {$P$};
+\path
+  (I) edge[->] node[left] {$u$} (A)
+  (I) edge[->] node[left] {$d$} (C)
+  (A) edge[->] node[below] {$v$} (B1)
+  (I) edge[<-] node[below] {$\id$} (I1)
+  (C) edge[<-] node[above] {$\id$} (C1)
+  (I1) edge[->] node[right,near end] {$u'$} (B1)
+  (I1) edge[->] node[right] {$d'$} (C1)
+  (B1) edge[->] node[below] {$\id$} (B2)
+  (C1) edge[<-] node[above] {$\id$} (C2)
+  (I2) edge[->] node[right] {$u''$} (B2)
+  (I2) edge[->] node[right] {$d''$} (C2)
+  (B2) edge[->,bend right] node[above,very near start] {$x$} (A)
+  (I2) edge[->,bend right] node[above,very near start] {$x'$} (I);
+  
+\path (I2) edge[-{Straight Barb[black,length=5pt,width=10pt]},white] +(-3mm,5mm);
+  
+\path[red,color=red]
+  (I2) edge[->] node[below] {$x'$} (I1);
+\end{tikzpicture}
+\end{center}
+It can be seen that $u'';x=x';u$ by the pullback construction, and hence (using $x;v=\id$) $u''=u'';x;v=x';u;v=x';u'$. Since also $d'';\id=x';d=x';d'$, it follows that $(\rF v x(s_i),\dF v(s_i))\in \cP_\id$.
+
+Since this holds for every branch of $b$, it follows that the mathematical object $\id_b$ acts as a direct forward-shift morphism from $\rF v x(b)$ to $\dF v(b)$.
+
+\item \asscite{sb-shifters} implies that $\cF=\dF\id;\cF_1;\cdots;\cF_n$ where each $\cF_i$ is a [complete] elementary forward shifter for some $v_i$ such that $v=\id;v_1;\cdots;v_n$ (for the purpose of the current proof we have $\dF\id$ at the start of the sequence). The proof proceeds by induction on $n$.
+
+\smallskip For $n=0$, the property is fulfilled by $m^{\dF\id}=\id_b$, which is indeed trivially a direct complete forward-shift morphism from $\dF\id(b)$ to $\dF\id(b)$.
+
+\smallskip Now assume the property has been proved for $n-1$, and let $\cF'=\dF\id;\cF_1;\cdots;\cF_{n-1}$ and $v'=v_1;\cdots;v_{n-1}$. If $\cF$ is complete, then so are all $\cF_i$ and hence so is $\cF'$. By the induction hypothesis, there is then a direct [complete] forward-shift morphism $m^{\cF'}:\cF'(b) \to \dF{v'}(b)$. \lcite{ab-root shifters preserve morphisms}, that also holds for span-based root shifters, implies $m^{\cF'}$ is then also a (direct) [complete] forward-shift morphism from $\cF_n(\cF'(b))=\cF(b)$ to $\cF_n(\dF{v'}(b))$.
+
+\smallskip
+Given that $\cF_n$ is elementary, there are two cases.
+\begin{itemize}
+\item $\cF_n=\dF{v_n}$. In that case, $\dF v(b)=\cF_n(\dF{v'}(b))$, hence $m^\cF=m^{\cF'}$ fulfills the requirements.
+\item $\cF_n=\rF{v_n}x$ for some section $x$ of $v_n$. It follows that $\cF$ is not complete. Clause~\ref{direct->split} implies the existence of a direct forward-shift morphism $m':\cF_n(e)\to \dF{v_n}(e)$ for any suitably rooted sb-condition $e$, in particular also for $e=\dF{v'}(b)$; indeed, let $m'$ be this direct forward-shift morphism from $\cF_n(\dF{v'}(b))$ to $\cF_v(b)=\dF{v_n}(\dF{v'}(b))$. It follows that $m^\cF=m^{\cF'};m'$ fulfills the requirements.  
+\end{itemize}
+
+\item This follows immediately from clause \ref{direct->any}: take $n=m;m^\cF$.
+\qed
+\end{enumerate}
+\end{proof}
+%
+To prove the redundancy of backward-shift morphisms, we need a number of auxiliary properties. We start with some additional facts that establish a close relationship between certain forward and backward span shifters. The proof is immediate from the construction (see \fcite{sb-source shifters}).
+
+\begin{lemma}\llabel{sb-shifter inverses}
+Let $v:A\to B$ be a split epi with section $x$.
+\begin{enumerateS}
+\item $\rF v x=\dB x$ and $\rB v x=\dF x$
+\item $\dB v;\rF v x=\rB v x;\dF v=\cI_{\id_B}$.
+\end{enumerateS}
+\end{lemma}
+%
+Next, we observe that a pattern shift along an identity morphism is conservative if the mediating morphism $k$ is epi.
+
+\begin{lemma}\llabel{id-pattern shift}
+If the diagram below commutes and the arrow $k$ is epi, then $(\spanof{u_1}{d_1},\spanof{u_2}{d_2})\in \ccP_{\id_P}$.
+\begin{center}
+\begin{tikzpicture}[on grid,baseline=(I1.center)]
+\node (A) {$A$};
+\node (I1) [below left=1 and 1.5 of A] {$I_1$};
+\node (P1) [below=1.5 of I1] {$P$};
+\node (I2) [below right=1 and 1.5 of A] {$I_2$};
+\node (P2) [below=1.5 of I2] {$P$};
+\path
+  (I1) edge[->] node[above left,inner sep=1] {$u_1$} (A)
+  (I1) edge[->] node[left] {$d_1$} (P1)
+  (I2) edge[->] node[above right,inner sep=1] {$u_2$} (A)
+  (I2) edge[->] node[right] {$d_2$} (P2);
+\path[morphism]
+  (P1) edge[->] node[above] {$\id_P$} (P2);
+\path[red,color=red]
+  (I1) edge[->>] node[below] {$k$} (I2);
+\end{tikzpicture}
+\end{center}
+\end{lemma}
+%
+\begin{proof}
+This follows immediately from the fact that the epi nature of $k$ causes the lower square in the diagram to be a pushout.\qed
+\end{proof}
+%
+Using this, we can observe the following interplay of conservative pattern shifting and complete span source shifters.
+
+\begin{lemma}\llabel{BF}
+Let $v:A\to B$ be an arrow. For any backward span source shifter $\cB$ for $v$ and any span $s$ with source $B$, $(\dF v(\cB(s)),s)\in \ccP_\id$.
+\end{lemma}
+%
+\begin{proof}
+Let $v:A\to B$ be an arrow. We first prove this for elementary backward span source shifters.
+\begin{itemizeS}
+\item $\cB=\rB v x$ where $x;v=\id_B$. From \lcite{sb-shifter inverses} we know that $\dF v(\cB(s))=s$ for all $s$; since $\ccP_\id$ includes the identity over $\cat{C^{sp}}(B,\_)$, we are done.
+
+\item $\cB=\dB v$. Let $s=\spanof{u_2}{d_2}:B\to P$ have interface object $I_2$ and let $\dF v(\dB v(s))=\spanof{u_1}{d_1}$ have interface object $I_1$; then the diagram in \lcite{id-pattern shift} arises, with $k$ being the pullback of $v$ over $u_2$. In particular, $k$ is epi because $v$ is epi and (in toposes) the property of being epi is stable under pullback. It follows that $(\dF v(\dB v(s)),s)\in \ccP_\id$.
+\end{itemizeS}
+%
+For an arbitrary [complete] $\cB$, \asscite{sb-shifters} implies $\cB=\dB\id;\cB_1;\cdots;\cB_n$ where each $\cB_i$ is a [complete] backward shifter for $v_i$ and $v=\id;v_1;\cdots;v_n$. We prove the property by induction over $n$.
+\begin{itemizeS}
+\item If $n=0$, the result immediately follows from $\dF\id(\dB\id(s))=s$.
+\item Assume the property holds for $n-1$, and consider $\cB'=\dB\id; \cB_1;\cdots;\cB_{n-1}$ and $v'=\id;v_1;\cdots;v_{n-1}$. Since $\cB_n$ is elementary for $v_n$, the cases above establish $(\dF{v_n}(\cB_n(t)),t)\in \ccP_\id$ for any span $t$, in particular also for $t=\cB'(s)$, meaning $(\dF{v_n}(\cB(s)),\cB'(s))\in \ccP_\id$. \pcite{pattern shift} (clause \ref{conservative-congruence}) states that $\ccP_\id$ is preserved under prefixing by spans of the form $\spanof a \id$, hence also under application of $\dF{v'}$, implying $(\dF{v}(\cB(s)),\dF{v'}(\cB'(s)))\in \ccP_\id$. Finally, by the induction hypothesis we have that $(\dF{v'}(\cB'(s)),s)\in \ccP_\id$, hence by transitivity of $\ccP$ (clause \ref{conservative-transitive} of \pcite{pattern shift}) we conclude $(\dF{v}(\cB(s)),s)\in \ccP_\id$.
+\qed
+\end{itemizeS}
+\end{proof}
+%
+We now show that backward-shift morphisms are likewise redundant for {\fprovable} entailment. However, the precise formulation is quite a bit more involved than for the previous case: it is not the case that there exists a forward-shift morphisms wherever there exists a backward-shift one, merely that this holds \emph{modulo {\fprovable} equivalence}.
+
+\begin{lemma}\llabel{backward redundant}
+Let $b\in \SB A$ and $c\in \SB B$ and let $v\of A\to B$ be an arrow. For any [complete] backward root shifter $\cB$ for $v$ and any [complete] backward-shift morphism $m\of \cB(c)\to b$, there are sb-conditions  $c'\pequiv c$ and $b'\pequiv b$ with a direct [complete] forward-shift morphism $\bar m\of c' \to \dF v(b')$.
+\end{lemma}
+%
+\begin{proof}
+The morphism $\bar m$ needed for the lemma will be derived from $m$ by replacing all branch mappings $o$ (on all levels) by the corresponding identities, and modifying in a suitable way the source and target conditions; i.e., inductively,
+\[ \bar m=(\id_{[1,|m|]},(v^m_1,\bar m_1)\cdots (v^m_{|m|},\bar m_{|m|})) \enspace. \]
+The proof is by induction on the depth of $m$. The case $|m|=0$ is trivial, as then $\cB$ acts as $\cI_{B,A}$,  $c=(B,\epsilon)$, $b=(A,\epsilon)$ and $m=(\id_\emptyset,\epsilon)$; hence  $c'=c$, $b'=b$ and $\bar m=m$ satisfy the requirements.
+
+\smallskip
+Let $b\in \SC A,c\in \SC B$ and $v:A\to B$ as in the lemma. Let $\cB$ be a backward root shifter for $v$, and let $m=(o,(v_1,m_1)\ccdots(v_w,m_w)):  \cB(c) \to b$ be a backward-shift morphism. It follows that all $m_i$ are morphisms from $\cB_i(b_i)$ to $c_{o(i)}$ for some backward shifter $\cB_i$. By the induction hypothesis therefore (letting $j=o(i)$), $\bar m_i: b_i' \to \dF{v_i}(c_j')$ for some $b'_i\pequiv b_i$ and $c_j'\pequiv c_j$.
+
+\smallskip
+In constructing $c'$ from $c$, we have to make sure that we retain the $c$-branches that are not the image of any $b$-branch under $o$. For this purpose, let $J=\setof{1\leq j\leq |c|\mid \nexists i\st o(i)=j}$ be the set of indexes of those branches, and let $j_1,\ldots,j_n$ be an arbitrary ordering of the elements of $J$. We define 
+\begin{align*}
+b'=\;&(A,(s^b_1,b'_1)\ccdots (s^b_w,b'_w)) \\
+c'=\;&(B,p_1\ccdots p_w\,p^c_{j_1}\ccdots p^c_{j_n}) \\
+   & \quad\text{where } p_i = (\dF v(\cB(s^c_{o(i)})),c'_{o(i)}) \text{ for all $1\leq i\leq w$}\enspace.
+\end{align*}
+%
+Note that $|c'|=w+n$. For $1\leq i\leq w$, the $i$th branch of $c'$ is based on the $o(i)$-th branch of $c$, modifying its span by first backward-shifting it using $\cB$ and then forward-shifting using $\dF v$, and modifying its subcondition by taking, instead of $c_{o(i)}$, the provably equivalent $c'_{o(i)}$. For $w+1\leq i\leq w+n$, the $i$th branch of $c'$ is the $j_i$-th branch of $c$.
+
+\smallskip
+$\bar m$ (which has $o^{\bar m}=\id_{[1,w]}$) is a direct forward-shift morphism from $c'$ to $\dF v(b')$. To show this, all that is yet required is that $(\dF v(s^b_i),\dF v(\cB(s^c_{o(i)}))) \in \cP_{v_i}$ for $1\leq i\leq w$. This follows from the fact that $m:\cB(c) \to b$ is a morphism, which means $(s^b_i,\cB(s^c_{o(i)}))\in \cP_{v_i}$, in combination with \pcite{pattern shift}.\ref{pattern-congruence}, which states that the action of $\dF v$ on spans (which comes down to prefixing them with $\spanof{v}{\id}$, see \fcite{sb-source shifters}) preserves $\cP_{v_i}$.
+
+\smallskip
+If $m$ is complete, then so is $\bar m$, because in that case $n=0$ (there are no $c$-branches that are not the image of any $b$-branch) and so $\id_{[1,w]}$ is surjective in $\bar m:c' \to \dF v(b')$.
+
+\smallskip
+It only remains to be shown that $b'\pequiv b$ and $c'\pequiv c$. The first directly follows from \pcite{pequiv congruent}, given that $b'_i\pequiv b_i$ for all $1\leq i\leq w$. For the second, we go through the auxiliary conditions
+\begin{align*}
+c''=\;&(B,(s^c_{o(1)},c'_{o(1)})\ccdots (s^c_{o(w)},c'_{o(w)})\,p^c_{j_1}\ccdots p^c_{j_n}) \\
+c'''=\;&(B,(s^c_{o(1)},c_{o(1)})\ccdots (s^c_{o(w)},c_{o(w)})\,p^c_{j_1}\ccdots p^c_{j_n}) \enspace.
+\end{align*}
+\begin{itemize}
+\item $c'\pequiv c''$ because $\id_{c''}$ is a direct complete forward-shift morphism from $c'$ to $c''$ due to $(\dF v(\cB(s^c_{o(i)})),s^c_{o(i)})\in \ccP_\id$.\footnote{Note that this reuses the mathematical object $\id_{c''}$, not in its role as identity morphism $c''\to c''$ but to relate $c'$ to $c''$.}\todo{AR: does the footnote make sense?} for all $1\leq i\leq w$ (see \lcite{BF});
+
+\item $c''\pequiv c'''$ due to \pcite{pequiv congruent}, given that $c'_{o(w)}\pequiv c_{o(w)}$ for all $1\leq i\leq w$; 
+
+\item $c'''\pequiv c$ because $m'=(o',(\id_{P^c_1},\id_{c_1})\ccdots (\id_{P^c_{|c|}},\id_{c_{|c|}}))$ with $o'=o^m\cup\setof{(w+i,j_i) \mid 1\leq i\leq n}$ is a direct complete forward-shift morphism from $c$ to $c'''$.
+\qed
+\end{itemize}
+\end{proof}
+%
+This finally puts us in a position to prove the theorem of this section.
+
+\begin{proof}[of \thcite{pentails}]
+Let $b,c\in \SC A$ be sb-conditions and let $m:c\to b$ be an sb-condition morphism.
+\begin{itemizeS}
+\item If $m$ is [complete] forward-shift, then by clause 3 of \lcite{split forward redundant} (instantiating $v$ by $\id_A$, hence $\cF=\cI_{\id_A}$) there is a direct [complete] forward-shift morphism $n:c\to b$, hence $b\pentails c$ [and $c\pentails b$].
+\item If $m$ is [complete] backward-shift, then by \lcite{backward redundant} (instantiating $v$ by $\id_A$, hence $\cB=\dF{\id_A}=\cI_{\id_A}$) there are $c'\pequiv c$ and $b'\pequiv b$ such that there exists a direct [complete] forward-shift morphism $\bar m:c'\to b'$, hence $b'\pentails c'$ [and $c'\pentails b'$]. Since $\pentails$ is transitive and ${\pequiv}={\pentails}\cap{\pentailedby}$, it follows that $b\pentails c$ [and $c\pentails b$].
+\qed
+\end{itemizeS}
+\end{proof}

@@ -1,0 +1,17 @@
+\begin{tikzpicture}[on grid]
+  \node (R) {$R$};
+  \tri{Rc}{3.8}{2.3}{4.6}{}
+  \node (I1) [below left=1.2 and .5 of R] {$I_1$};
+  \node (P1) [below left=1.2 and .0 of I1] {$P_1$};
+  \node [below= of R] {$\cdots$};
+  \node (Iw) [below right=1.2 and .5 of R] {$I_w$};
+  \node (Pw) [below right=1.2 and .0 of Iw] {$P_w$};
+
+  \tri{P1}{1.2}{.4}{1.2}{$c_1$}
+  \tri{Pw}{1.2}{.8}{1.2}{$c_w$}
+  
+  \path (I1) edge[->] node[left=.1] {$u_1$} (R.260)
+        (I1) edge[->] node[left] {$d_1$} (P1)
+        (Iw) edge[->] node[right=.1] {$u_w$} (R.280)
+        (Iw) edge[->] node[right] {$d_w$} (Pw);
+\end{tikzpicture}

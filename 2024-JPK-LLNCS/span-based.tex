@@ -1,0 +1,503 @@
+\section{Span-based conditions}
+\slabel{sb-conditions}
+
+The peculiar definition of morphisms of ab-conditions just introduced, with arrows changing direction at each layer in order to ensure the preservation of models, clashes with a structural property of arrow-based conditions. Indeed, the pattern of each subcondition must contain a (homomorphic) copy of the parent pattern, because a branch consists of an arrow of $\cat{C}$ from the latter to the former. Thus if a morphism maps, say, the pattern $P^c$ of (a subcondition of) $c$ to a pattern $P^b$ of $b$, at the next layer (the copy of) $P^b$ must be mapped backwards to (the copy) of $P^c$. The consequence is that morphisms fail to exist even in very simple situations. An example is given by \excite{ab-morphisms}, where we have seen that $c_1\entails c_2$ (see \fcite{ab-conditions}) but there is no morphism providing evidence for this.
+  
+Inspired by this observation, we present the second main contribution of this paper: an original definition of nested conditions where the duplication of structure just described does not occur, because at each level we need to specify only the \emph{additional} structure, and how it is connected. This is achieved by replacing the branch arrows $a^c_i$ of a condition $c$ by \emph{spans}.
+
+A span $s = (f: I \to A, g:I \to B)$ over \cat{C}, which we will denote $\spanof f g$, is a pair of arrows of \cat{C} having the same source. Objects $A$ and $B$ are the \emph{source} and \emph{target} of $s$, respectively, while $I$ is its \emph{interface}; we sometimes write $s:A\to B$. Spans can be composed: if the target of $\spanof u d$ is equal to the source of $\spanof v w$, then $\spanof u d \spcomp \spanof v w=\spanof{v';u}{d';w}$ where $\spanof {v'}{d'}$ is the pullback span of $(d,v)$. The result is defined, because \cat{C} has all pullbacks, but non-deterministic in general because pullbacks are defined up to iso. The standard solution would be to consider spans up to isomorphism of their interface (yielding category {\SpanC} having the same objects of \cat{C} and equivalence classes of spans as arrows), but to avoid further technicalities we will gloss over this throughout the paper.
+
+%An arrow $a:A \to B$ can be seen as a span $\spanof{id_A}{a}$. This defines an embedding of standard arrows of \cat{C} into spans over \cat{C} that preserves composition. Composing an arrow with a span, as in $a \spcomp \spanof f g$, is intended to mean $\spanof{id}{a}  \spcomp \spanof f g$.\todo{delete if not used}
+
+\medskip\noindent
+Span-based conditions are inductively defined as follows:
+
+\begin{definition}[span-based condition]\dlabel{sb-condition}
+  For any object $R$ of $\bC$, $\SC R$ (the set of \emph{span-based conditions} over $R$) and $\SB R$ (the set of \emph{span-based branches} over $R$) are the smallest sets such that
+  \begin{itemize}
+  \item $c\in \SC R$ if $c=(R,p_1\ccdots p_w)$ is a pair with $p_i\in \SB R$ for all $1\leq i\leq w$;
+  \item $p\in \SB R$ if $p=(\spanof u d,c)$ where $u: I\to R, d:I\to P$ form a span of arrows of $\bC$ and $c\in \SC P$.
+  \end{itemize}
+\end{definition}
+%
+In the span $\spanof u d$ of a branch $p=(\spanof u d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emph{down-arrow}. As before, we use $|c|=w$ to denote the width of a span-based condition $c$, $R^c$ to denote its root, and $p^c_i=(s^c_i,c_i)$ with span $s^c_i=\spanof{u^c_i}{d^c_i}$ its $i$-th branch. Finally, we use $I^c_i$ for the interface of span $s^c_i$ and $P^c_i$ ($=R^{c_i}$) for its target (hence $u^c_i:I^c_i\to R^c$ and $d^c_i:I^c_i\rightarrow P^c_i$). In all these cases, we may omit the superscript $c$ if it is clear from the context. Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
+%
+\begin{figure}[t]
+\centering
+\subcaptionbox
+  {Condition $c=(R,p_1\ccdots p_w)$, with $p_i=(\spanof{u_i}{d_i},c_i)$ for $1\leq i\leq w$
+   \flabel{sb-condition}}
+  [.45\textwidth]
+  {\input{figs/sb-condition}}
+\qquad
+\subcaptionbox
+  {$g\sat c$, with responsible branch $p_i=(\spanof{u_i}{d_i},c_i)$ and witness $h$ such that $\spanof{u_i}{d_i}\commutes (g,h)$
+   \flabel{sb-satisfaction}}
+  [.45\textwidth]
+  {\input{figs/sb-satisfaction}}
+\vspace*{-2mm}
+\caption{Visualisations for span-based conditions}
+\end{figure}
+%
+As we will see in \scite{categories}, we can reconstruct an arrow-based condition from a span-based one.
+
+As examples of span-based conditions, \fcite{sb-conditions} shows counterparts for the three arrow-based conditions in \fcite{ab-conditions}: both $b_1$ and $b_1'$ are equivalent to $c_1$ (which is rather non-obvious in the case of $b_1'$), whereas $b_2$ is equivalent to $c_2$ and $b_3$ to $c_3$.
+
+\begin{figure}[t]
+\centering
+\input{figs/ex-sb-conditions}
+\vspace*{-5mm}
+\caption{Span-based conditions corresponding to \fcite{ab-conditions}. The dotted arrows indicate forward-shift morphisms (see \excite{sb-morphisms}), with component mappings in brown.}
+\flabel{sb-conditions}
+\end{figure}
+
+\medskip\noindent The careful reader might have observed that \dcite{sb-condition} is essentially \dcite{ab-condition} instantiated to the category {\SpanC}, thus wondering if we are just repeating the theory of ab-conditions for one specific instance. This is not the case, though, as the definitions that follow (satisfaction, morphisms,\ldots) are phrased using arrows and diagrams of \cat{C}, not of {\SpanC}.\footnote{Technically, this would not fall in our framework because {\SpanC} is not a presheaf topos even if \cat{C} is.}
+
+We now present the modified notion of satisfaction for span-based conditions. First we recognise that the purpose of an arrow $a$ in an ab-condition is essentially to establish ``correct" model/witness pairs $(g,h)$ --- namely, those pairs that commute with $a$ in the sense of satisfying $g=a;h$. We may write $a\commutes (g,h)$ to express this commutation relation. This is what we now formalise for spans, as follows:
+\[ \spanof u d \commutes (g,h) \text{ if } u;g=d;h \enspace. \]
+Satisfaction of sb-conditions is then defined as follows:
+
+\begin{definition}[satisfaction of span-based conditions]\dlabel{sb-satisfaction}
+  Let $c$ be a span-based condition and $g:R\to G$ an arrow from $c$'s root to an object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i$ and an arrow $h:P_i\to G$ such that
+  \begin{enumerate*}
+  \item $s_i \commutes (g, h)$, and
+  \item $h\nsat c_i$.
+  \end{enumerate*}
+\end{definition}
+%
+Note that this is entirely analogous to \dcite{ab-satisfaction}, especially if we would retrofit the notation $a\commutes (g,h)$ there. Like before, we call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat c$. Satisfaction of sb-conditions is visualised in \fcite{sb-satisfaction}.
+
+\section{Span-based morphisms}
+\slabel{sb-morphisms}
+
+To define morphisms of sb-conditions, we will go over the same ground as for ab-conditions, but take a slightly more abstract view --- as we did for satisfaction by introducing $\commutes$. Having recognised that the \emph{semantics} of a span in sb-conditions is essentially given by the set of model/witness pairs that it commutes with, we can in general consider relations over spans that either preserve or reflect this semantics, in the sense that if $s_1,s_2$ are related, then either $s_1\commutes (g,h)$ implies $s_2\commutes (g,h)$ (preservation) or $s_2\commutes (g,h)$ implies $s_1\commutes (g,h)$ (reflection). Typically, however, the model/witness pairs are not preserved or reflected precisely, but modulo some arrow that gets added to or erased from the model.
+%
+\begin{itemize}
+\item $(s_1,s_2)$ preserves models adding $v$ if $s_1\commutes (g,h)$ implies $s_2\commutes (v;g,h)$;
+\item $(s_1,s_2)$ preserves models erasing $v$ if $s_1\commutes (v;g,h)$ implies $s_2\commutes (g,h)$;
+\item $(s_1,s_2)$ reflects models adding $v$ if $s_2\commutes (g,h)$ implies $s_1\commutes (v;g,h)$;
+\item $(s_1,s_2)$ reflects models erasing $v$ if $s_2\commutes (v;g,h)$ implies $s_1\commutes (g,h)$.
+\end{itemize}
+%
+The above is defined on individual pairs. For a relation $\cR$ over spans, we say that $\cR$ preserves [reflects] models adding [erasing] $v$ if it consists of pairs that do so.
+
+\begin{definition}[span source shifters]\dlabel{sb-shifters}
+Let us denote by $\cat{C^{sp}}(A,\_)$ the collection of all spans of \cat{C} with source $A$. Let $X,Y$ be objects of \cat{C}. 
+\begin{itemize}[topsep=\smallskipamount]
+\item A \emph{span source shifter} $\cS$ from $X$ to $Y$ is a target-preserving mapping $\cS \of \cat{C^{sp}}(X,\_) \to \cat{C^{sp}}(Y, \_)$
+%having the same target, say $Z$, 
+such that for all spans $s:X\to Z,t:Z\to U$:
+%
+\begin{equation}\eqlabel{span shifters are functors}
+\cS(s \spcomp t) = \cS(s)\spcomp t \enspace.
+\end{equation}
+%
+\item Now let $v=A\to B$ be an arrow. $\cS$ is a \emph{forward span source shifter for $v$} if it is a span source shifter from $A$ to $B$ that preserves models erasing $v$, i.e., such that for all spans $s:A\to C$ and all pairs $g:A\to G,h:C \to G$:
+%
+\begin{equation}\eqlabel{sb-forward condition}
+s\commutes (v;g,h) \enspace\text{ implies }\enspace \cS(s) \commutes (g,h) \enspace.
+\end{equation}
+%
+A forward span source shifter is called \emph{complete} if it also reflects models adding $v$; i.e., if the ``implies" in \eqref{sb-forward condition} is an ``if and only if".
+
+\item Instead, $\cS$ is a \emph{backward span source shifter for $v$} if it is a span source shifter from $B$ to $A$ that reflects models erasing $v$, i.e., such that for all spans $s:B\to C$ and all pairs $g:B\to G,h:C\to G$:
+%
+\begin{equation}\eqlabel{sb-backward condition}
+\cS(s) \commutes (v;g,h) \enspace\text{ implies }\enspace s\commutes (g,h) \enspace.
+\end{equation}
+%
+A backward span source shifter is called \emph{complete} if it also preserves models adding $v$; i.e., if the ``implies" in \eqref{sb-backward condition} is an ``if and only if".
+\end{itemize}
+\end{definition}
+%
+Since span source shifters from $X$ are, just as in the arrow-based case, completely determined by $\cS(\id_X)$ (due to \eqref{span shifters are functors}), we can enumerate the choices of forward and backward shifters for $v$ that are available in general, i.e., without having additional information about $v$.
+%
+\begin{description}
+\item[Forward shifting.] For $\cS$ to be a forward span source shifter for $v:A\to B$, there must be a span $t=\cS(\id_A):B\to A$, which automatically determines $\cS(s)=t\spcomp s$ for all $s:A\to C$. Without additional information about $v$, there are essentially two options for $t$: $t=\spanof{v}{\id_A}$ or $t=\spanof{\id_B}{x}$ for some section $x$ of $v$, i.e., such that $x;v=\id_B$.
+% We denote the resulting span source shifters by $\cF_v^\circ$ and $\cF_v^x$, respectively.
+
+\item[Backward shifting.] For $\cS$ to be a backward span source shifter for $v:A\to B$, there must be a span $t=\cS(\id_B):A\to B$, which automatically determines $\cS(s)=t \spcomp s$ for all $s:B\to C$. Again, there are essentially two options: $t=\spanof{\id_A}{v}$, or $t=\spanof{x}{\id_B}$ for some section $x$ of $v$, i.e., such that $x;v=\id_B$.
+% We denote the resulting span source shifters by $\cB_v^\circ$ and $\cB_v^x$, respectively.
+\end{description}
+%
+This gives rise to the following four candidate shifters for $v:A\to B$ (which still have to be shown to satisfy the conditions of \dcite{sb-shifters}):
+%
+\begin{align*}
+\dF v & : s \mapsto \spanof{v}{\id_A}\spcomp s \\
+\rF v x& : s \mapsto \spanof{\id_B}{x}\spcomp s \text{ where $x;v=\id_B$} \\
+\dB v& : s \mapsto \spanof{\id_A}{v}\spcomp s \\
+\rB v x& : s \mapsto \spanof{x}{\id_B}\spcomp s \text{ where $x;v=\id_B$}
+\end{align*}
+%
+These are visualised in \fcite{sb-source shifters} (in a simplified construction that omits the intermediate steps of the span composition where possible). We call $\dF v$ and $\dB v$ \emph{direct} and $\rF v x$ and $\rB v x$ \emph{split}. It turns out that, indeed, each of these four options gives rise to a valid shifter; moreover, the direct ones are complete.
+%
+\begin{figure}[t]
+\centering
+\input{figs/sb-source-shifting}
+\caption{Forward and backward span source shifters. In each case, $\spanof{u'}{d'}$ is the image of $\spanof{u}{d}$.}
+\flabel{sb-source shifters}
+\end{figure}
+%
+\begin{proposition}[span source shifters]\plabel{sb-source shifters}
+\begin{enumerate}[topsep=\smallskipamount]
+\item $\cF_v^\circ$ is a complete forward span source shifter for $v$, and $\cF_v^x$ is a forward span shifter for $v$ if $v$ is a split epi with section $x$.
+\item $\cB_v^\circ$ is a complete backward span source shifter for $v$ if $v$ is epi, and $\cB_v^x$ is a backward span shifter for $v$ if $v$ is a split epi with section $x$.
+\end{enumerate}
+\end{proposition}
+%
+\iffest
+The proof (in Appendix A of~\cite{RensinkCorradini-JPK2024-full}) can be constructed directly from the diagrams in \fcite{sb-source shifters}.
+\fi
+\begin{fullorname}
+\begin{proof}
+In the proof, we make use of the diagrams (especially the arrow names) in \fcite{sb-source shifters}.
+\begin{enumerate}
+\item We first show that $\cF_v^\circ$ is a complete forward span source shifter. Let $g:B\to G$ and $h:C\to G$; then $\spanof{u}{d}\commutes (g,h)$ and $\spanof{u'}{d'}\commutes (g,h)$ are both equivalent to $u;v;g=d;h$, hence they are equivalent to one another. It follows that $\cF_v^\circ$ both  preserves models erasing $v$ and reflects models adding $v$.
+
+We now show that $\cF_v^x$ is a forward source shifter, i.e., that it preserves models erasing $v$. Let $g:B\to G$ and $h:C\to G$ be such that $\spanof{u}{d}\commutes (v;g,h)$, meaning $u;v;g=d;h$. It follows that $x';u;v;g=x';d;h$ and hence $u';g=u';x;v;g=d';h$, hence $\spanof{u'}{d'}\commutes (g;h)$.
+
+\item We first show that $\cB_v^\circ$ is a complete backward span source shifter for $v$ if $v$ is epi. First note that in toposes the pullback of an epi is epi; hence, as already indicated in the figure, $v'$ is epi. Now let $g:B\to G$ and $h:C\to G$; then $\spanof{u}{d}\commutes (g,h)$ comes down to $u;g=d;h$ whereas $\spanof{u'}{d'}\commutes (v;g,h)$ comes down to $u';v;g=d';h$, which is equivalent to $v';u;g=v';d;g$. Because $v'$ is epi, $u;g=d;h$ if and only if $v';u;g=v';d;g$, implying that $\cB_v^\circ$ both reflects models erasing $v$ and preserves models adding $v$.
+
+We now show that $\cB_v^x$ is a backward span source shifter for $v$, i.e., that it reflects models erasing $v$. Let $g:B\to G$ and $h:C\to G$ be such that $\spanof{u'}{d'}\commutes (v;g,h)$, meaning $u';v;g=d';h$. It follows that $u;g=u;x;v;g=u';v;g=d';h=d;h$, hence $\spanof u d\commutes (g,h)$.\qed
+\end{enumerate}
+\end{proof}
+\end{fullorname}
+%
+%The ability to forward-shift and backward-shift in many different ways means that there are equally many options for building morphisms. In fact, however, we will show later that all above root shifters for $v$ (both forward and backward) are subsumed by $\cF_v^\circ$, in the sense that entailment or equivalence of sb-conditions ``explained" by morphisms based on any of the (other) known root shifters can also be ``explained" by morphisms based on $\cF_v^\circ$.
+
+\medskip\noindent
+The step from span source shifters to span \emph{root} shifters is completely identical to the arrow-based case; we omit the definition here. A new aspect is the following.
+
+\begin{proposition}
+The trivial root shifter $\cI_{A,B}$ is both a complete forward span root shifter and a complete backward span root shifter for any arrow $v:A\to B$. 
+\end{proposition}
+%
+Span root shifters satisfy the analogous properties of arrow root shifters formulated in Propositions \pref{ab-root shifters preserve} (model preservation) and \pref{ab-shifters compose} (identities and composition), both extended with the case of complete shifters. 
+\iffull
+As the proofs are essentially identical, we omit them here. 
+\fi
+
+\begin{proposition}[span root shifters preserve models]\plabel{sb-shifters preserve}
+Let $v:A\to B$.
+\begin{enumerate}[topsep=\smallskipamount]
+\item If $c\in \SC A$ and $\cF$ is a forward span root shifter for $v$ that is defined on $c$, then $v;g\sat c$ implies $g\sat \cF(c)$. If, moreover, $\cF$ is complete then also $g\sat \cF(c)$ implies $v;g\sat c$.
+\item If $c\in \SC B$ and $\cB$ is a backward span root shifter for $v$ that is defined on $c$, then $v;g\sat \cB(c)$ implies $g\sat c$. If, moreover, $\cB$ is complete then also $v;g\sat \cB(c)$ implies $g\sat c$.
+\end{enumerate}
+\end{proposition}
+%
+Forward and backward shifters again compose, also for complete ones.
+\iffest
+The precise statement is given in Prop.~A.2 of~\cite{RensinkCorradini-JPK2024-full}.
+\fi
+
+\begin{fullorname}[\pname{sb-shifters compose}] 
+\begin{proposition}[span shifters compose]\plabel{sb-shifters compose}
+\begin{enumerate}[topsep=\smallskipamount]
+\item If $\cU$ is a span source [root] shifter from $X$ to $Y$ and $\cV$ a span source [root] shifter from $Y$ to $Z$, then $\cU;\cV$ (understood as partial function composition) is a span source [root] shifter from $X$ to $Z$. 
+\item If $\cU$ and $\cV$ are [complete] forward span source [root] shifters for $u: X\to Y$ and $v: Y \to Z$, respectively, then $\cU;\cV$ is a [complete] forward source [root] shifter for $u;v$.
+\item Dually, if $\cU$ and $\cV$ are [complete] backward span source [root] shifters for $u: Y\to X$ and $v: Z \to Y$, respectively, then $\cU;\cV$ is a [complete] backward span source [root] shifter for $v;u$.
+\end{enumerate}
+\end{proposition}
+\end{fullorname}
+%
+\begin{comment}
+\medskip\noindent
+In fact we also need the following auxiliary composition property for direct span shifters.\todo{AR: Added AC: ok} This immediately follows from the associativity of span composition combined with the fact that spans with identity left-legs and identity right-legs compose; we omit the proof.
+
+\begin{lemma}[direct span shifters compose]\llabel{direct sb-shifters compose}
+Let $t:A\to B,v:B\to C$ be arrows; then
+\begin{enumerate*}[topsep=\smallskipamount]
+\item $\dF t;\dF v=\dF{t;v}$, and 
+\item $\dB v;\dB t=\dB{t;v}$.
+\end{enumerate*}
+\end{lemma}
+\end{comment}
+%
+We call the span source and root shifters of the shape $\dF v$, $\rF v x$, $\dB v$, $\rB v x$ and $\cI_{A,B}$ \emph{elementary}. It is not the case that every span shifter is elementary; e.g., $\dF{v_1};\rF{v_2}{x_2}$ is in general not equal to $\dF{v_1;v_2}$ or to $\rF{v_1;v_2} x$ for any $x$. However, for the remainder of this paper we will restrict ourselves to span shifters that are at least \emph{composed} from elementary ones, in the following sense:
+
+\begin{assumption}\asslabel{sb-shifters} Let $\cS$ be a span root shifter for $v$.
+\begin{itemize}[topsep=\smallskipamount]
+\item If $\cS$ is a forward shifter, then $\cS = \cS_1;\cdots;\cS_n$ where each $\cS_i$ is an elementary forward shifter for some $v_i$ such that $v=v_1;\cdots;v_n$. If, moreover, $\cS$ is complete then all $\cS_i$ are complete --- in which case either $\cS$ is trivial or $\cS_i=\dF{v_i}$ for all $i$ and $\cS=\dF v$.
+\item If $\cS$ is a backward shifter, then $\cS = \cS_1;\cdots;\cS_n$ where each $\cS_i$ is an elementary backward shifter for some $v_i$ such that $v=v_n;\cdots;v_1$. If, moreover, $\cS$ is complete then all $\cS_i$ are complete --- in which case either $\cS$ is trivial or $\cS_i=\dB{v_i}$ for all $i$ and $\cS=\dB v$.
+\end{itemize}
+\end{assumption}
+
+A final change with respect to the arrow-based case is that we also abstract the commutation condition in \dcite{ab-morphism} by relying instead on a family of \emph{pattern shift relations} --- which in a sense complement the role of root shifters.
+%
+\begin{definition}[pattern shift]
+Let $v:P_1\to P_2$ be an arrow. \emph{Pattern shift for $v$} is the relation $\cP_v$ over spans including all pairs $(s_1,s_2)$ such that  $s_i=\spanof{u_i:I_i\to A}{d_i:I_i\to P_i}$ for $i=1,2$ (for some $A$), and there is an arrow $k:I_1\to I_2$ for which both halves of the following diagram commute:
+\begin{equation}\eqlabel{pattern shift}
+\begin{tikzpicture}[on grid,baseline=(I1.center)]
+\node (A) {$A$};
+\node (I1) [below left=1 and 1.5 of A] {$I_1$};
+\node (P1) [below=1.5 of I1] {$P_1$};
+\node (I2) [below right=1 and 1.5 of A] {$I_2$};
+\node (P2) [below=1.5 of I2] {$P_2$};
+\path
+  (I1) edge[->] node[above left,inner sep=1] {$u_1$} (A)
+  (I1) edge[->] node[left] {$d_1$} (P1)
+  (I2) edge[->] node[above right,inner sep=1] {$u_2$} (A)
+  (I2) edge[->] node[right] {$d_2$} (P2);
+\path[morphism]
+  (P1) edge[->] node[above] {$v$} (P2);
+\path[red,color=red]
+  (I1) edge[->] node[below] {$k$} (I2);
+\end{tikzpicture}
+\end{equation}
+\emph{Conservative pattern shift for $v$} is the subrelation $\ccP_v\subseteq \cP_v$ consisting of span pairs for which, in addition, the lower square of \eqref{pattern shift} is a pushout.
+\end{definition}
+%
+The following lists some essential properties of pattern shifting.
+
+\begin{proposition}[pattern shift properties]\plabel{pattern shift}
+Let $v:P_1\to P_2$ be an arrow, and let $(s_1,s_2)\in \cP_v$.
+\begin{enumerate}[topsep=\smallskipamount]
+\item\label{pattern-preserves} For all arrows $g,h$, if $s_2\commutes (g,h)$ then $s_1\commutes (g,v;h)$;
+\item\label{pattern-transitive} For all arrows $t:P_2\to P_3$, if $(s_2,s_3)\in \cP_t$ then  $(s_1,s_3)\in \cP_{v;t}$;
+\item\label{pattern-congruence} For all spans $s$, if $s\spcomp s_1$ and $s \spcomp s_2$ are defined then $(s\spcomp s_1,s \spcomp s_2)\in \cP_v$.
+\end{enumerate}
+If $(s_1,s_2)\in \ccP_v$, then in addition:
+\begin{enumerate}[resume,topsep=\smallskipamount]
+\item\label{conservative-reflects} For all arrows $g,h$, if $s_1\commutes (g,h)$ then $h=v;h'$ and $s_2\commutes (g,h')$;
+\item\label{conservative-transitive} For all arrows $t:P_2\to P_3$, if $(s_2,s_3)\in \ccP_t$ then $(s_1,s_3)\in \ccP_{v;t}$;
+\item\label{conservative-congruence} For all spans $s=\spanof{a}{\id}$, if $s\spcomp s_1$ and $s\spcomp s_2$ are defined then $(s\spcomp s_1,s\spcomp s_2)\in \ccP_v$.
+\end{enumerate}
+\end{proposition}
+%
+\begin{fullorname}
+\begin{proof}
+Let $v:P_1\to P_2$ and $t:P_2\to P_3$ be arrows, and let $(s_1,s_2)\in \cP_v$. Let $s_i=\spanof{u_i:I_i\to A}{d_i:I_i\to P_i}$ for $i=1,2,3$.
+\begin{enumerate}[topsep=\smallskipamount]
+\item Assume $s_2\commutes (g,h)$, hence $u_2;g=d_2;h$. It follows that $u_1;g=k;u_2;g=k;d_2;h=d_1;v;h$, hence $s_1\commutes (g,v;h)$.
+
+\item Assume $(s_2,s_3)\in \cP_{t}$; hence there are $k_v$ and $k_t$ making the pentagons of \eqcite{pattern shift} commute for $v$ and $t$, respectively. Then $k_v;k_t$ likewise satisfies the role of $k$ in \eqref{pattern shift} for $v;t$. If, moreover, the lower square of the constituent pentagons (for $v$ and $t$) are pushouts, then by pushout composition so is the lower square of the composed pentagon, which establishes clause \ref{conservative-transitive}.
+
+\item Let $s=\spanof{b:J\to B}{a:J\to A}$. The following figure shows the pentagon obtained for $(s \spcomp s_1,s \spcomp s_2)$.
+\begin{center}
+\begin{tikzpicture}[on grid]
+\node (A) {$A$};
+\node (J1) [left=1.5 of A] {};
+\node (J2) [right=1.5 of A] {};
+\node (I1) [below left=1 and 1.5 of A] {$I_1$};
+\node (P1) [below=of I1] {$P_1$};
+\node (I2) [below right=1 and 1.5 of R] {$I_2$};
+\node (P2) [below=of I2] {$P_2$};
+\path
+  (I1) edge[->] node[above left,near end,inner sep=1] {$u_1$} (A)
+  (I1) edge[->] node[left] {$d_1$} (P1)
+  (I2) edge[->] node[above right,near end,inner sep=1] {$u_2$} (A)
+  (I2) edge[->] node[right] {$d_2$} (P2);
+\path[morphism]
+  (P1) edge[->] node[above] {$v$} (P2);
+\path
+  (I1) edge[->] node[above] {$k$} (I2);
+
+\node (J) [above=1.5 of A] {$J$};
+\node (B) [above=of J] {$B$};
+\node (J1) [below left=1 and 1.5 of J,inner sep=1pt] {$J_1$};
+\node (J2) [below right=1 and 1.5 of J,inner sep=1pt] {$J_2$};
+\path (J) edge[->] node[right] {$b$} (B)
+      (J) edge[->] node[right] {$a$} (A)
+	  (J1) edge[->] node[above left,inner sep=1] {$u'_1$} (J)
+	  (J2) edge[->] node[right] {$a_2$} (I2)
+	  (J2) edge[->] node[above right,inner sep=1] {$u'_2$} (J)
+	  (J1) edge[->] node[left] {$a_1$} (I1);
+\path (J1) edge[-{Straight Barb[black,length=6pt,width=17pt]},white] +(5mm,-2.5mm);
+\path (J2) edge[-{Straight Barb[black,length=6pt,width=17pt]},white] +(-5mm,-2.5mm);
+
+\path[red,color=red]
+  (J1) edge[->] node[near start,below] {$k'$} (J2);
+\end{tikzpicture}
+\end{center}
+%
+Given that $J_2$ is the pullback object of $(a,u_2)$ and $u'_1;a=a_1;u_1=a_1;k;u_2$, the red $k'$ uniquely exists such that $k';u'_2=u'_1$ and $k';a_2=a_1;k$. Hence $k'$ satisfies the properties of the required mediating morphism between $s\spcomp s_1=\spanof{u'_1;b}{a_1;d_1}$ and $s\spcomp s_2=\spanof{u'_2;b}{a_2;d_2}$.
+\end{enumerate}
+%
+Now let $(s_1,s_2)\in \ccP_v$.
+%
+\begin{enumerate}[resume,topsep=\smallskipamount]
+\item Assume $s_1\commutes (g,h)$ for $g:A\to G,h:P_1\to G$, hence $u_1;g=d_1;h$. It follows that $k;u_2;g=d_1;h$, hence by the pushout property of the lower square of \eqref{pattern shift} there is a unique $e:P_2\to G$ such that $u_2;g=d_2;e$ and $h=v;e$, implying $s_2\commutes (g,e)$.
+
+\item Shown as part of the proof of clause \ref{pattern-transitive} above.
+
+\item In the case where $s=\spanof{a}{\id_A}$ for some arrow $a$, the composition $s \spcomp s_i$ is simply $\spanof{a;u_i}{d_i}$. The lower square of the pentagon \eqref{pattern shift} for $(s\spcomp s_1,s\spcomp s_2)$ is then the same as that for $(s_1,s_2)$, hence it is a pushout.
+\qed
+\end{enumerate}
+\end{proof}
+\end{fullorname}
+%
+\iffull
+Hence pattern shift preserves models (clause \ref{pattern-preserves}) and conservative pattern shift reflects models (clause \ref{conservative-reflects}), both ``modulo" the arrow $v$; both pattern shift and conservative pattern shift are transitively closed (modulo the arrow: clauses \ref{pattern-transitive} and \ref{conservative-transitive}); finally, pattern shift is a congruence with respect to prefixing an arbitrary span (clause \ref{pattern-congruence}), while conservative pattern shift is a congruence with respect to prefixing a span having an iso as right leg  (clause \ref{conservative-congruence}).
+
+\fi
+For the analogy with the arrow-based case, let $\cA_v=\setof{(a_1,a_2)\mid a_2=a_1;v}$; this constitutes a set of ``arrow pattern shift pairs" that play exactly the role captured by clause \ref{pattern-preserves}, but with respect to the satisfaction relation of ab-conditions. The conservative case (which we did not go into for ab-morphisms) would correspond to $\ccA_v=\setof{(a_1,a_2)\in \cA\mid a_1=a_2;x \text{ with } x;v=\id}$.
+
+Using pattern shift, we define morphisms over sb-conditions as follows.
+%
+\begin{definition}[span-based (complete) condition morphism]\dlabel{sb-morphism}
+  Given two sb-conditions $c,b$, a \emph{forward-shift [backward-shift] sb-morphism} $m:c\to b$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
+  \begin{itemize}[topsep=\smallskipamount]
+  \item $o:[1,|b|]\to [1,|c|]$ is a function from $b$'s branches to $c$'s branches;
+  \item for all $1\leq i\leq |b|$, $v_i:P^c_{o(i)}\to P^b_i$ is a arrow from the pattern of $p^c_{o(i)}$ to that of $p^b_i$ such that $(s^c_{o(i)},s^b_i)\in \cP_{v_i}$;
+  \item \emph{Forward shift:} for all $1\leq i\leq |b|$, there is a forward root shifter $\cF_i$ for $v_i$ such that $m_i:b_i \to \cF_i(c_{o(i)})$ is a forward-shift morphism;
+  \item \emph{Backward shift:} for all $1\leq i\leq |b|$, there is a backward root shifter $\cB_i$ for $v_i$ such that $m_i:\cB(b_i) \to  c_{o(i)}$ is a backward-shift morphism.
+  \end{itemize}
+  The morphism $m$ is called \emph{direct} if all $\cF_i$ [$\cB_i$] and $m_i$ are direct, and is called \emph{complete} if $o$ is surjective and for all $1\leq i\leq |b|$, $(s^c_{o(i)},s^b_i)\in \ccP_{v_i}$, $\cF_i$ [$\cB_i$] is complete and $m_i$ is complete.
+\end{definition}
+%
+Note that, by \asscite{sb-shifters}, only direct (forward or backward) span root shifters are complete, hence also only direct sb-morphisms can be complete.
+
+Just as for the arrow-based case, one of the most essential properties of span-based condition morphisms is that they reflect models. In addition, complete span-based condition morphisms also preserve models. The following lifts \pcite{ab-morphisms preserve models} to sb-conditions, and extends it with the case for completeness.
+
+\begin{proposition}[sb-condition morphisms reflect models]
+                   \plabel{sb-morphisms preserve models}
+Let $c,b \in \SC{R}$ be span-based conditions. If $m:c\to b$ is an sb-morphism, then $g\sat b$ implies $g \sat c$ for all arrows $g:R\to G$. Moreover, if $m$ is complete, then also $g\sat c$ implies $g\sat b$ for all $g$.
+\end{proposition}
+%
+\begin{fullorname}
+\begin{proof}
+By induction on the depth of $m$. If $m:c\to b$ is an sb-morphism and $g\sat b$, then let $p^b_i$ be the responsible branch and $h$ the witness such that $\spanof{u^b_i}{d^b_i}\commutes (g,h)$ and $h\nsat b_i$, and let $j=o(i)$. Since $(s^c_j,s^b_i)\in \cP_{v_i}$, it follows by \pcite{pattern shift}.\ref{pattern-preserves} that $\spanof{u^c_j}{d^c_j}\commutes (g,v_i;h)$. Now assume (ad absurdum) that $v_i;h\sat c_j$. This will lead to a contradiction, hence $g\sat c$ with responsible branch $p^c_j$ and witness $v_i;h$.
+\begin{itemize}[topsep=\smallskipamount]
+\item For the forward-shift case, due to \pref{sb-shifters preserve} it follows that $h\sat \cF_i(c_j)$, and hence by the induction hypothesis the existence of $m_i:b_i \to \cF_i(c_j)$ implies $h\sat b_i$, contradicting the above.
+
+\item For the backward-shift case, by the induction hypothesis the existence of $m_i:\cB_i(b_i)\to c_j$ implies $v_i;h\sat \cB_i(b_i)$, and hence due to \pref{sb-shifters preserve} it follows that $h\sat b_i$, contradicting the above.
+\end{itemize}
+If $m$ is complete and $g\sat c$, then let $p^c_j$ be the responsible branch and $h$ the witness such that $\spanof{u^c_j}{d^c_j}\commutes (g,h)$ and $h\nsat c_j$. Let $i$ be such that $j=o(i)$ (which exists because $o$ is surjective). Since $(s^c_j,s^b_i)\in \ccP_{v_i}$, it follows by \pcite{pattern shift}.\ref{conservative-reflects} that $\spanof{u^b_i}{d^b_i}\commutes (g,h')$ for some $h'$ such that $h=v_i;h'$. Now assume (ad absurdum) that $h'\sat b_i$. This will lead to a contradiction, hence $g\sat b$ with responsible branch $p^b_i$ and witness $h'$.
+\begin{itemize}[topsep=\smallskipamount]
+\item For the forward-shift case: by the induction hypothesis, the existence of the complete $m_i:b_i \to \cF_i(c_j)$ implies $h'\sat \cF_i(c_j)$. Since $\cF_i$ is complete, due to \pref{sb-shifters preserve} it follows that $h=v_i;h'\sat c_j$, contradicting the above.
+\item For the backward-shift case, since $\cB_i$ is complete, due to \pref{sb-shifters preserve} it follows that $h=v_i;h'\sat \cB_i(b_i)$, and hence by the induction hypothesis the existence of the complete $m_i:\cB_i(b_i)\to c_j$ implies $h\sat c_j$, contradicting the above.
+\qed
+\end{itemize}
+\end{proof}
+\end{fullorname}
+%
+\begin{example}\exlabel{sb-morphisms}
+For the span-based conditions in \fcite{sb-conditions}, we have a complete forward-shift morphism $m:b_1'\to b_1$, providing evidence that $b_1\equiv b_1'$; moreover, there are also morphisms $m':b_2\to b_1$ and $m'':b_3\to b_2$. All the required morphism arrows are already shown in the figure. Note that, in \excite{ab-morphisms}, we observed that there does \emph{not} exist an arrow-based morphism from $c_2$ to $c_1$; hence the existence of a span-based morphism between the equivalent $b_2$ and $b_1$ is concrete evidence for our claim, in \scite{categories} below, that the structure of span-based conditions allows more morphisms between them.
+\end{example}
+%
+We now once more return to the level of categories, using the exact same constructions for identity morphisms and morphism composition as in the arrow-based case (see \eqref{morphism composition} and \eqref{id-morphism}).
+\iffull
+To repeat, if $e,c,c$ are sb-conditions and $m\of e\to c,n\of c\to b$ are sb-morphisms with $|b|=w$:
+%
+\begin{align*}
+\id_b & = (\id_{[1,w]},(\id_{P^b_1},\id_{b_1})\cdots
+                       (\id_{P^b_w},\id_{b_w})) \\
+m;n & =
+   (o^n;o^m,(v^m_{o^n(1)};v^n_1,n_1;m_{o^n(1)})\cdots 
+              (v^m_{o^n(w)};v^n_w,n_w;m_{o^n(w)}))
+%               \\
+% m;n & = (o^m;o^n, (v^n_{o^m(1)};v^m_1,n_{o^m(1)};m_1)\cdots
+%                   (v^n_{o^m(w)};v^m_w,n_{o^m(w)};m_w)) 
+\enspace.
+\end{align*}
+%
+The next lemma lifts \lcite{ab-morphisms compose} to sb-morphisms and extends it with the notion of completeness.
+
+\begin{lemma}[identities and composition of sb-morpisms]\llabel{sb-morphisms compose}
+Let $e,c,b$ be span-based conditions and $m\of e\to c,n\of c\to b$ span-based condition morphisms.
+\begin{enumerate}[topsep=\smallskipamount]
+\item $\id_b$ is both a complete forward- and a complete backward-shift morphism from $b$ to $b$;
+\item If $m$ and $n$ are [complete] forward-shift morphisms, then $m;n$ is a [complete] forward-shift morphism from $e$ to $c$;
+\item If $m$ and $n$ are backward-shift morphisms, then $m;n$ is a backward-shift morphism from $e$ to $c$.
+\end{enumerate}
+\end{lemma}
+\else
+As in the case of ab-conditions (\lcite{ab-morphisms compose}), identities and morphism composition have the expected properties. In fact, also complete forward-shift morphisms compose, but (surprisingly, at least in our view) complete backward-shift morphisms do not.
+\fi
+We can therefore lift and extend \thcite{ab-categories} to the span-based case.
+
+\begin{theorem}[categories of span-based conditions]\thlabel{sb-categories}
+Consider the following categories having sb-conditions as objects and different arrows: 
+$\SBC^\forw$ with forward-shift morphisms, $\SBC^{\back}$ with backward-shift morphisms, $\SBC^{\forw{\circ}}$ with complete forward-shift morphisms, $\SBC^{\entails}$ with the preorder of semantic entailment ($c \leq b$ iff $c\entails b$), and $\SBC^\equiv$ with the preorder (actually, equivalence) of semantic equivalence. These are well-defined, and there are identity-on-objects functors $\op{(\SBC^\forw)} \to \SBC^{\entails}$, $\op{(\SBC^\back)} \to \SBC^{\entails}$ and $\op{(\SBC^{\forw{\circ}})} \to \SBC^{\equiv}$.
+\end{theorem}
+%
+We end our presentation of sb-conditions by again establishing two indexed categories, now based on the category of span source shifters $\bC^\sshift$, lifting \pcite{ab indexed} to the span-based case.
+
+\begin{proposition}[$\bC^\sshift$-indexed categories]\plabel{sb indexed}
+There are functors $\SCx^\forw$ and $\SCx^\back$ from $\op{(\bC^\sshift)}$ to $\Cat$, establishing $\bC^\sshift$-indexed categories.
+\end{proposition}
+
+\section{From arrow-based to span-based and back}
+\slabel{categories}
+
+Span-based conditions are richer in morphisms than arrow-based conditions, but semantically equivalent. In this subsection we show the existence of faithful, semantics-preserving functors from the categories of forward- and backward-shift arrow-based conditions to their span-based counterparts, and we also show equivalence of the entailment-based categories.
+
+First, we inductively define the ``natural'' span-based conditon $\cN(c)$ for an arbitrary arrow-based condition $c\in \AC R$ and $\cN(p)$ for a branch $p\in \AB R$. 
+\begin{align*}
+\cN: c = (R,p_1\ccdots p_w) & \mapsto (R,\cN(p_1)\ccdots \cN(p_w)) \\
+      p=(a,c) & \mapsto (\spanof{\id_R}{a},\cN(c)) \enspace.
+\end{align*}
+%
+It follows (by induction) that $\cN(c)\in \SC R$ and $\cN(p)\in \SB R$. This transformation fully preserves the (satisfaction-based) semantics of conditions.
+
+\begin{proposition}[$\cN$ preserves semantics]\plabel{N preserves semantics}
+Let $c\in \AC R$. For all $g\of R\to G$, $g\sat c$ iff $g\sat\cN(c)$. As a consequence, for all $b\in \AC R$, $b\entails c$ if and only if $\cN(b)\entails \cN(c)$.
+\end{proposition}
+%
+This is actually implied by \pcite{A preserves semantics} in combination with \lcite{N-A} below. Morphisms remain essentially identical under $\cN$:
+%
+\[ \cN: (o,(v_1,m_1)\ccdots (v_w,m_w)) \mapsto (o,(v_1,\cN(m_1))\ccdots (v_w,\cN(m_w))) \enspace. \]
+%
+$\cN$ both preserves and reflects morphisms, in the following sense.
+%
+\begin{proposition}
+$m\of c\to b$ is a forward-shift [backward-shift] ab-condition morphism if and only if $\cN(m)\of \cN(c)\to \cN(b)$ is a forward-shift [backward-shift] sb-condition morphism.
+\end{proposition}
+%
+\begin{proof}[sketch]
+There are two things to be shown: namely,
+\begin{enumerate*}[label=\emph{(\roman*)}]
+\item the action of arrow-based forward and backward shifters on $a$ coincides with that of span-based forward and backward shifters on $\spanof{id}{a}$, and
+\item the commutation condition $a_1=v;a_2$ (for ab-condition morphisms) holds if and only if $(\spanof{\id}{a_1},\spanof{\id}{a_2})\in \cP_v$.
+\end{enumerate*}
+The latter is immediate. For the former, briefly using $\hat \cS$ to denote span shifters, the essential property is that $\hat\cB_v^\circ(\spanof{\id}{a})=\spanof{id}{\cB_v(a)}$ and $\hat\cF_v^s(\spanof{\id}{a})=\spanof{id}{\cF_v^s(a)}$. (Span shifters of the form $\hat\cB_v^x$ or $\hat\cF_v^\circ$ do not preserve the property that the left span-leg is the identity, hence are not suitable to support morphisms from $\cN(c)$ to $\cN(b)$.)
+\qed
+\end{proof}
+%
+Since identities and morphism composition are obviously preserved by $\cN$, we have the following result, also illustrated in \fcite{categories}:
+
+\begin{theorem}[arrow-based to span-based functors]\thlabel{ab-to-sb functors}
+$\cN$ is a faithful functor from $\ABC^\forw$ to $\SBC^\forw$, from $\ABC^\back$ to $\SBC^\back$ and (with the appropriate, obvious mapping of arrows) from $\ABC^{\entails}$ to $\SBC^{\entails}$, which commute with the functors of \thcite{ab-categories} and \thcite{sb-categories}.
+\end{theorem}
+%
+From span-based to arrow-based conditions with forward- or backward-shift morphisms, there does not exist a functor, as the span-based categories are richer in morphisms --- for instance, \fcite{sb-conditions} shows an example span-based morphism $m':b_2\to b_1$, whereas no arrow-based morphism exists between the equivalent $c_2$ and $c_1$ in \fcite{ab-conditions} (confer Examples \exref{ab-morphisms} and~\exref{sb-morphisms}). However, we now show that span-based conditions themselves are semantically not more expressive than arrow-based ones: there does exist a semantics-preserving mapping from $\SC A$ to $\AC A$ for all $A$.
+
+Let $(d'_s,u'_s)$ denote the pushout cospan for a span $s=\spanof u d$. We inductively define $\cA$ on sb-conditions and sb-branches, as follows:
+%
+\begin{align*}
+\cA: (R,p_1\ccdots p_w) & \mapsto (R,\cA(p_1)\ccdots \cA(p_w)) \\
+     (s,c) & \mapsto (d'_s,\cA(\dF{u'_s}(c))) \enspace.
+\end{align*}
+%
+For instance, taking again the ab-conditions in \fcite{ab-conditions} and their sb-condition counterparts in \fcite{sb-conditions}, it can be checked that $\cA(b_1)=\cA(b'_1)=c_1$, $\cA(b_2)=c_2$ and $\cA(b_3)=c_3$.
+
+$\cA$ acts as the (left) inverse of the action of $\cN$ on objects, due to $d'_s=\id$ and $u'_s=a$ for $s=\spanof{\id}{a}$:
+%
+\begin{lemma}\llabel{N-A}
+For any arrow-based condition $c$, $\cA(\cN(c))=c$.
+\end{lemma}
+%
+The following property is the counterpart of \pcite{N preserves semantics}, and actually implies it thanks to \lcite{N-A}:
+%
+\begin{proposition}[$\cA$ preserves semantics]\plabel{A preserves semantics}
+If $c\in \SC R$, then $\cA(c)$ is an arrow-based condition in $\AC R$ such that for all $g\of R\to G$, $g\sat c$ iff $g\sat\cA(c)$. In consequence, for all $b\in \SC R$, $b\entails c$ if and only if $\cA(b)\entails \cA(c)$.
+\end{proposition}
+%
+\begin{proof}[sketch]
+By induction on the depth of $c$, using that $g=d'_s;h$ iff $s\commutes (g,u'_s;h)$ for any model/witness pair $(g,h)$, in combination with the fact that $\dF{u'_s}$ preserves models adding $u'_s$ and reflects them erasing $u'_s$ (\pcite{sb-source shifters}).\qed
+\end{proof}
+%
+This implies that (as claimed above) span-based conditions are semantically not more expressive than arrow-based categories. The formal statement comes down to an equivalence of the respective categories, also illustrated in \fcite{categories}.
+%
+\begin{theorem}[equivalence of arrow-based and span-based entailment]\thlabel{sb-to-ab functor}
+$\cA$ is a (full and faithful) functor from $\SBC^{\entails}$ to $\ABC^{\entails}$, surjective on objects, which (together with its left and right adjoint $\cN$) establishes that the categories are equivalent.
+\end{theorem}
+
+
+\begin{figure}[t]
+\centering
+\input{figs/categories}
+\caption{Overview of categories and functors studied in this paper}
+\flabel{categories}
+\end{figure}
+

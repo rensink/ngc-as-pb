@@ -1,0 +1,21 @@
+\begin{tikzpicture}[on grid]
+  \node (Rb) [below] {$R^b$};
+  \node (Ib) [below=of Rb] {$I^b_i$};
+  \node (Pb) [below=of Ib] {$P^b_i$};
+  \node (cb) [triangle,below=.15 of Pb.center] {$b_i$};
+
+  \path (Ib) edge[->] node[left] {$u^b_i$} (Rb)
+        (Ib) edge[->] node[left] {$d^b_i$} (Pb);
+
+  \node (Rc) [right=2.5 of Rb] {$R^c$};
+  \node (Ic) [below=of Rc] {$I^c_{o(i)}$};
+  \node (Pc) [below=of Ic] {$P^c_{o(i)}$};
+  \node (cc) [triangle,below=.15 of Pc.center] {$c_{o(i)}$};
+
+  \path (Ic) edge[->] node[right] {$u^c_{o(i)}$} (Rc)
+        (Ic) edge[->] node[right] {$d^c_{o(i)}$} (Pc);
+
+  \path (Rb) edge[->] node[above] {$t^m$} (Rc)
+        (Ic) edge[->] node[above] {$k_i$} (Ib)
+        (Pc) edge[->] node[above] {$t_i$} (Pb);
+\end{tikzpicture}

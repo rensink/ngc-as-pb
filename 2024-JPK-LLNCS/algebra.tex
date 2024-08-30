@@ -1,0 +1,51 @@
+\section{The algebra of Nested Graph Conditions}
+
+Needed definitions:
+\begin{enumerate}
+  \item Monoidal signature $\Sigma = \bigcup\{_n\Sigma_m\}_{n,m \in \nat}$, arity $ar(\sigma) = n$ and coarity $coar(\sigma)=m$ iff $\sigma \in {_n\Sigma_m}$.
+  \item (Finite?) Edge-labeled hypergraphs: $G =\< V,E,l:E \to \Sigma, s,t:E \to V^*\>$ with: for all $e\in E$ it holds $ar(l(e)) = |s(e)|$ and $coar(l(e)) = |t(e)|.$
+  \item Category of hypergraphs and their morphisms $HGraphCat$. 
+  \item Need a notation for the discrete graph (set) with $n$ nodes. For example: 
+  $\ul{n} = \{1,\ldots, n\}$
+  \item Discrete cospan (aka \emph{ranked hypergraph}, $n,m$-hypergraphs, $n,m$-ranked hypergraph ?): $\<l,G,r\>$, with $l:\ul{n} \to V_G$, $r:\ul{m} \to V_G$.
+  \item \emph{Positions}: finite strings of positive natural numbers ($\Pos$) (including the empty $\varepsilon$, if possible concatenation is juxtaposition, $w$, $iw$, $wj$ with $w \in \Pos, i,j \in \pnat$); \emph{closed set of positions}: $W \subseteq \Pos$ such that (1) it is finite, (2) it is prefix closed: $wi \in W \Rightarrow w \in W$, (3) it is downward closed (?)  $wi \in W, i > 1 \Rightarrow w(i-1) \in W$. 
+\end{enumerate}  
+
+\note{AC: We can define conditions first, and then ranked / typed ones}
+
+\begin{definition}[(nested) conditions]
+  \note{AC: Several definitions possible.}
+  \begin{enumerate}
+    \item
+    A \emph{(nested) condition} $C$ is a finite, non-empty, ordered\footnote{AC: we order the children of each node just to give them a name using a position, but intuitively they should form a set.} tree in the category of hypergraphs. 
+    Formally, $NC = \<W, c:W \to |HGraphCat|, a:W\setminus\{\varepsilon\} \to Mor(HGraphCat)\>$, where $W$ is a closed set of positions, and for each $wi \in W$, $a(wi): c(w) \to c(wi)$ is a morphism in  $HGraphCat$. 
+
+    Typically, we denote hypergraph $c(w)$ as $C_w$. Therefore the root of $C$ is $C_{\varepsilon}$.
+    \item Recursive definiton using `conditions' and `predicates' as in the 2005 paper?
+    \item Coinductive definitions as in the paper with Barbara? 
+    \item An $n,m$-ranked condition $\<l,C,r\>$, is a condition $C$ equipped with morphisms $l,r$ making $\<l,C_{\varepsilon},r\>$  an $n,m$-ranked hypergraph .
+  \end{enumerate}
+\end{definition}
+
+In order to equip ranked graph conditions with Peircean Bicategorical structure, we define the needed algebraic operations on them, and prove that the relevant axioms hold, up to *** (semantical equivalence?).
+
+\begin{definition}[operations on conditions]
+
+  \begin{itemize}
+    \item The \emph{discharger} $!: 1 \to 0$ is the ranked condition 
+    $$\< id_{\ul{1}}, \< \{\varepsilon\}, \varepsilon\mapsto \ul{1}, \emptyset\>, ?_{\ul{1}}:
+   \ul{0} \to \ul{1}\>$$  
+   \item The \emph{co-discharger} $***: 0 \to 1$ is the ranked condition 
+   $$\< ?_{\ul{1}}:
+   \ul{0} \to \ul{1}, \< \{\varepsilon\}, \varepsilon\mapsto \ul{1}, \emptyset\>, id_{\ul{1}}\>$$
+
+%   \item  The \emph{duplicator} is component  $\Nabla_{RS} = \<RS [\rrel{id_{RS}} RS \lrel{ [id_{RS}, id_{RS}] }] RS + RS\>$;
+% %synchronises transformations between its left and two right interfaces; 
+% \item The \emph{co-duplicator} is component  $\Delta_{RS} = \<RS + RS [\rrel{ [id_{RS}, id_{RS}] } RS \lrel{id_{RS}}] RS\>$;
+% % synchronises transformations between its right and two left interfaces;
+% \item The \emph{discharger} is component  $!_{RS} = \<RS [\rrel{id_{RS}} RS \lrel{\emptyset}] S_\varnothing\>$;
+% % allows arbitrary transformations on its left interfaces;  
+% \item The \emph{co-discharger} is component $?_{RS} = \<S_\varnothing [ \rrel{\emptyset} RS \lrel{id_{RS}} ] RS\>$.
+% %allows arbitrary transformations on its right interface;  
+\end{itemize}
+\end{definition}
