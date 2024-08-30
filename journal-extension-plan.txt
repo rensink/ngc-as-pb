@@ -1,0 +1,8 @@
+Extension of Festschrift paper to journal version
+=================================================
+- Extend connection from arrow-based to FOL, so readers can translate examples
+
+- Get rid of the identity shifter if possible
+
+- Add characterisation of conjunction, disjunction, negation and existential for span-based conditions
+
