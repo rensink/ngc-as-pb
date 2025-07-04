@@ -41,7 +41,7 @@ In the span $\spanof u d$ of a branch $p=(\spanof u d,c)$, $u$ stands for the \e
 %
 As we will see in \scite{categories}, we can reconstruct an arrow-based condition from a span-based one.
 
-As examples of span-based conditions, \fcite{sb-conditions} shows counterparts for the three arrow-based conditions in \fcite{ab-conditions}: both $b_1$ and $b_1'$ are equivalent to $c_1$ (which is rather non-obvious in the case of $b_1'$), whereas $b_2$ is equivalent to $c_2$ and $b_3$ to $c_3$.
+As examples of span-based conditions, \fcite{sb-conditions} shows counterparts for the three arrow-based conditions in \fcite{ab-conditions}: both $b_1$ and $b_1'$ are equivalent to $c_1$ (which is rather non-obvious in the case of $b_1'$), whereas $b_2$ is equivalent to $c_2$ and $b_3$ to $c_3$.\todo{AC: Not obvious. Add correspondence between span-based conditions and FOL?}
 
 \begin{figure}[t]
 \centering
@@ -67,6 +67,8 @@ Satisfaction of sb-conditions is then defined as follows:
 %
 Note that this is entirely analogous to \dcite{ab-satisfaction}, especially if we would retrofit the notation $a\commutes (g,h)$ there. Like before, we call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat c$. Satisfaction of sb-conditions is visualised in \fcite{sb-satisfaction}.
 
+\todo{AC:  Add section about correspondence between span-based conditions in Graph and FOL? Could be concise, given that most definitions are in Section~\ref{sec:FOL}}
+
 \section{Span-based morphisms}
 \slabel{sb-morphisms}
 
@@ -81,6 +83,7 @@ To define morphisms of sb-conditions, we will go over the same ground as for ab-
 %
 The above is defined on individual pairs. For a relation $\cR$ over spans, we say that $\cR$ preserves [reflects] models adding [erasing] $v$ if it consists of pairs that do so.
 
+\todo{AC: also span source shifters are pre-composition functors, but with a span. This does not emerge clearly.}
 \begin{definition}[span source shifters]\dlabel{sb-shifters}
 Let us denote by $\cat{C^{sp}}(A,\_)$ the collection of all spans of \cat{C} with source $A$. Let $X,Y$ be objects of \cat{C}. 
 \begin{itemize}[topsep=\smallskipamount]
@@ -92,7 +95,7 @@ such that for all spans $s:X\to Z,t:Z\to U$:
 \cS(s \spcomp t) = \cS(s)\spcomp t \enspace.
 \end{equation}
 %
-\item Now let $v=A\to B$ be an arrow. $\cS$ is a \emph{forward span source shifter for $v$} if it is a span source shifter from $A$ to $B$ that preserves models erasing $v$, i.e., such that for all spans $s:A\to C$ and all pairs $g:A\to G,h:C \to G$:
+\item Now let $v=A\to B$ be an arrow. $\cS$ is a \emph{forward span source shifter for $v$} if it is a span source shifter from $A$ to $B$ that preserves models erasing $v$, i.e., such that for all spans $s:A\to C$ and all pairs $g:B\to G,h:C \to G$:
 %
 \begin{equation}\eqlabel{sb-forward condition}
 s\commutes (v;g,h) \enspace\text{ implies }\enspace \cS(s) \commutes (g,h) \enspace.
@@ -166,11 +169,8 @@ We now show that $\cB_v^x$ is a backward span source shifter for $v$, i.e., that
 %The ability to forward-shift and backward-shift in many different ways means that there are equally many options for building morphisms. In fact, however, we will show later that all above root shifters for $v$ (both forward and backward) are subsumed by $\cF_v^\circ$, in the sense that entailment or equivalence of sb-conditions ``explained" by morphisms based on any of the (other) known root shifters can also be ``explained" by morphisms based on $\cF_v^\circ$.
 
 \medskip\noindent
-The step from span source shifters to span \emph{root} shifters is completely identical to the arrow-based case; we omit the definition here. A new aspect is the following.
+The step from span source shifters to span \emph{root} shifters is completely identical to the arrow-based case; we omit the definition here. 
 
-\begin{proposition}
-The trivial root shifter $\cI_{A,B}$ is both a complete forward span root shifter and a complete backward span root shifter for any arrow $v:A\to B$. 
-\end{proposition}
 %
 Span root shifters satisfy the analogous properties of arrow root shifters formulated in Propositions \pref{ab-root shifters preserve} (model preservation) and \pref{ab-shifters compose} (identities and composition), both extended with the case of complete shifters. 
 \iffull
@@ -180,8 +180,8 @@ As the proofs are essentially identical, we omit them here.
 \begin{proposition}[span root shifters preserve models]\plabel{sb-shifters preserve}
 Let $v:A\to B$.
 \begin{enumerate}[topsep=\smallskipamount]
-\item If $c\in \SC A$ and $\cF$ is a forward span root shifter for $v$ that is defined on $c$, then $v;g\sat c$ implies $g\sat \cF(c)$. If, moreover, $\cF$ is complete then also $g\sat \cF(c)$ implies $v;g\sat c$.
-\item If $c\in \SC B$ and $\cB$ is a backward span root shifter for $v$ that is defined on $c$, then $v;g\sat \cB(c)$ implies $g\sat c$. If, moreover, $\cB$ is complete then also $v;g\sat \cB(c)$ implies $g\sat c$.
+\item If $c\in \SC A$ and $\cF$ is a forward span root shifter for $v$, then $v;g\sat c$ implies $g\sat \cF(c)$. If, moreover, $\cF$ is complete then also $g\sat \cF(c)$ implies $v;g\sat c$.
+\item If $c\in \SC B$ and $\cB$ is a backward span root shifter for $v$, then $v;g\sat \cB(c)$ implies $g\sat c$. If, moreover, $\cB$ is complete then also $v;g\sat \cB(c)$ implies $g\sat c$.
 \end{enumerate}
 \end{proposition}
 %
@@ -193,7 +193,7 @@ The precise statement is given in Prop.~A.2 of~\cite{RensinkCorradini-JPK2024-fu
 \begin{fullorname}[\pname{sb-shifters compose}] 
 \begin{proposition}[span shifters compose]\plabel{sb-shifters compose}
 \begin{enumerate}[topsep=\smallskipamount]
-\item If $\cU$ is a span source [root] shifter from $X$ to $Y$ and $\cV$ a span source [root] shifter from $Y$ to $Z$, then $\cU;\cV$ (understood as partial function composition) is a span source [root] shifter from $X$ to $Z$. 
+\item If $\cU$ is a span source [root] shifter from $X$ to $Y$ and $\cV$ a span source [root] shifter from $Y$ to $Z$, then $\cU;\cV$ is a span source [root] shifter from $X$ to $Z$. 
 \item If $\cU$ and $\cV$ are [complete] forward span source [root] shifters for $u: X\to Y$ and $v: Y \to Z$, respectively, then $\cU;\cV$ is a [complete] forward source [root] shifter for $u;v$.
 \item Dually, if $\cU$ and $\cV$ are [complete] backward span source [root] shifters for $u: Y\to X$ and $v: Z \to Y$, respectively, then $\cU;\cV$ is a [complete] backward span source [root] shifter for $v;u$.
 \end{enumerate}
@@ -213,12 +213,12 @@ Let $t:A\to B,v:B\to C$ be arrows; then
 \end{lemma}
 \end{comment}
 %
-We call the span source and root shifters of the shape $\dF v$, $\rF v x$, $\dB v$, $\rB v x$ and $\cI_{A,B}$ \emph{elementary}. It is not the case that every span shifter is elementary; e.g., $\dF{v_1};\rF{v_2}{x_2}$ is in general not equal to $\dF{v_1;v_2}$ or to $\rF{v_1;v_2} x$ for any $x$. However, for the remainder of this paper we will restrict ourselves to span shifters that are at least \emph{composed} from elementary ones, in the following sense:
+We call the span source and root shifters of the shape $\dF v$, $\rF v x$, $\dB v$ and $\rB v x$ \emph{elementary}. It is not the case that every span shifter is elementary; e.g., $\dF{v_1};\rF{v_2}{x_2}$ is in general not equal to $\dF{v_1;v_2}$ or to $\rF{v_1;v_2} x$ for any $x$. However, for the remainder of this paper we will restrict ourselves to span shifters that are at least \emph{composed} from elementary ones, in the following sense:
 
 \begin{assumption}\asslabel{sb-shifters} Let $\cS$ be a span root shifter for $v$.
 \begin{itemize}[topsep=\smallskipamount]
-\item If $\cS$ is a forward shifter, then $\cS = \cS_1;\cdots;\cS_n$ where each $\cS_i$ is an elementary forward shifter for some $v_i$ such that $v=v_1;\cdots;v_n$. If, moreover, $\cS$ is complete then all $\cS_i$ are complete --- in which case either $\cS$ is trivial or $\cS_i=\dF{v_i}$ for all $i$ and $\cS=\dF v$.
-\item If $\cS$ is a backward shifter, then $\cS = \cS_1;\cdots;\cS_n$ where each $\cS_i$ is an elementary backward shifter for some $v_i$ such that $v=v_n;\cdots;v_1$. If, moreover, $\cS$ is complete then all $\cS_i$ are complete --- in which case either $\cS$ is trivial or $\cS_i=\dB{v_i}$ for all $i$ and $\cS=\dB v$.
+\item If $\cS$ is a forward shifter, then $\cS = \cS_1;\cdots;\cS_n$ where each $\cS_i$ is an elementary forward shifter for some $v_i$ such that $v=v_1;\cdots;v_n$. If, moreover, $\cS$ is complete then all $\cS_i$ are complete --- in which case $\cS_i=\dF{v_i}$ for all $i$ and $\cS=\dF v$.
+\item If $\cS$ is a backward shifter, then $\cS = \cS_1;\cdots;\cS_n$ where each $\cS_i$ is an elementary backward shifter for some $v_i$ such that $v=v_n;\cdots;v_1$. If, moreover, $\cS$ is complete then all $\cS_i$ are complete --- in which case  $\cS_i=\dB{v_i}$ for all $i$ and $\cS=\dB v$.
 \end{itemize}
 \end{assumption}
 
@@ -408,7 +408,7 @@ We can therefore lift and extend \thcite{ab-categories} to the span-based case.
 
 \begin{theorem}[categories of span-based conditions]\thlabel{sb-categories}
 Consider the following categories having sb-conditions as objects and different arrows: 
-$\SBC^\forw$ with forward-shift morphisms, $\SBC^{\back}$ with backward-shift morphisms, $\SBC^{\forw{\circ}}$ with complete forward-shift morphisms, $\SBC^{\entails}$ with the preorder of semantic entailment ($c \leq b$ iff $c\entails b$), and $\SBC^\equiv$ with the preorder (actually, equivalence) of semantic equivalence. These are well-defined, and there are identity-on-objects functors $\op{(\SBC^\forw)} \to \SBC^{\entails}$, $\op{(\SBC^\back)} \to \SBC^{\entails}$ and $\op{(\SBC^{\forw{\circ}})} \to \SBC^{\equiv}$.
+$\SBC^\forw$ with forward-shift morphisms, $\SBC^{\back}$ with backward-shift morphisms, $\SBC^{\forw{\circ}}$ with complete forward-shift morphisms, $\SBC^{\entails}$ with the preorder of semantic entailment ($c \leq b$ iff $c\entails b$), and $\SBC^\equiv$ with the preorder (actually, equivalence) of semantic equivalence. These are well-defined, and there are identity-on-objects functors $\op{(\SBC^\forw)} \to \SBC^{\entails}$, $\op{(\SBC^\back)} \to \SBC^{\entails}$ and $\op{(\SBC^{\forw{\circ}})} \to \SBC^{\equiv}$.\todo{AC:add a proof sketch?}
 \end{theorem}
 %
 We end our presentation of sb-conditions by again establishing two indexed categories, now based on the category of span source shifters $\bC^\sshift$, lifting \pcite{ab indexed} to the span-based case.
@@ -471,7 +471,7 @@ Let $(d'_s,u'_s)$ denote the pushout cospan for a span $s=\spanof u d$. We induc
 %
 For instance, taking again the ab-conditions in \fcite{ab-conditions} and their sb-condition counterparts in \fcite{sb-conditions}, it can be checked that $\cA(b_1)=\cA(b'_1)=c_1$, $\cA(b_2)=c_2$ and $\cA(b_3)=c_3$.
 
-$\cA$ acts as the (left) inverse of the action of $\cN$ on objects, due to $d'_s=\id$ and $u'_s=a$ for $s=\spanof{\id}{a}$:
+$\cA$ acts as the (left) inverse of the action of $\cN$ on objects, due to $d'_s=a$ and $u'_s=id$ for $s=\spanof{\id}{a}$:
 %
 \begin{lemma}\llabel{N-A}
 For any arrow-based condition $c$, $\cA(\cN(c))=c$.

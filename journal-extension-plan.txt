@@ -6,3 +6,13 @@ Extension of Festschrift paper to journal version
 
 - Add characterisation of conjunction, disjunction, negation and existential for span-based conditions
 
+Journal submission [after FestColloquim]
+- include additionally:
+  - correspondance between NGC and FOL formulas
+  - explicit read-back: from condition to formula
+  - from formula to conditions give a construction for and/or/not/exists
+  - section on computable entailment 
+  - I would like to get rid of I_{X,Y}, the empty shifters. 
+- completeness for arrow based conditions - NO
+- Existential quantification: relations with backward shift, properties? Adjointness? Not clear. Relation with shift????
+- logical characterization of provable entailment ??? sarebbe bello

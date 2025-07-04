@@ -2,7 +2,7 @@
 \usepackage[inline]{enumitem}
 \usepackage{mathdots}
 \usepackage{mathtools}
-\usepackage{comment}
+\usepackage{comment} 
 \usepackage{subcaption}
 \usepackage{hyperref}
 \usepackage{ifthen}
@@ -126,7 +126,8 @@
 
 \newcommand{\commutes}{\circlearrowleft}
 
-\newcommand{\st}{.\;}
+%\newcommand{\st}{.\;}
+\newcommand{\st}{.\,}
 \newcommand{\id}{\mathit{id}}
 \newcommand{\depth}{\mathit{dp}}
 \newcommand{\fv}{\mathit{fv}}
@@ -135,6 +136,9 @@
 \newcommand{\nsat}{\not\models}
 \newcommand{\entails}{\models}
 \newcommand{\nentails}{\not\models}
+\newcommand{\iffdef}{:\Leftrightarrow}
+\newcommand{\restr}{\restriction}
+\newcommand{\Eq}{\mathbin{\doteq}}
 
 \newcommand{\pentapex}{\mathsf f}
 % \newcommand{\pentails}{\models^{\mathsf p}}
@@ -485,6 +489,8 @@
   (1) edge[->] node[above] {\gl{#2}} (2);
 }}
 
+
+
 % Edge + loop graph
 % #1: source node
 % #2: edge label
@@ -574,3 +580,22 @@
   (1) edge[->] node[above] {\gl{#2}} (2)
   (2) edge[<-] node[pos=.6,above] {\gl{#4}} (3);
 }}
+
+% added by Andrea -AC 
+
+\newcommand{\abc}[1]{C({#1})}
+
+% One-edge graph with explicit edge identity
+% #1: source node
+% #2: edge
+% #3: edge label
+% #4: target node
+\newcommand{\oneedgewithlab}[4]{\mygraph{
+\node[n] (1) {$#1$}; 
+\node[n] (2) [right=of 1] {$#4$};
+\path[e]
+  (1) edge[->] node[above] {$\scriptstyle{#2:\gl{#3}}$} (2);
+}}
+
+% Discrete graph with given set of nodes
+\newcommand{\disc}[1]{\ensuremath{\langle #1 \rangle}}

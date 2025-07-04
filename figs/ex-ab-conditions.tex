@@ -8,9 +8,9 @@
   \node[graph,below right=1 and 1.1 of 11] (112) {\looponeedge{x}{b}{c}{y}};
   \node[above left=0 of 112.north east,inner sep=1] {$c_{112}$};
   
-  \path (10) edge[->] (11)
-        (11) edge[->] (111)
-        (11) edge[->] (112);
+  \path (10) edge[->] node[left] {$f$} (11)
+        (11) edge[->] node[left] {$g$} (111)
+        (11) edge[->] node[right] {$h$}(112);
 
   \node[graph] (20) [right=4.2 of 10] {\onenode{x}};
   \node[left=0 of 20.west,inner sep=0] {$c_2$};
