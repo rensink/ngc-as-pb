@@ -12,7 +12,7 @@ Along the paper examples and intuitions will be based on $\cat{Graph}$, the cate
 
   Given a set $X$, we denote by $\disc{X} = (X,\varnothing,\varnothing,\varnothing,\varnothing)$ the \emph{discrete graph} having $X$ as nodes; thus $\disc{\varnothing}$ denotes the empty graph. Given a function $f\of X \to Y$ and a subset $X' \subseteq X$, by $f\restr X'\of X' \to Y$ we denote the obvious restriction. Graph $G$ is a \emph{subgraph} of $H$, written $G \subseteq H$, if $V_G \subseteq V_H$, $E_G \subseteq E_H$, $s_G = s_H\restr E_G$, $t_G = t_H\restr E_G$ and $\ell_G = \ell_H\restr E_G$. If $g \of H \to K$ is a graph morphism and $G \subseteq H$, then $g \restr G \of G \to K$ is its restriction defined componentwise for nodes and edges.  
 
-  Graphs $G$ and $H$ are \emph{disjoint} if $V_G \cap V_H = \varnothing = E_G \cap E_H$. In this case their \emph{union} is the (well-defined) graph $G \cup H$ defined in the expected way. Given morphisms $g\of G \to K$ and $h \of H \to K$, if $G$ and $H$ are disjoint we denote by $[g,h]\of G\cup H \to K$ the morphism defined as $[g,h](x) = g(x)$ if $x \in G$, and $[g,h](x) = h(x)$ if $x \in H$.\footnote{When not ambiguous we may omit some subscripts and use a graph name $G$ to denote the set of its items $V_G \cup E_G$.}\todo{AR: Later (e.g., \dcite{adding-nodes-to-condition}), we use $\cup$ for the union of morphisms; actually, I like that better.}
+  Graphs $G$ and $H$ are \emph{disjoint} if $V_G \cap V_H = \varnothing = E_G \cap E_H$. In this case their \emph{union} is the (well-defined) graph $G \cup H$ defined in the expected way. Given morphisms $g\of G \to K$ and $h \of H \to K$, if $G$ and $H$ are disjoint we denote by $[g,h]\of G\cup H \to K$ the morphism defined as $[g,h](x) = g(x)$ if $x \in G$, and $[g,h](x) = h(x)$ if $x \in H$.\footnote{When not ambiguous we may omit some subscripts and use a graph name $G$ to denote the set of its items $V_G \cup E_G$.}\todo{AR: Later (e.g., \dcite{adding-nodes-to-condition}), we use $\cup$ for the union of morphisms; actually, I like that better. AC: Those are slightly different, but ok}
 \end{definition}
 
 Referring to a graph, we often write $\oneedgewithlab{x}{e}{a}{y}$ to say that edge $e$ is such that $\ell(e)= \la$, $s(e) = x$ and $t(e) = y$, and $\oneedge{x}{a}{y}$ if there is such an edge.
@@ -549,7 +549,7 @@ To formalize this, we introduce an operation that adds fresh nodes to the root o
   \label{def:adding-nodes-to-condition}
   Let $c = (R,(a_1,c_1)\ccdots (a_w,c_w))$ be an ab-condition, and $J$ be a non-empty, finite set disjoint from all graphs in $c$; in particular, $J \cap V_R = \varnothing$. Condition $c \uplus J$ is defined as $c \uplus J = (R \cup \disc{J}, (a_1 \cup id_{\disc{J}}, c_1 \uplus J)\ccdots(a_w \cup id_{\disc{J}}, c_w \uplus J))$. 
 
-  A set of ab-conditions $\cC$ is \emph{upward closed} if for each $c \in \cC$ and non-empty finite set $J$,\todo{AR: disjoint from all graphs in $c$?} if $J \cap V_{R^c} = \varnothing$ then $c \uplus J \in \cC$.
+  A set of ab-conditions $\cC$ is \emph{upward closed} if for each $c \in \cC$ and non-empty finite set $J$ disjoint from all graphs in $c$ it holds that $c \uplus J \in \cC$. \todo{AR: disjoint from all graphs in $c$? AC: done} 
 \end{definition}
 
 Note that $c$ and $c \uplus J$ are incomparable with respect to entailment because they have different roots. Nevertherless, it is easy to prove that  
@@ -568,7 +568,7 @@ The  \emph{set of ab-conditions encoding a formula $\phi$}, denoted $\abc{\phi}$
 If $\phi = \False$, then $(\disc{\varnothing}, \epsilon)\in \abc{\phi}$.
 \item If $\phi = \True$, then $(\disc{\varnothing}, (id_{\disc{\varnothing}},(\disc{\varnothing},\epsilon)))\in \abc{\phi}$.
 \item 
-If $\phi = x \Eq y$, then $(\disc{\{x,y\}}, (\{x\mapsto \bullet,y \mapsto \bullet\}, (\disc{\{\bullet\}},\epsilon))) \in \abc{\phi}$.\todo{AR: I would prefer $x$ or $y$ rather than $\bullet$}
+If $\phi = x \Eq y$, then $(\disc{\{x,y\}}, (\{x\mapsto z,y \mapsto z\}, (\disc{\{z\}},\epsilon))) \in \abc{\phi}$.\todo{AR: I would prefer $x$ or $y$ rather than $\bullet$. AC: done}
 \item 
 If $\phi = \la(x,y)$, then $(\disc{\{x,y\}}, (\{x\mapsto x',y \mapsto y'\}, (\inline{\oneedge{x'}{a}{y'}},\epsilon))) \in \abc{\phi}$.
 \item 
@@ -603,7 +603,7 @@ Since by Prop.~\ref{pr:same-models} $c$ and $\phi_{c}$ have the same models, the
   
   \item If $\phi = \True$, let $c = (\disc{\varnothing}, (id_{\disc{\varnothing}},(\disc{\varnothing},\epsilon)))$. Then $\phi_c = \bigvee_{i \in \{1\}}  \exists \varnothing\st \psi_{\disc{\varnothing}} \land \True' \land \neg \phi_{(\disc{\varnothing},\epsilon)} \equiv \True$. In fact  $\True'$ arises from an empty conjunction,  the existential over an empty set can be dropped, $\psi_{\disc{\varnothing}} = \True$ (see \eqref{psiR}), and $\phi_{(\disc{\varnothing},\epsilon)} = \False$ by the previous point.
   \item 
-If $\phi = x \Eq y$, let $c = (\disc{\{x,y\}}, (\{x\mapsto \bullet,y \mapsto \bullet\}, (\disc{\{\bullet\}},\epsilon)))$. Then $\phi_c = \bigvee_{i \in \{1\}}  \exists \{\bullet\} \st  \psi_{\disc{\{\bullet\}}} \land (x \Eq \bullet \land y \Eq \bullet) \land \neg \phi_{(\disc{\{\bullet\}},\epsilon)}$. Since $ \psi_{\disc{\{\bullet\}}} = \True$ (see \eqref{psiR}) and $\phi_{(\disc{\{\bullet\}},\epsilon)} = \False$ using point 1., $\phi_c$ is equivalent to $\exists \{\bullet\} \st  x \Eq \bullet \land y \Eq \bullet$, which in turn is equivalent to $x \Eq y$, as desired, by the singleton law~\eqref{singleton}.
+If $\phi = x \Eq y$, let $c = (\disc{\{x,y\}}, (\{x\mapsto z,y \mapsto z\}, (\disc{\{z\}},\epsilon)))$. Then $\phi_c = \bigvee_{i \in \{1\}}  \exists \{z\} \st  \psi_{\disc{\{z\}}} \land (x \Eq z \land y \Eq z) \land \neg \phi_{(\disc{\{z\}},\epsilon)}$. Since $ \psi_{\disc{\{z\}}} = \True$ (see \eqref{psiR}) and $\phi_{(\disc{\{z\}},\epsilon)} = \False$ using point 1., $\phi_c$ is equivalent to $\exists \{z\} \st  x \Eq z \land y \Eq z$, which in turn is equivalent to $x \Eq y$, as desired, by the singleton law~\eqref{singleton}.
 
 \item 
 If $\phi = \la(x,y)$, let  $c = (\disc{\{x,y\}}, (\{x\mapsto x',y \mapsto y'\}, (\inline{\oneedge{x'}{a}{y'}},\epsilon)))$. Then $\phi_c  = \bigvee_{i \in \{1\}}  \exists \{x', y'\} \st  \psi_{\inline{\oneedge{x'}{a}{y'}}} \land (x \Eq x' \land y \Eq y' \land \neg \phi_{(\inline{\oneedge{x'}{a}{y'}},\epsilon)}$. We have $ \psi_{\inline{\oneedge{x'}{a}{y'}}}  = \la(x',y')$ by \eqref{psiR}, and  $\phi_{(\inline{\oneedge{x'}{a}{y'}},\epsilon)} = \False$ using point 1., thus $\phi_c \equiv \exists \{x', y'\} \st   \la(x',y') \land x \Eq x' \land y \Eq y'$. By a first application of the singleton law  $\phi_c \equiv \exists \{y'\} \st   \la(x,y')  \land y \Eq y'$, and by a second application $\phi_c \equiv \la(x,y)$, as desired.
@@ -619,6 +619,8 @@ If $\phi = \exists X \st \phi'$ and $c' = (R,(a_1,c_1)\ccdots (a_w,c_w)) \in \ab
 Thus we can conclude observing that the existential quantification on $X$ in $\exists X\st \phi_{c'}$ can be pushed inside the disjunction (by a $\FOL$ law), and it does not affect the other formulas like $\psi_i$ or $\neg \phi_i$, assuming that the condition is well formed (therefore $X$ is disjoint from all the graphs in the branches).  
 \end{enumerate}
 \end{proof}
+
+
 
 
 \todo{AC: Add example of condition $\abc{\phi}$ for a suitable $\phi$?}
