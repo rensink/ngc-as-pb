@@ -472,7 +472,7 @@
 % #2: left-pointing edge
 \newcommand{\twoloop}[4]{\mygraph{
 \node[n] (1) {$#1$};
-\node[n] (2) [right=of 1] {$#3$};
+\node[n] (2) [right=of 1] {$#3$}; 
 \path[e]
   (1) edge [->,bend left] node[near start,above] {\gl{#2}} (2)
   (2) edge [->,bend left] node[near start,below] {\gl{#4}} (1);
@@ -583,7 +583,15 @@
 
 % added by Andrea -AC 
 
-\newcommand{\abc}[1]{C({#1})}
+% ab-condition of a formula
+%\newcommand{\abc}[1]{C({#1})}
+%\newcommand{\abc}[1]{C[{#1}]}
+\newcommand{\abc}[1]{\Gamma[{#1}]}
+% formula of an ab-condition
+\newcommand{\tofol}[1]{\Phi[{#1}]}
+% formula of a graph
+\newcommand{\grtofol}[1]{\Psi[{#1}]}
+
 
 % One-edge graph with explicit edge identity
 % #1: source node
@@ -599,3 +607,17 @@
 
 % Discrete graph with given set of nodes
 \newcommand{\disc}[1]{\ensuremath{\langle #1 \rangle}}
+
+% prefixing (back shifting) of condition with an arrow
+\newcommand{\bshift}[2]{\ensuremath{{#1}_{\uparrow  #2}}}
+
+
+% shifting a condition along an arrow
+\newcommand{\shift}[2]{\ensuremath{{#1}_{\downarrow  #2}}}
+
+% tight down arrow
+\newcommand{\tdarr}[0]{{\,\!\downarrow\,\!}}
+%\newcommand{\tdarr}[0]{\mathbin{\downarrow}}
+%\newcommand{\tdarr}[0]{\downarrow}
+% tight up arrow
+\newcommand{\tuarr}[0]{{\!\,\uparrow\!\,}}

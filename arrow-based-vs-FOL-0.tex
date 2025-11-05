@@ -1,0 +1,56 @@
+\subsection{Connection to first-order logic [OLD, to be deleted]}
+Theorems 1 and~3 of \cite{Rensink-FOL} state that
+\begin{enumerate*}[label=\emph{(\roman*)}]
+\item for every arrow-based condition $c\in \AC R$ there exists a formula $\phi_c$ with $\fv(\phi_c)=X_R$ such that $g\sat c$ iff $v_R;g\sat^\FOL \phi_c$ for any arrow $g\of R\to G$; and
+
+\item for every FOL-formula $\phi$, there is an arrow-based condition $c_\phi$ with $R^{c_\phi}=\disc{\fv(\phi)}$ such that $v\sat^\FOL \phi$ iff $v\sat c_\phi$ for any valuation $v\of \disc{\fv(\phi)}\to G$.
+\end{enumerate*}
+The constructions of $\phi_c$ and of $c_\phi$ are given in detail in \cite{Rensink-FOL}.
+
+\iffull
+\todo[inline]{The story is currently not complete!}
+This means that there is a technical hurdle: the models of a FOL formula are arrows from the discrete graph consisting of its free variables, whereas the models of a nested condition are arrows from their root, which can be an arbitrary graph. To overcome this hurdle, we will introduce the auxiliary notion of a \emph{context} in which a formula is evaluated, essentially consisting of already known facts (reflecting the role of the root object of a condition). In order to define contexts, we first identify a fragment of FOL with a strong relation to graphs.
+
+\begin{itemize}
+\item We call a formula $\rho$ \emph{regular} if it equals $\bigwedge_{i\in I} \pi_i$ for some finite set $I$, where for all $i\in I$, $\pi_i$ equals either $x_i=y_i$ or $\la_i(x_i,y_i)$ for some variables $x_i,y_i$ and binary predicate $\la_i$.
+
+\item A regular formula $\rho$ gives rise to an equivalence ${\simeq_\rho}\subseteq \fv(\rho)\times \fv(\rho)$ defined as the smallest equivalence such that $x\simeq_\rho y$ for each conjunct $x=y$ in $\rho$.
+
+\item A regular formula $\rho$ can be encoded as a graph $G_\rho$ with node set $[\fv(\rho)]/{\simeq_\rho}$, and an edge $e$ with $s_e=[x]_{\simeq_\rho}$, $\ell_e=\la$ and $t_e=[y]_{\simeq_\rho}$ for each conjunct $\la(x,y)$ in $\rho$.
+
+\item Vice versa, a graph $G=\tupof{X,E}$ gives rise to the regular formula $\rho_G=\bigwedge_{x\in X} x=x \wedge \bigwedge_{e\in E} \ell_e(s_e,t_e)$.
+
+\item Clearly, $\rho$ and $\rho_{G_\rho}$ are equivalent for any regular formula $\rho$.
+\end{itemize}
+
+
+
+The correspondence of FOL to (arrow-based) conditions hinges on the existence of a \emph{normal form} for FOL formulas.
+%
+\begin{itemize}
+\item For two regular formulas $\rho=\bigwedge_{i\in I} \pi_i$ and $\rho=\bigwedge_{i\in I'} \pi'_i$, we say that $\rho'$ \emph{subsumes} $\rho$, denoted $\rho\sqsubseteq \rho'$, if for all $i\in I$ there is some $i'\in I'$ such that $\pi'_i=\pi'_{i'}$.
+
+\item If $\rho'$ subsumes $\rho$, there is an obvious graph morphism from $G_\rho$ to $G_{\rho'}$ with node mapping $[x]_{\simeq_\rho}\mapsto [x]_{\simeq_{\rho'}}$, which is well-defined because ${\simeq_\rho}\subseteq {\simeq_{\rho'}}$.
+
+\item A formula $\phi$ is in \emph{nested normal form} (NNF) if it equals $\bigvee_{j\in J} \exists X_j\st \rho_j\wedge\neg \phi_j$ for some finite index set $J$ (assumed to be of the form $\setof{1,\ldots,|J|}$), where for all $j\in J$:
+\begin{itemize}
+\item $X_j$ is a finite set of variables,
+\item $\rho_j$ is a regular formula, and
+\item $\phi_j$ is an NNF formula;
+\end{itemize}
+such that, moreover, all $X_j$ are disjoint from one another and also from $\fv(\phi)$.
+\end{itemize}
+%
+A regular formula $\rho$ can be encoded as a graph $G_\rho$ with node set $[\fv(\rho)]/{\simeq_\rho}$, where $x_i\simeq_\rho y_i$ for each conjunct $x_i=y_i$ in $\rho$, and edges $([x_i]_{\simeq_\rho},\la,[y_i]_{\simeq_\rho})$ for each conjunct $\la(x_i,y_i)$ in $\rho$. If $\rho'$ subsumes $\rho$, there is an obvious graph morphism from $G_\rho$ to $G_{\rho'}$ with node mapping $[x]_{\simeq_\rho}\mapsto [x]_{\simeq_{\rho'}}$, which is well-defined because ${\simeq_\rho}\subseteq {\simeq_{\rho'}}$.
+
+To formalise the connection between FOL formulas and nested conditions, we also need the concept of a \emph{context} for a formula $\phi$, which is a regular formula $\gamma$ such that $\fv(\phi)\subseteq \fv(\gamma)$. Clearly, the context of a formula is not fixed.
+%
+\begin{itemize}
+\item An NNF formula $\phi=\bigvee_{j\in J} \exists X_j\st (\rho_j\wedge\neg \phi_j)$ is called \emph{saturated} with respect to a regular formula $\rho$ if $\rho$ is a context for $\phi$, and for all $j\in J$, $\rho\sqsubseteq \rho_j$ and $\phi_j$ is saturated with respect to $\rho_j$.
+\end{itemize}
+%
+If $\rho$ is a regular formula and $\phi=\bigvee_{j\in J} \exists X_j\st \rho_j\wedge\neg \phi_j$ an NNF formula saturated with respect to $\rho$, then the corresponding arrow-based condition is given by
+\[ c_{\rho,\phi}=(G_\rho,p_1\ccdots p_{|J|}) \text{ with } p_j=(a_j,c_{\rho_j,\phi_j}) \text{ for all $1\leq j\leq |J|$,}
+\]
+where $a_j$ is the morphism from $G_\rho$ to $G_{\rho_j}$ induced by $\rho\sqsubseteq \rho_j$.
+\fi
