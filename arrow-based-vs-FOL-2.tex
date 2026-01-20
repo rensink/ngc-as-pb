@@ -155,7 +155,7 @@ For $\phi = \forall X \st \phi'$ the statement follows from the previous points 
 \subsubsection{From ab-conditions to formulas.}
 
 % forall: change \tofol c into \tofol{c}
-Taking inspiration from Theorem 1 of \cite{Rensink-FOL}, but departing slightly because of the different notation, let us show how can we obtain for every arrow-based condition $c\in \AC{R}$ a $\FOL$ formula $\tofol{c}$  (with $\fv(\tofol c) = V_R$) having the same models, i.e.\ such that $g\sat c$ iff $g\sat^\FOL \tofol c$ for any arrow $g\of R\to G$. To avoid variable capture, it is convenient to consider ab-conditions which are \emph{well-formed}, that is such that all graphs appearing in them have pairwise disjoint sets of nodes and of edges. Without loss of generality, we can always assume that an ab-condition is well formed, because we can rename node and edge identities arbitrarily, obtaining an isomorphic variant.
+Taking inspiration from Theorem 1 of \cite{Rensink-FOL}, but departing slightly because of the different notation, let us show how can we obtain for every arrow-based condition $c\in \AC{R}$ a $\FOL$ formula $\tofol{c}$  (with $\fv(\tofol c) = V_R$) having the same models, i.e.\ such that $g\sat c$ iff $g\sat^\FOL \tofol c$ for any arrow $g\of R\to G$. To avoid variable capture, it is convenient to consider ab-conditions which are \emph{well formed}, that is such that all graphs appearing in them have pairwise disjoint sets of nodes and of edges. Without loss of generality, we can always assume that an ab-condition is well formed, because we can rename node and edge identities arbitrarily, obtaining an isomorphic variant.\todo{AC: define formally \emph{well-formed variant}? It should be related by a family of isomorphisms where the one at the root is the identity. Explicit proof that $\tofol{c} \equiv \tofol{c'}$ if $c'$ is a well-formed variant of $c$?}
 
 \begin{definition}[encoding ab-conditions as $\FOL$ formulas]
   \label{def:encoding}
@@ -164,7 +164,7 @@ Taking inspiration from Theorem 1 of \cite{Rensink-FOL}, but departing slightly 
 	\grtofol R = %\textstyle
 \left( \bigwedge_{x\in V_R}{x\Eq x} \right) \wedge
 \left( \bigwedge_{e\in E_R} \ell_R(e)\bigl(s_R(e),t_R(e)\bigr) \right) \label{eq:psiR}
-\end{equation}
+\end{equation} 
 Given a well-formed ab-condition $c\in \AC R$ with $c=(R,(a_1,c_1)\ccdots (a_w,c_w))$ and $a_i:R \to P_i$ for each $i \in \{1, \ldots, w\}$, its $\FOL$ encoding is the formula 
 \begin{align}
 	\tofol c = %\textstyle
@@ -397,7 +397,7 @@ By $(\sat^\FOL \exists)$ there is  graph $B$ (see \eqref{proof4} below)  with $R
     \node at (0,1) (R) {$R$}
     edge [right hook->] (B)
     edge [->] node[auto] {$\scriptstyle{g}$} (G)
-    edge [->,bend angle=45,bend right] node[auto,swap] {$\scriptstyle{a_j}$} (Pj);
+    edge [->,bend angle=45,bend right] node[pos=0.25,anchor=east] {$\scriptstyle{a_j}$} (Pj);
     \node at (-2,-0.5) (vars) {$\disc{V_{P_j}}$}
     edge [right hook->] (B)
     edge [right hook->] (Pj);

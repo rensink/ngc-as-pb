@@ -1,18 +1,47 @@
 Extension of Festschrift paper to journal version
 =================================================
-- Extend connection from arrow-based to FOL, so readers can translate examples
+
+2026-01-12
+
+[AC] Trying to summarise some changes agreed upon with Arend in December 2025
+
+
+1) Before the encoding of ab-conditions to formulas, we claim that we can always rename node and edge identities in order to obtain an isomorphic variant. 
+This is true, but it should be formalised: define formally \emph{well-formed variant}? It should be related by a family of isomorphisms where the one at the root is the identity. Explicit proof that for any two well-formed variants $c'$ and $c''$ of $c$ we have $\tofol{c'} \equiv \tofol{c''}$? 
+  
+
+2) Improve points 6 and 7 of the proof to Proposition 3.9, page 17
+
+3) Structural morphisms of ab-conditions should be defined by using shift and pre-composition of conditions along a morphism, instead of "source shifters".
+Actually, all forward and backward shifters considered in the original version are forms of pre-composition with a morphism, so using shift introduces new morphisms. 
+
+
+4) Add relationship between sb-conditions and FOL formulas, along the lines of what done for ab-conditions. Define encoding of sb-conditions into for (easy) and defined logical connectives on sb-conditions.
+
+2025-04-02
+
+
+- Extend connection from arrow-based to FOL, so readers can translate examples 
+ [DONE]
 
 - Get rid of the identity shifter if possible
+ [DONE]
 
 - Add characterisation of conjunction, disjunction, negation and existential for span-based conditions
 
 Journal submission [after FestColloquim]
 - include additionally:
   - correspondance between NGC and FOL formulas
+[DONE]
   - explicit read-back: from condition to formula
+[DONE]
   - from formula to conditions give a construction for and/or/not/exists
+[DONE]
   - section on computable entailment 
   - I would like to get rid of I_{X,Y}, the empty shifters. 
+[DONE]
 - completeness for arrow based conditions - NO
 - Existential quantification: relations with backward shift, properties? Adjointness? Not clear. Relation with shift????
-- logical characterization of provable entailment ??? sarebbe bello
+- logical characterization of provable entailment ??? It would be nice. 
+
+
