@@ -155,7 +155,7 @@ For $\phi = \forall X \st \phi'$ the statement follows from the previous points 
 \subsubsection{From ab-conditions to formulas.}
 
 % forall: change \tofol c into \tofol{c}
-Taking inspiration from Theorem 1 of \cite{Rensink-FOL}, but departing slightly because of the different notation, let us show how can we obtain for every arrow-based condition $c\in \AC{R}$ a $\FOL$ formula $\tofol{c}$  (with $\fv(\tofol c) = V_R$) having the same models, i.e.\ such that $g\sat c$ iff $g\sat^\FOL \tofol c$ for any arrow $g\of R\to G$. To avoid variable capture, it is convenient to consider ab-conditions which are \emph{well formed}, that is such that all graphs appearing in them have pairwise disjoint sets of nodes and of edges. Without loss of generality, we can always assume that an ab-condition is well formed, because we can rename node and edge identities arbitrarily, obtaining an isomorphic variant.
+Taking inspiration from Theorem 1 of \cite{Rensink-FOL}, but departing slightly because of the different notation, let us show how can we obtain for every arrow-based condition $c\in \AC{R}$ a $\FOL$ formula $\tofol{c}$  (with $\fv(\tofol c) = V_R$) having the same models, i.e.\ such that $g\sat c$ iff $g\sat^\FOL \tofol c$ for any arrow $g\of R\to G$. To avoid variable capture, it is convenient to consider ab-conditions which are \emph{well-formed}, that is such that all graphs appearing in them have pairwise disjoint sets of nodes and of edges. Without loss of generality, we can always assume that an ab-condition is well formed, because we can rename node and edge identities arbitrarily, obtaining an isomorphic variant.
 
 \begin{definition}[encoding ab-conditions as $\FOL$ formulas]
   \label{def:encoding}
@@ -282,7 +282,7 @@ Considering \eqref{psiR}, formula $\grtofol R$ represents the structure of graph
 Given a morphism $m: A \to G$ and a graph $R$, let $\grtofol R$ be defined as in \eqref{psiR}. Then the following are equivalent:
 \begin{enumerate} 
   \item $m \sat^\FOL \grtofol R$;
-  \item $V_R  \subseteq V_A$ and there is a $j \of R \to G$ such that for each $x \in V_R$ it holds $m_V(x) = j_V(x)$;
+  \item $V_R  \subseteq V_A$ and there is a $j \of R \to G$ such that for each $x \in V_R$ it holds that $m_V(x) = j_V(x)$.
 \end{enumerate}
 \end{lemma}
 
@@ -295,10 +295,10 @@ First, observe that $V_R = \fv(\grtofol R) \subseteq V_A$ by  definition of sati
 \item For each $e \in E_R$, $j_E(e) = e'$ where $e' \in E_G$ is an edge of $G$ witnessing that $m \sat^\FOL \ell_R(e)(s_R(e),t_R(e))$.
 \end{itemize}
 The well-definedness of morphism $j$ and the fact that it satisfies condition 2 are obvious by construction. 
-\item [($2 \Rightarrow  1$)] Given 2, we have to show that $(\dagger)$ for each $x \in V_R$, $m \sat^\FOL x \Eq x$ and $(\ddagger)$ for each $e \in E_R$, $m \sat^\FOL \ell_R(e)(s_R(e),t_R(e))$. Clearly $m \sat^\FOL x \Eq x$ iff $x \in V_A$, therefore $(\dagger)$ is true because $V_R \subseteq V_A$. Concerning $(\ddagger)$, we have to show that there is an edge $e' \in E_G$ with $s_G(e') = m_V(s_R(e))$, $t_G(e') = m_V(t_R(e))$ and $\ell_G(e') = \ell_R(e)$. It is easy to check that setting $e' = j_E(e)$ the required conditions are satisfied. Indeed, $m_V(s_R(e)) = j_V(s_R(e)) = s_G(j_E(e)) = s_G(e')$, similarly for $m_V(t_R(e))$, and $\ell_G(e') = \ell_G(j_E(e)) = \ell_R(e)$.
+\item [($2 \Rightarrow  1$)] Given 2, we have to show that $(\dagger)$ for each $x \in V_R$, $m \sat^\FOL x \Eq x$ and $(\ddagger)$ for each $e \in E_R$, $m \sat^\FOL \ell_R(e)(s_R(e),t_R(e))$. Clearly $m \sat^\FOL x \Eq x$ iff $x \in V_A$, therefore $(\dagger)$ is true because $V_R \subseteq V_A$. Concerning $(\ddagger)$, we have to show that there is an edge $e' \in E_G$ with $s_G(e') = m_V(s_R(e))$, $t_G(e') = m_V(t_R(e))$ and $\ell_G(e') = \ell_R(e)$. It is easy to check that setting $e' = j_E(e)$ the required conditions are satisfied. Indeed, $m_V(s_R(e)) = j_V(s_R(e)) = s_G(j_E(e)) = s_G(e')$, similarly for $m_V(t_R(e))$, and $\ell_G(e') = \ell_G(j_E(e)) = \ell_R(e)$.\qed
 \end{description}
 \end{proof}
-
+%
 By using an obviously equivalent diagrammatic representation of condition 2, the lemma says that $m \sat^\FOL \grtofol R$ if and only if there is a morphism $j \of R \to G$ such that the following diagram commutes:
 \begin{center}
 \begin{tikzpicture}[auto,node distance = 1.5cm]
@@ -318,7 +318,7 @@ We can show now that an ab-condition $c$ and the corresponding formula $\tofol c
 
 \begin{proposition}[properties of $\tofol c$]
   \label{pr:same-models}
-  Let $c\in \AC R$ be an ab-condition over $R$ and $\tofol c$ be its $\FOL$ encoding as for Def.~\ref{def:encoding}. Given a graph morphism $g: R \to G$ we have
+  Let $c\in \AC R$ be an ab-condition over $R$ and $\tofol c$ be its $\FOL$ encoding as in Def.~\ref{def:encoding}. Given a graph morphism $g: R \to G$ we have
   \[ g \sat c \qquad \iff \qquad g \sat^\FOL \tofol c\enspace.\] 
 \end{proposition}
 
@@ -409,7 +409,7 @@ Since $k \sat^\FOL \grtofol {P_j}$, by Lemma~\ref{lem:psi-R} there is a morphism
 We show that from $h$ we can obtain a witness $h'$  for $g \sat c$, i.e.~such that $a_j;h' = g$ and $h' \not \sat c_j$. First, let us show that for each $x \in V_R$ we have $g(x) = h(a_j(x))$. In fact $g(x) \stackrel{g = k\restr R}{=}  k(x) \stackrel{(*)}{=} k(a_j(x)) \stackrel{(\%)}= h(a_j(x))$, where $(*)$ holds because $k\sat^\FOL x\Eq a_j(x)$, and $(\%)$ holds by commutativity of the lower square. Therefore $g = a_j;h$ holds on nodes, but not necessarily on edges: there could be an edge $e \in E_R$ that is mapped to two different edges $g(e)$ and $h(a_j(e))$, which must have the same source and target nodes, and the same label. Let $h'\of P_j \to G$ be defined as $h'_V = h_V$, $h_E(a_j(e)) = g(e)$ for all $e \in E_R$, and $h'(e) = h(e)$ for all $e \in E_{P_j}\setminus a_j(E_R)$. Then by costruction we have $g = a_j ; h'$.
 
 Finally, note that $\fv(\tofol {c_j}) \subseteq V_{P_j}$, Then by Lemma~\ref{lem:sat_only_free_vars} since $k\sat^\FOL \neg \tofol {c_j}$  also $h'\sat^\FOL \neg \tofol {c_j}$. Since $\depth(c_j) < n$, by induction hypothesis $h' \not \sat c_j$, which concludes the proof.
-
+%
 \qed
 \end{proof}
 
@@ -451,15 +451,15 @@ If $\phi = \la(x,y)$, then $ \abc{\phi} = (\disc{\{x,y\}}, (\{x\mapsto x',y \map
 If $\phi = \neg \phi'$ and $ \abc{\phi'} = (R,p_1\ccdots p_w)$ then $ \abc{\phi} = (R,(id_R, \abc{\phi'}))$.
 %$ \abc{\phi} = (R,(id_R, (R,p_1\ccdots p_w)))$.
 \item 
-If $\phi = \phi_1 \lor \phi_2$ and $ \abc{\phi_1} = (R_1,p_1\ccdots p_w)$, $ \abc{\phi_2} = (R_2,q_1\ccdots q_v)$, then by induction hypothesis $V_{R_i} = \fv(\phi_i)$ for $i \in \{1,2\}$.  Let $R = \disc{V_{R_1} \cup V_{R_2}}$, $in_i\of R_i \hookrightarrow R$ for $i \in \{1,2\}$ be the obvious injections, and $\shift{c_1}{in_1} = (R,p'_1\ccdots p'_w)$, $\shift{c_2}{in_2} = (R,q'_1\ccdots q'_v)$ be obtained by shifting the conditions along the corresponding injections (see Def.~\ref{def:shift}). Then $\abc{\phi} = (R,p'_1\ccdots p'_wq'_1\ccdots q'_v)$, and by construction $R = \disc{\fv(\phi)}$.
+If $\phi = \phi_1 \lor \phi_2$ and $ \abc{\phi_1} = (R_1,p_1\ccdots p_w)$, $ \abc{\phi_2} = (R_2,q_1\ccdots q_v)$, then by construction $V_{R_i} = \fv(\phi_i)$ for $i \in \{1,2\}$.  Let $R = \disc{V_{R_1} \cup V_{R_2}}$, with $in_i\of R_i \hookrightarrow R$ for $i \in \{1,2\}$  the obvious injections, and let $\shift{c_1}{in_1} = (R,p'_1\ccdots p'_w)$, $\shift{c_2}{in_2} = (R,q'_1\ccdots q'_v)$ be obtained by shifting the conditions (see Def.~\ref{def:shift}). Then $\abc{\phi} = (R,p'_1\ccdots p'_wq'_1\ccdots q'_v)$. (Note that by construction $R = \disc{\fv(\phi)}$ as required).
 \item 
-If $\phi = \exists X \st \phi'$ and $ \abc{\phi'} = (R',(a_1,c_1)\ccdots (a_w,c_w))$, then $V_{R'} = \fv(\phi')$. Let $R = \disc{V_{R'} \setminus X}$, and $in \of R \hookrightarrow R'$ be the obvious injection. Then $ \abc{\phi} = \bshift{\abc{\phi'}}{in} = (R,(in;a_1,c_1)\ccdots (in;a_w,c_w))$, is obtained by precomposing $\abc{c'}$ with $in$ (see Def.~\ref{def:shift}), and by construction $R = \disc{\fv(\phi)}$.
+If $\phi = \exists X \st \phi'$ and $ \abc{\phi'} = (R',(a_1,c_1)\ccdots (a_w,c_w))$, then $V_{R'} = \fv(\phi')$. Let $R = \disc{V_{R'} \setminus X}$, and $in \of R \hookrightarrow R'$ be the obvious injection. Then $ \abc{\phi} = \bshift{\abc{\phi'}}{in} = (R,(in;a_1,c_1)\ccdots (in;a_w,c_w))$, is obtained by precomposing $\abc{\phi'}$ with $in$ (see Def.~\ref{def:shift}). (Note that by construction $R = \disc{\fv(\phi)}$ as required.)
 
 \item 
 Finally, by exploiting the usual equivalences we define $\abc{\phi_1 \land \phi_2} = \abc{\neg (\neg \phi_1 \lor \neg \phi_2)}$ and $\abc{\forall X\st \phi} = \abc{\neg \exists X \st \neg \phi}$.
 \end{enumerate}
 \end{definition}
-
+%
 The correctness of this encoding is stated as follows.
 % \todo{In this form, it does not emerge why we need the upward-closedness. I would like to include a corollary that states something for \emph{any} $g$; maybe $g \sat^\FOL \phi \iff \exists c\in C(\phi)\st g \sat c$?\\ AC: Conceptually this is stated by the last result of the section.}
 
