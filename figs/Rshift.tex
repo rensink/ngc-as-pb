@@ -36,11 +36,12 @@
   \node (R4) [below=of I4] {$R'$};
   \node (c4) [triangle,below=.15 of R4.center] {$c'$};
 
-  \path (I4) edge[->] node[right] {$u\pb g$} (B4)
-        (I4) edge[->] node[right] {$(g\pb u);d$} (R4);
+% paths elided because \pb notation is now undefined
+%  \path (I4) edge[->] node[right] {$u\pb g$} (B4)
+%        (I4) edge[->] node[right] {$(g\pb u);d$} (R4);
 
   \path (A3) edge[<-] node[above] {$g$} (B4)
-        (I3) edge[<-] node[above] {$g\pb u$} (I4)
+%        (I3) edge[<-] node[above] {$g\pb u$} (I4)
         (R3) edge[<->] node[above] {$\id$} (R4)
 		(I4) edge[-{Straight Barb[black,length=5pt,width=10pt]},white] +(-3mm,3mm);
 \end{tikzpicture}
