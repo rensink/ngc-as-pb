@@ -1,6 +1,39 @@
 Extension of Festschrift paper to journal version
 =================================================
 
+2026-01-20
+
+Morphisms of span-based conditions
+
+Shifters for an arrow from A to B as commuting span (b,f)
+Shifters allow to move conditions from A to B and viceversa, by composition of spans
+
+1) Backward shifters: property (19)
+f is epi iff (b,f) is a backward shifer
+any backward shifer is complete
+examples are the two limit cases where one leg is the id (elementary)
+decomposition into elementary shifters does not seem to work (find counterexample)
+backward shifters compose (because pullback preserves epi)
+
+2) Forward shifters property (18)
+Any span satifies it
+b epi implies shifter complete (sufficient,. probably not necessary: look for counterexample?)
+decomposition into elementary shifters does not seem to work (like for forward shifting, but the counterexample can be different)
+forward shifters compose 
+composition of forward shifters with b epi produce a forward shifer with b epi, thus complete
+open: complete forward shifters compose in general? we have only necessary condition for forward shifters... 
+question: is the "partial epiness" condition that we have found necessary for completeness also sufficient?  forall h,g. b;v;g = b; h  => v;g = h. Is this property of b preserved by pullbacks?  
+Fact: completeness of morphisms compose (proof by Arend quite easy using the definitions)
+
+3) section on computable entailment should work essentially as it is, by reviting the proofs for arbitray spans commuting with v
+
+
+
+
+
+
+
+
 2026-01-12
 
 [AC] Trying to summarise some changes agreed upon with Arend in December 2025
