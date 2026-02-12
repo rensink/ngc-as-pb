@@ -1,6 +1,26 @@
 Extension of Festschrift paper to journal version
 =================================================
 
+2026-02-04 TODO
+- figure for precomposition and shift, for Def 2.4
+
+S ----------------g -------> R ------f------> Q
+\bshift{c}{g}              c               \shift{f}{g}  
+
+
+4) relation between a condition and a well-formed variant. Define it as an ISO, and defer to later to show that the iso induces an isomorphism using our notion of morphism. The alternance of direction of arrows is not a problem because they are all isomorphisms.
+- definition of well-formed condition and well-formed variant.
+
+Let   $c=(R,(a_1,c_1)\ccdots (a_w,c_w)$ be an ab-condition. Let $\nodes{c}$ be inductively defined as $\nodes{c} = V_R \bigcup_{i=1}^w \nodes{c_i}$. then we say that $c$ \emph{is well formed} iff for all $i\in \{1, \ldots, w\}$ $c_i$ is well formed and the sets $V_c, \nodes{c_1}, \ldots, \nodes{c_w}$ are pairwise disjoint.
+
+Given conditions $c=(R,(a_1,c_1)\ccdots (a_w,c_w)$ and $c'=(R',(a'_1,c'_1)\ccdots (a'_{w'},c'_{w'})$, a \emph{s-iso} (structural iso) $m: c \leftrighrarrow c'$ is an iso (in \cat{Graph}) $m: R \leftrightarrow R'$ such that $w = w'$ and for all $i \in \{1, \ldots, w\} there are s-isos $m_i: c_i \leftrightarrow c'_i$ such that $m; a'_i = a_i; m_i$.
+
+Given a condition $c in \AC{R}$, a \emph{well-formed variant} of $c$ is a condition $c' \AC{R}$ such that $id_R$ is a structural iso form $c$ to $c'$.
+
+=> As expected, a condition $c$ and any of its well-formed variants are not distinguishable using satisfaction / have exactly the same model. This will be an immediate consequence of the properties of morphisms introduced later. 
+
+-
+
 2026-01-20
 
 Morphisms of span-based conditions
@@ -22,15 +42,14 @@ decomposition into elementary shifters does not seem to work (like for forward s
 forward shifters compose 
 composition of forward shifters with b epi produce a forward shifer with b epi, thus complete
 open: complete forward shifters compose in general? we have only necessary condition for forward shifters... 
-question: is the "partial epiness" condition that we have found necessary for completeness also sufficient?  forall h,g. b;v;g = b; h  => v;g = h. Is this property of b preserved by pullbacks?  
-Fact: completeness of morphisms compose (proof by Arend quite easy using the definitions)
-
-3) section on computable entailment should work essentially as it is, by reviting the proofs for arbitray spans commuting with v
-
+question: is the "partial epiness" condition that we have found necessary for completeness also sufficient?  forall h,g. b;v;g = b; h  => v;g = h. Is this property of b preserved by pullbacks?  NO 
+we found that for completeness b must be epi, at least in SET (ad hoc reasoning, showing that if there is an element not in the image of b, it can be mapped differently by g and h, makinng the property fail)
+Does it hold in any Presheaf topos? We found that it does not  hold on SimpleGraphs (mapping of nodes forces edges between them to be mapped in a unique way NO: in SimpleGraphs an arrow is epi if it is epi on nodes, the counterexample does not work). 
 
 
+Fact: completeness of morphisms compose (proof by Arend quite easy using the definitions)  
 
-
+3) section on computable entailment should work essentially as it is, by reviting the proofs for arbitray spans commuting with v.
 
 
 

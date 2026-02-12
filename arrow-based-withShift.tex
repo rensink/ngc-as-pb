@@ -25,7 +25,7 @@ Though examples will be based on $\cat{Graph}$, formal definitions and results w
   \node (2) [right=of 1] {$\bullet$};
   \path (1) edge[bend left=20,->] (2)
         (1) edge[bend right=20,->] (2);
-}$.\todo{Maybe say what $\Graph$ is as a presheaf topos?} Furthermore, presheaf toposes are closed under the construction of slice and functor categories, thus they include labeled/typed (hyper)graphs (see Sec.~5 of~\cite{AzziCR19}). We will denote the collection of objects of a category $\cat{C}$ by $|\cat{C}|$, and for $A,B \in |\cat{C}|$ we denote by $\cat{C}(A,B)$ the (hom)set of arrows from $A$ to $B$.  
+}$.\todo{Maybe say what $\Graph$ is as a presheaf topos? AC: For $\Graph$, you should take as $\cat{S}$ the (free category of) the graph having $\Lab \cup \{\bullet\}$ as nodes, and  $\{\ell_s, \ell_t:\ell \to \bullet \mid \ell \in \Lab\}$ as edges. A functor $F$ from this to $\cat{Set}$ would identify the set of nodes as $F(\bullet)$ and the set of edges labelled by $\ell$ with $F(\ell)$.}  Furthermore, presheaf toposes are closed under the construction of slice and functor categories, thus they include labeled/typed (hyper)graphs (see Sec.~5 of~\cite{AzziCR19}). We will denote the collection of objects of a category $\cat{C}$ by $|\cat{C}|$, and for $A,B \in |\cat{C}|$ we denote by $\cat{C}(A,B)$ the (hom)set of arrows from $A$ to $B$.  
 
 Assuming that \cat{C} is a presheaf topos ensures several properties we need in the constructions of this paper: in particular, that all limits and colimits exist (and can be computed pointwise), and also that epis are stable under pullback. Furthermore, \cat{C} is \emph{adhesive}~\cite{ls:adhesive-journal}, enjoying several properties exploited in the algebraic theory of graph rewriting, where the results of this paper have potential interesting applications.\footnote{Note that requiring \cat{C} to be just adhesive would not suffice: for example, we need arbitrary pushouts, while adhesivity only guarantees pushouts along monos.}
 
@@ -59,6 +59,8 @@ We regularly abbreviate ``arrow-based" to ``ab". We call $R$ the \emph{root} of 
 \end{figure}
 
 Note that, as a consequence of the inductive nature of \dcite{ab-condition}, every ab-condition has a finite \emph{depth} $\depth(c)$, defined as $0$ if $|c|=0$ and $1+\max_{1\leq i\leq |c|} \depth(c_i)$ otherwise. The depth will provide a basis for inductive proofs.
+
+Given two ab-conditions over $R$, $c=(R,p_1\ccdots p_w)$ and $c'=(R,p'_1\ccdots p'_{w'})$, their \emph{disjunction} is the condition $\mergeabc{c}{c'} = (R,p_1\ccdots p_w, p'_1\ccdots p'_{w'})$.\todo{AC: change name/symbol?}
 
 \begin{example}\exlabel{ab-conditions}
 \fcite{ab-conditions} shows the graphical representation of three arrow-based conditions, rooted in the discrete one-node graph \inline{\onenode x}. The leftmost one, $c_1 \in \AC{\inline{\onenode x}}$, is defined according to \dcite{ab-condition} as 
@@ -100,20 +102,49 @@ For the components of the pushout of two arrows $f\of R \to Q$ and $a \of R \to 
 \begin{equation}\label{eq:pushout}
     \begin{tikzpicture}[auto,node distance = 1.5cm]
       \node (R) {$R$};
-      \node (Q) [right of=R] {$Q$}
-      edge [<-] node[auto,swap] {$\scriptstyle{f}$}  (R);
-      \node (P) [below of=R] {$P$}
-      edge [<-] node[auto] {$\scriptstyle{a}$}  (R);
-      \node (PO) [below of=Q] {$P\tdarr Q$}
-edge [<-] node[auto,swap] {$\scriptstyle{a\tdarr f}$}  (Q)
-edge [<-] node[auto,swap] {$\scriptstyle{f\tdarr a}$}  (P); 
-\draw (.75,-.75) node {$\scriptstyle{PO}$};
+      \node (Q) [right of=R] {$Q$};
+      \node (P) [below of=R] {$P$};
+    \node (PO) [below of=Q] {$P\tdarr Q$};
+
+    \path
+      (R) edge [->] node[auto] {$\scriptstyle{f}$}  (Q)
+      edge [->] node[auto,swap] {$\scriptstyle{a}$}  (P)
+    (Q) edge [->] node[auto] {$\scriptstyle{a\tdarr f}$}  (PO)
+    (P) edge [->] node[auto] {$\scriptstyle{f\tdarr a}$}  (PO); 
+% \draw (.75,-.75) node {$\scriptstyle{PO}$};
+\pushoutmark{PO}{R}{0.3}{3mm}
     \end{tikzpicture}
   \end{equation} 
+  
+\begin{figure}[t]
+\centering
+{\input{figs/ab-shift}}
+\caption{Precomposition of $c$ with $g$ (left) and shift of $c$ along $f$ (right).}
+\label{fig:ab-shift}
+\end{figure}
+
+% \begin{figure}[t]
+% \centering
+% \subcaptionbox
+%   {Condition $c=(R,p_1\ccdots p_w)$, with $p_i=(a_i,c_i)$ for $1\leq i\leq w$
+%    \flabel{ab-condition}}
+%   [.45\textwidth]
+%   {\input{figs/ab-condition}}
+% \quad
+% \subcaptionbox
+%   {$g\sat c$, with responsible branch $p_i=(a_i,c_i)$ and witness $h$ such that $g=a_i;h$
+%    \flabel{ab-satisfaction}}
+%   [.5\textwidth]
+%   {\input{figs/ab-satisfaction}}
+% \caption{Visualisations for arrow-based conditions}
+% \end{figure}
+
+
+
 
 \begin{definition}[precomposition and shift of ab-conditions]
   \label{def:shift}
-Let   $c=(R,p_1\ccdots p_w)$ be an ab-condition in $\AC R$, with $p_i = (a_i\of R\to P_i,c_i)$ for $i\in [1,w]$, where $c_i \in \AC{P_i}$.\todo{AC: add figures}
+Let   $c=(R,p_1\ccdots p_w)$ be an ab-condition in $\AC R$, with $p_i = (a_i\of R\to P_i,c_i)$ for $i\in [1,w]$, where $c_i \in \AC{P_i}$ (see \fcite{ab-shift}). 
 \begin{itemize}
 \item 
 Let $g\of S \to R$ be an arrow in $\cat{C}$. The \emph{precomposition of $c$ with $g$} is the condition $\bshift{c}{g} \in \AC{S}$ defined as $\bshift{c}{g} = (S,p'_1\ccdots p'_w)$, where $p'_i = (g;a_i\of S\to P_i,c_i)$ for $i\in [1,w]$.
@@ -129,22 +160,36 @@ Note that \emph{precomposing} an ab-codition with an arrow only affects the top-
 
 A condition expresses a property of arrows from its root to arbitrary objects. This is operationalised through the notion of \emph{satisfaction}.
 
-\begin{definition}[satisfaction of arrow-based conditions]\dlabel{ab-satisfaction}
+\begin{definition}[satisfaction of arrow-based conditions, entailment]\dlabel{ab-satisfaction}%
   Let $c$ be an ab-condition over $R$ and $g:R\to G$ an arrow from $c$'s root to some object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i=(a_i,c_i)$ of $c$ and an arrow $h:P_i\to G$ such that
   \begin{enumerate}
   \item $g=a_i;h$ and
   \item $h\nsat c_i$.
   \end{enumerate}
-\end{definition}
-%
+\noindent
 If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} for $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p_i$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
 
-Based on the notion of satisfaction, for ab-conditions $b$ and $c$ (over the same root) we  define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalence} $b\equiv c$:
+   For ab-conditions $b$ and $c$ over the same root $R$ we  define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalence} $b\equiv c$:
 %
 \begin{align*}
-b \entails c & \text{ if for all arrows $g$: } g\sat b \text{ implies } g\sat c \\
-b \equiv c & \text{ if for all arrows $g$: } g\sat b \text{ if and only if } g\sat c \enspace. 
+b \entails c & \text{ if for all arrows $g:R\to G$, } g\sat b \text{ implies } g\sat c \\
+b \equiv c & \text{ if for all arrows $g:R\to G$, } g\sat b \text{ if and only if } g\sat c \enspace. 
 \end{align*}
+\end{definition}
+%
+
+
+The next facts follow immediately from the definition of satisfaction.   
+\begin{fact}\label{fact:satisfaction}
+  \begin{description}
+    \item[(a)] Every condition of depth 0 has no models.
+    %Given an ab-condition $c \in \AB{R}$, if $\depth(c) = 0$ then $c$ has no model.
+    \item[(b)]
+Given ab-conditions $c, c' \in \AB{R}$ and a morphism $g: R \to G$, $g \sat c+c'$ if and only if $g\sat c $ or $g\sat c'$.
+\end{description}
+\end{fact}
+
+
 
 
 \begin{example}\exlabel{ab-satisfaction}
@@ -178,7 +223,7 @@ In general, it can be checked that every model of $c_1$ is also a model of $c_2$
 Shifting a condition along an arrow preserves the models prefixed with such arrow, and precomposing a condition with an arrow preserves the models, and it reflects them if the arrow is epi.
 
 \begin{proposition}[Satisfaction is invariant w.r.t.~shift and precomposition with epis]
-  \label{pr:shiftSat}
+  \label{prop:shiftSat}
   \begin{enumerate}
     \item
   Let $c \in \AC R$ and $f\of R \to Q$. Then $f;m \sat c$ iff $m \sat \shift{c}{f}$.
@@ -191,7 +236,7 @@ Shifting a condition along an arrow preserves the models prefixed with such arro
 \textbf{(1)}\hspace{1ex} We proceed by induction on the depth of $c$, noting that shift preserves the depth. If $\depth(c) = 0$ then $c = (R, \epsilon)$ and $\shift{c}{f} = (Q,\epsilon)$; thus for every $m \of Q \to G$ we have $f;m \not \sat c$ and $m \not \sat \shift{c}{f}$. Now let $\depth(c) = n > 0$ and assume that the statement holds for all conditions with depth smaller than $n$.\\
  \textbf{($\Rightarrow$)} Let $m\of Q \to G$ and assume that $f;m \sat c$, meaning that there is a branch $p_i = (a_i\of R \to P_i, c_i)$ of $c$ with $i \in [1,w]$ and an $h: P_i \to G$ such that $(\dagger)\ a_i ; h = f;m$ and $(\ddagger)\ h \not \sat c_i$. To show that $m \sat \shift{c}{f}$, we can consider the branch $(a_i\tdarr f\of Q \to  P_i \tdarr Q, \shift{c_i}{(f\tdarr a_i)})$ of $\shift{c}{f}$, and as witness the arrow $h'\of P_i \tdarr Q \to G$ induced by the universal property of the pushout because of $(\dagger)$. In fact, we have $a_i\tdarr f;h' = m$ by the pushout properties, while $h' \not \sat \shift{c_i}{(f\tdarr a_i)}$ holds by contradiction. Indeed, by induction hypothesis (since $\depth(c_i) < n$) we have $h' \sat \shift{c_i}{(f\tdarr a_i)} \iff f\tdarr a_i ; h' \sat c_i$ which contradicts $(\ddagger)$ because $f\tdarr a_i ; h' = h$ by the pushout properties. \\ 
  \textbf{($\Leftarrow$)} Assume that $m \sat \shift{c}{f}$. Thus there is a branch  
-$(a_i\tdarr f\of Q \to  P_i \tdarr Q, \shift{c_i}{(f\tdarr a_i)})$ of $\shift{c}{f}$ and an $h'\of P_i \tdarr Q \to G$ such that $a_i\tdarr f;h' = m$ and $(*)\ h' \not \sat \shift{c_i}{(f\tdarr a_i)}$. We show that $f;m \sat c$ with responsible branch $(a_i\of R \to P_i,c_i)$ and witness  $(\ddagger)\ h \stackrel{\mathit{def}}{=}f\tdarr a_i ; h'$. In fact $a_i; h = a_i; f\tdarr a_i ; h' = f; a_i\tdarr f; h' = f ; m$. Moreover, by induction hypothesis we can assume that $f \tdarr a_i; h' \sat c_i \iff h' \sat \shift{c_i}{(f \tdarr a_i)}$, therefore by $(*)$ and $(\ddagger)$ we conclude that $h \not \sat c_i$.     
+$(a_i\tdarr f\of Q \to  P_i \tdarr Q, \shift{c_i}{(f\tdarr a_i)})$ of $\shift{c}{f}$ and an $h'\of P_i \tdarr Q \to G$ such that $a_i\tdarr f;h' = m$ and $(*)\ h' \not \sat \shift{c_i}{(f\tdarr a_i)}$. We show that $f;m \sat c$ with responsible branch $(a_i\of R \to P_i,c_i)$ and witness  $(\bullet)\ h \stackrel{\mathit{def}}{=}f\tdarr a_i ; h'$. In fact $a_i; h = a_i; f\tdarr a_i ; h' = f; a_i\tdarr f; h' = f ; m$. Moreover, by induction hypothesis we can assume that $f \tdarr a_i; h' \sat c_i \iff h' \sat \shift{c_i}{(f \tdarr a_i)}$, therefore by $(*)$ and $(\bullet)$ we conclude that $h \not \sat c_i$.     
 
 \medskip
 \noindent

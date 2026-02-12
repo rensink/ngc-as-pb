@@ -1,0 +1,34 @@
+  \begin{tikzpicture}[node distance = 2cm]
+      \node (R) {$R$};
+      \tri{R}{2.7}{1}{2}{}
+      \node (S) [left of=R, xshift=-1cm] {$S$};
+      \tri{S}{2.7}{1}{2}{}
+      \node (Q) [right of=R, xshift=1cm] {$Q$};
+      \tri{Q}{2.7}{1}{2}{}
+      \node (Pi) [below of=R,yshift=4mm] {$P_i$};
+      \tri{Pi}{1}{0.4}{0.8}{$\scriptstyle{c_i}$}
+      \node (Pib) [below of=S,yshift=4mm] {$P_i$};
+      \tri{Pib}{1}{0.4}{0.8}{$\scriptstyle{c_i}$}
+     \node (Pis) [below of=Q,yshift=4mm] {$P_i \tdarr Q$};
+     \tri{Pis}{1}{0.7}{1.4}{$\scriptstyle{\shift{c_i}{(f\tdarr a_i)}}$}
+     \node (lab) [above of=R-left, xshift=1mm, yshift=-5mm] {$c$};
+     \node (labb) [above of=S-left, xshift=1mm, yshift=-5mm] {$\bshift{c}{g}$};
+     \node (labs) [above of=Q-right, xshift=-1mm, yshift=-5mm] {$\shift{c}{f}$};
+     \pushoutmark{Pis}{R}{0.3}{3mm}
+     
+\path 
+(S) edge [->] node[auto] {$\scriptstyle{g}$}  (R)
+(R) edge [->] node[auto] {$\scriptstyle{f}$}  (Q)
+     (S) edge [->] node[pos=.65, fill=black!5, inner sep=1pt] {$\scriptstyle{g;a_i}$}  (Pib)
+    (R) edge [->] node[pos=.65, fill=black!5, inner sep=1pt] {$\scriptstyle{a_i}$}  (Pi)    
+    (Q) edge [->] node[pos=.65, fill=black!5, inner sep=1pt] {$\scriptstyle{a_i\tdarr f}$}  (Pis)
+    (Pi) edge [->] node[auto] {$\scriptstyle{f\tdarr a_i}$} (Pis)
+    (S) edge [draw=none] node [pos=.55,xshift=2mm] {$\scriptstyle{\cdots}$} (S-left)
+    edge [draw=none] node [pos=.55,xshift=-2mm] {$\scriptstyle{\cdots}$} (S-right)
+    (R) edge [draw=none] node [pos=.6,xshift=2mm] {$\scriptstyle{\cdots}$} (R-left)
+    edge [draw=none] node [pos=.6,xshift=-2mm] {$\scriptstyle{\cdots}$} (R-right)
+    (Q) edge [draw=none] node [pos=.65,xshift=2mm] {$\scriptstyle{\cdots}$} (Q-left)
+    edge [draw=none] node [pos=.65,xshift=-2mm] {$\scriptstyle{\cdots}$} (Q-right)
+    ;
+    
+    \end{tikzpicture}
