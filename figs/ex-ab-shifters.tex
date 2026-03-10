@@ -11,12 +11,16 @@
 \begin{tikzpicture}[on grid]
   \node[graph] (A) {\spangraph{y}{a}{x}{a}{z}};
   \node [above right=0 and 0 of A.north west] {$A$};
+  \tri[green]{A}{2.6}{1.7}{3.4}{}
+  \node (labc) [above of=A-left, xshift=5mm, yshift=5mm] {$c$};
   \node[graph,below=2 of A] (C) {\Cgraph};
-  \node [above right=0 and 0 of C.north west] {$C$};
+  \node [above right=0 and 0 of C.north west] {};
   \node[graph] (B) [right=2.3 of A] {\oneedge{x'}{a}{z'}};
+  \tri[red]{B}{2.6}{-0.6}{3.4}{}
+  \node (labF) [above of=B-right, xshift=10mm, yshift=5mm] {$\cF_v^{s_1}(c) $};
   \node [above left=0 and 0 of B.north east] {$B$};
 
-  \path (A) edge[->] node[left] {$a$} (C);
+  \path (A) edge[->] node[left] {} (C);
 
   \path (A) edge[->,bend left] node[above]
             {$v \left\{\mapping{
@@ -32,8 +36,9 @@
 			z' & y}$}
 	    (A);
 
-  \path (B.south) edge[->] node[near start,below right,inner sep=0pt] {$\cF_v^{s_1}(a) $}  
-                           node[near end,below right=-.1] 
+  \path (B.south) edge[->] 
+  % node[near start,below right,inner sep=0pt] {$\cF_v^{s_1}(c) $}  
+                            node[near end,below right=-.1] 
             {$\mapping{
 			x' & x \\
 			z' & y}$}
@@ -83,13 +88,13 @@
   \path (B) edge[->] node[right] {$a$} (C.north -| B);
 
   \path (A) edge[->,bend left] node[above]
-            {$v \left\{\mapping{
+            {$v' \left\{\mapping{
 			x' & x \\
 			y' & z \\
 			z' & z}\right.$}
 	    (B);
 
-  \path (A.south) edge[->] node[near start,below left=-.1] {$\cB_v(a)$}
+  \path (A.south) edge[->] node[near start,below left=-.1] {$\cB_{v'}(a)$}
                            node[below left] 
             {$\mapping{
 			x' & x \\
