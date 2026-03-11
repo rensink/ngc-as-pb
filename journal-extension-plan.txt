@@ -1,6 +1,9 @@
 Extension of Festschrift paper to journal version
 =================================================
 
+2026-03-11 
+Add statement that "c-iso" between ab-conditions ensures that there are backward-shift (and forward-shift) morphisms between them, thus they have the same models.
+
 2026-02-13 (Entailment: Should we clean this up?)
 - Syntax: Note that we have entailment between FOL formulas and entailment between AB-conditions denoted in the same way. The same symbol \sat is used for satisfaction of ab-condition by a morphism but \sat^\FOL is used for satisfaction of FOL formula by a morphism
 - Furthermore, \sat relates ab-conditions only if they have the same root, while \sat relates FOL formulas also if they have different sets of free variables. 
@@ -21,13 +24,13 @@ Let   $c=(R,(a_1,c_1)\ccdots (a_w,c_w)$ be an ab-condition. Let $\nodes{c}$ be i
 
 Given conditions $c=(R,(a_1,c_1)\ccdots (a_w,c_w)$ and $c'=(R',(a'_1,c'_1)\ccdots (a'_{w'},c'_{w'})$, a \emph{s-iso} (structural iso) $m: c \leftrighrarrow c'$ is an iso (in \cat{Graph}) $m: R \leftrightarrow R'$ such that $w = w'$ and for all $i \in \{1, \ldots, w\} there are s-isos $m_i: c_i \leftrightarrow c'_i$ such that $m; a'_i = a_i; m_i$.
 
-Given a condition $c in \AC{R}$, a \emph{well-formed variant} of $c$ is a condition $c' \AC{R}$ such that $id_R$ is a structural iso form $c$ to $c'$.
+Given a condition $c in \AC{R}$, a \emph{well-formed variant} of $c$ is a condition $c' \AC{R}$ such that $id_R$ is a structural iso from $c$ to $c'$.
 
 => As expected, a condition $c$ and any of its well-formed variants are not distinguishable using satisfaction / have exactly the same model. This will be an immediate consequence of the properties of morphisms introduced later. 
 
 ===========================
 
-2026-02-13 Structural Morphisms of ab-conditions.
+DONE - 2026-02-13 Structural Morphisms of ab-conditions.
 
 To relate a condition $c \AC(A)$ with $b \AC(B)$ along $v : A \to B$ we have two ways: shift and pre-composition. If $v$ has a (partial, right) inverse $x: B \to A$ (v \comp x = id_B) we can do the same using $x$.  
 
@@ -75,7 +78,7 @@ This is true, but it should be formalised: define formally \emph{well-formed var
 
 DONE 2) Improve points 6 and 7 of the proof to Proposition 3.9, page 17
 
-3) Structural morphisms of ab-conditions should be defined by using shift and pre-composition of conditions along a morphism, instead of "source shifters".
+DONE. 3) Structural morphisms of ab-conditions should be defined by using shift and pre-composition of conditions along a morphism, instead of "source shifters".
 Actually, all forward and backward shifters considered in the original version are forms of pre-composition with a morphism, so using shift introduces new morphisms. 
 
 4) Add relationship between sb-conditions and FOL formulas, along the lines of what done for ab-conditions. Define encoding of sb-conditions into for (easy) and defined logical connectives on sb-conditions.
