@@ -74,14 +74,14 @@ c_{111} = (\inline{\looponeedge{x}{b}{a}{y}}, \epsilon) & c_{112} = (\inline{\lo
 For the depths,  $\depth(c_{111}) = \depth(c_{112}) = 0$, $\depth(c_{11}) = 1$ and $\depth(c_1) = 2$.
 
 
-Anticipating the correspondence with FOL discussed later, assuming that we already know the image of $x$ in a graph, the three conditions enjoy the following:
+Anticipating the correspondence with FOL discussed later, assuming that we already know the image of $x$ in a graph, we have:
 \begin{itemize}
 \item $c_1$ is equivalent to $\lb(x,x)\wedge \neg \exists y\st(\la(x,y)\vee \lc(x,y))$
 \item $c_2$ is equivalent to $\exists y\st \lb(x,y) \wedge \neg \la(y,y)\wedge \neg \exists z\st \lc(y,z)$ 
 \item $c_3$ is equivalent to $\la(x,x)\vee (\exists y\st \lb(x,y) \wedge (\forall v,z\st \lc(y,v)\wedge \lc(y,z) \rightarrow v=z))$
 \end{itemize}
 %
-Note that we have used variable names to represent nodes, to make the connection to the corresponding FOL properties more understandable. The morphisms are in all cases implied by the graph structure and variable names.
+Note that we have used variable names to represent nodes, to make the connection to the corresponding FOL properties more understandable. The graph morphisms are in all cases implied by the graph structure and variable names.
 \qed
 \end{example}
 %
@@ -214,14 +214,14 @@ and let $g$ be the morphism from the one-node discrete graph \inline{\onenode x}
 	  (1) edge[loop left,->] node[left] {\la} (1)
       (2) edge[->] node[above] {\lc} (3);
 	  }$
-and let $g,g',g''$ be the morphisms from \inline{\onenode x} to $G_2$ mapping \inline{\onenode x} to the left, mid and right node of $G_2$, respectively. None of these models satisfy $c_1$, for the same reason as above. Moreover, none satisfy $c_2$: though $g$ and $g'$ have witnesses for $c_{21}$, these are ruled out by either $c_{212}$ (in the case of $g$) or $c_{211}$ (in the case of $g'$); $g''$ not even has a witness for $c_{21}$. Instead, both $g\sat c_3$ (in fact there are two distinct witnesses, one for $c_{31}$ and one for $c_{32}$) and $g'\sat c_3$ (due to $c_{32}$); but again $g''\nsat c_3$.
+and let $g,g',g''$ be the morphisms from \inline{\onenode x} to $G_2$ mapping \inline{\onenode x} to the left, mid and right node of $G_2$, respectively. None of these models satisfy $c_1$, for the same reason as above. Moreover, none satisfy $c_2$: though $g$ and $g'$ have witnesses for $c_{21}$, these are ruled out by either $c_{212}$ (in the case of $g$) or $c_{211}$ (in the case of $g'$); $g''$ does not even have a witness for $c_{21}$. Instead, both $g\sat c_3$ (in fact there are two distinct witnesses, one for $c_{31}$ and one for $c_{32}$) and $g'\sat c_3$ (due to $c_{32}$); but again $g''\nsat c_3$.
 
 \item If $G_3=\inline{\oneloopleft \bullet b}$, then the only morphism $g$ from \inline{\onenode x} to $G_3$ has $g\sat c_1$, $g\sat c_2$ and $g\sat c_3$. 
 \end{itemize}
 In general, it can be checked that every model of $c_1$ is also a model of $c_2$ and every model of $c_2$ is a model of $c_3$, thus $c_1\entails c_2$ and $c_2 \entails c_3$. On the other hand, $c_2\nsat c_1$ as shown by $g:\inline{\onenode x}\to G_1$, and $c_3 \nsat c_2$ as shown by $g:\inline{\onenode x}\to G_2$.\qed
 \end{example}
-
-Shifting a condition along an arrow preserves the models prefixed with such arrow, and precomposing a condition with an arrow preserves the models, and it reflects them if the arrow is epi.
+%
+Shifting a condition along an arrow preserves the models prefixed with such arrow,\todo{Point to related work} and precomposing a condition with an arrow preserves the models, and it reflects them if the arrow is epi.
 
 \begin{proposition}[Satisfaction is invariant w.r.t.~shift and precomposition with epis]
   \plabel{shiftSat}
@@ -233,14 +233,16 @@ Shifting a condition along an arrow preserves the models prefixed with such arro
   \end{enumerate}
 \end{proposition}
 
-\begin{proof}[]
-\textbf{(1)}\hspace{1ex} We proceed by induction on the depth of $c$, noting that shift preserves the depth. If $\depth(c) = 0$ then $c = (R, \epsilon)$ and $\shift{c}{f} = (Q,\epsilon)$; thus for every $m \of Q \to G$ we have $f;m \not \sat c$ and $m \not \sat \shift{c}{f}$. Now let $\depth(c) = n > 0$ and assume that the statement holds for all conditions with depth smaller than $n$.\\
- \textbf{($\Rightarrow$)} Let $m\of Q \to G$ and assume that $f;m \sat c$, meaning that there is a branch $p_i = (a_i\of R \to P_i, c_i)$ of $c$ with $i \in [1,w]$ and an $h: P_i \to G$ such that $(\dagger)\ a_i ; h = f;m$ and $(\ddagger)\ h \not \sat c_i$. To show that $m \sat \shift{c}{f}$, we can consider the branch $(a_i\tdarr f\of Q \to  P_i \tdarr Q, \shift{c_i}{(f\tdarr a_i)})$ of $\shift{c}{f}$, and as witness the arrow $h'\of P_i \tdarr Q \to G$ induced by the universal property of the pushout because of $(\dagger)$. In fact, we have $a_i\tdarr f;h' = m$ by the pushout properties, while $h' \not \sat \shift{c_i}{(f\tdarr a_i)}$ holds by contradiction. Indeed, by induction hypothesis (since $\depth(c_i) < n$) we have $h' \sat \shift{c_i}{(f\tdarr a_i)} \iff f\tdarr a_i ; h' \sat c_i$ which contradicts $(\ddagger)$ because $f\tdarr a_i ; h' = h$ by the pushout properties. \\ 
- \textbf{($\Leftarrow$)} Assume that $m \sat \shift{c}{f}$. Thus there is a branch  
-$(a_i\tdarr f\of Q \to  P_i \tdarr Q, \shift{c_i}{(f\tdarr a_i)})$ of $\shift{c}{f}$ and an $h'\of P_i \tdarr Q \to G$ such that $a_i\tdarr f;h' = m$ and $(*)\ h' \not \sat \shift{c_i}{(f\tdarr a_i)}$. We show that $f;m \sat c$ with responsible branch $(a_i\of R \to P_i,c_i)$ and witness  $(\bullet)\ h \stackrel{\mathit{def}}{=}f\tdarr a_i ; h'$. In fact $a_i; h = a_i; f\tdarr a_i ; h' = f; a_i\tdarr f; h' = f ; m$. Moreover, by induction hypothesis we can assume that $f \tdarr a_i; h' \sat c_i \iff h' \sat \shift{c_i}{(f \tdarr a_i)}$, therefore by $(*)$ and $(\bullet)$ we conclude that $h \not \sat c_i$.     
+\begin{proof}[]~
+\begin{enumerate}
+\item We proceed by induction on the depth of $c$, noting that shift preserves the depth. If $\depth(c) = 0$ then $c = (R, \epsilon)$ and $\shift{c}{f} = (Q,\epsilon)$; thus for every $m \of Q \to G$ we have $f;m \not \sat c$ and $m \not \sat \shift{c}{f}$. Now let $\depth(c) = n > 0$ and assume that the statement holds for all conditions with depth smaller than $n$.
 
-\medskip
-\noindent
-\textbf{(2)}\hspace{1ex}
+ \textbf{($\Rightarrow$)} Let $m\of Q \to G$ and assume that $f;m \sat c$, meaning that there is a branch $p_i = (a_i\of R \to P_i, c_i)$ of $c$ with $i \in [1,w]$ and an $h: P_i \to G$ such that \tagone $a_i ; h = f;m$ and \tagtwo $h \not \sat c_i$. To show that $m \sat \shift{c}{f}$, we can consider the branch $(a_i\tdarr f\of Q \to  P_i \tdarr Q, \shift{c_i}{(f\tdarr a_i)})$ of $\shift{c}{f}$, and as witness the arrow $h'\of P_i \tdarr Q \to G$ induced by the universal property of the pushout because of \tagone. In fact, we have $a_i\tdarr f;h' = m$ by the pushout properties, while $h' \not \sat \shift{c_i}{(f\tdarr a_i)}$ holds by contradiction. Indeed, by the induction hypothesis (since $\depth(c_i) < n$) we have $h' \sat \shift{c_i}{(f\tdarr a_i)} \iff f\tdarr a_i ; h' \sat c_i$ which contradicts \tagtwo because $f\tdarr a_i ; h' = h$ by the pushout properties.
+ 
+ \textbf{($\Leftarrow$)} Assume that $m \sat \shift{c}{f}$. Thus there is a branch  
+$(a_i\tdarr f\of Q \to  P_i \tdarr Q, \shift{c_i}{(f\tdarr a_i)})$ of $\shift{c}{f}$ and an $h'\of P_i \tdarr Q \to G$ such that $a_i\tdarr f;h' = m$ and \tagthree $h' \not \sat \shift{c_i}{(f\tdarr a_i)}$. We show that $f;m \sat c$ with responsible branch $(a_i\of R \to P_i,c_i)$ and witness \tagfour $h \isdef f\tdarr a_i ; h'$. In fact $a_i; h = a_i; f\tdarr a_i ; h' = f; a_i\tdarr f; h' = f ; m$. Moreover, by the induction hypothesis we can assume that $f \tdarr a_i; h' \sat c_i \iff h' \sat \shift{c_i}{(f \tdarr a_i)}$, therefore by \tagthree and \tagfour we conclude that $h \not \sat c_i$.     
+
+\item
 Spelling out the definitions, it is obvious that if $(a_i, c_i)$ is a responsible branch for $m \sat c$ with witness $h\of P_i \to G$, then $(g;a_i,c_i)$ is a responsible branch for $g;m \sat  \bshift{c}{g}$, with exactly the same witness. In fact $a_i; h = m$ implies $g;a_i ; h = g ; m$. If $g$ is epi also the converse is true. \qed
+\end{enumerate}
 \end{proof}
