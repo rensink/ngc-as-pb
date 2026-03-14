@@ -1,0 +1,20 @@
+% Code to find out where a certain macro is defined
+% Results are saved in journal.fnd
+% Thanks to https://tex.stackexchange.com/questions/8513/how-to-find-out-where-a-macro-is-defined
+\usepackage{filehook,currfile}
+\newwrite\finder
+\immediate\openout\finder=\jobname.fnd
+\def\searchmacro#1{
+  \AtBeginOfFiles{%
+    \ifdefined#1
+      \expandafter\def\csname \currfilename:found\endcsname{}%
+    \fi}
+  \AtEndOfFiles{%
+    \ifdefined#1
+      \unless\ifcsname \currfilename:found\endcsname
+        \immediate\write\finder{found in '\currfilename'}%
+    \fi\fi}}
+
+% Include an invocation for every macro you want to find
+\searchmacro\merge
+

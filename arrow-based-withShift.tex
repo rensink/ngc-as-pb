@@ -32,9 +32,9 @@ Assuming that \cat{C} is a presheaf topos ensures several properties we need in 
 \medskip\noindent
 Arrow-based conditions are inductively defined as follows:
 
-\begin{definition}[arrow-based condition]\dlabel{ab-condition}
+\begin{definition}[arrow-based condition]\label{def:ab-condition}
   Let $R$ be an object of $\bC$. $\AC R$ (the set of \emph{arrow-based conditions} over $R$) and $\AB R$ (the set of \emph{arrow-based branches} over $R$) are the smallest sets such that
-  \begin{itemize}
+  \begin{itemize}[defsep]
   \item $c\in \AC R$ if $c=(R,p_1\ccdots p_w)$ is a pair with $p_i\in \AB R$ for all $1\leq i\leq w$, where $w \geq 0$;
   \item $p\in \AB R$ if $p=(a,c)$ where $a: R\to P$ is an arrow of $\bC$ and $c\in \AC P$.
   \end{itemize}
@@ -58,12 +58,12 @@ We regularly abbreviate ``arrow-based" to ``ab". We call $R$ the \emph{root} of 
 \caption{Visualisations for arrow-based conditions}
 \end{figure}
 
-Note that, as a consequence of the inductive nature of \dcite{ab-condition}, every ab-condition has a finite \emph{depth} $\depth(c)$, defined as $0$ if $|c|=0$ and $1+\max_{1\leq i\leq |c|} \depth(c_i)$ otherwise. The depth will provide a basis for inductive proofs.
+Note that, as a consequence of the inductive nature of Def.~\ref{def:ab-condition}, every ab-condition has a finite \emph{depth} $\depth(c)$, defined as $0$ if $|c|=0$ and $1+\max_{1\leq i\leq |c|} \depth(c_i)$ otherwise. The depth will provide a basis for inductive proofs.
 
-Given two ab-conditions over $R$, $c=(R,p_1\ccdots p_w)$ and $c'=(R,p'_1\ccdots p'_{w'})$, their \emph{disjunction} is the condition $\mergeabc{c}{c'} = (R,p_1\ccdots p_w, p'_1\ccdots p'_{w'})$.\todo{AC: change name/symbol?}
+Given two ab-conditions over $R$, $c=(R,p_1\ccdots p_w)$ and $c'=(R,p'_1\ccdots p'_{w'})$, their \emph{disjunction} is the condition $\mergeabc{c}{c'} = (R,p_1\ccdots p_w, p'_1\ccdots p'_{w'})$.\todo{AC: change name/symbol? AR: Maybe call it merge, to distinguish it from the FOL operator? However, is this the right place to introduce the operation, as it is used only much later. If we introduce it, don't we want to show its properties?}
 
-\begin{example}\exlabel{ab-conditions}
-\fcite{ab-conditions} shows the graphical representation of three arrow-based conditions, rooted in the discrete one-node graph \inline{\onenode x}. The leftmost one, $c_1 \in \AC{\inline{\onenode x}}$, is defined according to \dcite{ab-condition} as 
+\begin{example}\label{ex:ab-conditions}
+\fcite{ab-conditions} shows the graphical representation of three arrow-based conditions, rooted in the discrete one-node graph \inline{\onenode x}. The leftmost one, $c_1 \in \AC{\inline{\onenode x}}$, is defined according to Def.~\ref{def:ab-condition} as 
 
 $\begin{array}{ll}
 c_1 = (\inline{\onenode x}, (f,c_{11})) & c_{11} = (\inline{\oneloopleft{x}{b}}, (g,c_{111})(h,c_{112}))\\
@@ -100,7 +100,7 @@ Given an ab-condition $c \in \AC{R}$ and an arrow $g\of S \to R$, we can \emph{p
 For the components of the pushout of two arrows $f\of R \to Q$ and $a \of R \to P$ we will use the notation illustrated in the following diagram, assuming that $( P\tdarr Q, f\tdarr a, a\tdarr f)$ is a concretely chosen pushout of $f$ and $a$ (which is defined up to isomorphism).
 
 \begin{equation}\label{eq:pushout}
-    \begin{tikzpicture}[auto,node distance = 1.5cm]
+    \begin{tikzpicture}[auto,node distance = 1.5cm,baseline=(a)]
       \node (R) {$R$};
       \node (Q) [right of=R] {$Q$};
       \node (P) [below of=R] {$P$};
@@ -108,7 +108,7 @@ For the components of the pushout of two arrows $f\of R \to Q$ and $a \of R \to 
 
     \path
       (R) edge [->] node[auto] {$\scriptstyle{f}$}  (Q)
-      edge [->] node[auto,swap] {$\scriptstyle{a}$}  (P)
+      edge [->] node (a) [auto,swap] {$\scriptstyle{a}$}  (P)
     (Q) edge [->] node[auto] {$\scriptstyle{a\tdarr f}$}  (PO)
     (P) edge [->] node[auto] {$\scriptstyle{f\tdarr a}$}  (PO); 
 % \draw (.75,-.75) node {$\scriptstyle{PO}$};
@@ -123,25 +123,7 @@ For the components of the pushout of two arrows $f\of R \to Q$ and $a \of R \to 
 \label{fig:ab-shift}
 \end{figure}
 
-% \begin{figure}[t]
-% \centering
-% \subcaptionbox
-%   {Condition $c=(R,p_1\ccdots p_w)$, with $p_i=(a_i,c_i)$ for $1\leq i\leq w$
-%    \flabel{ab-condition}}
-%   [.45\textwidth]
-%   {\input{figs/ab-condition}}
-% \quad
-% \subcaptionbox
-%   {$g\sat c$, with responsible branch $p_i=(a_i,c_i)$ and witness $h$ such that $g=a_i;h$
-%    \flabel{ab-satisfaction}}
-%   [.5\textwidth]
-%   {\input{figs/ab-satisfaction}}
-% \caption{Visualisations for arrow-based conditions}
-% \end{figure}
-
-
-
-
+\begin{comment}%Old def of shift and precomposition, now split out
 \begin{definition}[precomposition and shift of ab-conditions]
   \dlabel{shift}
 Let   $c=(R,p_1\ccdots p_w)$ be an ab-condition in $\AC R$, with $p_i = (a_i\of R\to P_i,c_i)$ for $i\in [1,w]$, where $c_i \in \AC{P_i}$ (see \fcite{ab-shift}). 
@@ -151,49 +133,71 @@ Let $g\of S \to R$ be an arrow in $\cat{C}$. The \emph{precomposition of $c$ wit
 \item
 Let $f\of R \to Q$ be an arrow. The \emph{shift of $c$ along $f$} is the condition $\shift{c}{f} \in \AC{Q}$ defined as  $\shift{c}{f} = (Q, p''_1\ccdots p''_w)$, where $p''_i = (a_i \tdarr f\of Q \to P_i \tdarr Q, \shift{c_i} {(f\tdarr {a_i})})$ for $i\in [1,w]$.
 \end{itemize}
+\end{definition}
+\end{comment}
 
+\begin{definition}[precomposition of ab-conditions]
+  \label{def:precomposition}
+Let $g\of S \to R$ be an arrow in $\cat{C}$. 
+\begin{itemize}[defsep]
+\item For a condition $c=(R,p_1\ccdots p_w)\in \AC R$, the \emph{precomposition of $c$ with $g$} is the condition $\bshift{c}{g} \in \AC{S}$ defined by $\bshift{c}{g} \isdef (S,\bshift{p_1}{g} \cdots \bshift{p_w}{g})$;
+\item For a branch $p=(a,c)\in \AB R$, the \emph{precomposition of $p$ with $g$} is the branch $\bshift p g\in \AB S $ defined by $\bshift c g\isdef (a;g,c)$.
+\end{itemize}
 \end{definition}
 
-Note that \emph{precomposing} an ab-codition with an arrow only affects the top-level branches, and the subconditions are preseved. Instead \emph{shifting} a condition along an arrow affects all subconditions, which are recursively shifted along the corresponding pushout arrows. 
+\begin{definition}[shift of ab-conditions]
+  \label{def:shift}
+Let $f\of R \to Q$ be an arrow in $\cat C$.
+\begin{itemize}[defsep]
+\item For a condition $c=(R,p_1\ccdots p_w)\in \AC R$, the \emph{shift of $c$ along $f$} is the condition $\shift{c}{f} \in \AC{Q}$ defined by  $\shift{c}{f} \isdef (Q, \shift{p_1}{f}\cdots \shift{p_w}{f})$.
+
+\item For a branch $p=(a,c)\in \AB R$, the  \emph{shift of $p$ along $f$}  is the branch $\shift{p}{f} \in \AB{Q}$ defined by $\shift p f\isdef (a \tdarr f, \shift{c}{(f\tdarr {a})})$.
+\end{itemize}
+\end{definition}
+%
+Note that \emph{precomposing} an ab-condition with an arrow only affects the top-level branches, and the subconditions are preserved. Instead \emph{shifting} a condition along an arrow affects all subconditions, which are recursively shifted along the corresponding pushout arrows. 
 
 \subsection{Satisfaction}
 
-A condition expresses a property of arrows from its root to arbitrary objects. This is operationalised through the notion of \emph{satisfaction}.
+A condition expresses a property of arrows from its root to arbitrary objects. This is operationalised through the notion of \emph{satisfaction}.\todo{AR: Split into separate clauses for conditions and branches, since this is useful in the definition of join (Def.~\ref{def:join}).}
 
-\begin{definition}[satisfaction of arrow-based conditions, entailment]
-  \dlabel{ab-satisfaction}%
-  Let $c$ be an ab-condition over $R$ and $g:R\to G$ an arrow from $c$'s root to some object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i=(a_i,c_i)$ of $c$ and an arrow $h:P_i\to G$ such that
-  \begin{enumerate}
-  \item $g=a_i;h$ and
-  \item $h\nsat c_i$.
-  \end{enumerate}
-\noindent
-If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} for $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p_i$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
+\begin{definition}[satisfaction of arrow-based conditions]\label{def:ab-satisfaction}%
+Let $g\of R\to G$ be an arbitrary arrow.
+\begin{itemize}[defsep]
+\item Let $c=(R,p_1\ccdots p_w)\in \AC R$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i$ such that $g\sat p_i$.
 
-   For ab-conditions $b$ and $c$ over the same root $R$ we  define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalence} $b\equiv c$:
+\item Let $p=(a\of R\to P,c)\in \AB R$. We say that \emph{$g$ satisfies $p$}, denoted $g\sat p$, if  there is an arrow $h\of P\to G$ such that
+\begin{inumerate}
+  \item $g=a;h$ and
+  \item $h\nsat c$.
+\end{inumerate}
+\end{itemize}
+\end{definition}
+%
+If $g\sat c$, we also say that $g$ is a \emph{model} for $c$. We call $p_i=(a_i,c_i)$ the \emph{responsible branch} and $h$ such that $g=a_i;h$ and $h\not\sat c_i$ the \emph{witness} for $g\sat c$. Pictorially, $g\sat c$ with responsible branch $p_i$ and witness $h$ can be visualised as in \fcite{ab-satisfaction}.
+
+\begin{definition}[entailment, equivalence]\label{def:entailment}
+For ab-conditions $b,c\in \AC R$ over the same root $R$ we  define \emph{semantic entailment} $b\entails c$ and \emph{semantic equivalence} $b\equiv c$:
 %
 \begin{align*}
-b \entails c & \text{ if for all arrows $g:R\to G$, } g\sat b \text{ implies } g\sat c \\
-b \equiv c & \text{ if for all arrows $g:R\to G$, } g\sat b \text{ if and only if } g\sat c \enspace. 
+b \entails c & \text{ if for all arrows $g\of R\to G$, } g\sat b \text{ implies } g\sat c \\
+b \equiv c & \text{ if for all arrows $g\of R\to G$, } g\sat b \text{ if and only if } g\sat c \enspace. 
 \end{align*}
 \end{definition}
 %
-
-
-The next facts follow immediately from the definition of satisfaction.   
-\begin{fact}\label{fact:satisfaction}
-  \begin{description}
-    \item[(a)] Every condition of depth 0 has no models.
+The next facts follow immediately from the definition of satisfaction.\todo{AR: Why not a proposition?}
+%
+\begin{fact}\label{fact:satisfaction}~
+\begin{enumerate}[defsep]
+\item Every condition of depth 0 has no models.
     %Given an ab-condition $c \in \AB{R}$, if $\depth(c) = 0$ then $c$ has no model.
-    \item[(b)]
-Given ab-conditions $c, c' \in \AB{R}$ and a morphism $g: R \to G$, $g \sat c+c'$ if and only if $g\sat c $ or $g\sat c'$.
-\end{description}
+    
+\item
+Given ab-conditions $c, c' \in \AB{R}$ and an arrow $g\of R \to G$, $g \sat c\merge c'$ if and only if $g\sat c $ or $g\sat c'$.
+\end{enumerate}
 \end{fact}
 
-
-
-
-\begin{example}\exlabel{ab-satisfaction}
+\begin{example}\label{ex:ab-satisfaction}
 Let us consider some models for the ab-conditions in \fcite{ab-conditions}.
 \begin{itemize}[topsep=0pt]
 \item Let $G_1=\myinlinegraph{
@@ -223,14 +227,13 @@ In general, it can be checked that every model of $c_1$ is also a model of $c_2$
 %
 Shifting a condition along an arrow preserves the models prefixed with such arrow,\todo{Point to related work} and precomposing a condition with an arrow preserves the models, and it reflects them if the arrow is epi.
 
-\begin{proposition}[Satisfaction is invariant w.r.t.~shift and precomposition with epis]
-  \plabel{shiftSat}
-  \begin{enumerate}
-    \item
+\begin{proposition}[satisfaction for shift and precomposition]\label{prop:shiftSat}
+\begin{enumerate}[defsep]
+\item
   Let $c \in \AC R$ and $f\of R \to Q$. Then $f;m \sat c$ iff $m \sat \shift{c}{f}$.
-  \item   
+\item   
   Let $c \in \AC R$ and $g\of S \to R$. Then  $m \sat c$ implies $g;m \sat \bshift{c}{g}$, and if $g$ is epi also the converse holds.
-  \end{enumerate}
+\end{enumerate}
 \end{proposition}
 
 \begin{proof}[]~
