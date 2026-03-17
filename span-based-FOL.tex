@@ -3,7 +3,7 @@
 
 \todo{AC:  Add section about correspondence between span-based conditions in Graph and FOL? Could be concise, given that most definitions are in \scite{FOL}}
 
-In this section we present the enconding of span-based conditions into formulas of the first-order logic of graphs and viceversa, as done for arrow-based conditions in \scite{FOL}. The encoding of conditions as formulas is a simple adaptation of that of \dcite{encoding}, for which the correctness results of \pcite{same-models} can be adapted easily, and we refrain from presenting it.
+In this section we present the enconding of span-based conditions into formulas of the first-order logic of graphs and viceversa, as done for arrow-based conditions in \scite{FOL}. The encoding of conditions as formulas is a simple adaptation of that of Def.~ref{def:encoding}, for which the correctness results of \pcite{same-models} can be adapted easily, and we refrain from presenting it.
 Instead the encoding of formulas as sb-conditions by structural induction present some subtetlies that we discuss in detail. 
 
 
@@ -99,7 +99,7 @@ If $\sbc{\phi} = (R,p_1\ccdots p_w)$ then $ \sbc{\neg \phi} = (R,(\spanof{id_R}{
 Let $\phi = \phi_1 \vee \phi_2$. If $ \sbc{\phi_1} = (R_1,p_1\ccdots p_w)$ and $ \sbc{\phi_2} = (R_2,q_1\ccdots q_v)$, we can assume that $V_{R_i} = \fv(\phi_i)$ for $i \in \{1,2\}$.  Let $R = \disc{V_{R_1} \cup V_{R_2}}$, with the obvious injections $in_i\of R_i \hookrightarrow R$ for $i \in \{1,2\}$.
 Then $\sbc{\phi} = \mergeabc{\shift{\sbc{\phi_1}}{in_1}}{\shift{\sbc{\phi_2}}{in_2}}$.\todo{AC: not defined: composition of up-arrow with the injection.} Note that by construction $R = \disc{\fv(\phi)}$, as required. 
 \item 
-Let\todo{AC: take pullback of variables injection and up-arrow. This affects only the top interface, because up-arrow is mono} $\phi = \exists X \st \phi'$. If $\sbc{\phi'} = (R',(a_1,c_1)\ccdots (a_w,c_w))$ we know that $V_{R'} = \fv(\phi')$. Let $R = \disc{V_{R'} \setminus X}$, and $j \of R \hookrightarrow R'$ be the obvious injection. Then $ \sbc{\exists X \st \phi'} = \bshift{\sbc{\phi'}}{j} = (R,(j;a_1,c_1)\ccdots (j;a_w,c_w))$ is obtained by precomposing $\sbc{\phi'}$ with $j$ (see \dcite{shift}). By construction we have $R = \disc{\fv(\phi)}$, as required.
+Let\todo{AC: take pullback of variables injection and up-arrow. This affects only the top interface, because up-arrow is mono} $\phi = \exists X \st \phi'$. If $\sbc{\phi'} = (R',(a_1,c_1)\ccdots (a_w,c_w))$ we know that $V_{R'} = \fv(\phi')$. Let $R = \disc{V_{R'} \setminus X}$, and $j \of R \hookrightarrow R'$ be the obvious injection. Then $ \sbc{\exists X \st \phi'} = \bshift{\sbc{\phi'}}{j} = (R,(j;a_1,c_1)\ccdots (j;a_w,c_w))$ is obtained by precomposing $\sbc{\phi'}$ with $j$ (see Def.~\ref{def:shift}). By construction we have $R = \disc{\fv(\phi)}$, as required.
 \item Present construction of CONJUNCTION of single branched conditions, next of multi-branched ones.
 \item 
 Finally, by exploiting the usual logical equivalences we define  $sabc{\forall X\st \phi} = \sbc{\neg \exists X \st \neg \phi}$.

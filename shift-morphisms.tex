@@ -16,7 +16,7 @@ This can be achieved in essentially two ways, both on the basis of $v$: by const
 
 We will first define how to shift arrows (where it is called \emph{source} shifting) and then extend this in a natural way to conditions (where it is called \emph{root} shifting).
 
-\begin{definition}[source shifter]\dlabel{ab-source shifter}
+\begin{definition}[source shifter]\label{def:ab-source shifter}
 \begin{itemize}[topsep=\smallskipamount]
 \item Let us denote by $\cat{C}(A,\_)$ the set of arrows of \cat{C} with source $A$. Let $X,Y$ be objects of $\cat{C}$. A \emph{source shifter} $\cS$ from $X$ to $Y$ is a target-preserving mapping $\cS \of \cat{C}(X,\_) \to \cat{C}(Y, \_)$\footnote{That is, if $f\of X \to Z$ for some $Z$, then $\cS(f)\of Y \to Z$. More formally, $\cS$  can be defined as a family of functions $\cS = \left\{\cS_Z : \cat{C}(X, Z) \to \cat{C}(Y, Z)\right\}_{Z\in |\cat{C}|}$.} such that for all arrows $a\of X\to Z, t\of Z\to U$:
 %
@@ -137,7 +137,7 @@ Source shifting is extended in a straightforward manner to conditions, where it 
 \cI_{X,Y}: & (X,\epsilon) & \mapsto (Y,\epsilon) \enspace.
 \end{array}\]
 
-\begin{definition}[root shifter]\dlabel{ab-root shifter}
+\begin{definition}[root shifter]\label{def:ab-root shifter}
 Let $X,Y$ be objects and $v\of A\to B$ an arrow.
 \begin{itemize}[topsep=\smallskipamount]
 \item A \emph{root shifter} $\cC$ from $X$ to $Y$ is a partial function from $\AC X$ to $\AC Y$ such that either $\cC=\bar\cS$ for some source shifter from $X$ to $Y$, or $\cC=\cI_{X,Y}$.
@@ -148,7 +148,7 @@ Let $X,Y$ be objects and $v\of A\to B$ an arrow.
 \end{itemize}
 \end{definition}
 %
-It should be noted that \emph{all} root shifters $\bar\cS$ with $\cS$ a source shifter from $X$ to $Y$ behave like $\cI_{X,Y}$ on zero-width conditions; however, $\cI_{X,Y}$ is a root shifter for any pair of objects $(X,Y)$, whereas, as we have seen in \dcite{ab-source shifter}, forward and backward source shifters only exist for certain arrows $v\of X \to Y$. This justifies the introduction of $\cI_{X,Y}$ as a  distinguished root shifter.
+It should be noted that \emph{all} root shifters $\bar\cS$ with $\cS$ a source shifter from $X$ to $Y$ behave like $\cI_{X,Y}$ on zero-width conditions; however, $\cI_{X,Y}$ is a root shifter for any pair of objects $(X,Y)$, whereas, as we have seen in Def.~\ref{def:ab-source shifter}, forward and backward source shifters only exist for certain arrows $v\of X \to Y$. This justifies the introduction of $\cI_{X,Y}$ as a  distinguished root shifter.
 
 \begin{fullorname}[\lname{ab-root shifter}]
 The following fact, which follows from \lcite{ab-source shifters} for source shifters, will be very useful in reasoning about root shifters.
@@ -224,7 +224,7 @@ Now assume $\cU$ and $\cV$ are root shifters. If both are non-trivial, then so i
 
 The following defines structural morphisms, based on root shifters, over ab-conditions with the same root.
 
-\begin{definition}[arrow-based condition morphism]\dlabel{ab-morphism}
+\begin{definition}[arrow-based condition morphism]\label{def:ab-morphism}
   Let $c,b \in \AC{R}$. A \emph{forward-shift [backward-shift] condition morphism} $m: c \to b$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
   \begin{itemize}[topsep=\smallskipamount]
   \item $o:[1,|b|]\to[1,|c|]$ is a function from $b$'s branches to $c$'s branches;
