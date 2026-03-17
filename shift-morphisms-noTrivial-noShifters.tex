@@ -1,7 +1,7 @@
 \section{Morphisms of arrow-based conditions}
 \slabel{ab-morphisms}
 
-The notion of \emph{morphism} of nested conditions has not received much attention in the literature. When considered at all, such as in \cite{bchk:conditional-reactive-systems,sksclo:coinductive-techniques-for-satisfiability}, they are essentially based on the semantics in terms of satisfaction. Indeed, entailment (see \dcite{ab-satisfaction}) establishes a preorder over conditions. Let us denote the resulting category $\ABC^{\entails}$, where if $c$ and $b$ are ab-conditions, $c \leq b$ iff $c \entails b$.%
+The notion of \emph{morphism} of nested conditions has not received much attention in the literature. When considered at all, such as in \cite{bchk:conditional-reactive-systems,sksclo:coinductive-techniques-for-satisfiability}, they are essentially based on the semantics in terms of satisfaction. Indeed, entailment (see Def.~\ref{def:ab-satisfaction}) establishes a preorder over conditions. Let us denote the resulting category $\ABC^{\entails}$, where if $c$ and $b$ are ab-conditions, $c \leq b$ iff $c \entails b$.%
 %: Note that in this case $c$ and $b$ have the same root. %
 \footnote{Note that $c \leq b$ implies that $c$ and $b$ have the same root.} 
  
@@ -10,20 +10,186 @@ The question that we address in this section is to establish a meaningful \emph{
 For morphisms to be meaningful,  they should only exist where there is entailment: 
 % indeed, we require there to be a \emph{contravariant} functor to $\ABC^{\entails}$, meaning that 
 if there is a structural morphism $b \to c$, then it should hold $c \entails b$.\footnote{This is consistent with the case of the $\exists$-fragment sketched in the Introduction.} As we will see, this requirement implies that it is not enough to consider only arrows \emph{from} objects of $b$ \emph{to} objects of $c$, since in our definition of satisfaction the direction of entailment flips at every subsequent nesting level. 
-It also implies that morphisms should only relate conditions with the same root, because entailment is defined only among conditions over the same root (see \dcite{ab-satisfaction}).\todo{AC: rephrase} Technically, the main result of this section will be formulated categorically as the existence of  contravariant functors from  categories of conditions with structural morphisms to $\ABC^{\entails}$.
+It also implies that morphisms should only relate conditions with the same root, because entailment is defined only among conditions over the same root (see Def.~\ref{def:ab-satisfaction}).\todo{AC: rephrase} Technically, the main result of this section will be formulated categorically as the existence of  contravariant functors from  categories of conditions with structural morphisms to $\ABC^{\entails}$.
 
+\todo[inline]{From here is the version based on root arrows.}
+
+The underlying principle for a morphism $m$ from $b$ to $c$ is that it must identify, for every $c$-branch $p^c_i$, a $b$-branch $p^b_j$ that it entails. However, because of their inductively defined tree-shape, on lower levels we have to relate (sub)conditions over different roots; hence, in general $R^c$ and $R^b$ are not the same. Instead, a morphism $m$ will include an arrow $v\of R^c\to R^b$ (in the opposite direction of $m$, and the entailment of $p^b_j$ by $p^c_i$ is \emph{modulo} $v$, in a way made precise below.
+
+\begin{definition}[entailment square]\label{def:entailment square}
+Let $a_1\of R_1\to P_1$, $a_2\of R_2\to P_2$, $v\of R_2\to R_1$ and $v'\of P_1\to P_2$, and consider the following (not necessarily commuting) diagram:
+\[\begin{tikzpicture}[auto,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=of R1] {$P_1$};
+\node (R2) [right=of R1] {$R_2$};
+\node (P2) [below=of R2] {$P_2$};
+
+\path
+  (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
+  (R2) edge [->] node [auto] {$a_2$} (P2)
+       edge [->] node [auto] {$v$} (R1)
+  (P1) edge [->] node [auto] {$v'$} (P2);
+
+\node (G) [below left=.5 and .5 of P1] {$G$};
+\path
+  (R1) edge [dashed,->,bend right=25] node[left] {$g$} (G)
+  (P2) edge [dashed,->,bend left=25] node[auto] {$h$} (G);
+\end{tikzpicture}\]
+%
+The diagram is called an \emph{entailment square} if, for any pair of arrows $g\of R_1\to G$, $h\of P_2\to G$, the $v;g=a_2;h$ implies $g=a_1;v';h$ (in other words, the bottom left subdiagram commutes if the outer subdiagram commutes). 
+\end{definition}
+
+\begin{proposition}\label{prop:entailment square}
+Consider a diagram as in Def.~\ref{def:entailment square}.
+\begin{enumerate}[defsep]
+\item If $v$ is epi and the square commutes (i.e., $a_2=v;a_1;v'$), the diagram is an entailment square.
+\item If $v$ is split epi with section $s$ such that $s;a_2=a_1;v'$, the diagram is an entailment square.
+\item Entailment squares compose; i.e., in
+\[\begin{tikzpicture}[auto,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=of R1] {$P_1$};
+\node (R2) [right=of R1] {$R_2$};
+\node (P2) [below=of R2] {$P_2$};
+\node (R3) [right=of R2] {$R_3$};
+\node (P3) [below=of R3] {$P_3$};
+
+\path
+  (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
+  (R2) edge [->] node [auto] {$a_2$} (P2)
+       edge [->] node [auto] {$v_1$} (R1)
+  (P1) edge [->] node [auto] {$v_1'$} (P2)
+  (R3) edge [->] node [auto] {$a_3$} (P3)
+       edge [->] node [auto] {$v_2$} (R2)
+  (P2) edge [->] node [auto] {$v_2'$} (P3);
+\end{tikzpicture}\]
+if both the left hand and the right hand subdiagram are entailment squares, then so is the outer subdiagram.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[]
+\begin{enumerate}
+\item Since the diagram commutes, $v;g=a_2;h=v;a_1;v';h$; hence $g=a_1;v';h$ because $v$ is epi.
+
+\item The diagram becomes
+\[\begin{tikzpicture}[auto,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=of R1] {$P_1$};
+\node (R2) [right=of R1] {$R_2$};
+\node (P2) [below=of R2] {$P_2$};
+
+\path
+  (R1) edge [->] node (a1) [left] {$a_1$} (P1)
+  (R2) edge [->] node [auto] {$a_2$} (P2)
+       edge [->] node [above] {$v$} (R1)
+  (P1) edge [->] node [auto] {$v'$} (P2);
+
+\node (G) [below left=.5 and .5 of P1] {$G$};
+\path
+  (R1) edge [dashed,->,bend right=25] node[left] {$g$} (G)
+  (P2) edge [dashed,->,bend left=25] node[auto] {$h$} (G);
+
+\node (X) [below right=.4 and .5 of R1] {$R_1$};
+
+\path (X) edge [->] node[pos=.4,below left,inner sep=1] {$\id$} (R1)
+          edge [->] node[pos=.4,below right,inner sep=1] {$s$} (R2);
+\end{tikzpicture}\]
+where $s;a_2=\id;a_1;v'$ and $s;v=\id$; hence $v;g=a_2;h$ implies $g=\id;g=s;v;g=s;a_2;h=\id;a_1;v';h=a_1;v';h$.
+
+\item Consider
+
+\[\begin{tikzpicture}[auto,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=of R1] {$P_1$};
+\node (R2) [right=of R1] {$R_2$};
+\node (P2) [below=of R2] {$P_2$};
+\node (R3) [right=of R2] {$R_3$};
+\node (P3) [below=of R3] {$P_3$};
+
+\path
+  (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
+  (R2) edge [->] node [auto] {$a_2$} (P2)
+       edge [->] node [auto] {$v_1$} (R1)
+  (P1) edge [->] node [auto] {$v_1'$} (P2)
+  (R3) edge [->] node [auto] {$a_3$} (P3)
+       edge [->] node [auto] {$v_2$} (R2)
+  (P2) edge [->] node [auto] {$v_2'$} (P3);
+
+\node (G) [below left=.5 and .5 of P1] {$G$};
+\path
+  (R1) edge [dashed,->,bend right=25] node[left] {$g$} (G)
+  (P3) edge [dashed,->,bend left=20] node[auto] {$h$} (G);
+\end{tikzpicture}\]
+If $v_2;v_1;g=a_2;h$, then the entailment square property of the right hand subdiagram implies $v_1;g=a_2;v_2'$, and hence the entailment square property of the left hand subdiagram implies $g=a_1;v_1';v_2';h$.
+\qed
+\end{enumerate}
+\end{proof}
+%
+It is an immediate observation that, for all entailment squares obtained by applying Prop.~\ref{prop:entailment square}, the upper arrow $v$ is epi; however, we currently have no proof whether that is a necessary condition. It is certainly \emph{not} the case that every entailment square obtained through composition satisfies either Clause~1 or Clause~2 of the proposition.\todo{Provide example?}
+
+\begin{definition}[arrow-based condition morphism]\label{def:ab-morphism}
+\begin{itemize}[defsep]
+\item Let $c_i = (R_i,p^i_1\ccdots p^i_{w_i})\in \AC{R_i}$ for $i=1,2$. An \emph{ab-condition morphism (or ab-morphism)} $m\of c_1 \to c_2$ is a tuple $(v,o,m_1\ccdots m_{w_2})$ such that
+\begin{itemize}[nosep]
+\item $v\of R_2\to R_1$ is an arrow;
+\item $o\of [1,w_2]\to [1,w_1]$ is a mapping from $c_2$-branches to $c_1$-branches;
+\item For all $j\in[1,w_2]$, $(v,m_i)\of p^1_{o(j)}\to p^2_j$ is an ab-branch morphism.
+\end{itemize}
+%
+The component $v$ of an ab-condition morphism $m$ is called its \emph{root arrow} and is denoted $v_m$.
+
+\item Let $p_i=(a_i,c_i)\in \AB{R_i}$ for $i=1,2$. An \emph{ab-branch morphism} from $p_1$ to $p_2$ is a tuple $\tupof{v,m}\of p_1\to p_2$ such that
+\begin{itemize}[nosep]
+\item $v\of R_2\to R_1$ is an arrow;
+\item $m\of c_2\to c_1$ is an ab-condition morphism;
+\item $a_1$ and $a_2$ together with $v$ and $v_m$ form an entailment square.
+\end{itemize}
+\end{itemize}
+\end{definition}
+%
+Note that if $\depth(b)=0$ for the target $b$ of some ab-condition morphism $m\of c\to b$, the requirement on the branch morphisms is vacuously fulfilled, whereas if $\depth(b)>0$, the root arrow $v_m$ must be at least epi.
+
+\begin{definition}[identities and composition of ab-morphisms]\label{def:ab-morphism-composition}
+Let $c_i=(R_i,p^i_1\ccdots p^i_{w_i})\in \AC{R_i}$ be ab-conditions for $i=1,2,3$ and let $m_i=(v_i,o_i,m^i_1\ccdots m^i_{w_i}) \of c_i\to c_{i+1}$ be ab-condition morphisms for $i=1,2$. Then $\id_{c_1}$ and $m_1;m_2$ are defined as follows (where $c^1_j$ is the subcondition of branch $p^1_j$ for $j\in [1,w_1]$):
+%
+\begin{eqnarray}
+\id_{c_1} & =
+  & (\id_{R_1},\id_{[1,w_1]},\id_{c^1_1}\ccdots \id_{c^1_{w_1}})
+  \eqlabel{id condition morphism} \\
+m_1;m_2 & =
+  & (v_2;v_1,\, o_2;o_1,\, m^2_1;m^1_{o_2(1)}\cdots m^2_{w_3};m^1_{o_2(w_3)}) \enspace.
+ \eqlabel{condition morphism composition}
+\end{eqnarray}
+\end{definition}
+
+\begin{proposition}[ab-condition morphisms reflect models]
+  \plabel{ab-morphisms reflect models}
+Let $b\in \AC R,c \in \AC{S}$ be arrow-based conditions. If $m:b\to c$ is an ab-condition morphism, then $v_m;g\sat c$ implies $g \sat b$ for all arrows $g\of R\to G$. 
+\end{proposition}
+
+\begin{proof}[]
+By induction on $\depth(b)+\depth(c)$. Let $b=(R,p_1\cdots p_{|b|})$ such that $p_i=(a^p_i,c^p_i)$ for all $i\in[1,|b|]$ and $c=(S,q_1\cdots q_{|c|})$ such that $q_i=(a^q_i,c^q_i)$ for all $i\in[1,|c|]$, and let $m=(v,o,m_1\ccdots m_{|c|})$.
+\begin{description}
+\item[Base case] If $\depth(b)+\depth(c)=0$, it follows that $|c|=0$; hence $v_m;g\sat c$ is contradictory.
+\item[Induction step.] Assume $v;g\sat c$, due to $v;g\sat q_i$ for some $i\in [1,|c|]$; and let $h$ be the witness, meaning $v;g=a^q_i;h$ and $h\not\sat c^q_i$. Because $(v,m_i)\of p_{o(i)}\to q_i$ is an ab-branch morphism, $a^p_{o(i)}$ and $a^q_i$ together with $v$ and $v_{m_i}$ form an entailment square, hence $g=a^p_{c(i)};v_{m_i};h$.
+
+Recall that $m_i\of c^q_i\to c^p_{o(i)}$ is an ab-morphism and observe that $\depth(c^q_i)+\depth(c^p_{o(i)}) < \depth(b)+\depth(c)$; hence by the induction hypothesis, $m_i$ fulfils the property. If $v_{m_i};h\sat c^p_{o(i)}$ then $h\sat c^q_i$, which is contradictory; it follows that $v_{m_i};h\not\sat c^p_{o(i)}$, from which we may conclude $g\sat p_{o(i)}$ and hence $g\sat b$. \qed
+\end{description}
+\end{proof}
+
+\todo[inline]{From here is the previous version, based on shifters.}
+%
 The underlying principle for a morphism $m$ from $c=(R,p^c_1\ccdots p^c_{|c|})$  to $b=(R,p^b_1\ccdots p^b_{|b|})$  is that it must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that it entails. Entailment of $p^c_j$ by $p^b_i$ is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$  such that there is (recursively, but in the opposite direction with respect to $m$) a morphism between the subconditions $b_i$ and $c_j$; however, this sub-morphism can only exist ``modulo" the arrow $v_i$ between their roots. 
 The task of the next subsection is to make the concept of ``modulo $v_i$" precise, introducing the notion of \emph{shifter}.
 
 \subsection{Condition shifting}
 \slabel{shift-morphisms}
 
-Given two conditions $c\in \AC{A}$ and $b\in \AC{B}$ and an arrow $v\of A \to B$, we have two main ways to reduce both to the same root, using \dcite{shift}. We can either precompose $b$ with $v$ obtaining $\bshift{b}{v}\in \AC{A}$, or we can shift $c$ along $v$, obtaining $\shift{c}{v}\in \AC{B}$. As commented earlier, precomposition is a local operation that only affects the top-level branches of a condition, while shifting is a global operation that affects the branches of a condition at any depth. In the definition of structural morphisms between ab-conditions the roots of subconditions have to be reconciled at each level: this makes the use of shift quite complex to manage. Therefore we will stick to precomposition.\todo{AC: add discussion on shift-related morphisms, when the relationship with span-based ones is more clear, or leave their study to future work.} 
+Given two conditions $c\in \AC{A}$ and $b\in \AC{B}$ and an arrow $v\of A \to B$, we have two main ways to reduce both to the same root, using Def.~\ref{def:shift}. We can either precompose $b$ with $v$ obtaining $\bshift{b}{v}\in \AC{A}$, or we can shift $c$ along $v$, obtaining $\shift{c}{v}\in \AC{B}$. As commented earlier, precomposition is a local operation that only affects the top-level branches of a condition, while shifting is a global operation that affects the branches of a condition at any depth. In the definition of structural morphisms between ab-conditions the roots of subconditions have to be reconciled at each level: this makes the use of shift quite complex to manage. Therefore we will stick to precomposition.\todo{AC: add discussion on shift-related morphisms, when the relationship with span-based ones is more clear, or leave their study to future work.} 
 
 Taking into account the goal of defining morphisms between conditions that witness entailment in the opposite direction, we introduce two operations on conditions, both based on precomposition. 
 Given arrow $v:A\to B$, we consider precomposition with $v$ as a function $\cB_v$ from $\AC{B}$ to $\AC{A}$, but only if $v$ is epi, since otherwise we cannot guarantee that $v$-prefixed models of $\bshift{b}{v}$  induce models of $b$, a technical condition needed later on. If $v$ satisfies the stronger condition of being \emph{split epi}, meaning that it has a \emph{section} $s : B \to A$ such that $s;v= id_B$, then we can also precompose with $s$, obtaining a function $\cF^s_v$ from $\AC{A}$ to $\AC{B}$. Let us first recall some categorical terminology.
 
-\begin{definition}[split epi, split mono, retraction, section]\dlabel{retraction}
+\begin{definition}[split epi, split mono, retraction, section]\label{def:retraction}
   An arrow $r\of A \to B$  is a \emph{split epi(morphism)} if there is an arrow $s\of B\to A$ such that $s;r = id_B$. In this case, arrow $s$ which satisfies the dual condition is a 
 \emph{split mono(morphism)}. We also say that $r$ is a \emph{retraction} of $s$, and that $s$ is a \emph{section} of $r$.
 \end{definition} 
@@ -73,7 +239,7 @@ Given arrow $v:A\to B$, we consider precomposition with $v$ as a function $\cB_v
 
 We introduce the two operations sketched above formally as follows.
 
-\begin{definition}[forward and backward shifters]\dlabel{ab-shifter}
+\begin{definition}[forward and backward shifters]\label{def:ab-shifter}
 Given an epi $v\of A\to B$, the \emph{backward shifter for $v$} is the operation $\cB_v: \AC{B} \to \AC{A}$  defined as $\cB_v(b) = \bshift{b}{v}$.
 Similarly, if $v$ is split epi, for any section $s$ of $v$ we call a \emph{forward shifter for $v$} the operation $\cF^s_v: \AC{A} \to \AC{B}$ defined as $\cF^s_v(c) = \bshift{c}{s}$.
 \end{definition}
@@ -148,7 +314,7 @@ In the definition of structural morphisms in the next section backward and forwa
 
 The following defines structural morphisms, based on shifters, over ab-conditions with the same root.
  
-\begin{definition}[arrow-based condition morphism]\dlabel{ab-morphism}
+\begin{definition}[arrow-based condition morphism]\label{def:ab-morphism}
   Let $c,b \in \AC{R}$. A \emph{forward-shift [backward-shift] ab-condition morphism (or ab-morphism)} $m: c \to b$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
   \begin{enumerate}[topsep=\smallskipamount]
   \item $o:[1,|b|]\to[1,|c|]$ is a function from $b$'s branches to $c$'s branches; 
@@ -171,7 +337,7 @@ The following defines structural morphisms, based on shifters, over ab-condition
 We use the same notational conventions as for conditions: $m$ has width $|m|$ and depth $\depth(m)$, and the components of a morphism $m$ are denoted $o^m$, $v^m_i$ and $m_i$ for all $1\leq i\leq |m|$. 
 
 The special cases involving conditions of depth 0 in clauses 3 and 4 of the previous definition are not strictly necessary, but exploting the fact that such conditions have no models (Fact~\ref{fact:satisfaction}) they define a richer class of morphisms.
-Morphisms involving conditions of depth 0 enjoy some relevant properties, that we will exploit later. We also show that the disjunctions in clauses 3 and 4 of \dcite{ab-morphism} do not introduce ambiguity. 
+Morphisms involving conditions of depth 0 enjoy some relevant properties, that we will exploit later. We also show that the disjunctions in clauses 3 and 4 of Def.~\ref{def:ab-morphism} do not introduce ambiguity. 
 
 \begin{lemma}[terminal morphisms and 0-depth conditions]
              \llabel{terminal morphisms}
@@ -181,18 +347,18 @@ For each ab-condition $b \in \AC{A}$ there is a unique \emph{terminal morphism} 
 \item 
 Given a morphism of ab-conditions $m:c \to b$, if $c$ has depth 0 then also $b$ has depth 0, thus $m =\, !_c = id_c$. 
 \item 
-The disjunction in clause 3  of \dcite{ab-morphism} is not ambiguous, because if $c_{o(i)}$ has depth 0 and there is a forward shifter $\cF_i$ for $v_i$,  then 
+The disjunction in clause 3  of Def.~\ref{def:ab-morphism} is not ambiguous, because if $c_{o(i)}$ has depth 0 and there is a forward shifter $\cF_i$ for $v_i$,  then 
 $m_i: b_i \to \cF_i(c_{o(i)})$ is the terminal morphism.
 \item 
-The disjunction in clause 4  of \dcite{ab-morphism} is not ambiguous, because if $c_{o(i)}$ has depth 0 and there is a backward shifter $\cB_i$ for $v_i$, then $m_i$ is the terminal morphism $!_{\bshift{b_i}{v_i}}: \bshift{b_i}{v_i} \to c_{o(i)}$.
+The disjunction in clause 4  of Def.~\ref{def:ab-morphism} is not ambiguous, because if $c_{o(i)}$ has depth 0 and there is a backward shifter $\cB_i$ for $v_i$, then $m_i$ is the terminal morphism $!_{\bshift{b_i}{v_i}}: \bshift{b_i}{v_i} \to c_{o(i)}$.
 \end{enumerate}
 \end{lemma}
 
 
 \begin{proof}
 \begin{enumerate}
-  \item For clause 1 of \dcite{ab-morphism} there is a unique function $o: \varnothing \to [1,|b|]$, and the other clauses of are vacuous.
-  \item If $c$ has depth 0 set $[1, |c|]$ is empty, thus the function $o$ of clause 1 of \dcite{ab-morphism} is well defined only if $|b| = 0$, which also implies that $b=c$.
+  \item For clause 1 of Def.~\ref{def:ab-morphism} there is a unique function $o: \varnothing \to [1,|b|]$, and the other clauses of are vacuous.
+  \item If $c$ has depth 0 set $[1, |c|]$ is empty, thus the function $o$ of clause 1 of Def.~\ref{def:ab-morphism} is well defined only if $|b| = 0$, which also implies that $b=c$.
   \item Observe that forward shifters preserve depth, because they are defined in terms of precomposition  with a section. Therefore $\cF_i(c_{o(i)})$ has depth 0.
 \item  Simply recall that if $\cB_i$ is the backward shifter for $v_i$ then $\cB_i(b_i) = \bshift{b_i}{v_i}$ \qed 
 \end{enumerate}
@@ -245,7 +411,7 @@ Similarly, if $\cF^s_v$ is a forward shifter for $v\of X\to Z$, if $m\of c\to b$
 \begin{proof}
 Assume $m = (o,(v_1,m_1)\cdots(v_{|b|},m_{|b|}))$. The only new proof obligation for $m$ to be an ab-morphism from $\bshift{c}{v}\to \bshift{b}{v}$ is that, for all $1\leq i\leq |b|$, $v;a^c_{o(i)};v_i=v;a^b_i$. This follows immediately from $a^c_{o(i)};v_i=a^b_i$. 
 
-The other statements follow immediately from the first one, since both backward and forward shifters are defined in terms of backward shift along an arrow (see \dcite{ab-shifter}).\todo{AC: this means that we can change the source of a morphism $m$, if needed. This is what we do for composing morphism, applying a shifter to match the target of a morphism with the source of another. We should do the same for the identity of the empty condition, to shift it along an arrow. This was the trivial shifter. Can we call these morphisms polymorphic? After all the identity on the zero depth condition is just $id_{\zeroCond{A}} = (o = \varnothing, \epsilon)$}
+The other statements follow immediately from the first one, since both backward and forward shifters are defined in terms of backward shift along an arrow (see Def.~\ref{def:ab-shifter}).\todo{AC: this means that we can change the source of a morphism $m$, if needed. This is what we do for composing morphism, applying a shifter to match the target of a morphism with the source of another. We should do the same for the identity of the empty condition, to shift it along an arrow. This was the trivial shifter. Can we call these morphisms polymorphic? After all the identity on the zero depth condition is just $id_{\zeroCond{A}} = (o = \varnothing, \epsilon)$}
 %$\cB_v(b) = \bshift{b}{v}$ and $\cF^s_v(c) = \bshift{c}{s}$.
 %A similar observation holds for forward shifters, considering the section $s\of Z \to X$ instead of $v$. \qed
 \end{proof}
@@ -256,7 +422,7 @@ The other statements follow immediately from the first one, since both backward 
 
 Composition and identities of ab-condition morphisms can be defined inductively, and are independent of their forward or backward nature.  
 
-\begin{definition}[identities and composition of ab-morphisms]\dlabel{ab-morphism-composition}
+\begin{definition}[identities and composition of ab-morphisms]\label{def:ab-morphism-composition}
 Let $e,c,b$ be ab-conditions and $m:e\to c,n:c\to b$ ab-morphisms, with $|b|=w$. Then $\id_b$ and $m;n$ are defined inductively as follows:
 %
 \begin{eqnarray}
@@ -293,15 +459,15 @@ Let $w=|b|$.
 \item By induction on the depth of $b$. For all $1\leq i\leq w$, $a^b_i;\id_{P^b_i}=a^b_i$. Recall by clause 1 of \pcite{ab-shifters compose} that $\rF{\id}{\id}$ and $\cB_\id$ (with $\id=\id_{P^b_i}$) are, respectively, forward and backward shifters, both acting as the identity on arrows with source $P^b_i$; hence (by the induction hypothesis) $\id_{b_i}$ is both a forward-shift morphism from $b_i$ to $\rF\id\id(b_i)$ and a backward-shift morphism from  $\cB_\id(b_i)$ to $b_i$.
 \end{enumerate}
 %
-The other two clauses are proved by induction on the depth of $m$ and $n$. For clause 1 of \dcite{ab-morphism}, let $o=o^n;o^m$, which is a function from $[1,w]$ to $[1,|e|]$ as needed. For clause 2, let $v_i=v^m_{o^n(i)};v^n_i$ for all $1\leq i\leq w$. All $v_i$ are arrows from $P^e_{o(i)}$ to $P^b_i$, and they commute with the arrows from the root, as required. In fact, $a^e_{o(i)};v_i =\text{(def.~of $v_i$) } a^e_{o(i)};v^m_{o^n(i)};v^n_i  =\text{($m$ is a morphism) }  a^c_{o^n(i)} ; v^n_i =\text{($n$ is a morphism) }  a^b_i$.
+The other two clauses are proved by induction on the depth of $m$ and $n$. For clause 1 of Def.~\ref{def:ab-morphism}, let $o=o^n;o^m$, which is a function from $[1,w]$ to $[1,|e|]$ as needed. For clause 2, let $v_i=v^m_{o^n(i)};v^n_i$ for all $1\leq i\leq w$. All $v_i$ are arrows from $P^e_{o(i)}$ to $P^b_i$, and they commute with the arrows from the root, as required. In fact, $a^e_{o(i)};v_i =\text{(def.~of $v_i$) } a^e_{o(i)};v^m_{o^n(i)};v^n_i  =\text{($m$ is a morphism) }  a^c_{o^n(i)} ; v^n_i =\text{($n$ is a morphism) }  a^b_i$.
 %
 \begin{enumerate}[resume]
 \item
-For clause 3 of \dcite{ab-morphism} we have to show that for all $1\leq i\leq w$, either $e_{o(i)}$ has depth 0 and $n_i;m_{o^n(i)}: b_i \to \zeroCond{P^b_i}$ is the terminal morphism, or there is a forward root shifter $\cF_i$ for $v_i$ such that $n_i;m_{o^n(i)}:b_i \to \cF_i(e_{o(i)})$ is a forward-shift morphism. 
+For clause 3 of Def.~\ref{def:ab-morphism} we have to show that for all $1\leq i\leq w$, either $e_{o(i)}$ has depth 0 and $n_i;m_{o^n(i)}: b_i \to \zeroCond{P^b_i}$ is the terminal morphism, or there is a forward root shifter $\cF_i$ for $v_i$ such that $n_i;m_{o^n(i)}:b_i \to \cF_i(e_{o(i)})$ is a forward-shift morphism. 
 
 Let $j = o^n(i)$ and let us proceed by cases. If both $n_i:b_i \to \cF^n_i(c_{j})$ and  $m_{j}:c_j \to \cF^m_j(e_{o^m(j)})$ are forward shift morphisms, we have $m_{j}:\cF^n_i(c_j) \to \cF^n_i(\cF^m_j(e_{o^m(j)}))$ by \lcite{ab-root shifters preserve morphisms}, and hence $\cF^m_j;\cF^n_i$ is a forward shifter for $v_i$ by \pcite{ab-shifters compose} and, using the inductive hypothesis, $n_i;m_{o^n(i)}:b_i \to \cF^n_i(\cF^m_j(e_{o(i)}))$  is a forward shift morphism. 
 
-If $e_{o(i)}$ has depth 0, then $m_{j}:c_j \to \zeroCond{P^c_j}$ is the terminal morphims, by \dcite{ab-morphism} and clause 3 of \lcite{terminal morphisms}. If $n_i:b_i \to \cF^n_i(c_{j})$ is a forward shift morphism then we obtain 
+If $e_{o(i)}$ has depth 0, then $m_{j}:c_j \to \zeroCond{P^c_j}$ is the terminal morphims, by Def.~\ref{def:ab-morphism} and clause 3 of \lcite{terminal morphisms}. If $n_i:b_i \to \cF^n_i(c_{j})$ is a forward shift morphism then we obtain 
 $n_i;m_{o^n(i)}:b_i \to \cF^n_i(\zeroCond{P^c_j})$ as above, and observe that $\cF^n_i(\zeroCond{P^c_j}) = \zeroCond{P^b_i}$, as desired. Otherwise, if $c_j$ has depth 0, then
 $n_i: b_i \to \zeroCond{P^b_i}$ is the terminal morphism, and  $m_{j}:c_j \to \zeroCond{P^c_j}$ is the identity defined as $m_{j} = id_{\zeroCond{P^c_j}} = (o = \varnothing, \epsilon)$, that we can see as well as $id_{\zeroCond{P^b_i}}$; thus $n_i;m_{o^n(i)}: b_i \to \zeroCond{P^b_i}$ is the terminal morphism, as required. 
 
@@ -321,7 +487,7 @@ The associativity of morphism composition and the identity laws can be proved by
 
 \iffull
 \begin{definition}[categories of ab-conditions]
-  \dlabel{ab-morphism categories}
+  \label{def:ab-morphism categories}
 For every $R$, $\ABC^\forw(R)$  is the category having all conditions over $R$ as objects and  forward-shift ab-morphisms as arrows.  Similarly, $\ABC^\back(R)$ has $\AC R$ as objects and backward-shift ab-morphisms as arrows.
 
 Furthermore, $\ABC^{\forw}$ is the category having all ab-conditions as objects and forward-shift morphisms as arrows, and  $\ABC^{\back}$ is the category having the same objects and backward-shift morphisms as arrows. \todo{AC: Add explicit proof of well-definedness?}
@@ -373,7 +539,7 @@ Proposition~\ref{prop:ab-morphisms preserve models} can be phrased more abstract
 
 \begin{theorem}[categories of arrow-based conditions]\thlabel{ab-categories}
 %Let $\ABC^{\forw}$ be the category having ab-conditions as objects and forward-shift morphisms as arrows, and let $\ABC^{\back}$ be the category having the same objects and backward-shift morphisms as arrows. Both categories are well-defined, and there are identity-on-objects functors $\op{(\ABC^{\forw})} \to \ABC^{\entails}$ and $\op{(\ABC^{\back})} \to \ABC^{\entails}$.
-Let $\ABC^{\forw}$  and  $\ABC^{\back}$ be the categories defined in \dcite{ab-morphism categories}. There are identity-on-objects functors $\op{(\ABC^{\forw})} \to \ABC^{\entails}$ and $\op{(\ABC^{\back})} \to \ABC^{\entails}$.
+Let $\ABC^{\forw}$  and  $\ABC^{\back}$ be the categories defined in Def.~\ref{def:ab-morphism categories}. There are identity-on-objects functors $\op{(\ABC^{\forw})} \to \ABC^{\entails}$ and $\op{(\ABC^{\back})} \to \ABC^{\entails}$.
 \end{theorem} 
 %
 \emph{Proof sketch.} \todo{AC:this is more about well-definedness of the categories.} Composition of morphisms and the fact that all identity morphisms have the correct nature for both categories is shown by \lcite{ab-morphisms compose}.

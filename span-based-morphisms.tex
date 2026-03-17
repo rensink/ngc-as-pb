@@ -13,7 +13,7 @@ To define morphisms of sb-conditions, we will go over the same ground as for ab-
 The above is defined on individual pairs. For a relation $\cR$ over spans, we say that $\cR$ preserves [reflects] models adding [erasing] $v$ if it consists of pairs that do so.
 
 \todo{AC: also span source shifters are pre-composition functors, but with a span. This does not emerge clearly.}
-\begin{definition}[span source shifters]\dlabel{sb-shifters}
+\begin{definition}[span source shifters]\label{def:sb-shifters}
 Let us denote by $\cat{C^{sp}}(A,\_)$ the collection of all spans of \cat{C} with source $A$. Let $X,Y$ be objects of \cat{C}. 
 \begin{itemize}[topsep=\smallskipamount]
 \item A \emph{span source shifter} $\cS$ from $X$ to $Y$ is a target-preserving mapping $\cS \of \cat{C^{sp}}(X,\_) \to \cat{C^{sp}}(Y, \_)$
@@ -52,7 +52,7 @@ Since span source shifters from $X$ are, just as in the arrow-based case, comple
 % We denote the resulting span source shifters by $\cB_v^\circ$ and $\cB_v^x$, respectively.
 \end{description}
 %
-This gives rise to the following four candidate shifters for $v:A\to B$ (which still have to be shown to satisfy the conditions of \dcite{sb-shifters}):
+This gives rise to the following four candidate shifters for $v:A\to B$ (which still have to be shown to satisfy the conditions of Def.~\ref{def:sb-shifters}):
 %
 \begin{align*}
 \dF v & : s \mapsto \spanof{v}{\id_A}\spcomp s \\
@@ -151,7 +151,7 @@ We call the span source and root shifters of the shape $\dF v$, $\rF v x$, $\dB 
 \end{itemize}
 \end{assumption}
 
-A final change with respect to the arrow-based case is that we also abstract the commutation condition in \dcite{ab-morphism} by relying instead on a family of \emph{pattern shift relations} --- which in a sense complement the role of root shifters.
+A final change with respect to the arrow-based case is that we also abstract the commutation condition in Def.~\ref{def:ab-morphism} by relying instead on a family of \emph{pattern shift relations} --- which in a sense complement the role of root shifters.
 %
 \begin{definition}[pattern shift]
 Let $v:P_1\to P_2$ be an arrow. \emph{Pattern shift for $v$} is the relation $\cP_v$ over spans including all pairs $(s_1,s_2)$ such that  $s_i=\spanof{u_i:I_i\to A}{d_i:I_i\to P_i}$ for $i=1,2$ (for some $A$), and there is an arrow $k:I_1\to I_2$ for which both halves of the following diagram commute:
@@ -263,7 +263,7 @@ For the analogy with the arrow-based case, let $\cA_v=\setof{(a_1,a_2)\mid a_2=a
 
 Using pattern shift, we define morphisms over sb-conditions as follows.
 %
-\begin{definition}[span-based (complete) condition morphism]\dlabel{sb-morphism}
+\begin{definition}[span-based (complete) condition morphism]\label{def:sb-morphism}
   Given two sb-conditions $c,b$, a \emph{forward-shift [backward-shift] sb-morphism} $m:c\to b$ is a pair $(o,(v_1,m_1)\ccdots (v_{|b|},m_{|b|}))$ where
   \begin{itemize}[topsep=\smallskipamount]
   \item $o:[1,|b|]\to [1,|c|]$ is a function from $b$'s branches to $c$'s branches;

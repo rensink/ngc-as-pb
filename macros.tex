@@ -1,5 +1,6 @@
 %% Additional packages
 \usepackage[inline]{enumitem}
+\SetEnumitemKey{defsep}{topsep=\smallskipamount, itemsep=\smallskipamount}
 \usepackage{mathdots}
 \usepackage{mathtools}
 \usepackage{comment} 
@@ -55,6 +56,15 @@
 }{%
   \end{itemize}
 }
+
+\newcommand{\isdef}{\stackrel{\smash{\raisebox{-1pt}{$\scriptscriptstyle\triangle$}}}{=}}
+\newcommand{\iffdef}{\xLeftrightarrow{\smash{\raisebox{-1pt}{$\scriptscriptstyle\triangle$}}}}
+
+\newcommand{\tagone}{(\dag)\xspace}
+\newcommand{\tagtwo}{(\ddag)\xspace}
+\newcommand{\tagthree}{\text{($*$)}\xspace}
+\newcommand{\tagfour}{\text{($\circ$)}\xspace}
+\newcommand{\tagfive}{(\$)\xspace}
 
 
 %% Some math definitions
@@ -136,7 +146,6 @@
 \newcommand{\nsat}{\not\models}
 \newcommand{\entails}{\models}
 \newcommand{\nentails}{\not\models}
-\newcommand{\iffdef}{:\Leftrightarrow}
 \newcommand{\restr}{\restriction}
 \newcommand{\Eq}{\mathbin{\doteq}}
 
@@ -156,16 +165,12 @@
 % some more
 % renew because \cat define in mypaper.tex referenced by preample.sty 
 \renewcommand{\cat}[1]{\ensuremath{\mathbf{#1}}}
-%\newcommand{\shift}[2]{(#1{\uparrow} #2)}
-%\newcommand{\bshift}[2]{(#1{\downarrow} #2)}
 
 \newcommand{\Rshift}{\mathbin{\nearrow_{\!\!\!\mathsf r}}}
 \newcommand{\Rbshift}{\mathbin{\swarrow_{\!\!\!\mathsf r}}}
 \newcommand{\Ishift}{\mathbin{\nearrow_{\!\!\mathsf i}}}
 \newcommand{\Ibshift}{\mathbin{\swarrow_{\!\!\mathsf i}}}
 
-%\newcommand{\shift}[2]{#1\Rshift #2}
-%\newcommand{\bshift}[2]{#1\Rbshift #2}
 
 \newcommand{\dshift}[2]{#1{\downarrow_{#2}}}
 
@@ -264,11 +269,11 @@
   \gdef\lastlabel{#1}%
 }
 % For definitions
-\newcommand{\dprf}{def}
-\newcommand{\dname}[1]{\dprf:#1}
-\newcommand{\dlabel}[1]{\savelabel{\dname{#1}}}
-\newcommand{\dref}[1]{\ref{\dname{#1}}}
-\newcommand{\dcite}[1]{Def.~\dref{#1}}
+%\newcommand{\dprf}{def}
+%\newcommand{\dname}[1]{\dprf:#1}
+%\newcommand{\dlabel}[1]{\savelabel{\dname{#1}}}
+%\newcommand{\dref}[1]{\ref{\dname{#1}}}
+%\newcommand{\dcite}[1]{Def.~\dref{#1}}
 
 % For figures
 \newcommand{\fprf}{fig}
@@ -422,7 +427,7 @@
   \renewcommand{\gl}[1]{\ensuremath{\scriptstyle{\mathsf{##1}}}}%
   \tikzset{n/.style={inner sep=1pt}}%
   \tikzset{e/.style={inner sep=1pt,pos=.4}}%
-  \begin{tikzpicture}[on grid,scale=.5,inner sep=2pt,baseline=(1.south)]
+  \begin{tikzpicture}[on grid,scale=.5,inner sep=2pt,baseline=(1.base)]
   \begin{scope}[node distance=8mm]
   #1
   \end{scope}
@@ -615,22 +620,27 @@
 \newcommand{\disc}[1]{\ensuremath{\langle #1 \rangle}}
 
 % prefixing (back shifting) of condition with an arrow
-\newcommand{\bshift}[2]{\ensuremath{{#1}_{\uparrow  #2}}}
-
+\newcommand{\bshift}[2]{\ensuremath{{#1}\tuarr{#2}}}
 
 % shifting a condition along an arrow
-\newcommand{\shift}[2]{\ensuremath{{#1}_{\downarrow  #2}}}
+\newcommand{\shift}[2]{\ensuremath{{#1}\tdarr{#2}}}
 
 % tight down arrow
-\newcommand{\tdarr}[0]{{\,\!\downarrow\,\!}}
+\newcommand{\tdarr}[0]{{\mskip1mu\downarrow\mskip1mu}}
 %\newcommand{\tdarr}[0]{\mathbin{\downarrow}}
 %\newcommand{\tdarr}[0]{\downarrow}
 % tight up arrow
-\newcommand{\tuarr}[0]{{\!\,\uparrow\!\,}}
+\newcommand{\tuarr}[0]{{\mskip1mu\uparrow\mskip1mu}}
 
+% merge
+\renewcommand{\merge}{\sqcup}
 % merge of two conditions with the same root
-
 \newcommand{\mergeabc}[2]{\ensuremath{{#1} \sqcup {#2}}}
+
+% join
+\newcommand{\join}{\sqcap}
+% join of two branches with the same root
+\newcommand{\joinabc}[2]{\ensuremath{{#1} \join {#2}}}
 
 \newcommand{\pushoutmark}[4]{%
   \draw

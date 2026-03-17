@@ -5,7 +5,7 @@ Because in this section we reason a lot with span shifters, it is convenient to 
 
 Given the number of possible forward and backward shifters we identified, there is a lot of choice within the concept of a span-based condition morphism, possibly making them complex to reason about. However, we now set about showing that, in an important sense, it is enough to consider only direct forward-shift morphisms. To make this claim precise, we introduce the notion of \emph{{\fprovable} entailment}, which are those entailments that can be established through the existence of \emph{only direct (complete) forward-shift morphisms}.
 
-\begin{definition}[{\fprovable} entailment/equivalence]\dlabel{provable}
+\begin{definition}[{\fprovable} entailment/equivalence]\label{def:provable}
 \emph{{\fprovable} entailment}, denoted $\pentails$, is the smallest preorder such that for all sb-conditions $b,c$:
 \begin{itemizeS}
 \item If there is a direct forward-shift morphism $m:c\to b$, then $b\pentails c$;
@@ -25,7 +25,7 @@ Let $b,c$ be sb-conditions with $|b|=|c|$ and $s^b_i=s^c_i$ for all $1\leq i\leq
 \end{proposition}
 %
 \begin{proof}
-Each $b_i\pentails c_i$ follows from the transitive closure of a sequence of primitive steps (i.e., one of the two cases of \dcite{provable}). It therefore suffices to prove that, if \emph{a single} $p_i\pentails c_i$ is due to the existence of either\todo{AC: delete `backward' everywhere if not needed. AR: Done}
+Each $b_i\pentails c_i$ follows from the transitive closure of a sequence of primitive steps (i.e., one of the two cases of Def.~\ref{def:provable}). It therefore suffices to prove that, if \emph{a single} $p_i\pentails c_i$ is due to the existence of either\todo{AC: delete `backward' everywhere if not needed. AR: Done}
 \begin{inumerate}
 \item a forward shift morphism $m_i:c_i\to b_i$ or
 \item a complete forward shift morphism $m_i:b_i\to c_i$,
