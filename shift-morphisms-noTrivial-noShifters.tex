@@ -62,7 +62,7 @@ Consider a diagram as in Def.~\ref{def:entailment square}.
        edge [->] node [auto] {$v_2$} (R2)
   (P2) edge [->] node [auto] {$v_2'$} (P3);
 \end{tikzpicture}\]
-if both the left hand and the right hand subdiagram are entailment squares, then so is the outer subdiagram.
+if both the left hand and the right hand subdiagrams are entailment squares, then so is the outer subdiagram.
 \end{enumerate}
 \end{proposition}
 
@@ -119,7 +119,7 @@ where $s;a_2=\id;a_1;v'$ and $s;v=\id$; hence $v;g=a_2;h$ implies $g=\id;g=s;v;g
   (R1) edge [dashed,->,bend right=25] node[left] {$g$} (G)
   (P3) edge [dashed,->,bend left=20] node[auto] {$h$} (G);
 \end{tikzpicture}\]
-If $v_2;v_1;g=a_2;h$, then the entailment square property of the right hand subdiagram implies $v_1;g=a_2;v_2'$, and hence the entailment square property of the left hand subdiagram implies $g=a_1;v_1';v_2';h$.
+If $v_2;v_1;g=a_2;h$, then the entailment square property of the right hand subdiagram implies $v_1;g=a_2;v_2';h$, and hence the entailment square property of the left hand subdiagram implies $g=a_1;v_1';v_2';h$.
 \qed
 \end{enumerate}
 \end{proof}
@@ -137,7 +137,7 @@ It is an immediate observation that, for all entailment squares obtained by appl
 %
 The component $v$ of an ab-condition morphism $m$ is called its \emph{root arrow} and is denoted $v_m$.
 
-\item Let $p_i=(a_i,c_i)\in \AB{R_i}$ for $i=1,2$. An \emph{ab-branch morphism} from $p_1$ to $p_2$ is a tuple $\tupof{v,m}\of p_1\to p_2$ such that
+\item Let $p_i=(a_i,c_i)\in \AB{R_i}$ for $i=1,2$. An \emph{ab-branch morphism} from $p_1$ to $p_2$ is a tuple $(v,m)\of p_1\to p_2$ such that
 \begin{itemize}[nosep]
 \item $v\of R_2\to R_1$ is an arrow;
 \item $m\of c_2\to c_1$ is an ab-condition morphism;
@@ -146,7 +146,7 @@ The component $v$ of an ab-condition morphism $m$ is called its \emph{root arrow
 \end{itemize}
 \end{definition}
 %
-Note that if $\depth(b)=0$ for the target $b$ of some ab-condition morphism $m\of c\to b$, the requirement on the branch morphisms is vacuously fulfilled, whereas if $\depth(b)>0$, the root arrow $v_m$ must be at least epi.
+Note that if $\depth(c_2)=0$ for the target $c_2$ of some ab-condition morphism $m\of c_1\to c_2$, $o$ is the initial the requirement on the branch morphisms is vacuously fulfilled regardless of the nature of $v$, whereas if $\depth(b)>0$, the root arrow $v_m$ must be at least epi.
 
 \begin{definition}[identities and composition of ab-morphisms]\label{def:ab-morphism-composition}
 Let $c_i=(R_i,p^i_1\ccdots p^i_{w_i})\in \AC{R_i}$ be ab-conditions for $i=1,2,3$ and let $m_i=(v_i,o_i,m^i_1\ccdots m^i_{w_i}) \of c_i\to c_{i+1}$ be ab-condition morphisms for $i=1,2$. Then $\id_{c_1}$ and $m_1;m_2$ are defined as follows (where $c^1_j$ is the subcondition of branch $p^1_j$ for $j\in [1,w_1]$):
@@ -170,7 +170,7 @@ Let $b\in \AC R,c \in \AC{S}$ be arrow-based conditions. If $m:b\to c$ is an ab-
 By induction on $\depth(b)+\depth(c)$. Let $b=(R,p_1\cdots p_{|b|})$ such that $p_i=(a^p_i,c^p_i)$ for all $i\in[1,|b|]$ and $c=(S,q_1\cdots q_{|c|})$ such that $q_i=(a^q_i,c^q_i)$ for all $i\in[1,|c|]$, and let $m=(v,o,m_1\ccdots m_{|c|})$.
 \begin{description}
 \item[Base case] If $\depth(b)+\depth(c)=0$, it follows that $|c|=0$; hence $v_m;g\sat c$ is contradictory.
-\item[Induction step.] Assume $v;g\sat c$, due to $v;g\sat q_i$ for some $i\in [1,|c|]$; and let $h$ be the witness, meaning $v;g=a^q_i;h$ and $h\not\sat c^q_i$. Because $(v,m_i)\of p_{o(i)}\to q_i$ is an ab-branch morphism, $a^p_{o(i)}$ and $a^q_i$ together with $v$ and $v_{m_i}$ form an entailment square, hence $g=a^p_{c(i)};v_{m_i};h$.
+\item[Induction step.] Assume $v;g\sat c$, due to $v;g\sat q_i$ for some $i\in [1,|c|]$; and let $h$ be the witness, meaning $v;g=a^q_i;h$ and $h\not\sat c^q_i$. Because $(v,m_i)\of p_{o(i)}\to q_i$ is an ab-branch morphism, $a^p_{o(i)}$ and $a^q_i$ together with $v$ and $v_{m_i}$ form an entailment square, hence $g=a^p_{o(i)};v_{m_i};h$.
 
 Recall that $m_i\of c^q_i\to c^p_{o(i)}$ is an ab-morphism and observe that $\depth(c^q_i)+\depth(c^p_{o(i)}) < \depth(b)+\depth(c)$; hence by the induction hypothesis, $m_i$ fulfils the property. If $v_{m_i};h\sat c^p_{o(i)}$ then $h\sat c^q_i$, which is contradictory; it follows that $v_{m_i};h\not\sat c^p_{o(i)}$, from which we may conclude $g\sat p_{o(i)}$ and hence $g\sat b$. \qed
 \end{description}
