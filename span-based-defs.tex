@@ -1,0 +1,87 @@
+\section{Span-based conditions}
+\slabel{sb-conditions}
+
+The peculiar definition of morphisms of ab-conditions just introduced, with arrows changing direction at each layer in order to ensure the preservation of models, clashes with a structural property of arrow-based conditions. Indeed, the pattern of each subcondition must contain a (homomorphic) copy of the parent pattern, because a branch consists of an arrow of $\cat{C}$ from the latter to the former. Thus if a morphism maps, say, the pattern $P^c$ of (a subcondition of) $c$ to a pattern $P^b$ of $b$, at the next layer (the copy of) $P^b$ must be mapped backwards to (the copy) of $P^c$. The consequence is that morphisms fail to exist even in very simple situations. An example is given by \excite{ab-morphisms}, where we have seen that $c_1\entails c_2$ (see \fcite{ab-conditions}) but there is no morphism providing evidence for this.
+  
+Inspired by this observation, we present the second main contribution of this paper: an original definition of nested conditions where the duplication of structure just described does not occur, because at each level we need to specify only the \emph{additional} structure, and how it is connected. This is achieved by replacing the branch arrows $a^c_i$ of a condition $c$ by \emph{spans}.
+
+A span $s = (f: I \to A, g:I \to B)$ over \cat{C}, which we will denote $\spanof f g$, is a pair of arrows of \cat{C} having the same source. Objects $A$ and $B$ are the \emph{source} and \emph{target} of $s$, respectively, while $I$ is its \emph{interface}; we sometimes write $s:A\to B$. Spans can be composed: if the target of $\spanof u d$ is equal to the source of $\spanof v w$, then $\spanof u d \spcomp \spanof v w=\spanof{v';u}{d';w}$ where $\spanof {v'}{d'}$ is the pullback span of $(d,v)$. The result is defined, because \cat{C} has all pullbacks, but non-deterministic in general because pullbacks are defined up to iso. The standard solution would be to consider spans up to isomorphism of their interface (yielding category {\SpanC} having the same objects of \cat{C} and equivalence classes of spans as arrows), but to avoid further technicalities we will gloss over this throughout the paper.
+
+%An arrow $a:A \to B$ can be seen as a span $\spanof{id_A}{a}$. This defines an embedding of standard arrows of \cat{C} into spans over \cat{C} that preserves composition. Composing an arrow with a span, as in $a \spcomp \spanof f g$, is intended to mean $\spanof{id}{a}  \spcomp \spanof f g$.\todo{delete if not used}
+
+\medskip\noindent
+Span-based conditions are inductively defined as follows:
+
+\begin{definition}[span-based condition]\dlabel{sb-condition}
+  For any object $R$ of $\bC$, $\SC R$ (the set of \emph{span-based conditions} over $R$) and $\SB R$ (the set of \emph{span-based branches} over $R$) are the smallest sets such that
+  \begin{itemize}
+  \item $c\in \SC R$ if $c=(R,p_1\ccdots p_w)$ is a pair with $p_i\in \SB R$ for all $1\leq i\leq w$;
+  \item $p\in \SB R$ if $p=(\spanof u d,c)$ where $u: I\to R, d:I\to P$ form a span of arrows of $\bC$ and $c\in \SC P$.
+  \end{itemize}
+\end{definition}
+%
+In the span $\spanof u d$ of a branch $p=(\spanof u d,c)$, $u$ stands for the \emph{up-arrow} and $d$ for the \emph{down-arrow}. As before, we use $|c|=w$ to denote the width of a span-based condition $c$, $R^c$ to denote its root, and $p^c_i=(s^c_i,c_i)$ with span $s^c_i=\spanof{u^c_i}{d^c_i}$ its $i$-th branch. Finally, we use $I^c_i$ for the interface of span $s^c_i$ and $P^c_i$ ($=R^{c_i}$) for its target (hence $u^c_i:I^c_i\to R^c$ and $d^c_i:I^c_i\rightarrow P^c_i$). In all these cases, we may omit the superscript $c$ if it is clear from the context. Pictorially, $c$ can be visualised as in \fcite{sb-condition}.
+%
+\begin{figure}[t]
+\centering
+\subcaptionbox
+  {Condition $c=(R,p_1\ccdots p_w)$, with $p_i=(\spanof{u_i}{d_i},c_i)$ for $1\leq i\leq w$
+   \flabel{sb-condition}}
+  [.45\textwidth]
+  {\input{figs/sb-condition}}
+\qquad
+\subcaptionbox
+  {$g\sat c$, with responsible branch $p_i=(\spanof{u_i}{d_i},c_i)$ and witness $h$ such that $\spanof{u_i}{d_i}\commutes (g,h)$
+   \flabel{sb-satisfaction}}
+  [.45\textwidth]
+  {\input{figs/sb-satisfaction}}
+\vspace*{-2mm}
+\caption{Visualisations for span-based conditions}
+\end{figure}
+%
+As we will see in \scite{categories}, we can reconstruct an arrow-based condition from a span-based one.
+
+As examples of span-based conditions, \fcite{sb-conditions} shows counterparts for the three arrow-based conditions in \fcite{ab-conditions}: both $b_1$ and $b_1'$ are equivalent to $c_1$ (which is rather non-obvious in the case of $b_1'$), whereas $b_2$ is equivalent to $c_2$ and $b_3$ to $c_3$.\todo{AC: Not obvious. Add correspondence between span-based conditions and FOL?}
+
+\begin{figure}[t]
+\centering
+\input{figs/ex-sb-conditions}
+\vspace*{-5mm}
+\caption{Span-based conditions corresponding to \fcite{ab-conditions}. The dotted arrows indicate forward-shift morphisms (see \excite{sb-morphisms}), with component mappings in brown.}
+\flabel{sb-conditions}
+\end{figure}
+
+\medskip\noindent The careful reader might have observed that \dcite{sb-condition} is essentially \dcite{ab-condition} instantiated to the category {\SpanC}, thus wondering if we are just repeating the theory of ab-conditions for one specific instance. This is not the case, though, as the definitions that follow (satisfaction, morphisms,\ldots) are phrased using arrows and diagrams of \cat{C}, not of {\SpanC}.\footnote{Technically, this would not fall in our framework because {\SpanC} is not a presheaf topos even if \cat{C} is.}
+
+\todo{AC:define shift of sb-conditions. Draft: forward shift along $f$ and backward shift along $b$. Then shift along a span $\spanof b f$. But I think that in general we need shift along a span which factorizes an arrow, as $b;v = f$, or $b = f;v$, in one or in the other direction. }
+
+\begin{definition}[shifting sb-conditions]
+  \dlabel{sb-shift}
+Let $c = (R,(\spanof {u_1} {d_1},{c_1})\cdots(\spanof {u_w} {d_w},{c_w}))$ be an sb-condition rooted at $R$. 
+\begin{enumerate}
+\item Let $f: R \to Q$ be an arrow in $\cat{C}$. The \emph{shift of $c$ along $f$} is the sb-condition $\shift{c}{f} = (Q,(\spanof {u_1;f} {d_1},{c_1})\cdots(\spanof {u_w;f} {d_w},{c_w}))$.\todo{AC: drawing necessary} Note that unlike ab-condition, shifting along an arrow affects only the top level arrows. 
+\item Let $g: S \to R$ be an arrow in in $\cat{C}$.\todo{AC:*** to be completed} 
+\end{enumerate}
+\end{definition}
+
+
+
+\subsection{Satisfaction of span-based conditions}
+\slabel{sb-satisfaction}
+
+We now present the modified notion of satisfaction for span-based conditions. First we recognise that the purpose of an arrow $a$ in an ab-condition is essentially to establish ``correct" model/witness pairs $(g,h)$ --- namely, those pairs that commute with $a$ in the sense of satisfying $g=a;h$. We may write $a\commutes (g,h)$ to express this commutation relation. This is what we now formalise for spans, as follows:
+\[ \spanof u d \commutes (g,h) \text{ if } u;g=d;h \enspace. \]
+Satisfaction of sb-conditions is then defined as follows:
+
+\begin{definition}[satisfaction of span-based conditions]\dlabel{sb-satisfaction}
+  Let $c$ be a span-based condition and $g:R\to G$ an arrow from $c$'s root to an object $G$. We say that \emph{$g$ satisfies $c$}, denoted $g\sat c$, if there is a branch $p_i$ and an arrow $h:P_i\to G$ such that
+  \begin{enumerate*}
+  \item $s_i \commutes (g, h)$, and
+  \item $h\nsat c_i$.
+  \end{enumerate*}
+\end{definition}
+%
+Note that this is entirely analogous to \dcite{ab-satisfaction}, especially if we would retrofit the notation $a\commutes (g,h)$ there. Like before, we call $p_i$ the \emph{responsible branch} and $h$ the \emph{witness} of $g\sat c$. Satisfaction of sb-conditions is visualised in \fcite{sb-satisfaction}.
+
+\todo{AC:show how shift of sb-conditions affect satisfaction}
+

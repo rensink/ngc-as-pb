@@ -1,0 +1,108 @@
+\section{Span-based conditions and First Order Logic}
+\slabel{sb-conditions-FOL}
+
+\todo{AC:  Add section about correspondence between span-based conditions in Graph and FOL? Could be concise, given that most definitions are in \scite{FOL}}
+
+In this section we present the enconding of span-based conditions into formulas of the first-order logic of graphs and viceversa, as done for arrow-based conditions in \scite{FOL}. The encoding of conditions as formulas is a simple adaptation of that of \dcite{encoding}, for which the correctness results of \pcite{same-models} can be adapted easily, and we refrain from presenting it.
+Instead the encoding of formulas as sb-conditions by structural induction present some subtetlies that we discuss in detail. 
+
+
+% \begin{definition}[span-based condition]\dlabel{sb-condition}
+%   For any object $R$ of $\bC$, $\SC R$ (the set of \emph{span-based conditions} over $R$) and $\SB R$ (the set of \emph{span-based branches} over $R$) are the smallest sets such that
+%   \begin{itemize}
+%   \item $c\in \SC R$ if $c=(R,p_1\ccdots p_w)$ is a pair with $p_i\in \SB R$ for all $1\leq i\leq w$;
+%   \item $p\in \SB R$ if $p=(\spanof u d,c)$ where $u: I\to R, d:I\to P$ form a span of arrows of $\bC$ and $c\in \SC P$.
+%   \end{itemize}
+% \end{definition}
+
+
+\begin{definition}[encoding sb-conditions as $\FOL$ formulas]
+  \label{def:sb-encoding}
+  Given a graph $R = (V_R, E_R, s_R, t_R, \ell_R)$, its $\FOL$ encoding is the formula (already presented in \eqref{psiR})  
+\begin{equation}
+	\grtofol R = %\textstyle
+\left( \bigwedge_{x\in V_R}{x\Eq x} \right) \wedge
+\left( \bigwedge_{e\in E_R} \ell_R(e)\bigl(s_R(e),t_R(e)\bigr) \right) \label{eq:psiR-sb}
+\end{equation} 
+Given a well-formed sb-condition $c\in \SC R$ with $c=(R,p_1\cdots p_w)$ and for all $i \in [1,w]$ $p_i = (\spanof {u_i} {d_i},{c_i})$, with $u_i: I_i \to R, d_i: I_i \to P_i$ and $c_i \in \SC{P_i}$,\todo{AC: more compact presentation of sb-condition? $(R,(\spanof {u_1} {d_1},{c_1})\cdots(\spanof {u_w} {d_w},{c_w}))$} its $\FOL$ encoding is the formula 
+\begin{align}
+	\sbtofol c = %\textstyle 
+  \bigvee_{i\in [1,w]} \left(\exists V_{I_i} \cup V_{P_i}\st \grtofol {P_i} \land  \left(\bigwedge_{x \in V_{I_i}} x \Eq u_i(x) \land x \Eq d_i(x)\right) \land  \neg \sbtofol {c_i}\right)\label{eq:phiC}
+\end{align}
+\end{definition}
+
+\begin{proposition}[properties of $\sbtofol c$]
+  \label{pr:same-models}
+  Let $c\in \SC R$ be an sb-condition over $R$ and $\sbtofol c$ be its $\FOL$ encoding as in Def.~\ref{def:sb-encoding}. Given a graph morphism $g: R \to G$ we have
+  \[ g \sat c \qquad \iff \qquad g \sat^\FOL \sbtofol c\enspace.\] \todo{AC: the proof is a small adaptation of the corresponding result for ab-conditions, I suppose. But this has to be checked before stating it. }
+\end{proposition}
+
+\paragraph{From formulas to sb-conditions} Now we show how to encode FOL formulas by structural induction as sb-conditions. As in \scite{FOL} the construction is defined by structural induction, and it will produce for a formula $\phi$ an sb-condition having as root $\disc{\fv(\phi)}$.
+
+
+
+% ============
+Use pictures:
+\begin{tikzpicture}[on grid]
+  \node (R) {$R$};
+  \tri{R}{3.4}{1.2}{2.4}{}
+  \node (Ii) [below=of R] {$I_i$};
+  \node (Pi) [below=of Ii] {$P_i$};
+  \tri{Pi}{1.2}{.6}{1.2}{$c_i$}
+  \node (G) [right=2 of R] {$G$};
+
+  \path (R) edge[->] node[above] {$g$} (G)
+        (Ii) edge[->] node[left=.1] {$u_i$} (R)
+        (Ii) edge[->] node[left] {$d_i$} (Pi)
+        (Pi) edge[->,bend right] node[pos=0.2,below right] (h) {$h$} (G)
+        (h) edge[draw=none] node[sloped,allow upside down] {$\nsat$} (Pi-label);
+\end{tikzpicture}
+%==============
+% define \sbc[_] (span-based condition) 
+
+
+\begin{definition}[from formulas to sb-conditions]
+  \label{def:from-formulas-to-sb-conditions}
+The  \emph{sb-condition encoding a formula $\phi$}, denoted $\sbc{\phi}$, is the condition with root $\disc{\fv(\phi)}$ defined by the following inductive clauses: \todo{AC: the construction makes assumptions on the subconditions: discrete root and mono up-arrow. Does it make sense to turn the various constructions into total operations? Or where can be presented the construction that makes the up-arrow mono?}
+\begin{enumerate}[itemsep=1ex]
+% \item 
+% If $\phi = \False$, then $ \abc{\phi} = (\disc{\varnothing}, \epsilon)$.
+% \item If $\phi = \True$, then $ \abc{\phi} = (\disc{\varnothing}, (id_{\disc{\varnothing}},(\disc{\varnothing},\epsilon)))$.
+% \item 
+% If $\phi = x \Eq y$, then $ \abc{\phi} = (\disc{\{x,y\}}, (\{x\mapsto z,y \mapsto z\}, (\disc{\{z\}},\epsilon)))$.
+% \item 
+% If $\phi = \la(x,y)$, then $ \abc{\phi} = (\disc{\{x,y\}}, (\{x\mapsto x',y \mapsto y'\}, (\inline{\oneedge{x'}{a}{y'}},\epsilon)))$.
+% \item 
+% If $\phi = \neg \phi'$ and $ \abc{\phi'} = (R,p_1\ccdots p_w)$ then $ \abc{\phi} = (R,(id_R, \abc{\phi'}))$.
+% %$ \abc{\phi} = (R,(id_R, (R,p_1\ccdots p_w)))$.
+% \item 
+% If $\phi = \phi_1 \lor \phi_2$ and $ \abc{\phi_1} = (R_1,p_1\ccdots p_w)$, $ \abc{\phi_2} = (R_2,q_1\ccdots q_v)$, then we can assume that $V_{R_i} = \fv(\phi_i)$ for $i \in \{1,2\}$.  Let $R = \disc{V_{R_1} \cup V_{R_2}}$, with the obvious injections $in_i\of R_i \hookrightarrow R$ for $i \in \{1,2\}$.
+% Then $\abc{\phi} = \shift{\abc{\phi_1}}{in_1}+ \shift{\abc{\phi_2}}{in_2}$. Note that by construction $R = \disc{\fv(\phi)}$, as required.
+% % and let $\shift{c_1}{in_1} = (R,p'_1\ccdots p'_w)$, $\shift{c_2}{in_2} = (R,q'_1\ccdots q'_v)$ be obtained by shifting the conditions (see Def.~\ref{def:shift}). Then $\abc{\phi}$ is defined as $\abc{\phi} = (R,p'_1\ccdots p'_wq'_1\ccdots q'_v)$. Note that by construction $R = \disc{\fv(\phi)}$, as required.
+% \item 
+% If $\phi = \exists X \st \phi'$ and $ \abc{\phi'} = (R',(a_1,c_1)\ccdots (a_w,c_w))$, then we know that $V_{R'} = \fv(\phi')$. Let $R = \disc{V_{R'} \setminus X}$, and $j \of R \hookrightarrow R'$ be the obvious injection. Then $ \abc{\phi} = \bshift{\abc{\phi'}}{j} = (R,(j;a_1,c_1)\ccdots (j;a_w,c_w))$ is obtained by precomposing $\abc{\phi'}$ with $j$ (see Def.~\ref{def:shift}). By construction we have $R = \disc{\fv(\phi)}$, as required.
+
+% \item 
+% Finally, by exploiting the usual logical equivalences we define $\abc{\phi_1 \land \phi_2} = \abc{\neg (\neg \phi_1 \lor \neg \phi_2)}$ and $\abc{\forall X\st \phi} = \abc{\neg \exists X \st \neg \phi}$.
+
+\item 
+$\sbc{\False} = (\disc{\varnothing}, \epsilon)$.
+\item  
+$\sbc{\True} = (\disc{\varnothing}, (\spanof{id_{\disc{\varnothing}}}{id_{\disc{\varnothing}}},(\disc{\varnothing},\epsilon)))$.
+\item 
+$ \sbc{\la(x,y)} = (\disc{\{x,y\}}, (\spanof{id_{\disc{\{x,y\}}}}{\{x\mapsto x',y \mapsto y'\}}, (\inline{\oneedge{x'}{a}{y'}},\epsilon)))$.
+\item 
+$\sbc{x \Eq y} = (\disc{\{x,y\}}, (\spanof{id_{\disc{\{x,y\}}}}{\{x\mapsto z,y \mapsto z\}}, (\disc{\{z\}},\epsilon)))$.
+\item 
+If $\sbc{\phi} = (R,p_1\ccdots p_w)$ then $ \sbc{\neg \phi} = (R,(\spanof{id_R}{id_R}, \sbc{\phi}))$.
+\item 
+Let $\phi = \phi_1 \vee \phi_2$. If $ \sbc{\phi_1} = (R_1,p_1\ccdots p_w)$ and $ \sbc{\phi_2} = (R_2,q_1\ccdots q_v)$, we can assume that $V_{R_i} = \fv(\phi_i)$ for $i \in \{1,2\}$.  Let $R = \disc{V_{R_1} \cup V_{R_2}}$, with the obvious injections $in_i\of R_i \hookrightarrow R$ for $i \in \{1,2\}$.
+Then $\sbc{\phi} = \mergeabc{\shift{\sbc{\phi_1}}{in_1}}{\shift{\sbc{\phi_2}}{in_2}}$.\todo{AC: not defined: composition of up-arrow with the injection.} Note that by construction $R = \disc{\fv(\phi)}$, as required. 
+\item 
+Let\todo{AC: take pullback of variables injection and up-arrow. This affects only the top interface, because up-arrow is mono} $\phi = \exists X \st \phi'$. If $\sbc{\phi'} = (R',(a_1,c_1)\ccdots (a_w,c_w))$ we know that $V_{R'} = \fv(\phi')$. Let $R = \disc{V_{R'} \setminus X}$, and $j \of R \hookrightarrow R'$ be the obvious injection. Then $ \sbc{\exists X \st \phi'} = \bshift{\sbc{\phi'}}{j} = (R,(j;a_1,c_1)\ccdots (j;a_w,c_w))$ is obtained by precomposing $\sbc{\phi'}$ with $j$ (see \dcite{shift}). By construction we have $R = \disc{\fv(\phi)}$, as required.
+\item Present construction of CONJUNCTION of single branched conditions, next of multi-branched ones.
+\item 
+Finally, by exploiting the usual logical equivalences we define  $sabc{\forall X\st \phi} = \sbc{\neg \exists X \st \neg \phi}$.
+\end{enumerate}
+\end{definition}
+
