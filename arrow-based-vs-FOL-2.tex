@@ -213,16 +213,16 @@ Given a well-formed ab-condition $c\in \AC R$ with $c=(R,(a_1,c_1)\ccdots (a_w,c
         (11) edge[->] node[right] {$h$}(112);
 \end{tikzpicture}
 \caption{A well-formed ab-condition equivalent to $c_1$ of Example~\ref{ex:ab-conditions}}
-\label{ab-condition-c}
+\label{fig:ab-condition-c}
 \end{figure}
 %
 Considering formula \eqref{psiR}, note that $\fv(\grtofol R) = V_R$: This is guaranteed by the \emph{identities} of the form $x\Eq x$ in the first conjunct. 
 
-\begin{example}[formula associated with a condition]
+\begin{example}[formula associated with a condition]\label{ex:from-ab-to-FOL}
 As a trivial example, $\grtofol {\disc{\varnothing}} \equiv \True$ because it is the empty conjunction. Instead, for each non-empty discrete graph $\disc{X}$, $\grtofol {\disc{X}} =
 \bigwedge_{x\in X}{x\Eq x}$. Note that, as observed before, $\grtofol {\disc{X}} \entails \True$, but $\True  \not \entails \grtofol {\disc{X}}$ because  $\fv(\grtofol {\disc{X}}) = X \not \subseteq \varnothing$. 
 
-Let us now detail the formula $\tofol {c}$ associated with the condition $c$ of Figure~\ref{ab-condition-c}, a well-formed variant of condition $c_1$ of Example~\ref{ex:ab-conditions}.  We use the names $R_i$ to denote the roots of the $c_i$ ($i\in [1,3]$).
+Let us now detail the formula $\tofol {c}$ associated with the condition $c$ of \cref{fig:ab-condition-c}, a well-formed variant of condition $c_1$ of Example~\ref{ex:ab-conditions}.  We use the names $R_i$ to denote the roots of the $c_i$ ($i\in [1,3]$).
 %
 For these three graphs, using \eqref{psiR}, we obtain:
 %
@@ -508,50 +508,120 @@ The  \emph{ab-condition encoding a formula $\phi$}, denoted $\abc{\phi}$, is the
 \item[{[$\phi=\False$]}] Then 
 $\abc{\phi} \isdef (\disc{\varnothing}, \epsilon)$.
 
-\item[$\phi=\True$.] Then
+\item[{[$\phi=\True$]}] Then
 $\abc{\phi} \isdef (\disc{\varnothing}, (id_{\disc{\varnothing}},(\disc{\varnothing},\epsilon)))$.
 
-\item[$\phi=\la(x,y)$.] Then
+\item[{[$\phi=\la(x,y)$]}] Then
 $ \abc{\phi} \isdef (\disc{\setof{x,y}}, (\setof{x\mapsto x',y \mapsto y'}, (\inline{\oneedge{x'}{a}{y'}},\epsilon)))$.
 
-\item[$\phi=x \Eq y$.] Then
+\item[{[$\phi=x \Eq y$]}] Then
 $\abc{\phi} \isdef (\disc{\setof{x,y}}, (\setof{x\mapsto z,y \mapsto z}, (\disc{\setof{z}},\epsilon)))$.
 
-\item[$\phi=\neg\phi'$.]
+\item[{[$\phi=\neg\phi'$]}]
 Let $R'=R^{\abc{\phi'}}$; then $\abc{\phi} \isdef (R',(id_R, \abc{\phi'}))$. Note that by construction $R^{\abc\phi} = R' = \disc{\fv(\phi)}$, as required.
 
-\item[$\phi=\phi_1 \vee \phi_2$.]
-Let $R_i=R^{\abc{\phi_i}} = \tupof{\fv(\phi_i)}$ for $i =1,2$, and let $R = \disc{V_{R_1} \cup V_{R_2}}$, with the obvious injections $in_i\of R_i \hookrightarrow R$ for $i=1,2$; then $\abc{\phi} \isdef \mergeabc{\shift{\abc{\phi_1}}{in_1}}{\shift{\abc{\phi_2}}{in_2}}$. Note that by construction $R^{\abc\phi} = R = \disc{\fv(\phi)}$, as required.
+\item[{[$\phi=\phi_1 \vee \phi_2$]}]
+Let $R_i=R^{\abc{\phi_i}} = \tupof{\fv(\phi_i)}$ for $i =1,2$, and let $R = \disc{V_{R_1} \cup V_{R_2}}$ with the obvious injections $in_i\of R_i \hookrightarrow R$; then $\abc{\phi} \isdef \mergeabc{\shift{\abc{\phi_1}}{in_1}}{\shift{\abc{\phi_2}}{in_2}}$. Note that by construction $R^{\abc\phi} = R = \disc{\fv(\phi)}$, as required.
 
-\item[$\phi=\phi_1 \wedge \phi_2$.]
-Let $R_i=R^{\abc{\phi_i}} = \tupof{\fv(\phi_i)}$ for $i=1,2$, and let $R = \disc{V_{R_1} \cup V_{R_2}}$, with the obvious injections $in_i\of R_i \hookrightarrow R$ for $i=1,2$.  Consider $\shift{\abc{\phi_1}}{i_2}= \tupof{R,q^1_1\ccdots q^1_{w_1}}$ and $\shift{\abc{\phi_2}}{i_1}= \tupof{R,q^2_1\ccdots q^2_{w_2}}$, with $q^i_k=(a^i_k,c^i_k)$.
+\item[{[$\phi=\phi_1 \wedge \phi_2$]}]
+Let $R_i=R^{\abc{\phi_i}} = \tupof{\fv(\phi_i)}$ for $i=1,2$, and let $R = \disc{V_{R_1} \cup V_{R_2}}$ with the obvious injections $in_i\of R_i \hookrightarrow R$; then $\Gamma[\phi]\isdef \shift{\abc{\phi_1}}{in_1} \join \shift{\abc{\phi_2}}{in_2}$. Note that by construction $R^{\abc\phi} = R = \disc{\fv(\phi)}$, as required.
 
-\smallskip
-For $m\in[1,w_1]$ and $n\in [1,w_2]$ let $q_{m,n}=q^1_m\join q^2_n$; then $\abc{\phi}\isdef \tupof{R,q_{1,1}\ccdots q_{1,w_2}\ccdots q_{w_1,1}\ccdots q_{w_1,w_2}}$. Note that by construction $R^{\abc\phi} = R = \disc{\fv(\phi)}$, as required.
+\item[{[$\phi=\exists X \st \phi'$]}]
+Let $R'=R^{\abc{\phi'}} = \disc{\fv(\phi')}$, and let $R = \disc{V_{R'} \setminus X}$ with the obvious injection $in \of R \hookrightarrow R'$; then $ \abc{\phi} \isdef \bshift{\abc{\phi'}}{in}$. Note that by construction $R^{\abc\phi} = R = \disc{\fv(\phi)}$, as required.
 
-\item[$\phi=\exists X \st \phi'$.]
-Let $R'=R^{\abc{\phi'}} = \disc{\fv(\phi')}$, and let $R = \disc{V_{R'} \setminus X}$, and $j \of R \hookrightarrow R'$ be the obvious injection; then $ \abc{\phi} \isdef \bshift{\abc{\phi'}}{j}$. Note that by construction $R^{\abc\phi} = R = \disc{\fv(\phi)}$, as required.
-
-\item[$\phi=\forall X\st \phi'$.] Then 
+\item[{[$\phi=\forall X\st \phi'$]}] Then 
 $\abc{\phi} \isdef \abc{\neg \exists X \st \neg \phi'}$.
 \end{description}
 \end{definition}
 %
-The correctness of this encoding is stated as follows.
+\begin{example}\label{ex:from-FOL-to-ab}
+We demonstrate the translation from $\FOL$ to ab-conditions on the basis of the formula $\lb(x,x)\wedge \neg(\exists y\st (\la(x,y)\vee \lc(x,y))$, which in \cref{ex:from-ab-to-FOL} was the outcome of the translation of the ab-condition of \cref{fig:ab-condition-c} to $\FOL$.
+
+To start with, the the three binary relations translate to one-level conditions consisting of a single branch with the free variables in the root:
+\[
+\begin{tikzpicture}[on grid,baseline=(c)]
+  \node[graph] (0) {\onenode{x}};
+  \node[left=0 of 10.west,inner sep=0] (c) {$c_\lb$};
+  \node[graph,below=of 0] (1) {\oneloop x \lb}; 
+  \path (0) edge[->]  (1);
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[on grid,baseline=(c)]
+  \node[graph] (0) {\twonode x y};
+    \node[left=0 of 0.west,inner sep=0] (c) {$c_\la$};
+  \node[graph,below=of 0] (1) {\oneedge x \la y}; 
+  \path (0) edge[->]  (1);
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[on grid,baseline=(c)]
+  \node[graph] (0) {\twonode x y};
+    \node[left=0 of 0.west] (c) {$c_\lc$};
+  \node[graph,below=of 0] (1) {\oneedge x \lc y}; 
+  \path (0) edge[->]  (1);
+\end{tikzpicture}
+\]
+The construction of $\la(x,y)\vee \lc(x,y)$ combines $c_\la$ and $c_\lc$ into the two-branch condition $\shift{c_\la}{in_1}\merge \shift{c_\lc}{in_2}$, where however the two injections $in_i\of \setof{x,y}\to \setof{x,y}$ are both the identity, hence the shifts do not change the conditions:
+\[\begin{tikzpicture}[on grid,baseline=(c)]
+  \node[graph] (0) {\twonode x y};
+  \node[left=0 of 0.west] (c) {$c_{\la\lc}$};
+  \node[graph,below left=of 0] (10) {\oneedge x \la y}; 
+  \node[graph,below right=of 0] (11) {\oneedge x \lc y}; 
+  \path (0) edge[->] (10)
+            edge[->] (11);
+\end{tikzpicture}
+\]
+The construction of $\exists y\st \la(x,y)\vee \lc(x,y)$ removes $y$ from the root of $c_{\la\lc}$:
+\[\begin{tikzpicture}[on grid,baseline=(c)]
+  \node[graph] (0) {\onenode x};
+  \node[left=0 of 0.west] (c) {$c'_{\la\lc}$};
+  \node[graph,below left=of 0] (10) {\oneedge x \la y}; 
+  \node[graph,below right=of 0] (11) {\oneedge x \lc y}; 
+  \path (0) edge[->] (10)
+            edge[->] (11);
+\end{tikzpicture}
+\]
+The construction for the negation $\neg\exists y\st \la(x,y)\vee \lc(x,y)$ puts $c'_{\la\lc}$ under a new root:
+\[\begin{tikzpicture}[on grid,baseline=(c)]
+  \node[graph] (0) {\onenode x};
+  \node[left=0 of 0.west] (c) {$c''_{\la\lc}$};
+  \node[graph,below=of 0] (n1) {\onenode x};
+  \node[graph,below left=of n1] (20) {\oneedge x \la y}; 
+  \node[graph,below right=of n1] (21) {\oneedge x \lc y}; 
+  \path (0) edge[->] (n1)
+        (n1) edge[->] (20)
+            edge[->] (21);
+\end{tikzpicture}
+\]
+Finally, to build $\lb(x,x)\wedge \phi'$ involves constructing $\shift{c_\lb}{in_1}\join \shift{c''_{\la\lc}}{in_2}$, where again both injections $in_i\of \setof x\to \setof x$ are the identity. Both $c_\lb$ and $c''_{\la\lc}$ consist of a single branch only, so that their join coincides with the join of those branches, resulting in 
+\[\begin{tikzpicture}[on grid,baseline=(c)]
+  \node[graph] (0) {\onenode x};
+  \node[left=0 of 0.west] (c) {$c_\lb\join c''_{\la\lc}$};
+  \node[graph,below= of 0] (n1) {\oneloop x \lb};
+  \node[graph,below left=of n1] (20) {\looponeedge x \lb \la y}; 
+  \node[graph,below right=of n1] (21) {\looponeedge x \lb \lc y}; 
+  \path (0) edge[->] (n1)
+        (n1) edge[->] (20)
+            edge[->] (21);
+  \end{tikzpicture}
+\]
+which is identical to the condition of \cref{fig:ab-condition-c}, modulo a renaming of the variables. In fact, in a sense to be defined in \cref{sec:ab-morphisms}, the two conditions are isomorphic.\qed
+\end{example}
+%
+The correctness of the encoding in \cref{def:from-formulas-to-ab-conditions} is stated as follows.
 % \todo{In this form, it does not emerge why we need the upward-closedness. I would like to include a corollary that states something for \emph{any} $g$; maybe $g \sat^\FOL \phi \iff \exists c\in C(\phi)\st g \sat c$?\\ AC: Conceptually this is stated by the last result of the section.}
 
 \begin{proposition}[properties of $\abc{\phi}$]
   \label{pr:same-models-2}
-Let $\phi$ be a $\FOL$ formula and $\abc{\phi} = (R, (p_1\ccdots p_w))$ be its encoding as for Def.~\ref{def:from-formulas-to-ab-conditions}. Given a graph morphism $g: R \to G$ we have
+Let $\phi$ be a $\FOL$ formula and $\abc{\phi} = (R, (p_1\ccdots p_w))$ be its encoding as in \cref{def:from-formulas-to-ab-conditions}. Given a graph morphism $g: R \to G$ we have
  \[ g \sat^\FOL \phi \qquad \iff \qquad g \sat \abc{\phi} \enspace.\] 
 \end{proposition}
 
 \begin{proof}[]
 We proceed by induction on the structure of $\phi$, based on Def.~\ref{def:graph-formulas}. 
 \begin{description}[defsep]
-\item[$\phi = \False$.] No graph morphism satisfies $\phi$, and the same holds for $\abc{\False} = (\disc{\varnothing}, \epsilon)$ by Fact~\ref{fact:satisfaction}.1,  because it has depth 0.
+\item[{[$\phi = \False$]}] No graph morphism satisfies $\phi$, and the same holds for $\abc{\False} = (\disc{\varnothing}, \epsilon)$ by Fact~\ref{fact:satisfaction}.1,  because it has depth 0.
   
-\item[$\phi = \True$.] Then $g \sat^\FOL \phi$ for every $g: \disc{\varnothing}\to G$. The diagram below shows that $g \sat \abc{\True}  = (\disc{\varnothing}, (id_{\disc{\varnothing}},(\disc{\varnothing},\epsilon)))$, with the only branch as responsible branch and $g$ itself as witness. Indeed, the triangle obviously commutes and $g \not\sat (\disc{\varnothing},\epsilon)$ by the previous point.
+\item[{[$\phi = \True$]}] Then $g \sat^\FOL \phi$ for every $g: \disc{\varnothing}\to G$. The diagram below shows that $g \sat \abc{\True}  = (\disc{\varnothing}, (id_{\disc{\varnothing}},(\disc{\varnothing},\epsilon)))$, with the only branch as responsible branch and $g$ itself as witness. Indeed, the triangle obviously commutes and $g \not\sat (\disc{\varnothing},\epsilon)$ by the previous point.
   
    \begin{equation} % true completo
   \begin{tikzpicture}[node distance = 1.5cm,baseline=(lab)]
@@ -570,7 +640,7 @@ We proceed by induction on the structure of $\phi$, based on Def.~\ref{def:graph
     \end{tikzpicture}
  \end{equation} 
 
-\item[$\phi = \la(x,y)$.] For $g\of \disc{\setof{x,y}} \to G$, we have $g \sat^\FOL \phi$ iff there is an edge in $G$ from $g_v(x)$ to $g_v(y)$ with label $\la$. The diagram below shows that given condition  $\abc{\la(x,y)}  = (\disc{\setof{x,y}},
+\item[{[$\phi = \la(x,y)$]}] For $g\of \disc{\setof{x,y}} \to G$, we have $g \sat^\FOL \phi$ iff there is an edge in $G$ from $g_v(x)$ to $g_v(y)$ with label $\la$. The diagram below shows that given condition  $\abc{\la(x,y)}  = (\disc{\setof{x,y}},
  (\setof{x\mapsto x',y \mapsto y'}, (\inline{\oneedge{x'}{a}{y'}},\epsilon)))$ and $g$, there is an $h: \inline{\oneedge{x'}{a}{y'}} \to G$ making the triangle commute iff there is an edge 
 \inline{$g_V(x) \stackrel{\la}{\to} g_V(y)$} in $G$.
 In this case $h \not\sat ( \inline{\oneedge{x'}{a}{y'}},\epsilon)$ by Fact~\ref{fact:satisfaction}.1, thus it witnesses that $g \sat  \abc{\la(x,y)}$.
@@ -591,7 +661,7 @@ In this case $h \not\sat ( \inline{\oneedge{x'}{a}{y'}},\epsilon)$ by Fact~\ref{
     \end{tikzpicture}
  \end{equation} 
 
- \item[$\phi = x \Eq y$.] For $g\of \disc{\setof{x,y}} \to G$, we have $g \sat^\FOL \phi$ iff $g_v(x) = g_v(y)$. The diagram below shows that given condition  $\abc{x \Eq y}  = (\disc{\setof{x,y}}, (\setof{x\mapsto z,y \mapsto z}, (\disc{\setof{z}},\epsilon)))$ and $g$, there is an $h: \disc{\{z\}} \to G$ making the triangle commute iff $g_v(x) = g_v(y)$. In this case $h \not\sat (\disc{\setof{z}},\epsilon)$ by Fact~\ref{fact:satisfaction}.1, thus it witnesses that $g \sat  \abc{x \Eq y}$.
+ \item[{[$\phi = x \Eq y$]}] For $g\of \disc{\setof{x,y}} \to G$, we have $g \sat^\FOL \phi$ iff $g_v(x) = g_v(y)$. The diagram below shows that given condition  $\abc{x \Eq y}  = (\disc{\setof{x,y}}, (\setof{x\mapsto z,y \mapsto z}, (\disc{\setof{z}},\epsilon)))$ and $g$, there is an $h: \disc{\{z\}} \to G$ making the triangle commute iff $g_v(x) = g_v(y)$. In this case $h \not\sat (\disc{\setof{z}},\epsilon)$ by Fact~\ref{fact:satisfaction}.1, thus it witnesses that $g \sat  \abc{x \Eq y}$.
   
   \begin{equation} % x = y 
   \begin{tikzpicture}[node distance = 1.5cm,baseline=(lab)]
@@ -609,7 +679,7 @@ In this case $h \not\sat ( \inline{\oneedge{x'}{a}{y'}},\epsilon)$ by Fact~\ref{
     \end{tikzpicture}
  \end{equation} 
 
-\item[$\phi=\neg\phi'$.]
+\item[{[$\phi=\neg\phi'$]}]
 Let $R = R^{\abc{\phi}}= \disc{\fv(\phi)}$. Then for any $g: R \to G$, by definition $g \sat^\FOL \phi$ iff $g \not\sat^\FOL \phi'$. The diagram below shows that given condition $\abc{\phi} = (R,(\id_R, \abc{\phi'}))$ and $g$, since the triangle obviously commutes, we have $g \sat \abc{\phi}$  if and only if $g \not \sat \abc{\phi'}$, if and only if (by the induction hypothesis) $g \not \sat^\FOL \phi'$.
 
 \begin{equation} % \neg \phi
@@ -629,7 +699,7 @@ Let $R = R^{\abc{\phi}}= \disc{\fv(\phi)}$. Then for any $g: R \to G$, by defini
     \end{tikzpicture}
  \end{equation} 
 
-\item[$\phi=\phi_1\vee \phi_2$.] Let $\in_i\of \disc{\fv(\phi_i)} \hookrightarrow \disc{\fv(\phi)}$ for $i =1,2$, and let $g\of \disc{\fv(\phi)} \to G$. Then:
+\item[{[$\phi=\phi_1\vee \phi_2$]}] Let $in_i\of \disc{\fv(\phi_i)} \hookrightarrow \disc{\fv(\phi)}$ for $i =1,2$, and let $g\of \disc{\fv(\phi)} \to G$. Then:
 
 \[\begin{array}{ll}
 g \sat \abc{\phi} & \iff \text{ by Definition~\ref{def:from-formulas-to-ab-conditions}} \\
@@ -641,7 +711,7 @@ g \sat^\FOL \phi_1 \text{ or } g \sat^\FOL \phi_2 & \iff \text{ by Definition~\r
 g \sat^\FOL \phi
 \end{array}\]
 
-\item[$\phi=\phi_1\wedge \phi_2$.] Let $\in_i\of \disc{\fv(\phi_i)} \hookrightarrow \disc{\fv(\phi)}$ for $i =1,2$, and let $g\of \disc{\fv(\phi)} \to G$. Then:
+\item[{[$\phi=\phi_1\wedge \phi_2$]}] Let $in_i\of \disc{\fv(\phi_i)} \hookrightarrow \disc{\fv(\phi)}$ for $i =1,2$, and let $g\of \disc{\fv(\phi)} \to G$. Then:
 
 \[\begin{array}{ll}
 g \sat \abc{\phi} & \iff \text{ by Definition~\ref{def:from-formulas-to-ab-conditions}} \\
@@ -653,7 +723,7 @@ g \sat^\FOL \phi_1 \text{ and } g \sat^\FOL \phi_2 & \iff \text{ by Definition~\
 g \sat^\FOL \phi
 \end{array}\]
 
-\item[$\phi = \exists X \st \phi'$.] Then $\abc{\phi'} = (R',(a_1,c_1)\ccdots (a_w,c_w))$, 
+\item[{[$\phi = \exists X \st \phi'$]}] Then $\abc{\phi'} = (R',(a_1,c_1)\ccdots (a_w,c_w))$, 
 $ \abc{\phi} = \bshift{\abc{\phi'}}{j} = (R,(j;a_1,c_1)\ccdots (j;a_w,c_w))$, where $R = \disc{V_{R'} \setminus X}$, and $j \of R \hookrightarrow R'$. 
 Suppose that $g:R\to G$ is such that $g\sat \abc{\exists X\st\phi'}$. Then there is $k\in [1,w]$ and $h:P_k\to G$ (see diagram below) such that $j;a_k;h = g$ and $h \not \sat c_k$. This implies that there is an arrow $a_k;h:R'\to G$ such that $a_k;h\sat \abc{\phi'}$ (with responsible branch $k$ and witness $h$). By induction hypothesis $a_k;h\sat^\FOL \phi'$. Since $R \subseteq R'$ we have $a_k;h \restr R = j;a_k;h = g$, thus $g \sat^\FOL \exists X\st \phi'$ by Definition~\ref{def:graph-formulas}.
 

@@ -1,24 +1,25 @@
 \section{Morphisms of arrow-based conditions}
 \slabel{ab-morphisms}
 
-The notion of \emph{morphism} of nested conditions has not received much attention in the literature. When considered at all, such as in \cite{bchk:conditional-reactive-systems,sksclo:coinductive-techniques-for-satisfiability}, they are essentially based on the semantics in terms of satisfaction. Indeed, entailment (see Def.~\ref{def:ab-satisfaction}) establishes a preorder over conditions. Let us denote the resulting category $\ABC^{\entails}$, where if $c$ and $b$ are ab-conditions, $c \leq b$ iff $c \entails b$.%
+The notion of \emph{morphism} of nested conditions has not received much attention in the literature. When considered at all, such as in \cite{bchk:conditional-reactive-systems,sksclo:coinductive-techniques-for-satisfiability}, morphisms are essentially based on the semantics in terms of satisfaction. Indeed, entailment (see \cref{def:ab-satisfaction}) establishes a preorder over conditions. Let us denote the resulting category $\ABC^{\entails}$, where if $c$ and $b$ are ab-conditions, $c \leq b$ iff $c \entails b$.%
 %: Note that in this case $c$ and $b$ have the same root. %
 \footnote{Note that $c \leq b$ implies that $c$ and $b$ have the same root.} 
  
-The question that we address in this section is to establish a meaningful \emph{structural} notion of condition morphism. That is, given the fact that an ab-condition is essentially a diagram in the category $\bC$, a structural morphism from $b$ to $c$ consists of arrows between objects of $b$ and objects of $c$ satisfying certain commutativity conditions. 
+The question that we address in this section is to establish a meaningful \emph{structural} notion of condition morphism. That is, given the fact that an ab-condition is essentially a diagram in the category $\bC$, a structural morphism from $b$ to $c$ consists of arrows between objects in $b$ and $c$ (when viewed as diagrams), satisfying certain conditions on the resulting subdiagrams. 
 
 For morphisms to be meaningful,  they should only exist where there is entailment: 
 % indeed, we require there to be a \emph{contravariant} functor to $\ABC^{\entails}$, meaning that 
 if there is a structural morphism $b \to c$, then it should hold $c \entails b$.\footnote{This is consistent with the case of the $\exists$-fragment sketched in the Introduction.} As we will see, this requirement implies that it is not enough to consider only arrows \emph{from} objects of $b$ \emph{to} objects of $c$, since in our definition of satisfaction the direction of entailment flips at every subsequent nesting level. 
-It also implies that morphisms should only relate conditions with the same root, because entailment is defined only among conditions over the same root (see Def.~\ref{def:ab-satisfaction}).\todo{AC: rephrase} Technically, the main result of this section will be formulated categorically as the existence of  contravariant functors from  categories of conditions with structural morphisms to $\ABC^{\entails}$.
+
 
 \todo[inline]{From here is the version based on root arrows.}
 
-The underlying principle for a morphism $m$ from $b$ to $c$ is that it must identify, for every $c$-branch $p^c_i$, a $b$-branch $p^b_j$ that it entails. However, because of their inductively defined tree-shape, on lower levels we have to relate (sub)conditions over different roots; hence, in general $R^c$ and $R^b$ are not the same. Instead, a morphism $m$ will include an arrow $v\of R^c\to R^b$ (in the opposite direction of $m$, and the entailment of $p^b_j$ by $p^c_i$ is \emph{modulo} $v$, in a way made precise below.
+The underlying principle for a morphism $m$ from $b$ to $c$ is that it must identify, for every $c$-branch $p^c_i$, a $b$-branch $p^b_j$ that it entails. However, because of their inductively defined tree-shape, on lower levels we have to relate (sub)conditions over different roots; hence, in general $R^c$ and $R^b$ are not the same. Instead, a morphism $m$ will include an arrow $v\of R^c\to R^b$ (in the \emph{opposite} direction of $m$), and the entailment of $p^b_j$ by $p^c_i$ is \emph{modulo} $v$, in a way made precise below.\todo{AR: Reflection square? Reflection diagram? ab-reflection diagram?}
 
-\begin{definition}[entailment square]\label{def:entailment square}
-Let $a_1\of R_1\to P_1$, $a_2\of R_2\to P_2$, $v\of R_2\to R_1$ and $v'\of P_1\to P_2$, and consider the following (not necessarily commuting) diagram:
-\[\begin{tikzpicture}[auto,node distance = 1.5cm,baseline=(a1)]
+\begin{definition}[reflection square]\label{def:reflection square}
+Let $a_1\of R_1\to P_1$, $a_2\of R_2\to P_2$, $v\of R_2\to R_1$ and $v'\of P_1\to P_2$, and consider the (not necessarily commuting) diagram on the left:
+\begin{equation}\label{eq:reflection square}
+\begin{tikzpicture}[on grid,node distance = 1.5cm,baseline=(a1)]
 \node (R1) {$R_1$};
 \node (P1) [below=of R1] {$P_1$};
 \node (R2) [right=of R1] {$R_2$};
@@ -27,77 +28,108 @@ Let $a_1\of R_1\to P_1$, $a_2\of R_2\to P_2$, $v\of R_2\to R_1$ and $v'\of P_1\t
 \path
   (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
   (R2) edge [->] node [auto] {$a_2$} (P2)
-       edge [->] node [auto] {$v$} (R1)
+       edge [->] node [above] {$v$} (R1)
   (P1) edge [->] node [auto] {$v'$} (P2);
-
-\node (G) [below left=.5 and .5 of P1] {$G$};
-\path
-  (R1) edge [dashed,->,bend right=25] node[left] {$g$} (G)
-  (P2) edge [dashed,->,bend left=25] node[auto] {$h$} (G);
-\end{tikzpicture}\]
-%
-The diagram is called an \emph{entailment square} if, for any pair of arrows $g\of R_1\to G$, $h\of P_2\to G$, the $v;g=a_2;h$ implies $g=a_1;v';h$ (in other words, the bottom left subdiagram commutes if the outer subdiagram commutes). 
-\end{definition}
-
-\begin{proposition}\label{prop:entailment square}
-Consider a diagram as in Def.~\ref{def:entailment square}.
-\begin{enumerate}[defsep]
-\item If $v$ is epi and the square commutes (i.e., $a_2=v;a_1;v'$), the diagram is an entailment square.
-\item If $v$ is split epi with section $s$ such that $s;a_2=a_1;v'$, the diagram is an entailment square.
-\item Entailment squares compose; i.e., in
-\[\begin{tikzpicture}[auto,node distance = 1.5cm,baseline=(a1)]
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[on grid,node distance = 1.5cm,baseline=(a1)]
 \node (R1) {$R_1$};
 \node (P1) [below=of R1] {$P_1$};
 \node (R2) [right=of R1] {$R_2$};
 \node (P2) [below=of R2] {$P_2$};
-\node (R3) [right=of R2] {$R_3$};
-\node (P3) [below=of R3] {$P_3$};
 
 \path
   (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
-  (R2) edge [->] node [auto] {$a_2$} (P2)
-       edge [->] node [auto] {$v_1$} (R1)
-  (P1) edge [->] node [auto] {$v_1'$} (P2)
-  (R3) edge [->] node [auto] {$a_3$} (P3)
-       edge [->] node [auto] {$v_2$} (R2)
-  (P2) edge [->] node [auto] {$v_2'$} (P3);
-\end{tikzpicture}\]
-if both the left hand and the right hand subdiagrams are entailment squares, then so is the outer subdiagram.
-\end{enumerate}
-\end{proposition}
-
-\begin{proof}[]
-\begin{enumerate}
-\item Since the diagram commutes, $v;g=a_2;h=v;a_1;v';h$; hence $g=a_1;v';h$ because $v$ is epi.
-
-\item The diagram becomes
-\[\begin{tikzpicture}[auto,node distance = 1.5cm,baseline=(a1)]
-\node (R1) {$R_1$};
-\node (P1) [below=of R1] {$P_1$};
-\node (R2) [right=of R1] {$R_2$};
-\node (P2) [below=of R2] {$P_2$};
-
-\path
-  (R1) edge [->] node (a1) [left] {$a_1$} (P1)
   (R2) edge [->] node [auto] {$a_2$} (P2)
        edge [->] node [above] {$v$} (R1)
   (P1) edge [->] node [auto] {$v'$} (P2);
 
-\node (G) [below left=.5 and .5 of P1] {$G$};
+\node (G) [below left=of P1] {$G$};
 \path
-  (R1) edge [dashed,->,bend right=25] node[left] {$g$} (G)
-  (P2) edge [dashed,->,bend left=25] node[auto] {$h$} (G);
+  (R1) edge [->,bend right=25] node[left] {$g$} (G)
+  (P2) edge [->,bend left=25] node[auto] {$h$} (G);
+  
+\path (G) edge[pushout] +(+3.5mm,3.5mm);
+\path (G) edge[white] node[pos=.7,black] {$\circlearrowright$} (P1);
+\end{tikzpicture}
+\qquad
+\begin{tikzpicture}[on grid,auto,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=of R1] {$P_1$};
+\node (R2) [right=of R1] {$R_2$};
+\node (P2) [below=of R2] {$P_2$};
 
-\node (X) [below right=.4 and .5 of R1] {$R_1$};
+\path
+  (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
+  (R2) edge [->] node [auto] {$a_2$} (P2)
+       edge [->] node [above] {$v$} (R1)
+  (P1) edge [->] node [auto] {$v'$} (P2);
 
-\path (X) edge [->] node[pos=.4,below left,inner sep=1] {$\id$} (R1)
-          edge [->] node[pos=.4,below right,inner sep=1] {$s$} (R2);
-\end{tikzpicture}\]
-where $s;a_2=\id;a_1;v'$ and $s;v=\id$; hence $v;g=a_2;h$ implies $g=\id;g=s;v;g=s;a_2;h=\id;a_1;v';h=a_1;v';h$.
+\node (E) [right=of R2] {$E$};
+\path (E) edge [left hook->] node[above] {$e$} (R2);
+\end{tikzpicture}
+\end{equation}
+%
+The diagram is called an \emph{arrow-based reflection square} if, for the pushout $g,h$ of the span $v,a_2$ as drawn in the middle diagram, the bottom left subdiagram commutes, i.e., $g=a_1;v';h$. It is called a \emph{simple arrow-based reflection square} if, for the equaliser $s$ of $a_2$ and $v;a_1;v'$ as drawn in the right hand diagram, $e;v$ is epi.
+\end{definition}
+%
+The following proposition states some useful facts regarding [simple] reflection squares.
 
-\item Consider
+\begin{proposition}[reflection squares]\label{prop:reflection square}~
+\begin{enumerate}[defsep]
+\item Every simple reflection square is a reflection square.
 
-\[\begin{tikzpicture}[auto,node distance = 1.5cm,baseline=(a1)]
+\item In the left hand diagram of \eqref{eq:reflection square}, if $v$ is epi and the diagram commutes (i.e., $a_2=v;a_1;v'$), it is a simple reflection square.
+
+\item\label{simple reflection square any}  In the left hand diagram of \eqref{eq:reflection square}, if there is \emph{any} $e'\of E'\to R_2$ (not necessarily the equaliser) such that $e';a_2=e';v;a_1;v'$ and $e';v$ is epi, then the diagram is a simple reflection square.
+
+\begin{equation}\label{eq:simple reflection square any}
+\begin{tikzpicture}[on grid,auto,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=of R1] {$P_1$};
+\node (R2) [right=of R1] {$R_2$};
+\node (P2) [below=of R2] {$P_2$};
+
+\path
+  (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
+  (R2) edge [->] node [auto] {$a_2$} (P2)
+       edge [->] node [above] {$v$} (R1)
+  (P1) edge [->] node [auto] {$v'$} (P2);
+
+\node (E) [right=of R2] {$E'$};
+\path (E) edge [->] node[above] {$e'$} (R2);
+\end{tikzpicture}
+\end{equation}
+
+\item In the left hand diagram of \eqref{eq:reflection square}, if $v$ is split epi with section $s$ such that $s;a_2=a_1;v'$, the diagram is a simple reflection square.
+
+\begin{equation}\label{eq:reflection square section}
+\begin{tikzpicture}[on grid,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=2 of R1] {$P_1$};
+\node (R2) [right=3 of R1] {$R_2$};
+\node (P2) [below=2 of R2] {$P_2$};
+
+\path
+  (R1) edge [->] node [left] (a1) {$a_1$} (P1)
+  (R2) edge [->] node [auto] {$a_2$} (P2)
+       edge [->] node [above] (v) {$v$} (R1)
+  (P1) edge [->] node [below] (v') {$v'$} (P2);
+  
+\node (S) [below right=1 and 1.5 of R1] {$R_1$};
+
+\path (S) edge[->] node[below left,pos=.4,inner sep=3] {$\id$} (R1)
+          edge[->] node[below right,pos=.4,inner sep=3] {$s$} (R2);
+          
+\path (S) edge[white] node[black] {$\circlearrowright$} (v')
+          edge[white] node[black] {$\circlearrowright$} (v);
+\end{tikzpicture}
+\end{equation}
+
+\item Simple reflection squares compose; i.e., in
+%
+\begin{equation}\label{eq:reflection squares compose}
+\begin{tikzpicture}[on grid,node distance = 1.5cm,baseline=(a1)]
 \node (R1) {$R_1$};
 \node (P1) [below=of R1] {$P_1$};
 \node (R2) [right=of R1] {$R_2$};
@@ -108,48 +140,274 @@ where $s;a_2=\id;a_1;v'$ and $s;v=\id$; hence $v;g=a_2;h$ implies $g=\id;g=s;v;g
 \path
   (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
   (R2) edge [->] node [auto] {$a_2$} (P2)
-       edge [->] node [auto] {$v_1$} (R1)
+       edge [->] node [above] {$v_1$} (R1)
   (P1) edge [->] node [auto] {$v_1'$} (P2)
   (R3) edge [->] node [auto] {$a_3$} (P3)
-       edge [->] node [auto] {$v_2$} (R2)
+       edge [->] node [above] {$v_2$} (R2)
+  (P2) edge [->] node [auto] {$v_2'$} (P3);
+\end{tikzpicture}
+\end{equation}
+%
+if the left and right hand subdiagrams are simple reflection squares, then so is the outer subdiagram.
+
+\item In a reflection square, if the upper arrow $v$ is an isomorphism, then the diagram commutes.
+
+\item\label{reflection square any} In a reflection square, for \emph{any} pair $g',h'$ that makes the outer subdiagram commute (i.e., such that $v;g'=a_2;h'$), the bottom left subdiagram commutes (i.e., $g'=a_1;v';h'$):
+\begin{equation}\label{eq:reflection square any}
+\begin{tikzpicture}[on grid,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=of R1] {$P_1$};
+\node (R2) [right=of R1] {$R_2$};
+\node (P2) [below=of R2] {$P_2$};
+
+\path
+  (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
+  (R2) edge [->] node [auto] {$a_2$} (P2)
+       edge [->] node [above] {$v$} (R1)
+  (P1) edge [->] node [auto] {$v'$} (P2);
+
+\node (G) [below left=of P1] {$G'$};
+\path
+  (R1) edge [->,bend right=25] node[left] {$g'$} (G)
+  (P2) edge [->,bend left=25] node[auto] {$h'$} (G);
+  
+\path (G) edge[white] node[pos=.7,black] {$\circlearrowright$} (P1);
+\end{tikzpicture}
+\end{equation}
+
+\item Reflection squares compose; i.e., in \eqref{eq:reflection squares compose}, 
+if both the left hand and the right hand subdiagrams are reflection squares, then so is the outer subdiagram.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[]
+\begin{enumerate}[defsep]
+\item The equaliser guarantees $e;a_2;h=e;v;a_1;v';h$, and the pushout guarantees $e;a_2;h=s;v;g$; hence $e;v;a_1;v';h=e;v;g$. Since $e;v$ is epi, it follows that $a_1;v';h=g$.
+
+\item Since the diagram already commutes, $e=\id$ is the equaliser; hence $e;v=v$ is epi.
+
+\item Let $e'$ be as in \eqref{eq:simple reflection square any} and let $e$ be the equaliser of $a_2$ and $v;a_1;v'$ as on the right hand side of \eqref{eq:reflection square}. Due to the universal property of the equaliser, there is a (unique) $k\of E'\to E$ such that $e'=k;e$. But then, since $e'$ is epi, so is $e$.
+
+\item The section $s$ in \eqref{eq:reflection square section} satisfies the conditions on $e'$ in Clause~\ref{simple reflection square any} (noting that $s;v=\id$ is epi).
+
+\item Consider the following diagram, where $e_1$ is the equaliser of $a_2$ and $v_1;a_1;v_1'$, $e_2$ is the equaliser of $a_3$ and $v_2;a_2;v_2'$, and $e_1',e_2'$ form the pullback of $e_1$ and $e_2;v_2$.
+%
+\[
+\begin{tikzpicture}[on grid,auto,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=of R1] {$P_1$};
+\node (R2) [right=of R1] {$R_2$};
+\node (P2) [below=of R2] {$P_2$};
+\node (R3) [right=of R2] {$R_3$};
+\node (P3) [below=of R3] {$P_3$};
+
+\path
+  (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
+  (R2) edge [->] node [auto] {$a_2$} (P2)
+       edge [->] node [above] {$v_1$} (R1)
+  (P1) edge [->] node [auto] {$v_1'$} (P2)
+  (R3) edge [->] node [auto] {$a_3$} (P3)
+       edge [->] node [above] {$v_2$} (R2)
+  (P2) edge [->] node [auto] {$v_2'$} (P3);
+  
+\node (E1) [above=of R2] {$E_1$};
+\node (E2) [right=of R3] {$E_2$};
+\node (E) [above=of E2] {$E$};
+
+\path
+  (E) edge [->] node {$e_1'$} (E2)
+      edge [->] node[above] {$e_2'$} (E1)
+  (E1) edge [left hook->] node {$e_1$} (R2)
+  (E2) edge [left hook->] node[above] {$e_2$} (R3);
+
+\path (E) edge[pushout] +(-3.5mm,-3.5mm);
+\end{tikzpicture}
+\]
+%
+Note that \tagone $e_1;a_2=e_1;v_1;a_2;v_1'$ and \tagtwo $e_2;a_3=e_2;v_2;a_2;v_2'$. Using also that \tagthree the pullback square commutes, we can deduce
+\begin{align*}
+e'_1;e_2;v_2;v_1;a_1;v_1';v_2'
+ & \stackrel{\tagthree}{=} e_2';e_1;v_1;a_1;v_1';v_2' \\
+ & \stackrel{\tagone}= e_2';e_1;a_2;v_2' \\
+ & \stackrel{\tagthree}= e_1';e_2;v_2;a_2;v_2' \\
+ & \stackrel{\tagtwo}= e_1';e_2;a_3
+\end{align*}
+%
+Moreover, both $e_1;v_1$ and $e_2;v_2$ are epi. Epis are preserved by pullback (in presheaf toposes), hence $e_2'$ is epi. Finally, epis compose, hence $e_1';e_2;v_2;v_1=e_2';e_1;v_1$ is epi. Thus, $e_1';e_2$ satisfies the conditions of Clause~\ref{simple reflection square any}.
+
+\item Consider the middle diagram of \eqref{eq:reflection square} in case $v$ is an isomorphism. It follows that $h$ is also iso; hence $v;g=a_2;h$ and $g=a_1;v';h$ can be equivalently rewritten to \tagone $v;g;h^{-1}=a_2$ and \tagtwo $g;h^{-1}=a_1; v'$, respectively. Substituting \tagtwo into \tagone, we obtain $v;a_1;v'=a_2$, hence the reflection square commutes.
+
+
+\item For a pair $g', h'$ as in \eqref{eq:reflection square any}, there exists a (unique) $k\of G\to G'$ (where $G$ is the pushout object as in \eqref{eq:reflection square}) such that $g'=g;k$ and $h'=h;k$; hence $g'=a_1; v';h;k=a_1;v';h'$.
+
+\item Consider the pushout $g,h$ of $v_1;v_2$ and $a_3$:
+
+\[\begin{tikzpicture}[auto,on grid,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=of R1] {$P_1$};
+\node (R2) [right=of R1] {$R_2$};
+\node (P2) [below=of R2] {$P_2$};
+\node (R3) [right=of R2] {$R_3$};
+\node (P3) [below=of R3] {$P_3$};
+
+\path
+  (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
+  (R2) edge [->] node [auto] {$a_2$} (P2)
+       edge [->] node [above] {$v_1$} (R1)
+  (P1) edge [->] node [auto] {$v_1'$} (P2)
+  (R3) edge [->] node [auto] {$a_3$} (P3)
+       edge [->] node [above] {$v_2$} (R2)
   (P2) edge [->] node [auto] {$v_2'$} (P3);
 
-\node (G) [below left=.5 and .5 of P1] {$G$};
+\node (G) [below left=of P1] {$G$};
 \path
-  (R1) edge [dashed,->,bend right=25] node[left] {$g$} (G)
-  (P3) edge [dashed,->,bend left=20] node[auto] {$h$} (G);
+  (R1) edge [->,bend right=25] node[left] {$g$} (G)
+  (P3) edge [->,bend left=20] node[auto] {$h$} (G);
+  
+\path (G) edge[pushout] +(.4,.4);
 \end{tikzpicture}\]
-If $v_2;v_1;g=a_2;h$, then the entailment square property of the right hand subdiagram implies $v_1;g=a_2;v_2';h$, and hence the entailment square property of the left hand subdiagram implies $g=a_1;v_1';v_2';h$.
+%
+Due to Clause~\ref{reflection square any} applied to the right hand subdiagram, $v_1;g=a_2;v_2';h$; but then due to the same clause applied to the left hand subdiagram, $g=a_1;v'_1;v_2';h$.
 \qed
 \end{enumerate}
 \end{proof}
 %
-It is an immediate observation that, for all entailment squares obtained by applying Prop.~\ref{prop:entailment square}, the upper arrow $v$ is epi; however, we currently have no proof whether that is a necessary condition. It is certainly \emph{not} the case that every entailment square obtained through composition satisfies either Clause~1 or Clause~2 of the proposition.\todo{Provide example?}
+It is an immediate observation that, for all reflection squares obtained by applying Prop.~\ref{prop:reflection square}, the upper arrow $v$ is epi; however, we currently have no proof whether that is a necessary condition.\todo{mathexchange}
 
-\begin{definition}[arrow-based condition morphism]\label{def:ab-morphism}
+The dual to a reflection square is a \emph{preservation square}.
+
+\begin{definition}[preservation square]\label{def:preservation square}
+Let $a_1\of R_1\to P_1$, $a_2\of R_2\to P_2$, $v\of R_2\to R_1$ and $v'\of P_1\to P_2$, and consider the (not necessarily commuting) diagram on the left:
+\begin{equation}\label{eq:preservation square}
+\begin{tikzpicture}[on grid,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=2 of R1] {$P_1$};
+\node (R2) [right=2 of R1] {$R_2$};
+\node (P2) [below=2 of R2] {$P_2$};
+
+\path
+  (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
+  (R2) edge [->] node [auto] {$a_2$} (P2)
+       edge [->] node [above] {$v$} (R1)
+  (P1) edge [->] node [auto] {$v'$} (P2);
+\end{tikzpicture}
+\qquad\qquad
+\begin{tikzpicture}[on grid,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=2 of R1] {$P_1$};
+\node (R2) [right=3 of R1] {$R_2$};
+\node (P2) [below=2 of R2] {$P_2$};
+
+\path
+  (R1) edge [->] node [left] (a1) {$a_1$} (P1)
+  (R2) edge [->] node [auto] {$a_2$} (P2)
+       edge [->] node [above] (v) {$v$} (R1)
+  (P1) edge [->] node [below] (v') {$v'$} (P2);
+  
+\node (S) [above right=1 and 1.5 of P1] {$P_1$};
+
+\path (S) edge[<-] node[above left,pos=.4,inner sep=3] {$\id$} (P1)
+          edge[<-] node[above right,pos=.4,inner sep=3] {$r'$} (P2);
+          
+\path (S) edge[white] node[black,pos=.4] {$\circlearrowright$} (v')
+          edge[white] node[black] {$\circlearrowright$} (v);
+\end{tikzpicture}
+\end{equation}
+%
+The diagram is called an \emph{arrow-based preservation square} if $v'$ is a split mono with a retract $r'$ (meaning $v';r'=\id$) such that the upper pentagon in the right hand diagram above commutes (meaning $a_2;r'=v;a_1$).
+\end{definition}
+%
+The following proposition states some useful facts regarding preservation squares.
+%
+\begin{proposition}[preservation squares]\label{prop:preservation square}~
+\begin{enumerate}[defsep]
+\item In the left hand diagram of \eqref{eq:preservation square}, if the bottom arrow $v'$ is iso then the diagram is a preservation square if and only if it commutes.
+
+\item\label{preservation square any} Given a preservation square, for any pair of arrows $g,h$ such that $g=a_1;h$, there is an arrow $h'$ such that $h=v';h'$ and $v;g=a_2;h'$.
+
+\begin{equation}\label{eq:preservation square any}
+\begin{tikzpicture}[on grid,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=of R1] {$P_1$};
+\node (R2) [right=of R1] {$R_2$};
+\node (P2) [below=of R2] {$P_2$};
+
+\path
+  (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
+  (R2) edge [->] node [auto] {$a_2$} (P2)
+       edge [->] node [above] {$v$} (R1)
+  (P1) edge [->] node [auto] {$v'$} (P2);
+
+\node (G) [below left=of P1] {$G$};
+\path (R1) edge[->,bend right=25] node[auto] (g) [left] {$g$} (G)
+      (P1) edge[->] node[below right,inner sep=2,pos=.4] {$h$} (G)
+      (P2) edge[dashed,->,bend left=25] node[auto] (h') {$h'$} (G);
+      
+\path (P1) edge[white] node[black,pos=.4] {$\circlearrowright$} (g)
+           edge[white] node[black,pos=.4] {$\circlearrowright$} (h');
+\end{tikzpicture}
+\end{equation}
+
+\item\label{preservation square compose} Preservation squares compose; i.e., in
+%
+\begin{equation}\label{eq:preservation squares compose}
+\begin{tikzpicture}[on grid,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=of R1] {$P_1$};
+\node (R2) [right=of R1] {$R_2$};
+\node (P2) [below=of R2] {$P_2$};
+\node (R3) [right=of R2] {$R_3$};
+\node (P3) [below=of R3] {$P_3$};
+
+\path
+  (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
+  (R2) edge [->] node [auto] {$a_2$} (P2)
+       edge [->] node [above] {$v_1$} (R1)
+  (P1) edge [->] node [auto] {$v_1'$} (P2)
+  (R3) edge [->] node [auto] {$a_3$} (P3)
+       edge [->] node [above] {$v_2$} (R2)
+  (P2) edge [->] node [auto] {$v_2'$} (P3);
+\end{tikzpicture}
+\end{equation}
+%
+if the left and right hand subdiagrams are preservation squares, then so is the outer subdiagram.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[]
+\begin{enumerate}[defsep]
+\item If $v'$ is iso in the left hand diagram of \eqref{eq:preservation square}, then it is split mono with retract $r'=v'^{-1}$. If the diagram commutes, than $a_2=v;a_1;v'$ and hence $a_2;r'=v_1;a_1$, proving the preservation square property. Vice versa, $a_2;r'=v_1;a_1$ implies $a_2=a_2;r';v'=v_1;a_2;v'$, proving commutativity of the original square.
+
+\item Define $h'=r';h$; then $v';h'=v';r';h=h$ and $v;g=v;a_1;h=a_2;r';h=a_2;h'$ as required.
+
+\item If both subdiagrams are preservation squares and the split monos $v_i'$ have retracts $r_i'$ for $i=1,2$, then $v_1';v_2'$ is also split mono, with retract $r_2';r_1'$. By applying $v_i;a_i=a_{i+1};r_i'$ for $i=1,2$, it follows that $v_2;v_1;a_1=v_2;a_2;r_1'=a_3;r_2';r_1'$.\qed
+\end{enumerate}
+\end{proof}
+
+\begin{definition}[arrow-based condition morphism]\label{def:ab-pre-morphism}
 \begin{itemize}[defsep]
-\item Let $c_i = (R_i,p^i_1\ccdots p^i_{w_i})\in \AC{R_i}$ for $i=1,2$. An \emph{ab-condition morphism (or ab-morphism)} $m\of c_1 \to c_2$ is a tuple $(v,o,m_1\ccdots m_{w_2})$ such that
+\item Let $c_i = (R_i,p^i_1\ccdots p^i_{w_i})\in \AC{R_i}$ for $i=1,2$. An \emph{ab-condition reflection [preservation] morphism} (or just ab-reflection [-preservation] pre-morphism) $m\of c_1 \to c_2$ is a tuple $(v,o,m_1\ccdots m_{w_2})$ such that
 \begin{itemize}[nosep]
 \item $v\of R_2\to R_1$ is an arrow;
-\item $o\of [1,w_2]\to [1,w_1]$ is a mapping from $c_2$-branches to $c_1$-branches;
-\item For all $j\in[1,w_2]$, $(v,m_i)\of p^1_{o(j)}\to p^2_j$ is an ab-branch morphism.
+\item $o\of [1,w_2]\to [1,w_1]$ [$o\of [1,w_1]\to [1,w_2]$] is a mapping from $c_2$-branches to $c_1$-branches [from $c_1$-branches to $c_2$-branches];
+\item For all $j\in[1,w_2]$, $(v,m_i)\of p^1_{o(j)}\to p^2_j$ [$(v,m_i)\of p^1_{i}\to p^2_{o(j)}$] is an ab-branch reflection [preservation] pre-morphism.
 \end{itemize}
 %
-The component $v$ of an ab-condition morphism $m$ is called its \emph{root arrow} and is denoted $v_m$.
+The component $v$ of an ab-condition pre-morphism $m$ is called its \emph{root arrow} and is denoted $v_m$. $m$ is an ab-condition reflection [preservation] \emph{morphism} if $R_1=R_2=R$ and $v=\id_R$.
 
-\item Let $p_i=(a_i,c_i)\in \AB{R_i}$ for $i=1,2$. An \emph{ab-branch morphism} from $p_1$ to $p_2$ is a tuple $(v,m)\of p_1\to p_2$ such that
+\item Let $p_i=(a_i,c_i)\in \AB{R_i}$ for $i=1,2$. An \emph{ab-branch reflection [preservation] pre-morphism} from $p_1$ to $p_2$ is a tuple $(v,m)\of p_1\to p_2$ such that
 \begin{itemize}[nosep]
 \item $v\of R_2\to R_1$ is an arrow;
-\item $m\of c_2\to c_1$ is an ab-condition morphism;
-\item $a_1$ and $a_2$ together with $v$ and $v_m$ form an entailment square.
+\item $m\of c_2\to c_1$ is an ab-condition reflection [preservation] pre-morphism;
+\item $a_1$ and $a_2$ together with $v$ and $v_m$ form a reflection [preservation] square.
 \end{itemize}
 \end{itemize}
 \end{definition}
 %
 Note that if $\depth(c_2)=0$ for the target $c_2$ of some ab-condition morphism $m\of c_1\to c_2$, $o$ is the initial the requirement on the branch morphisms is vacuously fulfilled regardless of the nature of $v$, whereas if $\depth(b)>0$, the root arrow $v_m$ must be at least epi.
 
-\begin{definition}[identities and composition of ab-morphisms]\label{def:ab-morphism-composition}
-Let $c_i=(R_i,p^i_1\ccdots p^i_{w_i})\in \AC{R_i}$ be ab-conditions for $i=1,2,3$ and let $m_i=(v_i,o_i,m^i_1\ccdots m^i_{w_i}) \of c_i\to c_{i+1}$ be ab-condition morphisms for $i=1,2$. Then $\id_{c_1}$ and $m_1;m_2$ are defined as follows (where $c^1_j$ is the subcondition of branch $p^1_j$ for $j\in [1,w_1]$):
+\begin{definition}[identities and composition of ab-reflection morphisms]\label{def:ab-reflection composition}
+Let $c_i=(R_i,p^i_1\ccdots p^i_{w_i})\in \AC{R_i}$ be ab-conditions for $i=1,2,3$ and let $m_i=(v_i,o_i,m^i_1\ccdots m^i_{w_i}) \of c_i\to c_{i+1}$ be ab-reflection morphisms for $i=1,2$. Then $\id_{c_1}$ and $m_1;m_2$ are defined as follows (where $c^1_j$ is the subcondition of branch $p^1_j$ for $j\in [1,w_1]$):
 %
 \begin{eqnarray}
 \id_{c_1} & =
@@ -161,23 +419,40 @@ m_1;m_2 & =
 \end{eqnarray}
 \end{definition}
 
-\begin{proposition}[ab-condition morphisms reflect models]
-  \plabel{ab-morphisms reflect models}
-Let $b\in \AC R,c \in \AC{S}$ be arrow-based conditions. If $m:b\to c$ is an ab-condition morphism, then $v_m;g\sat c$ implies $g \sat b$ for all arrows $g\of R\to G$. 
+\begin{proposition}[ab-reflection pre-morphisms reflect satisfaction]
+  \label{preop:ab-reflection morphisms}
+Let $b\in \AC R,c \in \AC{S}$ be arrow-based conditions. If $m:b\to c$ is an ab-condition reflection pre-morphism, then $v_m;g\sat c$ implies $g \sat b$ for all arrows $g\of R\to G$. 
 \end{proposition}
 
 \begin{proof}[]
 By induction on $\depth(b)+\depth(c)$. Let $b=(R,p_1\cdots p_{|b|})$ such that $p_i=(a^p_i,c^p_i)$ for all $i\in[1,|b|]$ and $c=(S,q_1\cdots q_{|c|})$ such that $q_i=(a^q_i,c^q_i)$ for all $i\in[1,|c|]$, and let $m=(v,o,m_1\ccdots m_{|c|})$.
 \begin{description}
 \item[Base case] If $\depth(b)+\depth(c)=0$, it follows that $|c|=0$; hence $v_m;g\sat c$ is contradictory.
-\item[Induction step.] Assume $v;g\sat c$, due to $v;g\sat q_i$ for some $i\in [1,|c|]$; and let $h$ be the witness, meaning $v;g=a^q_i;h$ and $h\not\sat c^q_i$. Because $(v,m_i)\of p_{o(i)}\to q_i$ is an ab-branch morphism, $a^p_{o(i)}$ and $a^q_i$ together with $v$ and $v_{m_i}$ form an entailment square, hence $g=a^p_{o(i)};v_{m_i};h$.
+\item[Induction step.] Assume $v;g\sat c$, due to $v;g\sat q_i$ for some $i\in [1,|c|]$; and let $h$ be the witness, meaning $v;g=a^q_i;h$ and $h\not\sat c^q_i$. Because $(v,m_i)\of p_{o(i)}\to q_i$ is an ab-branch morphism, $a^p_{o(i)}$ and $a^q_i$ together with $v$ and $v_{m_i}$ form a reflection square, hence $g=a^p_{o(i)};v_{m_i};h$.
 
-Recall that $m_i\of c^q_i\to c^p_{o(i)}$ is an ab-morphism and observe that $\depth(c^q_i)+\depth(c^p_{o(i)}) < \depth(b)+\depth(c)$; hence by the induction hypothesis, $m_i$ fulfils the property. If $v_{m_i};h\sat c^p_{o(i)}$ then $h\sat c^q_i$, which is contradictory; it follows that $v_{m_i};h\not\sat c^p_{o(i)}$, from which we may conclude $g\sat p_{o(i)}$ and hence $g\sat b$. \qed
+Recall that $m_i\of c^q_i\to c^p_{o(i)}$ is an ab-reflection morphism and observe that $\depth(c^q_i)+\depth(c^p_{o(i)}) < \depth(b)+\depth(c)$; hence by the induction hypothesis, $m_i$ fulfils the property. If $v_{m_i};h\sat c^p_{o(i)}$ then $h\sat c^q_i$, which is contradictory; it follows that $v_{m_i};h\not\sat c^p_{o(i)}$, from which we may conclude $g\sat p_{o(i)}$ and hence $g\sat b$. \qed
+\end{description}
+\end{proof}
+
+\begin{proposition}[ab-preservation pre-morphisms preserve satisfaction]
+  \label{prop:ab-preservation morphisms preserve}
+Let $b\in \AC R,c \in \AC{S}$ be arrow-based conditions. If $m:b\to c$ is an ab-condition preservation morphism, then $g\sat b$ implies $v_m;g \sat c$ for all arrows $g\of R\to G$. 
+\end{proposition}
+
+\begin{proof}[]
+By induction on $\depth(b)+\depth(c)$. Let $b=(R,p_1\cdots p_{|b|})$ such that $p_i=(a^p_i,c^p_i)$ for all $i\in[1,|b|]$ and $c=(S,q_1\cdots q_{|c|})$ such that $q_i=(a^q_i,c^q_i)$ for all $i\in[1,|c|]$, and let $m=(v,o,m_1\ccdots m_{|c|})$.
+\begin{description}
+\item[Base case] If $\depth(b)+\depth(c)=0$, it follows that $|b|=0$; hence $g\sat b$ is contradictory.
+\item[Induction step.] Assume $g\sat b$, due to $g\sat p_i$ for some $i\in [1,|b|]$; and let $h$ be the witness, meaning $g=a^p_i;h$ and $h\not\sat c^p_i$. Because $(v,m_i)\of p_{i}\to q_{o(i)}$ is an ab-branch preservation morphism, $a^p_i$ and $a^q_{o(i)}$ together with $v$ and $v_{m_i}$ form a preservation square, hence (due to \cref{prop:preservation square}.\ref{preservation square any}) there is a $h'$ such that $h=v_{m_i};h'$ and $v_m;g=a^q_{o(i)};h'$.
+
+Recall that $m_i\of c^p_i\to c^q_{o(i)}$ is an ab-preservation pre-morphism and observe that $\depth(c^q_i)+\depth(c^p_{o(i)}) < \depth(b)+\depth(c)$; hence by the induction hypothesis, $m_i$ fulfils the property. Therefore, if $h'\sat c^q_{o(i)}$ then $h=v_{m_i};h'\sat c^p_i$, which is contradictory; it follows that $h'\not\sat c^q_{o(i)}$, from which we may conclude $v_m;g\sat q_{o(i)}$ and hence $v_m;g\sat c$. \qed
 \end{description}
 \end{proof}
 
 \todo[inline]{From here is the previous version, based on shifters.}
 %
+It also implies that morphisms should only relate conditions with the same root, because entailment is defined only among conditions over the same root (see Def.~\ref{def:ab-satisfaction}).\todo{AC: rephrase} Technically, the main result of this section will be formulated categorically as the existence of  contravariant functors from  categories of conditions with structural morphisms to $\ABC^{\entails}$.
+
 The underlying principle for a morphism $m$ from $c=(R,p^c_1\ccdots p^c_{|c|})$  to $b=(R,p^b_1\ccdots p^b_{|b|})$  is that it must identify, for every $b$-branch $p^b_i$, a $c$-branch $p^c_j$ that it entails. Entailment of $p^c_j$ by $p^b_i$ is captured by the existence of an arrow $v_i$ from $P^c_j$ to $P^b_i$  such that there is (recursively, but in the opposite direction with respect to $m$) a morphism between the subconditions $b_i$ and $c_j$; however, this sub-morphism can only exist ``modulo" the arrow $v_i$ between their roots. 
 The task of the next subsection is to make the concept of ``modulo $v_i$" precise, introducing the notion of \emph{shifter}.
 

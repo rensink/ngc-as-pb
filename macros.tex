@@ -8,6 +8,8 @@
 \usepackage{hyperref}
 \usepackage{ifthen}
 \usepackage{environ}
+\usepackage[capitalize]{cleveref}
+
 %\usepackage[svgnames]{xcolor}
 
 \newboolean{fest}
@@ -347,7 +349,6 @@
 \newcommand{\eqprf}{eq}
 \newcommand{\eqname}[1]{\eqprf:#1}
 \newcommand{\eqlabel}[1]{\savelabel{\eqname{#1}}}
-\renewcommand{\eqref}[1]{(\ref{\eqname{#1}})}
 \newcommand{\eqcite}[1]{Eq.~\eqref{#1}}
 
 %% Tikz definitions
@@ -393,6 +394,11 @@
    draw={#1},
    text={#1},
    >/.tip={latex[color={#1}]}
+}}
+
+\tikzset{pushout/.style={
+   -{Straight Barb[black,length=5pt,width=10pt]},
+   white
 }}
 
 \tikzset{|/.tip={Bar[black,width=.4pt,line width=2pt]}}
