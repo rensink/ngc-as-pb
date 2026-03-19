@@ -66,11 +66,14 @@ Let $a_1\of R_1\to P_1$, $a_2\of R_2\to P_2$, $v\of R_2\to R_1$ and $v'\of P_1\t
   (P1) edge [->] node [auto] {$v'$} (P2);
 
 \node (E) [right=of R2] {$E$};
-\path (E) edge [left hook->] node[above] {$e$} (R2);
+\path (E) edge [->] node[above] {$e$} (R2);
 \end{tikzpicture}
 \end{equation}
 %
-The diagram is called an \emph{arrow-based reflection square} if, for the pushout $g,h$ of the span $v,a_2$ as drawn in the middle diagram, the bottom left subdiagram commutes, i.e., $g=a_1;v';h$. It is called a \emph{simple arrow-based reflection square} if, for the equaliser $s$ of $a_2$ and $v;a_1;v'$ as drawn in the right hand diagram, $e;v$ is epi.
+\begin{itemize}[defsep]
+\item The diagram is called an \emph{arrow-based reflection square} if, for the pushout $g,h$ of the span $v,a_2$ as drawn in the middle diagram, the bottom left subdiagram commutes, i.e., $g=a_1;v';h$.
+\item The diagram is called a \emph{simple arrow-based reflection square} if there is an equalising arrow $e$ as in the right hand diagram (i.e., such that $e;a_2=e;v;a_1v'$) such that $e;v$ is epi.
+\end{itemize}
 \end{definition}
 %
 The following proposition states some useful facts regarding [simple] reflection squares.
@@ -81,25 +84,7 @@ The following proposition states some useful facts regarding [simple] reflection
 
 \item In the left hand diagram of \eqref{eq:reflection square}, if $v$ is epi and the diagram commutes (i.e., $a_2=v;a_1;v'$), it is a simple reflection square.
 
-\item\label{simple reflection square any}  In the left hand diagram of \eqref{eq:reflection square}, if there is \emph{any} $e'\of E'\to R_2$ (not necessarily the equaliser) such that $e';a_2=e';v;a_1;v'$ and $e';v$ is epi, then the diagram is a simple reflection square.
-
-\begin{equation}\label{eq:simple reflection square any}
-\begin{tikzpicture}[on grid,auto,node distance = 1.5cm,baseline=(a1)]
-\node (R1) {$R_1$};
-\node (P1) [below=of R1] {$P_1$};
-\node (R2) [right=of R1] {$R_2$};
-\node (P2) [below=of R2] {$P_2$};
-
-\path
-  (R1) edge [->] node (a1) [auto] {$a_1$} (P1)
-  (R2) edge [->] node [auto] {$a_2$} (P2)
-       edge [->] node [above] {$v$} (R1)
-  (P1) edge [->] node [auto] {$v'$} (P2);
-
-\node (E) [right=of R2] {$E'$};
-\path (E) edge [->] node[above] {$e'$} (R2);
-\end{tikzpicture}
-\end{equation}
+\item\label{simple reflection square equaliser} In a simple reflection square (right hand diagram of \eqref{eq:reflection square}), if $e$ is the equaliser of $a_2$ and $v;a_1;v'$ then $e;v$ is epi.
 
 \item In the left hand diagram of \eqref{eq:reflection square}, if $v$ is split epi with section $s$ such that $s;a_2=a_1;v'$, the diagram is a simple reflection square.
 
@@ -182,15 +167,35 @@ if both the left hand and the right hand subdiagrams are reflection squares, the
 
 \begin{proof}[]
 \begin{enumerate}[defsep]
-\item The equaliser guarantees $e;a_2;h=e;v;a_1;v';h$, and the pushout guarantees $e;a_2;h=s;v;g$; hence $e;v;a_1;v';h=e;v;g$. Since $e;v$ is epi, it follows that $a_1;v';h=g$.
+\item The equalising arrow guarantees $e;a_2;h=e;v;a_1;v';h$, and the pushout square guarantees $e;a_2;h=s;v;g$; hence $e;v;a_1;v';h=e;v;g$. Since $e;v$ is epi, it follows that $a_1;v';h=g$.
 
 \item Since the diagram already commutes, $e=\id$ is the equaliser; hence $e;v=v$ is epi.
 
-\item Let $e'$ be as in \eqref{eq:simple reflection square any} and let $e$ be the equaliser of $a_2$ and $v;a_1;v'$ as on the right hand side of \eqref{eq:reflection square}. Due to the universal property of the equaliser, there is a (unique) $k\of E'\to E$ such that $e'=k;e$. But then, since $e'$ is epi, so is $e$.
+\item In the right hand diagram of \eqref{eq:reflection square}, let $e$ be such that $e;a_2=e;v;a_1;v'$ and $e;v$ is epi, and consider the equaliser $e'\of E'\to R_2$ of $a_2$ and $v;a_1;v'$. By the universal property of $e'$, there is a (unique) $k\of E\to E'$ such that $e=k;e'$. But then, since $e;v$ ($=k;e';v$) is epi, so is $e';v$.
 
-\item The section $s$ in \eqref{eq:reflection square section} satisfies the conditions on $e'$ in Clause~\ref{simple reflection square any} (noting that $s;v=\id$ is epi).
+\[\begin{tikzpicture}[on grid,auto,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R_1$};
+\node (P1) [below=of R1] {$P_1$};
+\node (R2) [right=of R1] {$R_2$};
+\node (P2) [below=of R2] {$P_2$};
 
-\item Consider the following diagram, where $e_1$ is the equaliser of $a_2$ and $v_1;a_1;v_1'$, $e_2$ is the equaliser of $a_3$ and $v_2;a_2;v_2'$, and $e_1',e_2'$ form the pullback of $e_1$ and $e_2;v_2$.
+\path
+  (R1) edge [->] node (a1) [left] {$a_1$} (P1)
+  (R2) edge [->] node [left] {$a_2$} (P2)
+       edge [->] node [above] {$v$} (R1)
+  (P1) edge [->] node [auto] {$v'$} (P2);
+
+\node (E) [right=of R2] {$E$};
+\path (E) edge [->] node[above] {$e$} (R2);
+
+\node (E') [below=of E] {$E'$};
+\path (E') edge [right hook->] node[pos=.4,inner sep=1] {$e'$} (R2)
+      (E) edge [dashed,->] node[right] {$k$} (E');
+\end{tikzpicture}\]
+
+\item The section $s$ in \eqref{eq:reflection square section} satisfies the conditions for $e$ in the right hand diagram of \eqref{eq:reflection square} (noting that $s;v=\id$ is epi).
+
+\item Consider the following diagram, where $e_1$ is such that \tagone $e_1;a_2=e_1;v_1;a_1;v_1'$ and $e_1;v_1$ is epi, $e_2$ is such that \tagtwo $e_2;a_3=e_2;v_2;a_2;v_2'$ and $e_2;v_2$ is epi, and $e_1',e_2'$ form the pullback of $e_1$ and $e_2;v_2$.
 %
 \[
 \begin{tikzpicture}[on grid,auto,node distance = 1.5cm,baseline=(a1)]
@@ -224,7 +229,7 @@ if both the left hand and the right hand subdiagrams are reflection squares, the
 \end{tikzpicture}
 \]
 %
-Note that \tagone $e_1;a_2=e_1;v_1;a_2;v_1'$ and \tagtwo $e_2;a_3=e_2;v_2;a_2;v_2'$. Using also that \tagthree the pullback square commutes, we can deduce
+Using also that \tagthree the pullback square commutes, we can deduce
 \begin{align*}
 e'_1;e_2;v_2;v_1;a_1;v_1';v_2'
  & \stackrel{\tagthree}{=} e_2';e_1;v_1;a_1;v_1';v_2' \\
@@ -233,7 +238,7 @@ e'_1;e_2;v_2;v_1;a_1;v_1';v_2'
  & \stackrel{\tagtwo}= e_1';e_2;a_3
 \end{align*}
 %
-Moreover, both $e_1;v_1$ and $e_2;v_2$ are epi. Epis are preserved by pullback (in presheaf toposes), hence $e_2'$ is epi. Finally, epis compose, hence $e_1';e_2;v_2;v_1=e_2';e_1;v_1$ is epi. Thus, $e_1';e_2$ satisfies the conditions of Clause~\ref{simple reflection square any}.
+Moreover, epis are preserved by pullback (in presheaf toposes), hence $e_2'$ is epi. Finally, epis compose, hence $e_1';e_2;v_2;v_1=e_2';e_1;v_1$ is epi. Thus, $e_1';e_2$ satisfies the conditions for $e$ in the definition of simple reflection squares..
 
 \item Consider the middle diagram of \eqref{eq:reflection square} in case $v$ is an isomorphism. It follows that $h$ is also iso; hence $v;g=a_2;h$ and $g=a_1;v';h$ can be equivalently rewritten to \tagone $v;g;h^{-1}=a_2$ and \tagtwo $g;h^{-1}=a_1; v'$, respectively. Substituting \tagtwo into \tagone, we obtain $v;a_1;v'=a_2$, hence the reflection square commutes.
 
@@ -323,7 +328,7 @@ The following proposition states some useful facts regarding preservation square
 \begin{enumerate}[defsep]
 \item In the left hand diagram of \eqref{eq:preservation square}, if the bottom arrow $v'$ is iso then the diagram is a preservation square if and only if it commutes.
 
-\item\label{preservation square any} Given a preservation square, for any pair of arrows $g,h$ such that $g=a_1;h$, there is an arrow $h'$ such that $h=v';h'$ and $v;g=a_2;h'$.
+\item\label{preservation square any} In the left hand diagram of \eqref{eq:preservation square}, if $v$ is iso then the diagram is a preservation square if and only if, for any pair of arrows $g,h$ such that $g=a_1;h$, there is an arrow $h'$ such that $h=v';h'$ and $v;g=a_2;h'$.
 
 \begin{equation}\label{eq:preservation square any}
 \begin{tikzpicture}[on grid,node distance = 1.5cm,baseline=(a1)]
@@ -376,76 +381,81 @@ if the left and right hand subdiagrams are preservation squares, then so is the 
 
 \begin{proof}[]
 \begin{enumerate}[defsep]
-\item If $v'$ is iso in the left hand diagram of \eqref{eq:preservation square}, then it is split mono with retract $r'=v'^{-1}$. If the diagram commutes, than $a_2=v;a_1;v'$ and hence $a_2;r'=v_1;a_1$, proving the preservation square property. Vice versa, $a_2;r'=v_1;a_1$ implies $a_2=a_2;r';v'=v_1;a_2;v'$, proving commutativity of the original square.
+\item If $v'$ is iso in the left hand diagram of \eqref{eq:preservation square}, then it is split mono with retract $r'=v'^{-1}$. If the diagram commutes, then $a_2=v;a_1;v'$ and hence $a_2;r'=v_1;a_1$, proving the preservation square property. Vice versa, $a_2;r'=v_1;a_1$ implies $a_2=a_2;r';v'=v_1;a_2;v'$, proving commutativity of the original square.
 
-\item Define $h'=r';h$; then $v';h'=v';r';h=h$ and $v;g=v;a_1;h=a_2;r';h=a_2;h'$ as required.
+\item For the \emph{if} part, note that $g=a_1$ and $h=\id$ are a particular pair of arrows such that $g=a_1;h$; hence the $h'$ such that $h'=v';h$ and $v;g=a_2;h$ is precisely the retract $r'$ required in the definition of preservation squares. For the \emph{only if} part, assume that $r'$ is the retract guaranteed by the preservation square and define $h'=r';h$; then $v';h'=v';r';h=h$ and $v;g=v;a_1;h=a_2;r';h=a_2;h'$ as required.
 
 \item If both subdiagrams are preservation squares and the split monos $v_i'$ have retracts $r_i'$ for $i=1,2$, then $v_1';v_2'$ is also split mono, with retract $r_2';r_1'$. By applying $v_i;a_i=a_{i+1};r_i'$ for $i=1,2$, it follows that $v_2;v_1;a_1=v_2;a_2;r_1'=a_3;r_2';r_1'$.\qed
 \end{enumerate}
 \end{proof}
 
-\begin{definition}[arrow-based condition morphism]\label{def:ab-pre-morphism}
+\begin{definition}[arrow-based condition morphism]\label{def:ab-morphism}
 \begin{itemize}[defsep]
-\item Let $c_i = (R_i,p^i_1\ccdots p^i_{w_i})\in \AC{R_i}$ for $i=1,2$. An \emph{ab-condition reflection [preservation] morphism} (or just ab-reflection [-preservation] pre-morphism) $m\of c_1 \to c_2$ is a tuple $(v,o,m_1\ccdots m_{w_2})$ such that
+\item Let $c_i = (R_i,p^i_1\ccdots p^i_{w_i})\in \AC{R_i}$ for $i=1,2$. An \emph{ab-condition reflection [preservation] morphism} (or just ab-reflection [-preservation] morphism) $m\of c_1 \to c_2$ is a tuple $(v,o,\setof{m_{j,k}}_{(j,k)\in o})$ such that
 \begin{itemize}[nosep]
 \item $v\of R_2\to R_1$ is an arrow;
-\item $o\of [1,w_2]\to [1,w_1]$ [$o\of [1,w_1]\to [1,w_2]$] is a mapping from $c_2$-branches to $c_1$-branches [from $c_1$-branches to $c_2$-branches];
-\item For all $j\in[1,w_2]$, $(v,m_i)\of p^1_{o(j)}\to p^2_j$ [$(v,m_i)\of p^1_{i}\to p^2_{o(j)}$] is an ab-branch reflection [preservation] pre-morphism.
+\item $o\subseteq [1,w_1]\times [1,w_2]$ is relation between $c_1$-branches and $c_2$-branches that is surjective and injective [total and univalent];
+%\item $o\of [1,w_2]\to [1,w_1]$ [$o\of [1,w_1]\to [1,w_2]$] is a mapping from $c_2$-branches to $c_1$-branches [from $c_1$-branches to $c_2$-branches];
+\item For all $(j,k)\in o$, $(v,m_{j,k})\of p^1_j\to p^2_k$ is an ab-branch reflection [preservation] morphism.
 \end{itemize}
 %
-The component $v$ of an ab-condition pre-morphism $m$ is called its \emph{root arrow} and is denoted $v_m$. $m$ is an ab-condition reflection [preservation] \emph{morphism} if $R_1=R_2=R$ and $v=\id_R$.
+The component $v$ of an ab-condition morphism $m$ is called its \emph{root arrow} and is denoted $v_m$.
 
-\item Let $p_i=(a_i,c_i)\in \AB{R_i}$ for $i=1,2$. An \emph{ab-branch reflection [preservation] pre-morphism} from $p_1$ to $p_2$ is a tuple $(v,m)\of p_1\to p_2$ such that
+\item Let $p_i=(a_i,c_i)\in \AB{R_i}$ for $i=1,2$. An \emph{ab-branch reflection [preservation] morphism} from $p_1$ to $p_2$ is a tuple $(v,m)\of p_1\to p_2$ such that
 \begin{itemize}[nosep]
 \item $v\of R_2\to R_1$ is an arrow;
-\item $m\of c_2\to c_1$ is an ab-condition reflection [preservation] pre-morphism;
+\item $m\of c_2\to c_1$ is an ab-condition reflection [preservation] morphism;
 \item $a_1$ and $a_2$ together with $v$ and $v_m$ form a reflection [preservation] square.
 \end{itemize}
 \end{itemize}
 \end{definition}
 %
-Note that if $\depth(c_2)=0$ for the target $c_2$ of some ab-condition morphism $m\of c_1\to c_2$, $o$ is the initial the requirement on the branch morphisms is vacuously fulfilled regardless of the nature of $v$, whereas if $\depth(b)>0$, the root arrow $v_m$ must be at least epi.
+Note that if $\depth(c_1)=0$ or $\depth(c_2)=0$ for the source $c_1$ or the target $c_2$ of some ab-condition morphism $m\of c_1\to c_2$, $o$ is empty, hence the requirement on the branch morphisms is vacuously fulfilled.
 
-\begin{definition}[identities and composition of ab-reflection morphisms]\label{def:ab-reflection composition}
-Let $c_i=(R_i,p^i_1\ccdots p^i_{w_i})\in \AC{R_i}$ be ab-conditions for $i=1,2,3$ and let $m_i=(v_i,o_i,m^i_1\ccdots m^i_{w_i}) \of c_i\to c_{i+1}$ be ab-reflection morphisms for $i=1,2$. Then $\id_{c_1}$ and $m_1;m_2$ are defined as follows (where $c^1_j$ is the subcondition of branch $p^1_j$ for $j\in [1,w_1]$):
+For morphism composition, it is important to realise that if two binary relations $\rho_1\subseteq X_1\times X_2$ and $\rho_2\subseteq X_2\times X_3$ are either both injective and surjective (as the $o$ in an ab-reflection morphism), or both total and univalent (as the $o$ in an ab-preservation morphism), then for any $(x_1,x_3)\in \rho_1;\rho_2$ there is exactly one $x_2\in X_2$ such that $(x_1,x_2)\in \rho_1$ and $(x_2,x_3)\in \rho_2$.
+
+\begin{definition}[identities and composition of ab-morphisms]\label{def:ab-reflection composition}
+Let $c_i=(R_i,p^i_1\ccdots p^i_{w_i})\in \AC{R_i}$ be ab-conditions for $i=1,2,3$ and let $m_i=(v_i,o_i,\setof{m^i_{j,k}}_{(j,k)\in o_i}) \of c_i\to c_{i+1}$ be ab-reflection morphisms for $i=1,2$. Then $\id_{c_1}$ and $m_1;m_2$ are defined as follows (where $c^1_j$ is the subcondition of branch $p^1_j$ for $j\in [1,w_1]$):
 %
 \begin{eqnarray}
 \id_{c_1} & =
-  & (\id_{R_1},\id_{[1,w_1]},\id_{c^1_1}\ccdots \id_{c^1_{w_1}})
-  \eqlabel{id condition morphism} \\
+  & (\id_{R_1},\id_{[1,w_1]},\setof{\id_{c^1_(j,j)}}_{1\leq j\leq w_1})
+  \label{eq:id condition morphism} \\
 m_1;m_2 & =
-  & (v_2;v_1,\, o_2;o_1,\, m^2_1;m^1_{o_2(1)}\cdots m^2_{w_3};m^1_{o_2(w_3)}) \enspace.
- \eqlabel{condition morphism composition}
+  & (v_2;v_1,\, o_1;o_2,\, \setof{m^2_{l,k};m^1_{j,l}}_{(j,l)\in o_1,(l,k)\in o_2)}) \enspace.
+ \label{eq:condition morphism composition}
 \end{eqnarray}
 \end{definition}
 
-\begin{proposition}[ab-reflection pre-morphisms reflect satisfaction]
+\begin{proposition}[ab-reflection morphisms reflect satisfaction]
   \label{preop:ab-reflection morphisms}
-Let $b\in \AC R,c \in \AC{S}$ be arrow-based conditions. If $m:b\to c$ is an ab-condition reflection pre-morphism, then $v_m;g\sat c$ implies $g \sat b$ for all arrows $g\of R\to G$. 
+Let $b\in \AC R,c \in \AC{S}$ be arrow-based conditions. If $m:b\to c$ is an ab-reflection morphism, then $v_m;g\sat c$ implies $g \sat b$ for all arrows $g\of R\to G$. 
 \end{proposition}
 
 \begin{proof}[]
-By induction on $\depth(b)+\depth(c)$. Let $b=(R,p_1\cdots p_{|b|})$ such that $p_i=(a^p_i,c^p_i)$ for all $i\in[1,|b|]$ and $c=(S,q_1\cdots q_{|c|})$ such that $q_i=(a^q_i,c^q_i)$ for all $i\in[1,|c|]$, and let $m=(v,o,m_1\ccdots m_{|c|})$.
+By induction on $\depth(b)+\depth(c)$. Let $b=(R,p_1\cdots p_{|b|})$ such that $p_j=(a^p_j,c^p_j)$ for all $j\in[1,|b|]$ and $c=(S,q_1\cdots q_{|c|})$ such that $q_k=(a^q_k,c^q_k)$ for all $k\in[1,|c|]$, and let $m=(v,o,\setof{m_{j,k}}_{(j,k)\in o})$.
 \begin{description}
 \item[Base case] If $\depth(b)+\depth(c)=0$, it follows that $|c|=0$; hence $v_m;g\sat c$ is contradictory.
-\item[Induction step.] Assume $v;g\sat c$, due to $v;g\sat q_i$ for some $i\in [1,|c|]$; and let $h$ be the witness, meaning $v;g=a^q_i;h$ and $h\not\sat c^q_i$. Because $(v,m_i)\of p_{o(i)}\to q_i$ is an ab-branch morphism, $a^p_{o(i)}$ and $a^q_i$ together with $v$ and $v_{m_i}$ form a reflection square, hence $g=a^p_{o(i)};v_{m_i};h$.
+\item[Induction step.] Assume $v;g\sat c$, due to $v;g\sat q_k$ for some $k\in [1,|c|]$; and let $h$ be the witness, meaning $v;g=a^q_k;h$ and $h\not\sat c^q_k$. Let $(j,k)\in o$. Because $(v,m_{j,k})\of p_j\to q_k$ is an ab-branch morphism, $a^p_j$ and $a^q_k$ together with $v$ and $v_{m_{j,k}}$ form a reflection square, hence $g=a^p_j;v_{m_i};h$.
 
-Recall that $m_i\of c^q_i\to c^p_{o(i)}$ is an ab-reflection morphism and observe that $\depth(c^q_i)+\depth(c^p_{o(i)}) < \depth(b)+\depth(c)$; hence by the induction hypothesis, $m_i$ fulfils the property. If $v_{m_i};h\sat c^p_{o(i)}$ then $h\sat c^q_i$, which is contradictory; it follows that $v_{m_i};h\not\sat c^p_{o(i)}$, from which we may conclude $g\sat p_{o(i)}$ and hence $g\sat b$. \qed
+\smallskip
+Recall that $m_{j,k}\of c^q_k\to c^p_j$ is an ab-reflection morphism and observe that $\depth(c^q_k)+\depth(c^p_j) < \depth(b)+\depth(c)$; hence by the induction hypothesis, $m_{j,k}$ fulfils the property. Therefore, if $v_{m_i};h\sat c^p_j$ then $h\sat c^q_k$, which is contradictory; it follows that $v_{m_{j,k}};h\not\sat c^p_j$, from which we may conclude $g\sat p_j$ and hence $g\sat b$. \qed
 \end{description}
 \end{proof}
 
-\begin{proposition}[ab-preservation pre-morphisms preserve satisfaction]
+\begin{proposition}[ab-preservation morphisms preserve satisfaction]
   \label{prop:ab-preservation morphisms preserve}
-Let $b\in \AC R,c \in \AC{S}$ be arrow-based conditions. If $m:b\to c$ is an ab-condition preservation morphism, then $g\sat b$ implies $v_m;g \sat c$ for all arrows $g\of R\to G$. 
+Let $b\in \AC R,c \in \AC{S}$ be arrow-based conditions. If $m:b\to c$ is an ab-preservation morphism, then $g\sat b$ implies $v_m;g \sat c$ for all arrows $g\of R\to G$. 
 \end{proposition}
 
 \begin{proof}[]
-By induction on $\depth(b)+\depth(c)$. Let $b=(R,p_1\cdots p_{|b|})$ such that $p_i=(a^p_i,c^p_i)$ for all $i\in[1,|b|]$ and $c=(S,q_1\cdots q_{|c|})$ such that $q_i=(a^q_i,c^q_i)$ for all $i\in[1,|c|]$, and let $m=(v,o,m_1\ccdots m_{|c|})$.
+By induction on $\depth(b)+\depth(c)$. Let $b=(R,p_1\cdots p_{|b|})$ such that $p_j=(a^p_j,c^p_j)$ for all $j\in[1,|b|]$ and $c=(S,q_1\cdots q_{|c|})$ such that $q_k=(a^q_k,c^q_k)$ for all $i\in[1,|c|]$, and let $m=(v,o,\setof{m_{j,k}}_{(j,k)\in o})$.
 \begin{description}
 \item[Base case] If $\depth(b)+\depth(c)=0$, it follows that $|b|=0$; hence $g\sat b$ is contradictory.
-\item[Induction step.] Assume $g\sat b$, due to $g\sat p_i$ for some $i\in [1,|b|]$; and let $h$ be the witness, meaning $g=a^p_i;h$ and $h\not\sat c^p_i$. Because $(v,m_i)\of p_{i}\to q_{o(i)}$ is an ab-branch preservation morphism, $a^p_i$ and $a^q_{o(i)}$ together with $v$ and $v_{m_i}$ form a preservation square, hence (due to \cref{prop:preservation square}.\ref{preservation square any}) there is a $h'$ such that $h=v_{m_i};h'$ and $v_m;g=a^q_{o(i)};h'$.
+\item[Induction step.] Assume $g\sat b$, due to $g\sat p_j$ for some $j\in [1,|b|]$; and let $h$ be the witness, meaning $g=a^p_j;h$ and $h\not\sat c^p_j$. Let $(j,k)\in o$. Because $(v,m_{j,k})\of p_{i}\to q_{o(i)}$ is an ab-branch preservation morphism, $a^p_j$ and $a^q_k$ together with $v$ and $v_{m_{j,k}}$ form a preservation square, hence (due to \cref{prop:preservation square}.\ref{preservation square any}) there is a $h'$ such that $h=v_{m_{j,k}};h'$ and $v_m;g=a^q_k;h'$.
 
-Recall that $m_i\of c^p_i\to c^q_{o(i)}$ is an ab-preservation pre-morphism and observe that $\depth(c^q_i)+\depth(c^p_{o(i)}) < \depth(b)+\depth(c)$; hence by the induction hypothesis, $m_i$ fulfils the property. Therefore, if $h'\sat c^q_{o(i)}$ then $h=v_{m_i};h'\sat c^p_i$, which is contradictory; it follows that $h'\not\sat c^q_{o(i)}$, from which we may conclude $v_m;g\sat q_{o(i)}$ and hence $v_m;g\sat c$. \qed
+\smallskip
+Recall that $m_i\of c^p_k\to c^q_j$ is an ab-preservation morphism and observe that $\depth(c^q_k)+\depth(c^p_j) < \depth(b)+\depth(c)$; hence by the induction hypothesis, $m_{j,k}$ fulfils the property. Therefore, if $h'\sat c^q_k$ then $h=v_{m_{j,k}};h'\sat c^p_j$, which is contradictory; it follows that $h'\not\sat c^q_k$, from which we may conclude $v_m;g\sat q_k$ and hence $v_m;g\sat c$. \qed
 \end{description}
 \end{proof}
 
@@ -704,13 +714,13 @@ Let $e,c,b$ be ab-conditions and $m:e\to c,n:c\to b$ ab-morphisms, with $|b|=w$.
 \id_b & =
   & (\id_{[1,w]},(\id_{P^b_1},\id_{b_1})\cdots 
                  (\id_{P^b_w},\id_{b_w}))
-  \eqlabel{id-morphism} \\
+  \label{eq:id-morphism} \\
 m;n & =
   & (o^n;o^m,(v^m_{o^n(1)};v^n_1,n_1;m_{o^n(1)})\cdots 
               (v^m_{o^n(w)};v^n_w,n_w;m_{o^n(w)})) \enspace.
 %               & (o^m;o^n,(v^n_{o^m(1)};v^m_1,n_{o^m(1)};m_1)\cdots 
 %               (v^n_{o^m(w)};v^m_w,n_{o^m(w)};m_w)) \enspace.
- \eqlabel{morphism composition}
+ \label{eq:morphism composition}
 \end{eqnarray}
 
 \end{definition}

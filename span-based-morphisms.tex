@@ -20,29 +20,29 @@ Let us denote by $\cat{C^{sp}}(A,\_)$ the collection of all spans of \cat{C} wit
 %having the same target, say $Z$, 
 such that for all spans $s:X\to Z,t:Z\to U$:
 %
-\begin{equation}\eqlabel{span shifters are functors}
+\begin{equation}\label{eq:span shifters are functors}
 \cS(s \spcomp t) = \cS(s)\spcomp t \enspace.
 \end{equation}
 %
 \item Now let $v=A\to B$ be an arrow. $\cS$ is a \emph{forward span source shifter for $v$} if it is a span source shifter from $A$ to $B$ that preserves models erasing $v$, i.e., such that for all spans $s:A\to C$ and all pairs $g:B\to G,h:C \to G$:
 %
-\begin{equation}\eqlabel{sb-forward condition}
+\begin{equation}\label{eq:sb-forward condition}
 s\commutes (v;g,h) \enspace\text{ implies }\enspace \cS(s) \commutes (g,h) \enspace.
 \end{equation}
 %
-A forward span source shifter is called \emph{complete} if it also reflects models adding $v$; i.e., if the ``implies" in \eqref{sb-forward condition} is an ``if and only if".
+A forward span source shifter is called \emph{complete} if it also reflects models adding $v$; i.e., if the ``implies" in \eqref{eq:sb-forward condition} is an ``if and only if".
 
 \item Instead, $\cS$ is a \emph{backward span source shifter for $v$} if it is a span source shifter from $B$ to $A$ that reflects models erasing $v$, i.e., such that for all spans $s:B\to C$ and all pairs $g:B\to G,h:C\to G$:
 %
-\begin{equation}\eqlabel{sb-backward condition}
+\begin{equation}\label{eq:sb-backward condition}
 \cS(s) \commutes (v;g,h) \enspace\text{ implies }\enspace s\commutes (g,h) \enspace.
 \end{equation}
 %
-A backward span source shifter is called \emph{complete} if it also preserves models adding $v$; i.e., if the ``implies" in \eqref{sb-backward condition} is an ``if and only if".
+A backward span source shifter is called \emph{complete} if it also preserves models adding $v$; i.e., if the ``implies" in \eqref{eq:sb-backward condition} is an ``if and only if".
 \end{itemize}
 \end{definition}
 %
-Since span source shifters from $X$ are, just as in the arrow-based case, completely determined by $\cS(\id_X)$ (due to \eqref{span shifters are functors}), we can enumerate the choices of forward and backward shifters for $v$ that are available in general, i.e., without having additional information about $v$.
+Since span source shifters from $X$ are, just as in the arrow-based case, completely determined by $\cS(\id_X)$ (due to \eqref{eq:span shifters are functors}), we can enumerate the choices of forward and backward shifters for $v$ that are available in general, i.e., without having additional information about $v$.
 %
 \begin{description}
 \item[Forward shifting.] For $\cS$ to be a forward span source shifter for $v:A\to B$, there must be a span $t=\cS(\id_A):B\to A$, which automatically determines $\cS(s)=t\spcomp s$ for all $s:A\to C$. Without additional information about $v$, there are essentially two options for $t$: $t=\spanof{v}{\id_A}$ or $t=\spanof{\id_B}{x}$ for some section $x$ of $v$, i.e., such that $x;v=\id_B$.
@@ -155,7 +155,7 @@ A final change with respect to the arrow-based case is that we also abstract the
 %
 \begin{definition}[pattern shift]
 Let $v:P_1\to P_2$ be an arrow. \emph{Pattern shift for $v$} is the relation $\cP_v$ over spans including all pairs $(s_1,s_2)$ such that  $s_i=\spanof{u_i:I_i\to A}{d_i:I_i\to P_i}$ for $i=1,2$ (for some $A$), and there is an arrow $k:I_1\to I_2$ for which both halves of the following diagram commute:
-\begin{equation}\eqlabel{pattern shift}
+\begin{equation}\label{eq:pattern shift}
 \begin{tikzpicture}[on grid,baseline=(I1.center)]
 \node (A) {$A$};
 \node (I1) [below left=1 and 1.5 of A] {$I_1$};
@@ -173,7 +173,7 @@ Let $v:P_1\to P_2$ be an arrow. \emph{Pattern shift for $v$} is the relation $\c
   (I1) edge[->] node[below] {$k$} (I2);
 \end{tikzpicture}
 \end{equation}
-\emph{Conservative pattern shift for $v$} is the subrelation $\ccP_v\subseteq \cP_v$ consisting of span pairs for which, in addition, the lower square of \eqref{pattern shift} is a pushout.
+\emph{Conservative pattern shift for $v$} is the subrelation $\ccP_v\subseteq \cP_v$ consisting of span pairs for which, in addition, the lower square of \eqref{eq:pattern shift} is a pushout.
 \end{definition}
 %
 The following lists some essential properties of pattern shifting.
@@ -199,7 +199,7 @@ Let $v:P_1\to P_2$ and $t:P_2\to P_3$ be arrows, and let $(s_1,s_2)\in \cP_v$. L
 \begin{enumerate}[topsep=\smallskipamount]
 \item Assume $s_2\commutes (g,h)$, hence $u_2;g=d_2;h$. It follows that $u_1;g=k;u_2;g=k;d_2;h=d_1;v;h$, hence $s_1\commutes (g,v;h)$.
 
-\item Assume $(s_2,s_3)\in \cP_{t}$; hence there are $k_v$ and $k_t$ making the pentagons of \eqcite{pattern shift} commute for $v$ and $t$, respectively. Then $k_v;k_t$ likewise satisfies the role of $k$ in \eqref{pattern shift} for $v;t$. If, moreover, the lower square of the constituent pentagons (for $v$ and $t$) are pushouts, then by pushout composition so is the lower square of the composed pentagon, which establishes clause \ref{conservative-transitive}.
+\item Assume $(s_2,s_3)\in \cP_{t}$; hence there are $k_v$ and $k_t$ making the pentagons of \cref{eq:pattern shift} commute for $v$ and $t$, respectively. Then $k_v;k_t$ likewise satisfies the role of $k$ in \eqref{eq:pattern shift} for $v;t$. If, moreover, the lower square of the constituent pentagons (for $v$ and $t$) are pushouts, then by pushout composition so is the lower square of the composed pentagon, which establishes clause \ref{conservative-transitive}.
 
 \item Let $s=\spanof{b:J\to B}{a:J\to A}$. The following figure shows the pentagon obtained for $(s \spcomp s_1,s \spcomp s_2)$.
 \begin{center}
@@ -245,11 +245,11 @@ Given that $J_2$ is the pullback object of $(a,u_2)$ and $u'_1;a=a_1;u_1=a_1;k;u
 Now let $(s_1,s_2)\in \ccP_v$.
 %
 \begin{enumerate}[resume,topsep=\smallskipamount]
-\item Assume $s_1\commutes (g,h)$ for $g:A\to G,h:P_1\to G$, hence $u_1;g=d_1;h$. It follows that $k;u_2;g=d_1;h$, hence by the pushout property of the lower square of \eqref{pattern shift} there is a unique $e:P_2\to G$ such that $u_2;g=d_2;e$ and $h=v;e$, implying $s_2\commutes (g,e)$.
+\item Assume $s_1\commutes (g,h)$ for $g:A\to G,h:P_1\to G$, hence $u_1;g=d_1;h$. It follows that $k;u_2;g=d_1;h$, hence by the pushout property of the lower square of \eqref{eq:pattern shift} there is a unique $e:P_2\to G$ such that $u_2;g=d_2;e$ and $h=v;e$, implying $s_2\commutes (g,e)$.
 
 \item Shown as part of the proof of clause \ref{pattern-transitive} above.
 
-\item In the case where $s=\spanof{a}{\id_A}$ for some arrow $a$, the composition $s \spcomp s_i$ is simply $\spanof{a;u_i}{d_i}$. The lower square of the pentagon \eqref{pattern shift} for $(s\spcomp s_1,s\spcomp s_2)$ is then the same as that for $(s_1,s_2)$, hence it is a pushout.
+\item In the case where $s=\spanof{a}{\id_A}$ for some arrow $a$, the composition $s \spcomp s_i$ is simply $\spanof{a;u_i}{d_i}$. The lower square of the pentagon \eqref{eq:pattern shift} for $(s\spcomp s_1,s\spcomp s_2)$ is then the same as that for $(s_1,s_2)$, hence it is a pushout.
 \qed
 \end{enumerate}
 \end{proof}
@@ -304,7 +304,7 @@ If $m$ is complete and $g\sat c$, then let $p^c_j$ be the responsible branch and
 For the span-based conditions in \fcite{sb-conditions}, we have a complete forward-shift morphism $m:b_1'\to b_1$, providing evidence that $b_1\equiv b_1'$; moreover, there are also morphisms $m':b_2\to b_1$ and $m'':b_3\to b_2$. All the required morphism arrows are already shown in the figure. Note that, in \excite{ab-morphisms}, we observed that there does \emph{not} exist an arrow-based morphism from $c_2$ to $c_1$; hence the existence of a span-based morphism between the equivalent $b_2$ and $b_1$ is concrete evidence for our claim, in \scite{categories} below, that the structure of span-based conditions allows more morphisms between them.
 \end{example}
 %
-We now once more return to the level of categories, using the exact same constructions for identity morphisms and morphism composition as in the arrow-based case (see \eqref{morphism composition} and \eqref{id-morphism}).
+We now once more return to the level of categories, using the exact same constructions for identity morphisms and morphism composition as in the arrow-based case (see \eqref{eq:morphism composition} and \eqref{eq:id-morphism}).
 \iffull
 To repeat, if $e,c,c$ are sb-conditions and $m\of e\to c,n\of c\to b$ are sb-morphisms with $|b|=w$:
 %

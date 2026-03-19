@@ -96,7 +96,7 @@ If $\phi = \neg \phi'$, suppose by absurdum that $f \sat^\FOL \phi$ and $g \not 
 
 If $\phi = \la(x_1,x_2)$, by $f \sat^\FOL \phi$ there is an edge $e \in E_G$ such that  $f_V(x_1) \stackrel{e:\la}{\longrightarrow} f_V(x_2)$; since $f_V(x_i) = g_V(x_i)$ for $i \in \{1,2\}$ the same edge witnesses  $g \sat^\FOL \la(x_1,x_2)$. A similar argument applies if $\phi = x_1 \Eq x_2$.
 
-If $\phi = \phi_1 \wedge \phi_2$, since $\fv(\phi_i) \subseteq \fv(\phi_1 \wedge \phi_2)$ for $i \in \{1,2\}$, from the square to the right in \eqref{vars-only-and} we get the outer commuting square for  $i \in \{1,2\}$. Since $f \sat^\FOL \phi_1 \wedge \phi_2$ implies $f \sat^\FOL \phi_i$, by induction hypothesis we get $g \sat^\FOL \phi_i$ for  $i \in \{1,2\}$, hence $g \sat^\FOL \phi_1 \wedge \phi_2$. A similar argument applies if $\phi = \phi_1 \vee \phi_2$.
+If $\phi = \phi_1 \wedge \phi_2$, since $\fv(\phi_i) \subseteq \fv(\phi_1 \wedge \phi_2)$ for $i \in \{1,2\}$, from the square to the right in \eqref{eq:vars-only-and} we get the outer commuting square for  $i \in \{1,2\}$. Since $f \sat^\FOL \phi_1 \wedge \phi_2$ implies $f \sat^\FOL \phi_i$, by induction hypothesis we get $g \sat^\FOL \phi_i$ for  $i \in \{1,2\}$, hence $g \sat^\FOL \phi_1 \wedge \phi_2$. A similar argument applies if $\phi = \phi_1 \vee \phi_2$.
 
 %\begin{center}
   \begin{equation}\label{eq:vars-only-and}
@@ -117,7 +117,7 @@ If $\phi = \phi_1 \wedge \phi_2$, since $\fv(\phi_i) \subseteq \fv(\phi_1 \wedge
 \end{equation}
 %  \end{center}
 
-Let $\phi = \exists X\st \phi'$, and assume w.l.o.g.~that $X \cap V_A = X \cap V_B = \varnothing$. From $f \sat^\FOL \phi$ we know that there is a graph $A' \supseteq A$ and a morphism $f': A' \to G$ such that $f'\restr A = f$ and $f' \sat^\FOL \phi'$ (thus $\fv(\phi') \subseteq V_{A'}$), as shown in \eqref{vars-only-exists}. Recall that $\fv(\exists X\st \phi') \stackrel{\mathit{def}}{=} \fv(\phi') \setminus X$, thus $\fv(\exists X\st \phi') \subseteq \fv(\phi')$. 
+Let $\phi = \exists X\st \phi'$, and assume w.l.o.g.~that $X \cap V_A = X \cap V_B = \varnothing$. From $f \sat^\FOL \phi$ we know that there is a graph $A' \supseteq A$ and a morphism $f': A' \to G$ such that $f'\restr A = f$ and $f' \sat^\FOL \phi'$ (thus $\fv(\phi') \subseteq V_{A'}$), as shown in \eqref{eq:vars-only-exists}. Recall that $\fv(\exists X\st \phi') \stackrel{\mathit{def}}{=} \fv(\phi') \setminus X$, thus $\fv(\exists X\st \phi') \subseteq \fv(\phi')$. 
 Define $B' = B \uplus \disc{\fv(\phi')\cap X}$ and $g'\of B' \to G$ as  $g'(x) = g(x)$ if $x \in V_B \cup E_B$, and $g'(x) = f'(x)$ if $x \in \fv(\phi')\cap X$. 
 Well-definedness of $g'$ follows by the assumption that $X \cap V_B = \varnothing$. 
 Now we can apply the induction hypothesis to the inner square:  $f' \sat^\FOL \phi'$ implies $g' \sat^\FOL \phi'$. Clearly, $B \subseteq B'$ and $g'\restr B = g$ hence $g \sat^\FOL \exists X\st \phi'$, as desired.
@@ -216,7 +216,7 @@ Given a well-formed ab-condition $c\in \AC R$ with $c=(R,(a_1,c_1)\ccdots (a_w,c
 \label{fig:ab-condition-c}
 \end{figure}
 %
-Considering formula \eqref{psiR}, note that $\fv(\grtofol R) = V_R$: This is guaranteed by the \emph{identities} of the form $x\Eq x$ in the first conjunct. 
+Considering formula \eqref{eq:psiR}, note that $\fv(\grtofol R) = V_R$: This is guaranteed by the \emph{identities} of the form $x\Eq x$ in the first conjunct. 
 
 \begin{example}[formula associated with a condition]\label{ex:from-ab-to-FOL}
 As a trivial example, $\grtofol {\disc{\varnothing}} \equiv \True$ because it is the empty conjunction. Instead, for each non-empty discrete graph $\disc{X}$, $\grtofol {\disc{X}} =
@@ -224,7 +224,7 @@ As a trivial example, $\grtofol {\disc{\varnothing}} \equiv \True$ because it is
 
 Let us now detail the formula $\tofol {c}$ associated with the condition $c$ of \cref{fig:ab-condition-c}, a well-formed variant of condition $c_1$ of Example~\ref{ex:ab-conditions}.  We use the names $R_i$ to denote the roots of the $c_i$ ($i\in [1,3]$).
 %
-For these three graphs, using \eqref{psiR}, we obtain:
+For these three graphs, using \eqref{eq:psiR}, we obtain:
 %
 \[\begin{array}{l@{{\enspace}}c@{{\enspace}}l}
 \grtofol {R_1}
@@ -238,7 +238,7 @@ For these three graphs, using \eqref{psiR}, we obtain:
  & \equiv & \lb(x_3,x_3)\land \lc(x_3,y_) 
 \end{array}\]
 %
-Now let us consider the four conditions, using \eqref{phiC}, bottom-up:%\todo{the first formulas are not equivalent to \False but entail it, because they have free variables. I think that they can be safely replaced by \False in a context where the free variables are used. This is not formalized, though.}
+Now let us consider the four conditions, using \eqref{eq:phiC}, bottom-up:%\todo{the first formulas are not equivalent to \False but entail it, because they have free variables. I think that they can be safely replaced by \False in a context where the free variables are used. This is not formalized, though.}
 %
 \[\begin{array}{@{}l@{{\enspace}}c@{{\enspace}}l@{}}
 \tofol {c_2}
@@ -264,7 +264,7 @@ We can simplify $\tofol {c_1}$ as follows:
   & \equiv & \text{\emph{\small replacing $\grtofol {R_2}$ and $\grtofol {R_3}$ with their values}}\\
   && \bigl((\exists x_2,y_2\st  x_1 \Eq x_2 \land \lb(x_2,x_2)\land \la(x_2,y_2)) \\
   && {} \vee (\exists x_3,y_3\st x_1 \Eq x_3 \land \lb(x_3,x_3)\land \lc(x_3,y_3)) \bigr)\\
-  & \equiv & \text{\emph{\small applying the \emph{singleton law}~\eqref{singleton} twice, eliminating $x_2$, $x_3$ and identities}} \\
+  & \equiv & \text{\emph{\small applying the \emph{singleton law}~\eqref{eq:singleton} twice, eliminating $x_2$, $x_3$ and identities}} \\
   && (\exists y_2 \st \lb(x_1,x_1)\land \la(x_1,y_2)) \lor (\exists y_3 \st  \lb(x_1,x_1)\land \lc(x_1,y_3))\\
   & \equiv & \text{\emph{\small $\alpha$-conversion, $\exists$ distributes over $\vee$}}\\
 % & \equiv (\exists y_2 \st \lb(x_1,x_1)\land \la(x_1,y_2)) \lor (\exists y_2 \st  \lb(x_1,x_1)\land \lc(x_1,y_2))\\
@@ -295,13 +295,13 @@ Finally for $\tofol c$ we obtain:
 which is indeed the $\FOL$ formula anticipated in Example~\ref{ex:ab-conditions}.\qed
 \end{example}
 %
-As shown below formally, a graph morphism $g: R \to G$ satisfies an ab-condition $c$ according to Def.~\ref{def:ab-satisfaction} if and only if it satisfies $\tofol c$ according to Def.~\ref{def:encoding}. Intuitively, in the formula $\tofol c$ defined in~\eqref{phiC}, $\grtofol{R}$ means that there must be an image of $R$ in $G$, the disjunction means that there is a branch $i$ such that there is a morphism $h: P_i \to G$ (by $\grtofol {P_i}$), where  $\bigwedge_{x \in V_{R}} x \Eq a_i(x)$ guarantees $g=a_i;h$, and finally $\neg \tofol {c_i}$ ensures $h\nsat c_i$. Let's analyse all this in detail.
+As shown below formally, a graph morphism $g: R \to G$ satisfies an ab-condition $c$ according to Def.~\ref{def:ab-satisfaction} if and only if it satisfies $\tofol c$ according to Def.~\ref{def:encoding}. Intuitively, in the formula $\tofol c$ defined in~\eqref{eq:phiC}, $\grtofol{R}$ means that there must be an image of $R$ in $G$, the disjunction means that there is a branch $i$ such that there is a morphism $h: P_i \to G$ (by $\grtofol {P_i}$), where  $\bigwedge_{x \in V_{R}} x \Eq a_i(x)$ guarantees $g=a_i;h$, and finally $\neg \tofol {c_i}$ ensures $h\nsat c_i$. Let's analyse all this in detail.
 
 
-Considering \eqref{psiR}, formula $\grtofol R$ represents the structure of graph $R$ in the following sense.
+Considering \eqref{eq:psiR}, formula $\grtofol R$ represents the structure of graph $R$ in the following sense.
 \begin{lemma}[properties of $\grtofol R$]
   \label{lem:psi-R}
-Given a morphism $m: A \to G$ and a graph $R$, let $\grtofol R$ be defined as in \eqref{psiR}. Then the following are equivalent:
+Given a morphism $m: A \to G$ and a graph $R$, let $\grtofol R$ be defined as in \eqref{eq:psiR}. Then the following are equivalent:
 \begin{enumerate} 
   \item $m \sat^\FOL \grtofol R$;
   \item $V_R  \subseteq V_A$ and there is a $j \of R \to G$ such that for each $x \in V_R$ it holds that $m_V(x) = j_V(x)$.
@@ -337,7 +337,7 @@ By using an obviously equivalent diagrammatic representation of condition 2, the
 \end{tikzpicture}
 \end{center} 
 %
-We can show now that an ab-condition $c$ and the corresponding formula $\tofol c$, as defined in \eqref{phiC}, have exactly the same $R$-sourced models.
+We can show now that an ab-condition $c$ and the corresponding formula $\tofol c$, as defined in \eqref{eq:phiC}, have exactly the same $R$-sourced models.
 
 \begin{proposition}[properties of $\tofol c$]
   \label{pr:same-models}
@@ -355,20 +355,20 @@ Now assume that $\depth(c) = n$ and that the statement holds for any $c'$ with $
 %
 Suppose that $g \sat c$ with responsible branch $p_j = (a_j,c_j)$, with $j \in [1,w]$, and witness $h\of P_j \to G$. By Def.~\ref{def:ab-satisfaction} we have \tagone $a_j;h = g$ and \tagtwo $h \not \sat c_j$.
 %
-We show \eqref{g-sat-exists}, from which the statement follows:
+We show \eqref{eq:g-sat-exists}, from which the statement follows:
 %
 \begin{equation}
   \label{eq:g-sat-exists}
 g\sat^\FOL \exists V_{P_j}\st \left(\bigwedge_{x \in V_{R}} x \Eq a_j(x)\right) \land \grtofol {P_j} \land  \neg \tofol {c_j}
 \end{equation}
 %
-Note that $R\cap P_j = \varnothing$ due to the well-formedness of c. Let $[g,h]\of R\uplus P_j \to G$ be the only morphism induced by $g$ and $h$. To prove  \eqref{g-sat-exists} we show that 
+Note that $R\cap P_j = \varnothing$ due to the well-formedness of c. Let $[g,h]\of R\uplus P_j \to G$ be the only morphism induced by $g$ and $h$. To prove  \eqref{eq:g-sat-exists} we show that 
 
 \begin{equation}
 [g,h] \sat^\FOL \left(\bigwedge_{x \in V_{R}} x \Eq a_j(x) \right) \land \grtofol {P_j} \wedge \neg \tofol {c_j}
 \end{equation}
 %
-by considering in turn the three conjuncts, from which \eqref{g-sat-exists} follows by $(\sat^\FOL \exists)$ because $[g,h]\restr R = g$.
+by considering in turn the three conjuncts, from which \eqref{eq:g-sat-exists} follows by $(\sat^\FOL \exists)$ because $[g,h]\restr R = g$.
 % \renewcommand{\labelenumi}{\alph{enumi})} 
 \begin{enumerate}  
 \item $[g,h] \sat^\FOL \bigwedge_{x \in V_{R}} x \Eq a_j(x)$. Let $x \in V_{R}$ be arbitrary; then
@@ -418,7 +418,7 @@ Let $g\of R \to G$ be a morphism and assume that $g \sat^\FOL \tofol c$. Let $j 
 \[g\sat^\FOL \exists V_{P_j}\st \grtofol {P_j} \land \left(\bigwedge_{x \in V_{R}} x \Eq a_j(x)\right) \land  \neg \tofol {c_j}\]
 %
 As expected, $(a_j\of R \to P_j, c_j)$ will be the responsible branch for $g \sat c$: we have to find a witness morphism from $P_j$ to $G$.
-By $(\sat^\FOL \exists)$ there is  graph $B$ (see \eqref{proof4} below)  with $R \subseteq B$ and a morphism $k\of B \to G$ such that $k\restr R = g$ and
+By $(\sat^\FOL \exists)$ there is  graph $B$ (see \eqref{eq:proof4} below)  with $R \subseteq B$ and a morphism $k\of B \to G$ such that $k\restr R = g$ and
 %
 \[k \sat^\FOL \grtofol {P_j} \land \left(\bigwedge_{x \in V_{R}} x \Eq a_j(x)\right) \land  \neg \tofol {c_j} \enspace.\]
 %
@@ -441,7 +441,7 @@ This gives rise to the following diagram, as yet without the arrow $h$:
 \end{tikzpicture}
 \end{equation}   
 %
-Since $k \sat^\FOL \grtofol {P_j}$, by Lemma~\ref{lem:psi-R} there is a morphism $h: P_j \to G$ such that the lower square in \eqref{proof4} commutes \tagthree. However, it is not guaranteed that $a_j;h=g$. Instead, we show that from $h$ we can obtain a witness $h'$  for $g \sat c$, i.e., such that $a_j;h' = g$ and $h' \not \sat c_j$.
+Since $k \sat^\FOL \grtofol {P_j}$, by Lemma~\ref{lem:psi-R} there is a morphism $h: P_j \to G$ such that the lower square in \eqref{eq:proof4} commutes \tagthree. However, it is not guaranteed that $a_j;h=g$. Instead, we show that from $h$ we can obtain a witness $h'$  for $g \sat c$, i.e., such that $a_j;h' = g$ and $h' \not \sat c_j$.
 
 First, observe that for each $x \in V_R$ we have $g(x) = h(a_j(x))$ due to
 %
@@ -469,7 +469,7 @@ Except for conjunction and universal quantification, all $\FOL$ operators can be
 \end{itemize}
 \end{definition}
 %
-Note that, although the definition of the join for ab-branches might seem asymmetric due to the use of the arrow $a_1;(a_2\tdarr a_1)$, this is actually not the case as $a_1;(a_2\tdarr a_1)=a_2;(a_1\tdarr a_2)$ (see \eqref{pushout}).
+Note that, although the definition of the join for ab-branches might seem asymmetric due to the use of the arrow $a_1;(a_2\tdarr a_1)$, this is actually not the case as $a_1;(a_2\tdarr a_1)=a_2;(a_1\tdarr a_2)$ (see \eqref{eq:pushout}).
 
 We show that the join indeed captures conjunction, as required.
 %
