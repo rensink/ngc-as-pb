@@ -55,11 +55,30 @@ As examples of span-based conditions, \fcite{sb-conditions} shows counterparts f
 
 \todo{AC:define shift of sb-conditions. Draft: forward shift along $f$ and backward shift along $b$. Then shift along a span $\spanof b f$. But I think that in general we need shift along a span which factorizes an arrow, as $b;v = f$, or $b = f;v$, in one or in the other direction. }
 
+For the components of the pullback of two arrows $f\of A \to C$ and $g \of B \to C$ we will use the notation illustrated in the following diagram, assuming that $( B\tuarr A, f\tuarr g, g\tuarr f)$ is a concretely chosen pullback of $f$ and $g$ (which is defined up to isomorphism).
+
+\begin{equation}\label{eq:pushout}
+    \begin{tikzpicture}[auto,node distance = 1.5cm,baseline=(a)]
+      \node (BA) {$B\tuarr A$};
+      \node (A) [right of=BA] {$A$};
+      \node (B) [below of=BA] {$B$};
+    \node (C) [below of=A] {$C$};
+
+    \path
+      (BA) edge [->] node[auto] {$\scriptstyle{g\tuarr f}$}  (A)
+      (A) edge [->] node [auto] {$\scriptstyle{f}$}  (C)
+    (BA) edge [->] node[auto,swap] {$\scriptstyle{f\tuarr g}$}  (B)
+     (B) edge [->] node[auto] {$\scriptstyle{g}$}  (C); 
+% \draw (.75,-.75) node {$\scriptstyle{PO}$};
+\pushoutmark{C}{BA}{0.3}{3mm}
+    \end{tikzpicture}
+  \end{equation} 
+
 \begin{definition}[shifting sb-conditions]
   \label{def:sb-shift}
 Let $c = (R,(\spanof {u_1} {d_1},{c_1})\cdots(\spanof {u_w} {d_w},{c_w}))$ be an sb-condition rooted at $R$. 
 \begin{enumerate}
-\item Let $f: R \to Q$ be an arrow in $\cat{C}$. The \emph{shift of $c$ along $f$} is the sb-condition $\shift{c}{f} = (Q,(\spanof {u_1;f} {d_1},{c_1})\cdots(\spanof {u_w;f} {d_w},{c_w}))$.\todo{AC: drawing necessary} Note that unlike ab-condition, shifting along an arrow affects only the top level arrows. 
+\item Let $f: R \to Q$ be an arrow in $\cat{C}$. The \emph{shift of $c$ along $f$} is the sb-condition $\shift{c}{f} = (Q,(\spanof {u_1;f} {d_1},{c_1})\cdots(\spanof {u_w;f} {d_w},{c_w}))$.\todo{AC: drawing necessary} Note that unlike ab-conditions, shifting along an arrow only affects  the top level arrows. 
 \item Let $g: S \to R$ be an arrow in in $\cat{C}$.\todo{AC:*** to be completed} 
 \end{enumerate}
 \end{definition}

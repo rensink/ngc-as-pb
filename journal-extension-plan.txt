@@ -1,6 +1,14 @@
 Extension of Festschrift paper to journal version
 =================================================
 
+
+2026-03-18
+Satisfaction reflecting morphisms
+Satisfaction preserving morphisms
+
+Fact: there are pre-morphisms which do not have a refl-morphism the other way around (consider empty root) 
+
+
 2026-03-13
 Add bshift and ffshift of SB-conditions along an arrow, both implemented as precomposition with a span (thus using pullback). In "satisfaction" add how b-fshift affect satisfaction. 
 
