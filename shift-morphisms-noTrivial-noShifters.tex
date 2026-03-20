@@ -399,7 +399,7 @@ if the left and right hand subdiagrams are preservation squares, then so is the 
 \item For all $(j,k)\in o$, $(v,m_{j,k})\of p^1_j\to p^2_k$ is an ab-branch reflection [preservation] morphism.
 \end{itemize}
 %
-The component $v$ of an ab-condition morphism $m$ is called its \emph{root arrow} and is denoted $v_m$.
+The component $v$ of an ab-condition morphism $m$ is called its \emph{root arrow} and is denoted $v_m$. $m$ is called \emph{root-preserving} if $R_1=R_2=R$ and $v_m=\id_R$.
 
 \item Let $p_i=(a_i,c_i)\in \AB{R_i}$ for $i=1,2$. An \emph{ab-branch reflection [preservation] morphism} from $p_1$ to $p_2$ is a tuple $(v,m)\of p_1\to p_2$ such that
 \begin{itemize}[nosep]
@@ -458,6 +458,70 @@ By induction on $\depth(b)+\depth(c)$. Let $b=(R,p_1\cdots p_{|b|})$ such that $
 Recall that $m_i\of c^p_k\to c^q_j$ is an ab-preservation morphism and observe that $\depth(c^q_k)+\depth(c^p_j) < \depth(b)+\depth(c)$; hence by the induction hypothesis, $m_{j,k}$ fulfils the property. Therefore, if $h'\sat c^q_k$ then $h=v_{m_{j,k}};h'\sat c^p_j$, which is contradictory; it follows that $h'\not\sat c^q_k$, from which we may conclude $v_m;g\sat q_k$ and hence $v_m;g\sat c$. \qed
 \end{description}
 \end{proof}
+%
+Thus, both reflection morphisms and preservation morphisms provide proof techniques for entailment: in particular, every root-preserving reflection morphism $m\of b\to c$ as well as  every root-preserving preservation morphism $m\of c\to b$ constitutes evidence for $c\entails b$. However, it turns out that reflection morphisms are strictly more powerful than preservation morphisms, in the following sense.
+%
+\begin{proposition}\label{prop:reflection beats preservation}
+If $m\of b\to c$ is a preservation morphism of which $v_m$ is split mono, then there is a reflection morphism $m'\of c\to b$ such that, moreover, $m;m'=\id_b$.
+\end{proposition}
+%
+\begin{proof}[]
+By induction on $\depth(b)+\depth(c)$.
+\begin{description}[defsep]
+\item[Base case.] If $\depth(b)+\depth(c)=0$, then $m=(v,\varnothing,\varnothing)$ where $v$ is split mono; hence there is a retract $r\of R^c\to R^b$ such that $v;r=\id_{R^b}$. Let $m'=(r,\varnothing,\varnothing)$. Clearly $m'$ is a morphism from $c$ to $b$ and $m;m'=\id_b$.
+
+\item[Induction step.] Assume the property holds up to $\depth(b)+\depth(c)$, and let $b=(R,p_1\ccdots p_{w_b})$, $c=(S,q_1\ccdots q_{w_c})$ and  $m=(v,o, \setof{m_{j,k}}_{(j,k)\in o})$ such that $o$ is injective and surjective.
+
+\smallskip
+For all $j\in[1,w_b]$ and $k\in [1,w_c]$, because $v$ is a split mono with retract $r$ and $(v,m'_{j,k})\of p_j\to q_k$ is a branch preservation morphism, the diagram on the left exists, in which all subdiagrams commute:
+%
+\[\begin{tikzpicture}[on grid,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R^b$};
+\node (P1) [below=2 of R1] {$P^p_j$};
+\node (R2) [right=3 of R1] {$R^c$};
+\node (P2) [below=2 of R2] {$P^q_k$};
+
+\path
+  (R1) edge [->] node (a1) [left] {$a^p_j$} (P1)
+  (R2) edge [->] node [auto] {$a^q_k$} (P2)
+       edge [->] node [below] {$v$} (R1)
+  (P1) edge [->] node [below] (v') {$v_{m_{j,k}}$} (P2);
+
+\node (S') [above right=1 and 1.5 of P1] {$P^p_j$};  
+
+\path (S') edge[<-] node[above left,pos=.4,inner sep=2] {$\id$} (P1)
+          edge[<-] node[above right,pos=.4,inner sep=2] {$r_{k,j}$} (P2);
+
+\node (S) [above right=1 and 1.5 of R1] {$R^c$};  
+
+\path (S) edge[<-] node[above left,pos=.4,inner sep=3] {$r$} (R1)
+          edge[<-] node[above right,pos=.4,inner sep=3] {$\id$} (R2);
+\end{tikzpicture}
+\qquad\qquad
+\begin{tikzpicture}[on grid,auto,node distance = 1.5cm,baseline=(a1)]
+\node (R1) {$R^b$};
+\node (P1) [below=2 of R1] {$P^p_j$};
+\node (R2) [left=2 of R1] {$R^c$};
+\node (P2) [below=2 of R2] {$P^q_k$};
+
+\path
+  (R1) edge [->] node [right] {$a^p_j$} (P1)
+  (R2) edge [->] node [left] {$a^q_k$} (P2)
+  (R1) edge [->] node {$r$} (R2)
+  (P2) edge [->] node [below] {$r_{k,j}}} (P1);
+
+\node (S) [right=2 of R1] {$R^c$};
+\path (S) edge [->] node {$v$} (R1);
+\end{tikzpicture}
+\]
+%
+In particular, also $v;a^p_j=a^q_k;r_{k,j}=v;r;a^q_k;r_{k,j}$, meaning that $v$ equalises the right hand diagram above. Since, moreover, $v;r=\id$ is epi, the right hand diagram is a (simple) reflection square.
+
+\smallskip
+By the induction hypothesis, for all $j\in[1,|b|]$ and $k\in[1,|c|]$, since $m_{j,k}\of c^p_j\to c^q_k$ is a preservation morphism with top arrow $v_{m_{j,k}}$ is a split mono there is a reflection morphism $m'_{k,j}\of c^q_k\to c^p_j$ such that $m_{j,k};m'_{k,j}=\id_{c^p_j}$. It follows that $m'=(r,o^{-1},\setof{m'_{k,j}}_{(k,j)\in o^{-1}})$ is a reflection morphism from $c$ to $b$ (taking into account that $o$ is total and univalent, hence $o^{-1}$ is surjective and injective); and moreover, $m;m'=\id_b$.\qed 
+\end{description}
+\end{proof}
+
 
 \todo[inline]{From here is the previous version, based on shifters.}
 %
