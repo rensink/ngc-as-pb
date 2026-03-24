@@ -1,6 +1,59 @@
 Extension of Festschrift paper to journal version
 =================================================
 
+2026-03-24 GCM Submission sketch
+
+- AB conditions
+Basic operations: join, meet, d- and u-shift, inversion
+- satisfaction wrt operations:
+Join - or , Meet - and , 
+u-shift along a mono is existential quantification,
+inversion is negation.
+d-shift is just re-rooting
+
+- Reflection squares as generalization of obvious reflection triangle  
+- Def of Reflections square using universal property
+- Prop: it is sufficient to check the property for the pushout
+- Def of Preservation square using universal property
+- Prop: it is sufficient to check the property for the split mono bottom arrow
+
+subsection with more detailed account about reflection and preservation squares
+- reflection squares with top epi and commuting, with top split epi, composition, top must be epi
+- preservation squares compose  
+
+Possibly in the same definition
+  - Reflective morphisms
+  - Preservation morphisms
+  - branch submorphims form a sequence, surjective for reflection, total for preservation (not necessarily univalent/injective)
+
+- proof of reflection and preservation
+- Preservation morphisms where the top arrow is split mono are subsumed by reflection morphisms in the other way
+
+- Composition and identities, category
+
+Section about root preserving morphisms
+
+- cats as full subcategories of the general one
+- contravariant functor to cat of conditions and entailment
+
+Categorical properties of operations on conditions
+OR  (not anymore merge) \sqcup  *join* is product, functorial
+AND  (not anymore join) \sqcap *meet*  not coproduct, not functorial
+[they are respectively coproduct and product in category of entailment]
+d-shift not functorial 
+u-shift is functorial
+inversion is contravariant functor
+
+
+===================================
+
+    
+
+- 
+
+
+
+
 
 2026-03-18
 Satisfaction reflecting morphisms
